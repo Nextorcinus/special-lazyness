@@ -1,103 +1,156 @@
-import Image from "next/image";
+// page.js
+'use client'
+
+import { useState, useMemo, useEffect } from 'react'
+import SubcategoryScroll from './components/SubcategoryScroll'
+import BuildingForm from './components/BuildingForm'
+import CompareForm from './components/CompareForm'
+import HistoryList from './components/HistoryList'
+import { v4 as uuidv4 } from 'uuid'
+import { formatToShortNumber } from './utils/formatToShortNumber'
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [category, setCategory] = useState('Basic')
+  const [selectedSub, setSelectedSub] = useState('')
+  const [results, setResults] = useState([])
+  const [compares, setCompares] = useState([])
+  const [history, setHistory] = useState([])
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const basicBuildings = [
+    'Barricade', 'Marksman', 'Lancers', 'Infantry',
+    'Research Center', 'Infirmary', 'Command Center',
+    'Embassy', 'Store House', 'Furnace'
+  ]
+
+  const fireCrystalBuildings = [
+    'FC Academy', 'FC Marksman', 'FC Lancers',
+    'FC Infantry', 'FC Embassy', 'FC Infirmary',
+    'FC Command Center', 'FC Furnace'
+  ]
+
+  const buildings = category === 'Basic' ? basicBuildings : fireCrystalBuildings
+
+  useEffect(() => {
+    const saved = localStorage.getItem('buildingHistory')
+    if (saved) {
+      const parsed = JSON.parse(saved)
+      setHistory(parsed)
+      setResults(parsed)
+      setCompares(parsed.map(() => null))
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('buildingHistory', JSON.stringify(history))
+  }, [history])
+
+  const handleCalculate = (data) => {
+    const resultWithId = { ...data, id: uuidv4() }
+    setResults((prev) => [...prev, resultWithId])
+    setCompares((prev) => [...prev, null])
+    setHistory((prev) => [...prev, resultWithId])
+
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+    }, 100)
+  }
+
+  const handleCompare = (data) => {
+    const updated = results.map(() => data)
+    setCompares(updated)
+  }
+
+  const handleDeleteHistory = (id) => {
+    const updated = history.filter(item => item.id !== id)
+    setHistory(updated)
+    setResults(updated)
+    setCompares(updated.map(() => null))
+  }
+
+  const handleResetHistory = () => {
+    setHistory([])
+    setResults([])
+    setCompares([])
+    localStorage.removeItem('buildingHistory')
+  }
+
+  const handleAddAnother = () => {
+    setSelectedSub('')
+    setCategory('Basic')
+  }
+
+  const defaultResources = useMemo(() => ({
+    Meat: '0', Wood: '0', Coal: '0', Iron: '0', Crystal: '0', RFC: '0'
+  }), [])
+
+  return (
+    <main className="p-6 text-white">
+      <h1 className="text-2xl font-bold mb-4">Building Upgrade Calculator</h1>
+
+      <div className="flex gap-4 mb-4">
+        <button
+          className={`px-4 py-2 rounded-full ${category === 'Basic' ? 'bg-green-500' : 'bg-gray-700'}`}
+          onClick={() => {
+            setCategory('Basic')
+            setSelectedSub('')
+          }}
+        >Basic</button>
+        <button
+          className={`px-4 py-2 rounded-full ${category === 'Fire Crystal' ? 'bg-green-500' : 'bg-gray-700'}`}
+          onClick={() => {
+            setCategory('Fire Crystal')
+            setSelectedSub('')
+          }}
+        >Fire Crystal</button>
+      </div>
+
+      <SubcategoryScroll items={buildings} selected={selectedSub} onSelect={setSelectedSub} />
+
+      {selectedSub && (
+        <>
+          <BuildingForm category={category} selectedSub={selectedSub} onCalculate={handleCalculate} />
+          <CompareForm requiredResources={defaultResources} onCompare={handleCompare} />
+        </>
+      )}
+
+      {Array.isArray(results) && results.length > 0 && (
+        <div className="mt-8 space-y-6">
+          <h2 className="text-xl font-semibold">Upgrade Results</h2>
+          {results.map((res, idx) => (
+            <div key={res.id} className="bg-gray-800 p-6 rounded-xl shadow-md space-y-4">
+              <div className="text-xl font-semibold">{res.building}</div>
+              <div>
+                From <strong>{res.fromLevel}</strong> → <strong>{res.toLevel}</strong>
+              </div>
+              <div>
+                Time: <span className="text-yellow-400">{res.timeOriginal}</span> → <span className="text-green-400">{res.timeReduced}</span>
+              </div>
+              <div>
+                <strong>Resources:</strong>
+                <ul className="ml-4 list-disc mt-1">
+                  {Object.entries(res.resources || {}).map(([key, value]) => (
+                    <li key={key}>{key}: {formatToShortNumber(value)}</li>
+                  ))}
+                </ul>
+              </div>
+              {compares[idx] && (
+                <CompareForm
+                  requiredResources={res.rawResources}
+                  readonly
+                  comparedData={compares[idx]}
+                />
+              )}
+            </div>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      )}
+
+      <HistoryList
+        history={history}
+        onDelete={handleDeleteHistory}
+        onReset={handleResetHistory}
+        onAdd={handleAddAnother}
+      />
+    </main>
+  )
 }
