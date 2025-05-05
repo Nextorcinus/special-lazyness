@@ -5,51 +5,72 @@ import basicData from '../data/BasicBuilding.json'
 import fireCrystalData from '../data/buildings.json'
 import { calculateUpgrade } from '../utils/calculateUpgrade'
 
-function BuildingForm({ category, selectedSub, defaultValues = {}, onCalculate }) {
+const buildingAliasMap = {
+  Marksman: 'Marksman',
+  Lancer: 'Lancer Camp',
+  Infantry: 'Infantry Camp',
+  Research: 'Research Center',
+  Infirmary: 'Infirmary',
+  Command: 'Command Center',
+  Store: 'Store House',
+  Embassy: 'Embassy',
+  Barricade: 'Barricade',
+}
+
+function BuildingForm({
+  category,
+  selectedSub,
+  defaultValues = {},
+  onCalculate,
+}) {
   const [fromLevel, setFromLevel] = useState('')
   const [toLevel, setToLevel] = useState('')
-  const [petLevel, setPetLevel] = useState('Lv.1')
-  const [vipLevel, setVipLevel] = useState('Lv.1')
+  const [petLevel, setPetLevel] = useState('Off')
+  const [vipLevel, setVipLevel] = useState('Off')
   const [doubleTime, setDoubleTime] = useState(false)
-  const [zinmanSkill, setZinmanSkill] = useState('Lv.1')
+  const [zinmanSkill, setZinmanSkill] = useState('Off')
   const [constructionSpeed, setConstructionSpeed] = useState(0)
 
   const data = category === 'Basic' ? basicData : fireCrystalData
+  const normalizedBuilding = buildingAliasMap[selectedSub] || selectedSub
 
   const levelOptions = useMemo(() => {
     const levels = data
-      .filter(b => b.Building?.trim().toLowerCase() === selectedSub.trim().toLowerCase())
-      .map(b => b.Level)
+      .filter(
+        (b) =>
+          b.Building?.trim().toLowerCase() ===
+          normalizedBuilding.trim().toLowerCase()
+      )
+      .map((b) => b.Level)
 
-      return Array.from(new Set(levels)).sort((a, b) => {
-        const parseLevel = (lvl) => parseFloat(String(lvl).replace(/[^\d.]/g, '')) || 0
-        return parseLevel(a) - parseLevel(b)
-      })
-  }, [selectedSub, category])
+    return Array.from(new Set(levels)).sort((a, b) => {
+      const parseLevel = (lvl) =>
+        parseFloat(String(lvl).replace(/[^\d.]/g, '')) || 0
+      return parseLevel(a) - parseLevel(b)
+    })
+  }, [normalizedBuilding, data])
 
   const filteredToLevels = useMemo(() => {
     if (!fromLevel) return levelOptions
-    return levelOptions.filter(level => level > fromLevel)
+    return levelOptions.filter((level) => level > fromLevel)
   }, [fromLevel, levelOptions])
 
   useEffect(() => {
-    if (defaultValues && selectedSub) {
-      setFromLevel((prev) =>
-        defaultValues.fromLevel && defaultValues.fromLevel !== prev
-          ? defaultValues.fromLevel
-          : prev
-      )
-      setToLevel((prev) =>
-        defaultValues.toLevel && defaultValues.toLevel !== prev
-          ? defaultValues.toLevel
-          : prev
-      )
-      setPetLevel(defaultValues.buffs?.petLevel || 'Lv.1')
-      setVipLevel(defaultValues.buffs?.vipLevel || 'Lv.1')
-      setDoubleTime(defaultValues.buffs?.doubleTime || false)
-      setZinmanSkill(defaultValues.buffs?.zinmanSkill || 'Lv.1')
-      setConstructionSpeed(defaultValues.buffs?.constructionSpeed || 0)
-    }
+    if (!defaultValues || !selectedSub) return
+
+    setFromLevel((prev) => prev || defaultValues.fromLevel || '')
+    setToLevel((prev) => prev || defaultValues.toLevel || '')
+    setPetLevel((prev) => prev || defaultValues.buffs?.petLevel || 'Off')
+    setVipLevel((prev) => prev || defaultValues.buffs?.vipLevel || 'Off')
+    setDoubleTime((prev) =>
+      typeof prev === 'boolean'
+        ? prev
+        : defaultValues.buffs?.doubleTime || false
+    )
+    setZinmanSkill((prev) => prev || defaultValues.buffs?.zinmanSkill || 'Off')
+    setConstructionSpeed(
+      (prev) => prev || defaultValues.buffs?.constructionSpeed || 0
+    )
   }, [defaultValues, selectedSub])
 
   const handleSubmit = () => {
@@ -74,16 +95,30 @@ function BuildingForm({ category, selectedSub, defaultValues = {}, onCalculate }
     }
   }
 
-  const buffLevels = Array.from({ length: 30 }, (_, i) => `Lv.${i + 1}`)
+  const petLevels = ['Off', 'Lv.1', 'Lv.2', 'Lv.3', 'Lv.4', 'Lv.5']
+  const vipLevels = [
+    'Off',
+    'VIP 4',
+    'VIP 5',
+    'VIP 6',
+    'VIP 7',
+    'VIP 8',
+    'VIP 9',
+    'VIP 10',
+    'VIP 11',
+    'VIP 12',
+  ]
+  const zinmanLevels = ['Off', 'Lv.1', 'Lv.2', 'Lv.3', 'Lv.4', 'Lv.5']
 
   return (
     <div className="bg-gray-900 p-4 rounded-xl space-y-4 mt-6 text-white shadow-lg">
       <h2 className="text-xl font-bold">{selectedSub}</h2>
 
       {levelOptions.length === 0 && (
-          <p className="text-red-400 text-sm">
-          ⚠ Data level untuk &quot;{selectedSub}&quot; tidak ditemukan dalam JSON.
-          </p>
+        <p className="text-red-400 text-sm">
+          ⚠ Data level untuk &quot;{selectedSub}&quot; tidak ditemukan dalam
+          JSON.
+        </p>
       )}
 
       <div className="flex gap-4">
@@ -99,7 +134,9 @@ function BuildingForm({ category, selectedSub, defaultValues = {}, onCalculate }
           >
             <option value="">-- Select Level --</option>
             {levelOptions.map((level) => (
-              <option key={level} value={level}>{level}</option>
+              <option key={level} value={level}>
+                {level}
+              </option>
             ))}
           </select>
         </div>
@@ -112,7 +149,9 @@ function BuildingForm({ category, selectedSub, defaultValues = {}, onCalculate }
           >
             <option value="">-- Select Level --</option>
             {filteredToLevels.map((level) => (
-              <option key={level} value={level}>{level}</option>
+              <option key={level} value={level}>
+                {level}
+              </option>
             ))}
           </select>
         </div>
@@ -126,8 +165,10 @@ function BuildingForm({ category, selectedSub, defaultValues = {}, onCalculate }
             onChange={(e) => setPetLevel(e.target.value)}
             className="w-full bg-gray-800 text-white p-2 rounded"
           >
-            {buffLevels.map((level) => (
-              <option key={level}>{level}</option>
+            {petLevels.map((level) => (
+              <option key={level} value={level}>
+                {level}
+              </option>
             ))}
           </select>
         </div>
@@ -138,8 +179,10 @@ function BuildingForm({ category, selectedSub, defaultValues = {}, onCalculate }
             onChange={(e) => setVipLevel(e.target.value)}
             className="w-full bg-gray-800 text-white p-2 rounded"
           >
-            {buffLevels.map((level) => (
-              <option key={level}>{level}</option>
+            {vipLevels.map((level) => (
+              <option key={level} value={level}>
+                {level}
+              </option>
             ))}
           </select>
         </div>
@@ -158,8 +201,10 @@ function BuildingForm({ category, selectedSub, defaultValues = {}, onCalculate }
             onChange={(e) => setZinmanSkill(e.target.value)}
             className="w-full bg-gray-800 text-white p-2 rounded"
           >
-            {buffLevels.map((level) => (
-              <option key={level}>{level}</option>
+            {zinmanLevels.map((level) => (
+              <option key={level} value={level}>
+                {level}
+              </option>
             ))}
           </select>
         </div>

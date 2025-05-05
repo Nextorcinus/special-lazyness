@@ -8,6 +8,8 @@ import CompareForm from './components/CompareForm'
 import HistoryList from './components/HistoryList'
 import { v4 as uuidv4 } from 'uuid'
 import { formatToShortNumber } from './utils/formatToShortNumber'
+import TotalResult from './components/TotalResult'
+import ResourceIcon from './components/ResourceIcon'
 
 export default function Home() {
   const [category, setCategory] = useState('Basic')
@@ -17,15 +19,27 @@ export default function Home() {
   const [history, setHistory] = useState([])
 
   const basicBuildings = [
-    'Barricade', 'Marksman', 'Lancers', 'Infantry',
-    'Research Center', 'Infirmary', 'Command Center',
-    'Embassy', 'Store House', 'Furnace'
+    'Barricade',
+    'Marksman',
+    'Lancers',
+    'Infantry',
+    'Research Center',
+    'Infirmary',
+    'Command Center',
+    'Embassy',
+    'Store House',
+    'Furnace',
   ]
 
   const fireCrystalBuildings = [
-    'FC Academy', 'FC Marksman', 'FC Lancers',
-    'FC Infantry', 'FC Embassy', 'FC Infirmary',
-    'FC Command Center', 'FC Furnace'
+    'FC Academy',
+    'FC Marksman',
+    'FC Lancers',
+    'FC Infantry',
+    'FC Embassy',
+    'FC Infirmary',
+    'FC Command Center',
+    'FC Furnace',
   ]
 
   const buildings = category === 'Basic' ? basicBuildings : fireCrystalBuildings
@@ -61,7 +75,7 @@ export default function Home() {
   }
 
   const handleDeleteHistory = (id) => {
-    const updated = history.filter(item => item.id !== id)
+    const updated = history.filter((item) => item.id !== id)
     setHistory(updated)
     setResults(updated)
     setCompares(updated.map(() => null))
@@ -79,9 +93,17 @@ export default function Home() {
     setCategory('Basic')
   }
 
-  const defaultResources = useMemo(() => ({
-    Meat: '0', Wood: '0', Coal: '0', Iron: '0', Crystal: '0', RFC: '0'
-  }), [])
+  const defaultResources = useMemo(
+    () => ({
+      Meat: '0',
+      Wood: '0',
+      Coal: '0',
+      Iron: '0',
+      Crystal: '0',
+      RFC: '0',
+    }),
+    []
+  )
 
   return (
     <main className="p-6 text-white">
@@ -89,49 +111,78 @@ export default function Home() {
 
       <div className="flex gap-4 mb-4">
         <button
-          className={`px-4 py-2 rounded-full ${category === 'Basic' ? 'bg-green-500' : 'bg-gray-700'}`}
+          className={`px-4 py-2 rounded-full ${
+            category === 'Basic' ? 'bg-green-500' : 'bg-gray-700'
+          }`}
           onClick={() => {
             setCategory('Basic')
             setSelectedSub('')
           }}
-        >Basic</button>
+        >
+          Basic
+        </button>
         <button
-          className={`px-4 py-2 rounded-full ${category === 'Fire Crystal' ? 'bg-green-500' : 'bg-gray-700'}`}
+          className={`px-4 py-2 rounded-full ${
+            category === 'Fire Crystal' ? 'bg-green-500' : 'bg-gray-700'
+          }`}
           onClick={() => {
             setCategory('Fire Crystal')
             setSelectedSub('')
           }}
-        >Fire Crystal</button>
+        >
+          Fire Crystal
+        </button>
       </div>
 
-      <SubcategoryScroll items={buildings} selected={selectedSub} onSelect={setSelectedSub} />
+      <SubcategoryScroll
+        items={buildings}
+        selected={selectedSub}
+        onSelect={setSelectedSub}
+      />
 
       {selectedSub && (
         <>
-          <BuildingForm category={category} selectedSub={selectedSub} onCalculate={handleCalculate} />
-          <CompareForm requiredResources={defaultResources} onCompare={handleCompare} />
+          <BuildingForm
+            category={category}
+            selectedSub={selectedSub}
+            onCalculate={handleCalculate}
+          />
+          <CompareForm
+            requiredResources={defaultResources}
+            onCompare={handleCompare}
+          />
         </>
       )}
 
       {Array.isArray(results) && results.length > 0 && (
         <div className="mt-8 space-y-6">
           <h2 className="text-xl font-semibold">Upgrade Results</h2>
+
           {results.map((res, idx) => (
-            <div key={res.id} className="bg-gray-800 p-6 rounded-xl shadow-md space-y-4">
+            <div
+              key={res.id}
+              className="bg-gray-800 p-6 rounded-xl shadow-md space-y-4"
+            >
               <div className="text-xl font-semibold">{res.building}</div>
               <div>
-                From <strong>{res.fromLevel}</strong> → <strong>{res.toLevel}</strong>
+                From <strong>{res.fromLevel}</strong> →{' '}
+                <strong>{res.toLevel}</strong>
               </div>
               <div>
-                Time: <span className="text-yellow-400">{res.timeOriginal}</span> → <span className="text-green-400">{res.timeReduced}</span>
+                Time:{' '}
+                <span className="text-yellow-400">{res.timeOriginal}</span> →{' '}
+                <span className="text-green-400">{res.timeReduced}</span>
               </div>
               <div>
                 <strong>Resources:</strong>
-                <ul className="ml-4 list-disc mt-1">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 text-md">
                   {Object.entries(res.resources || {}).map(([key, value]) => (
-                    <li key={key}>{key}: {formatToShortNumber(value)}</li>
+                    <div key={key} className="flex items-center gap-2 text-md">
+                      <ResourceIcon type={key} />
+                      <span>{formatToShortNumber(value)}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
               {compares[idx] && (
                 <CompareForm
@@ -142,6 +193,9 @@ export default function Home() {
               )}
             </div>
           ))}
+
+          {/* Tambahkan Total Result di sini */}
+          <TotalResult results={results} />
         </div>
       )}
 

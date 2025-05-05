@@ -3,8 +3,14 @@
 import React from 'react'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
 import { parseNumber } from '../utils/parseNumber'
+import ResourceIcon from '../components/ResourceIcon'
 
-function CompareForm({ requiredResources = {}, comparedData = {}, onCompare, readonly = false }) {
+function CompareForm({
+  requiredResources = {},
+  comparedData = {},
+  onCompare,
+  readonly = false,
+}) {
   const resources = ['Meat', 'Wood', 'Coal', 'Iron', 'Crystal', 'RFC']
 
   const handleCompare = (e) => {
@@ -19,31 +25,34 @@ function CompareForm({ requiredResources = {}, comparedData = {}, onCompare, rea
 
   return (
     <div className="bg-gray-900 p-4 mt-4 rounded-xl text-white shadow">
-      {!readonly && <h3 className="text-lg font-semibold mb-2">Compare Your Resources</h3>}
+      {!readonly && (
+        <h3 className="text-lg font-semibold mb-2">Compare Your Resources</h3>
+      )}
       {readonly ? (
         <div>
           <h4 className="font-semibold mb-2">Comparison Result</h4>
-          <ul className="text-sm space-y-1">
-            {resources.map((key) => {
-              const have = parseNumber(comparedData?.[key] ?? 0)
-              const need = parseNumber(requiredResources?.[key] ?? 0)
+          <div className="flex flex-wrap items-center gap-4 text-sm">
+            {Object.entries(requiredResources).map(([key, need]) => {
+              const have = comparedData[key] || 0
               const diff = have - need
-              const status =
-                diff >= 0
-                  ? `→ Surplus: ${formatToShortNumber(diff)}`
-                  : `→ Missing: ${formatToShortNumber(Math.abs(diff))}`
+              const status = diff >= 0 ? 'Surplus' : 'Missing'
+              const value = Math.abs(diff)
               const color = diff >= 0 ? 'text-green-400' : 'text-red-400'
 
               return (
-                <li key={key}>
-                  <strong>{key}:</strong>{' '}
-                  You have <span className="text-blue-300">{formatToShortNumber(have)}</span> / Need{' '}
-                  <span className="text-yellow-300">{formatToShortNumber(need)}</span>{' '}
-                  <span className={color}>{status}</span>
-                </li>
+                <div key={key} className="flex items-center gap-1">
+                  <ResourceIcon type={key} />
+                  <span>
+                    {key}: You have {formatToShortNumber(have)} / Need{' '}
+                    {formatToShortNumber(need)} →
+                    <span className={`ml-1 ${color}`}>
+                      {status}: {formatToShortNumber(value)}
+                    </span>
+                  </span>
+                </div>
               )
             })}
-          </ul>
+          </div>
         </div>
       ) : (
         <form onSubmit={handleCompare}>
