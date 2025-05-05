@@ -81,9 +81,9 @@ function BuildingForm({ category, selectedSub, defaultValues = {}, onCalculate }
       <h2 className="text-xl font-bold">{selectedSub}</h2>
 
       {levelOptions.length === 0 && (
-        <p className="text-red-400 text-sm">
-          ⚠ Data level untuk "{selectedSub}" tidak ditemukan dalam JSON.
-        </p>
+          <p className="text-red-400 text-sm">
+          ⚠ Data level untuk &quot;{selectedSub}&quot; tidak ditemukan dalam JSON.
+          </p>
       )}
 
       <div className="flex gap-4">
