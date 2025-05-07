@@ -32,8 +32,7 @@ export default function Sidebar() {
   const [hovered, setHovered] = useState(null)
 
   return (
-    <aside className="w-64 h-full bg-zinc-900 text-white flex flex-col justify-between">
-      {/* Logo */}
+    <aside className="w-full h-full lg:w-64 bg-zinc-900 text-white justify-between">
       <div>
         <div className="flex justify-center p-4">
           <Image
@@ -45,7 +44,6 @@ export default function Sidebar() {
           />
         </div>
 
-        {/* Menu */}
         <nav className="flex flex-col gap-2 px-4">
           {menu.map((item) => {
             const isActive = pathname === item.href

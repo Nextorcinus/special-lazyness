@@ -5,6 +5,19 @@ import basicData from '../data/BasicBuilding.json'
 import fireCrystalData from '../data/buildings.json'
 import { calculateUpgrade } from '../utils/calculateUpgrade'
 
+import { Card, CardContent } from './ui/card'
+import { Label } from './ui/label'
+import { Input } from './ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select'
+import { Checkbox } from './ui/checkbox'
+import { Button } from './ui/button'
+
 const buildingAliasMap = {
   Marksman: 'Marksman',
   Lancer: 'Lancer Camp',
@@ -111,123 +124,126 @@ function BuildingForm({
   const zinmanLevels = ['Off', 'Lv.1', 'Lv.2', 'Lv.3', 'Lv.4', 'Lv.5']
 
   return (
-    <div className="bg-gray-900 p-4 rounded-xl space-y-4 mt-6 text-white shadow-lg">
-      <h2 className="text-xl font-bold">{selectedSub}</h2>
+    <Card className="bg-zinc-900 border-zinc-800 text-white mt-6">
+      <CardContent className="space-y-6 pt-6">
+        <h2 className="text-xl font-bold">{selectedSub}</h2>
 
-      {levelOptions.length === 0 && (
-        <p className="text-red-400 text-sm">
-          ⚠ Data level untuk &quot;{selectedSub}&quot; tidak ditemukan dalam
-          JSON.
-        </p>
-      )}
+        {levelOptions.length === 0 && (
+          <p className="text-red-400 text-sm">
+            ⚠ Data level untuk "{selectedSub}" tidak ditemukan dalam JSON.
+          </p>
+        )}
 
-      <div className="flex gap-4">
-        <div className="flex-1">
-          <label className="block font-medium mb-1">From</label>
-          <select
-            value={fromLevel}
-            onChange={(e) => {
-              setFromLevel(e.target.value)
-              setToLevel('')
-            }}
-            className="w-full bg-gray-800 text-white p-2 rounded"
-          >
-            <option value="">-- Select Level --</option>
-            {levelOptions.map((level) => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <Label>From</Label>
+            <Select
+              value={fromLevel}
+              onValueChange={(v) => {
+                setFromLevel(v)
+                setToLevel('')
+              }}
+            >
+              <SelectTrigger className="bg-zinc-800 border-zinc-800 text-white">
+                <SelectValue placeholder="-- Select Level --" />
+              </SelectTrigger>
+              <SelectContent>
+                {levelOptions.map((level) => (
+                  <SelectItem key={level} value={level}>
+                    {level}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>To</Label>
+            <Select value={toLevel} onValueChange={setToLevel}>
+              <SelectTrigger className="bg-zinc-800 border-zinc-800 text-white">
+                <SelectValue placeholder="-- Select Level --" />
+              </SelectTrigger>
+              <SelectContent>
+                {filteredToLevels.map((level) => (
+                  <SelectItem key={level} value={level}>
+                    {level}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-        <div className="flex-1">
-          <label className="block font-medium mb-1">To</label>
-          <select
-            value={toLevel}
-            onChange={(e) => setToLevel(e.target.value)}
-            className="w-full bg-gray-800 text-white p-2 rounded"
-          >
-            <option value="">-- Select Level --</option>
-            {filteredToLevels.map((level) => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-        <div>
-          <label className="block mb-1">Pet</label>
-          <select
-            value={petLevel}
-            onChange={(e) => setPetLevel(e.target.value)}
-            className="w-full bg-gray-800 text-white p-2 rounded"
-          >
-            {petLevels.map((level) => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <div>
+            <Label>Pet</Label>
+            <Select value={petLevel} onValueChange={setPetLevel}>
+              <SelectTrigger className="bg-zinc-800 border-zinc-800 text-white">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {petLevels.map((level) => (
+                  <SelectItem key={level} value={level}>
+                    {level}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>VIP</Label>
+            <Select value={vipLevel} onValueChange={setVipLevel}>
+              <SelectTrigger className="bg-zinc-800 border-zinc-800 text-white">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {vipLevels.map((level) => (
+                  <SelectItem key={level} value={level}>
+                    {level}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-end gap-2 pt-4">
+            <Checkbox checked={doubleTime} onCheckedChange={setDoubleTime} />
+            <Label>Double Time</Label>
+          </div>
+          <div>
+            <Label>Zinman Skill</Label>
+            <Select value={zinmanSkill} onValueChange={setZinmanSkill}>
+              <SelectTrigger className="bg-zinc-800 border-zinc-800 text-white">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {zinmanLevels.map((level) => (
+                  <SelectItem key={level} value={level}>
+                    {level}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Construction Speed (%)</Label>
+            <Input
+              type="number"
+              value={constructionSpeed}
+              onChange={(e) => setConstructionSpeed(e.target.value)}
+              min={0}
+              max={100}
+              className="bg-zinc-800 border-zinc-800 text-white"
+            />
+          </div>
         </div>
-        <div>
-          <label className="block mb-1">VIP</label>
-          <select
-            value={vipLevel}
-            onChange={(e) => setVipLevel(e.target.value)}
-            className="w-full bg-gray-800 text-white p-2 rounded"
-          >
-            {vipLevels.map((level) => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex items-end gap-2">
-          <input
-            type="checkbox"
-            checked={doubleTime}
-            onChange={(e) => setDoubleTime(e.target.checked)}
-          />
-          <label>Double Time</label>
-        </div>
-        <div>
-          <label className="block mb-1">Zinman Skill</label>
-          <select
-            value={zinmanSkill}
-            onChange={(e) => setZinmanSkill(e.target.value)}
-            className="w-full bg-gray-800 text-white p-2 rounded"
-          >
-            {zinmanLevels.map((level) => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block mb-1">Construction Speed (%)</label>
-          <input
-            type="number"
-            value={constructionSpeed}
-            onChange={(e) => setConstructionSpeed(e.target.value)}
-            className="w-full bg-gray-800 text-white p-2 rounded"
-            min={0}
-            max={100}
-          />
-        </div>
-      </div>
 
-      <button
-        onClick={handleSubmit}
-        className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 transition"
-      >
-        Calculate Upgrade
-      </button>
-    </div>
+        <Button
+          onClick={handleSubmit}
+          className="bg-green-500 text-white hover:bg-green-600"
+        >
+          Calculate Upgrade
+        </Button>
+      </CardContent>
+    </Card>
   )
 }
 

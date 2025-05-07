@@ -12,7 +12,6 @@ import TotalResult from '../../components/TotalResult'
 import ResourceIcon from '../../components/ResourceIcon'
 import CategorySelector from '@/app/components/CategorySelector'
 import '../../globals.css'
-import { Button } from '@/components/ui/button'
 
 export default function Home() {
   const [category, setCategory] = useState('Basic')
@@ -109,7 +108,7 @@ export default function Home() {
   )
 
   return (
-    <main className="p-6 text-white">
+    <main className="p-6 text-white bg-black">
       <div className="relative bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-md">
         <h2 className="text-2xl font-bold text-white">
           Buildings Upgrade Details
