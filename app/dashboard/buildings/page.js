@@ -108,11 +108,9 @@ export default function Home() {
   )
 
   return (
-    <main className="p-6 text-white bg-black w-full">
-      <div className="relative bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-md">
-        <h2 className="text-2xl font-bold text-white">
-          Buildings Upgrade Details
-        </h2>
+    <main className="p-6 text-white w-full">
+      <div className="relative bg-special-inside border border-zinc-800 rounded-2xl p-6 shadow-md">
+        <h2 className="text-2xl text-white">Buildings Upgrade Details</h2>
 
         <CategorySelector selected={category} onChange={setCategory} />
         <SubcategoryScroll

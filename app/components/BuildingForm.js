@@ -124,9 +124,9 @@ function BuildingForm({
   const zinmanLevels = ['Off', 'Lv.1', 'Lv.2', 'Lv.3', 'Lv.4', 'Lv.5']
 
   return (
-    <Card className="bg-zinc-900 border-zinc-800 text-white mt-6">
+    <Card className="bg-special-inside border-zinc-800 text-white mt-6">
       <CardContent className="space-y-6 pt-6">
-        <h2 className="text-xl font-bold">{selectedSub}</h2>
+        <h2 className="text-xl">{selectedSub}</h2>
 
         {levelOptions.length === 0 && (
           <p className="text-red-400 text-sm">
@@ -144,7 +144,7 @@ function BuildingForm({
                 setToLevel('')
               }}
             >
-              <SelectTrigger className="bg-zinc-800 border-zinc-800 text-white">
+              <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
                 <SelectValue placeholder="-- Select Level --" />
               </SelectTrigger>
               <SelectContent>
@@ -157,9 +157,9 @@ function BuildingForm({
             </Select>
           </div>
           <div>
-            <Label className="text-zinc-400">To</Label>
+            <Label className="text-zinc-400 ">To</Label>
             <Select value={toLevel} onValueChange={setToLevel}>
-              <SelectTrigger className="bg-zinc-800 border-zinc-800 text-white">
+              <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
                 <SelectValue placeholder="-- Select Level --" />
               </SelectTrigger>
               <SelectContent>
@@ -177,7 +177,7 @@ function BuildingForm({
           <div>
             <Label className="text-zinc-400">Pet</Label>
             <Select value={petLevel} onValueChange={setPetLevel}>
-              <SelectTrigger className="bg-zinc-800 border-zinc-800 text-white">
+              <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -192,7 +192,7 @@ function BuildingForm({
           <div>
             <Label className="text-zinc-400">VIP</Label>
             <Select value={vipLevel} onValueChange={setVipLevel}>
-              <SelectTrigger className="bg-zinc-800 border-zinc-800 text-white">
+              <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -208,7 +208,7 @@ function BuildingForm({
           <div>
             <Label className="text-zinc-400">Zinman Skill</Label>
             <Select value={zinmanSkill} onValueChange={setZinmanSkill}>
-              <SelectTrigger className="bg-zinc-800 border-zinc-800  text-white">
+              <SelectTrigger className=" bg-special-input  text-white">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -221,14 +221,14 @@ function BuildingForm({
             </Select>
           </div>
           <div>
-            <Label className="text-zinc-400">Construction Speed (%)</Label>
+            <Label className="text-zinc-400">Const Speed (%)</Label>
             <Input
               type="number"
               value={constructionSpeed}
               onChange={(e) => setConstructionSpeed(e.target.value)}
               min={0}
               max={100}
-              className="bg-zinc-800 shadow-md hover:shadow-lg border-zinc-800 text-white"
+              className=" shadow-md hover:shadow-lg bg-special-input text-white"
             />
           </div>
           <div className="flex items-center gap-2 pt-4">

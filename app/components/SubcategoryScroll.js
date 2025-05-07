@@ -54,7 +54,7 @@ export default function SubcategoryScroll({ items, selected, onSelect }) {
   return (
     <div
       ref={scrollRef}
-      className="mt-4 bg-zinc-800 p-1 rounded-xl flex gap-2 overflow-x-auto no-scrollbar cursor-grab select-none w-full"
+      className="mt-4 bg-special-cat p-1 rounded-xl flex gap-2 overflow-x-auto no-scrollbar cursor-grab select-none w-full"
     >
       {items.map((item) => (
         <button
@@ -63,7 +63,7 @@ export default function SubcategoryScroll({ items, selected, onSelect }) {
           className={cn(
             'px-4 py-2 rounded-xl text-sm transition whitespace-nowrap',
             selected === item
-              ? 'bg-green-600 text-white shadow'
+              ? 'bg-lime-500 text-white shadow'
               : 'text-zinc-400 hover:text-white'
           )}
         >

@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        fustat: ['Fustat', 'sans-serif'],
       },
       borderRadius: {
         lg: 'var(--radius)',

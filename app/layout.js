@@ -1,9 +1,6 @@
-import { Inter } from 'next/font/google'
-import './globals.css'
+﻿import './globals.css'
 import Sidebar from './components/Sidebar'
 import MobileSidebar from './components/MobileSidebar'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Special Lazyness',
@@ -14,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <body className="antialiased font-fustat">
         <div className="min-h-screen bg-gray-900 grid grid-cols-1 lg:grid-cols-[240px_1fr]">
           {/* Sidebar untuk Desktop */}
           <div className="hidden lg:block">
@@ -24,7 +21,7 @@ export default function RootLayout({ children }) {
           {/* Konten Utama + Mobile Sidebar */}
           <div className="flex-1 flex flex-col">
             <MobileSidebar />
-            <main className="flex-1 w-full bg-black overflow-y-auto">
+            <main className="flex-1 w-full bg-special overflow-y-auto">
               {children}
             </main>
           </div>
