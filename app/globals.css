@@ -88,7 +88,8 @@
 
 .bg-special-input {
   background: #181818;
-  box-shadow: 0px 12px 9.100000381469727px rgba(78.46, 78.46, 78.46, 0.3) inset;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15),
+    0px 12px 9.100000381469727px rgba(78.46, 78.46, 78.46, 0.3) inset;
   border: 1px #222222 solid;
   height: 38px;
 }
