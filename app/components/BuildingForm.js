@@ -136,7 +136,7 @@ function BuildingForm({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <Label>From</Label>
+            <Label className="text-zinc-400">From</Label>
             <Select
               value={fromLevel}
               onValueChange={(v) => {
@@ -157,7 +157,7 @@ function BuildingForm({
             </Select>
           </div>
           <div>
-            <Label>To</Label>
+            <Label className="text-zinc-400">To</Label>
             <Select value={toLevel} onValueChange={setToLevel}>
               <SelectTrigger className="bg-zinc-800 border-zinc-800 text-white">
                 <SelectValue placeholder="-- Select Level --" />
@@ -175,7 +175,7 @@ function BuildingForm({
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           <div>
-            <Label>Pet</Label>
+            <Label className="text-zinc-400">Pet</Label>
             <Select value={petLevel} onValueChange={setPetLevel}>
               <SelectTrigger className="bg-zinc-800 border-zinc-800 text-white">
                 <SelectValue />
@@ -190,7 +190,7 @@ function BuildingForm({
             </Select>
           </div>
           <div>
-            <Label>VIP</Label>
+            <Label className="text-zinc-400">VIP</Label>
             <Select value={vipLevel} onValueChange={setVipLevel}>
               <SelectTrigger className="bg-zinc-800 border-zinc-800 text-white">
                 <SelectValue />
@@ -204,11 +204,9 @@ function BuildingForm({
               </SelectContent>
             </Select>
           </div>
-          <div className="flex items-end gap-2 pt-4">
-            <Checkbox checked={doubleTime} onCheckedChange={setDoubleTime} />
-            <Label>Double Time</Label>
-          </div>
-          <div>text-zinc-900">Zinman Skill</Label>
+
+          <div>
+            <Label className="text-zinc-400">Zinman Skill</Label>
             <Select value={zinmanSkill} onValueChange={setZinmanSkill}>
               <SelectTrigger className="bg-zinc-800 border-zinc-800  text-white">
                 <SelectValue />
@@ -223,15 +221,19 @@ function BuildingForm({
             </Select>
           </div>
           <div>
-            <Label>Construction Speed (%)</Label>
+            <Label className="text-zinc-400">Construction Speed (%)</Label>
             <Input
               type="number"
               value={constructionSpeed}
               onChange={(e) => setConstructionSpeed(e.target.value)}
               min={0}
               max={100}
-              className="bg-zinc-800 border-zinc-800 text-white"
+              className="bg-zinc-800 shadow-md hover:shadow-lg border-zinc-800 text-white"
             />
+          </div>
+          <div className="flex items-center gap-2 pt-4">
+            <Checkbox checked={doubleTime} onCheckedChange={setDoubleTime} />
+            <Label>Double Time</Label>
           </div>
         </div>
 
