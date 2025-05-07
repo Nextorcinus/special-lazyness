@@ -1,11 +1,12 @@
 export function calculateBuffSpeed({
-  petLevel,
-  vipLevel,
-  zinmanLevel,
-  constructionSpeed,
-  doubleTime,
+  petLevel = 'Off',
+  vipLevel = 'Off',
+  zinmanSkill = 'Off',
+  doubleTime = false,
+  constructionSpeed = 0,
 }) {
-  const petMap = {
+  const petBuff = {
+    Off: 0,
     'Lv.1': 5,
     'Lv.2': 7,
     'Lv.3': 9,
@@ -13,7 +14,8 @@ export function calculateBuffSpeed({
     'Lv.5': 15,
   }
 
-  const vipMap = {
+  const vipBuff = {
+    Off: 0,
     'VIP 4': 10,
     'VIP 5': 10,
     'VIP 6': 10,
@@ -25,7 +27,8 @@ export function calculateBuffSpeed({
     'VIP 12': 20,
   }
 
-  const zinmanMap = {
+  const zinmanBuff = {
+    Off: 0,
     'Lv.1': 3,
     'Lv.2': 6,
     'Lv.3': 9,
@@ -33,16 +36,12 @@ export function calculateBuffSpeed({
     'Lv.5': 15,
   }
 
-  const petBonus = petMap[petLevel] || 0
-  const vipBonus = vipMap[vipLevel] || 0
-  const zinmanBonus = zinmanMap[zinmanLevel] || 0
-  const doubleTimeBonus = doubleTime ? 20 : 0
+  const totalSpeed =
+    (petBuff[petLevel] || 0) +
+    (vipBuff[vipLevel] || 0) +
+    (zinmanBuff[zinmanSkill] || 0) +
+    (doubleTime ? 20 : 0) +
+    parseFloat(constructionSpeed || 0)
 
-  return (
-    petBonus +
-    vipBonus +
-    zinmanBonus +
-    Number(constructionSpeed) +
-    doubleTimeBonus
-  )
+  return totalSpeed / 100
 }

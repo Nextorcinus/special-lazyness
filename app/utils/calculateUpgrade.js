@@ -96,7 +96,7 @@ export function calculateUpgrade({
     (buffs.doubleTime ? 20 : 0) +
     (buffs.constructionSpeed || 0)
 
-  const reducedMins = totalMins * (1 - buffPercent / 100)
+  const reducedMins = totalMins / (1 + buffPercent / 100)
 
   return {
     building,

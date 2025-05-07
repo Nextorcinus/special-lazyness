@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useRef, useEffect } from 'react'
+import { cn } from '@/lib/utils'
 
 export default function SubcategoryScroll({ items, selected, onSelect }) {
   const scrollRef = useRef(null)
@@ -53,17 +54,18 @@ export default function SubcategoryScroll({ items, selected, onSelect }) {
   return (
     <div
       ref={scrollRef}
-      className="flex overflow-x-auto gap-2 no-scrollbar select-none cursor-grab py-2 px-1"
+      className="mt-4 bg-zinc-800 p-1 rounded-xl flex gap-2 overflow-x-auto no-scrollbar cursor-grab select-none"
     >
       {items.map((item) => (
         <button
           key={item}
           onClick={() => onSelect(item)}
-          className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${
+          className={cn(
+            'px-4 py-2 rounded-xl text-sm transition whitespace-nowrap',
             selected === item
-              ? 'bg-green-500 text-white'
-              : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-          }`}
+              ? 'bg-green-600 text-white shadow'
+              : 'text-zinc-400 hover:text-white'
+          )}
         >
           {item}
         </button>

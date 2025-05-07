@@ -1,51 +1,54 @@
 'use client'
 
 import React from 'react'
+import { Card, CardHeader, CardContent } from './ui/card'
+import { Button } from './ui/button'
 
-function HistoryList({ history, onAdd, onDelete, onReset }) {
+export default function HistoryList({ history, onAdd, onDelete, onReset }) {
   return (
-    <div className="bg-gray-800 text-white rounded-xl p-4 mt-10">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="font-semibold text-lg">History Building</h3>
-        <button
-          onClick={onReset}
-          className="bg-red-500 text-white text-sm px-3 py-1 rounded hover:bg-red-600"
-        >
+    <Card className="bg-gray-900 text-white mt-10">
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <h3 className="text-lg font-semibold">History Building</h3>
+        <Button variant="destructive" size="sm" onClick={onReset}>
           Reset
-        </button>
-      </div>
-      {history.length === 0 && (
-        <p className="text-sm text-gray-400">No history yet.</p>
-      )}
-      {history.map((entry, idx) => (
-        <div
-          key={entry.id}
-          className="flex justify-between items-center bg-gray-700 rounded p-3 mb-2"
-        >
-          <div>
-            <div className="font-bold text-sm">{entry.building}</div>
-            <div className="text-xs text-gray-300">
-              {entry.fromLevel} → {entry.toLevel}
+        </Button>
+      </CardHeader>
+
+      <CardContent className="space-y-2">
+        {history.length === 0 ? (
+          <p className="text-sm text-gray-400">No history yet.</p>
+        ) : (
+          history.map((entry) => (
+            <div
+              key={entry.id}
+              className="flex justify-between items-center bg-gray-800 rounded px-4 py-3"
+            >
+              <div>
+                <div className="font-semibold text-sm">{entry.building}</div>
+                <div className="text-xs text-gray-300">
+                  {entry.fromLevel} → {entry.toLevel}
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  size="xs"
+                  variant="default"
+                  onClick={() => onAdd(entry)}
+                >
+                  + Add Another
+                </Button>
+                <Button
+                  size="xs"
+                  variant="destructive"
+                  onClick={() => onDelete(entry.id)}
+                >
+                  Delete
+                </Button>
+              </div>
             </div>
-          </div>
-          <div className="flex gap-2">
-            <button
-              onClick={() => onAdd(entry)}
-              className="bg-blue-500 text-white text-xs px-2 py-1 rounded hover:bg-blue-600"
-            >
-              + Add Another
-            </button>
-            <button
-              onClick={() => onDelete(entry.id)}
-              className="bg-red-500 text-white text-xs px-2 py-1 rounded hover:bg-red-600"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      ))}
-    </div>
+          ))
+        )}
+      </CardContent>
+    </Card>
   )
 }
-
-export default HistoryList

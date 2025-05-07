@@ -1,0 +1,86 @@
+'use client'
+
+import Link from 'next/link'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
+import { cn } from '../../lib/utils'
+import { useState } from 'react'
+
+const menu = [
+  {
+    label: 'Chief Gear',
+    href: '/dashboard/gear',
+    icon: '/icon/gear.png',
+    iconHover: '/icon/gear-hover.png',
+  },
+  {
+    label: 'Research',
+    href: '/dashboard/research',
+    icon: '/icon/research.png',
+    iconHover: '/icon/research-hover.png',
+  },
+  {
+    label: 'Buildings Upgrade',
+    href: '/dashboard/buildings',
+    icon: '/icon/buildings.png',
+    iconHover: '/icon/buildings-hover.png',
+  },
+]
+
+export default function Sidebar() {
+  const pathname = usePathname()
+  const [hovered, setHovered] = useState(null)
+
+  return (
+    <aside className="w-64 h-full bg-zinc-900 text-white flex flex-col justify-between">
+      {/* Logo */}
+      <div>
+        <div className="flex justify-center p-4">
+          <Image
+            src="/icon/specialLazynessLogo.png"
+            alt="Special Lazyness Logo"
+            width={120}
+            height={40} // or add style={{ height: 'auto' }}
+            priority
+          />
+        </div>
+
+        {/* Menu */}
+        <nav className="flex flex-col gap-2 px-4">
+          {menu.map((item) => {
+            const isActive = pathname === item.href
+            const isHover = hovered === item.label
+
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                onMouseEnter={() => setHovered(item.label)}
+                onMouseLeave={() => setHovered(null)}
+                className={cn(
+                  'flex items-center gap-3 px-4 py-2 rounded-md transition-colors',
+                  isActive
+                    ? 'bg-zinc-800 text-green-500'
+                    : 'hover:bg-zinc-800 text-zinc-300'
+                )}
+              >
+                <Image
+                  src={isHover || isActive ? item.iconHover : item.icon}
+                  alt={item.label}
+                  width={20}
+                  height={20}
+                />
+                <span>{item.label}</span>
+              </Link>
+            )
+          })}
+        </nav>
+      </div>
+
+      {/* Footer */}
+      <div className="p-4 text-center text-xs text-zinc-500">
+        © Special Lazyness
+      </div>
+    </aside>
+  )
+}
