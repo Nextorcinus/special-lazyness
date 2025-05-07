@@ -1,9 +1,9 @@
 'use client'
 
-export default function GearPage() {
+export default function Home() {
   return (
     <div className="p-6 text-white">
-      <h1 className="text-2xl font-bold">Gear Page is under construction.</h1>
+      <h1 className="text-2xl font-bold">Special Lazyness Home Page</h1>
     </div>
   )
 }
