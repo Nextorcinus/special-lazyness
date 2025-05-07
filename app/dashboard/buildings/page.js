@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { formatToShortNumber } from '../../utils/formatToShortNumber'
 import TotalResult from '../../components/TotalResult'
 import ResourceIcon from '../../components/ResourceIcon'
-import CategorySelector from '@/app/components/CategorySelector'
+import CategorySelector from '../../components/CategorySelector'
 import '../../globals.css'
 
 export default function Home() {
@@ -108,7 +108,7 @@ export default function Home() {
   )
 
   return (
-    <main className="p-6 text-white bg-black">
+    <main className="p-6 text-white bg-black w-full">
       <div className="relative bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-md">
         <h2 className="text-2xl font-bold text-white">
           Buildings Upgrade Details
@@ -123,17 +123,21 @@ export default function Home() {
       </div>
 
       {selectedSub && (
-        <>
-          <BuildingForm
-            category={category}
-            selectedSub={selectedSub}
-            onCalculate={handleCalculate}
-          />
-          <CompareForm
-            requiredResources={defaultResources}
-            onCompare={handleCompare}
-          />
-        </>
+        <div className="flex flex-col lg:flex-row gap-6 mt-6 w-full">
+          <div className="w-full lg:w-1/2">
+            <BuildingForm
+              category={category}
+              selectedSub={selectedSub}
+              onCalculate={handleCalculate}
+            />
+          </div>
+          <div className="w-full lg:w-1/2">
+            <CompareForm
+              requiredResources={defaultResources}
+              onCompare={handleCompare}
+            />
+          </div>
+        </div>
       )}
 
       {Array.isArray(results) && results.length > 0 && (

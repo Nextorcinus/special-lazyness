@@ -54,7 +54,7 @@ export default function SubcategoryScroll({ items, selected, onSelect }) {
   return (
     <div
       ref={scrollRef}
-      className="mt-4 bg-zinc-800 p-1 rounded-xl flex gap-2 overflow-x-auto no-scrollbar cursor-grab select-none"
+      className="mt-4 bg-zinc-800 p-1 rounded-xl flex gap-2 overflow-x-auto no-scrollbar cursor-grab select-none w-full"
     >
       {items.map((item) => (
         <button

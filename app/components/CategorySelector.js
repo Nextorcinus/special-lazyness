@@ -5,8 +5,7 @@ import { cn } from '@/lib/utils'
 
 export default function CategorySelector({ selected, onChange }) {
   return (
-    <div className="mt-4
-     sm:mt-0 sm:absolute right-6 top-6 flex gap-4 text-sm font-medium text-zinc-400">
+    <div className="relative sm:absolute sm:right-6 sm:top-6 mt-4 sm:mt-0 flex gap-4 text-sm font-medium text-zinc-400">
       {['Basic', 'Fire Crystal'].map((cat) => (
         <button
           key={cat}
