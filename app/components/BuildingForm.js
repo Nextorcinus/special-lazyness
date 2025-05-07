@@ -208,10 +208,9 @@ function BuildingForm({
             <Checkbox checked={doubleTime} onCheckedChange={setDoubleTime} />
             <Label>Double Time</Label>
           </div>
-          <div>
-            <Label>Zinman Skill</Label>
+          <div>text-zinc-900">Zinman Skill</Label>
             <Select value={zinmanSkill} onValueChange={setZinmanSkill}>
-              <SelectTrigger className="bg-zinc-800 border-zinc-800 text-white">
+              <SelectTrigger className="bg-zinc-800 border-zinc-800  text-white">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
