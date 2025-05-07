@@ -32,7 +32,7 @@ export default function Sidebar() {
   const [hovered, setHovered] = useState(null)
 
   return (
-    <aside className="w-full h-full lg:w-64 bg-zinc-900 text-white justify-between">
+    <aside className="w-full h-full lg:w-64 bg-[#1F1F1F] text-white justify-between">
       <div>
         <div className="flex justify-center p-4">
           <Image
