@@ -52,24 +52,23 @@ export default function SubcategoryScroll({ items, selected, onSelect }) {
   }, [])
 
   return (
-    <div
-      ref={scrollRef}
-      className="mt-4 bg-special-cat p-1 rounded-xl flex gap-2 overflow-x-auto no-scrollbar cursor-grab select-none w-full"
-    >
-      {items.map((item) => (
-        <button
-          key={item}
-          onClick={() => onSelect(item)}
-          className={cn(
-            'px-4 py-2 rounded-xl text-sm transition whitespace-nowrap',
-            selected === item
-              ? 'bg-lime-500 text-black shadow'
-              : 'text-zinc-400 hover:text-white'
-          )}
-        >
-          {item}
-        </button>
-      ))}
+    <div className="bg-special-cat p-1 w-full overflow-x-auto no-scrollbar mt-4 rounded-xl ">
+      <div className=" flex gap-1 cursor-grab select-none w-max whitespace-nowrap">
+        {items.map((item) => (
+          <button
+            key={item}
+            onClick={() => onSelect(item)}
+            className={cn(
+              'px-4 py-2 rounded-xl text-sm transition whitespace-nowrap',
+              selected === item
+                ? 'bg-lime-500 text-white shadow'
+                : 'text-zinc-400 hover:text-white'
+            )}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }

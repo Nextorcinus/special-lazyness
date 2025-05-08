@@ -15,7 +15,7 @@ export default function HistoryList() {
       <CardHeader className="flex flex-row items-center justify-between px-4 py-2">
         <h3 className="text-lg">History Building</h3>
         <Button
-          className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded"
+          className="bg-slate-500 hover:bg-red-500  text-white px-2 py-0 rounded"
           onClick={resetHistory}
         >
           Reset
@@ -33,8 +33,8 @@ export default function HistoryList() {
                 className="flex justify-between items-center bg-zinc-800 rounded px-4 py-3"
               >
                 <div>
-                  <div className="font-semibold text-sm">{entry.building}</div>
-                  <div className="text-xs text-gray-300 p-2">
+                  <div className="text-sm">{entry.building}</div>
+                  <div className="text-xs text-zinc-400 p-0 mt-2">
                     {entry.fromLevel} → {entry.toLevel}
                   </div>
                 </div>
@@ -49,10 +49,8 @@ export default function HistoryList() {
 
             <div className="pt-2 text-center">
               <Button
-                size="sm"
-                variant="default"
                 onClick={addAnother}
-                className="w-full"
+                className="w-max bg-zinc-700 hover:bg-green-700 text-white px-4  rounded"
               >
                 + Add Another Building
               </Button>

@@ -77,16 +77,15 @@
 }
 
 .bg-special-inside-green {
-  background: linear-gradient(180deg, #202724 0%, rgb(26 26 26) 100%);
+  background: linear-gradient(136deg, #2f4138 0%, rgb(0 0 0 / 40%) 100%);
   border: 1px #2f2f2f solid;
 }
 
 .bg-special-input-green {
-  background: rgba(24, 24, 24, 0.1);
-  box-shadow: 0px 12px 9.1px rgba(48, 59, 43, 0.3)
-    rgba(48.36, 58.85, 42.72, 0.3) inset;
+  background: rgb(30 30 30);
+  box-shadow: 0px 1px 9.1px rgb(6 6 6 / 0%), inset 6px 7px 8px rgb(22 22 22);
   border-radius: 5px;
-  border: 1px #36413e solid;
+  border: 1px #3b3b3b solid;
 }
 
 .bg-special-inside {
@@ -95,8 +94,9 @@
 
 .bg-special-cat {
   background: #181818;
-  box-shadow: 0px 12px 9.1px rgba(48, 59, 43, 0.3)
-    rgba(78.46, 78.46, 78.46, 0.3) inset !important;
+  box-shadow: inset 0px 12px 9.1px rgba(48, 59, 43, 0.3),
+    0px 4px 8px rgba(78, 78, 78, 0.3) inset;
+
   border: 1px #222222 solid;
 }
 

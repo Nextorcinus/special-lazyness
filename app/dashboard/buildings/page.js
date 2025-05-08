@@ -167,9 +167,9 @@ export default function Home({ addAnotherTrigger }) {
           {results.map((res, idx) => (
             <div
               key={res.id}
-              className="bg-special-inside p-6 rounded-xl shadow-2xl space-y-4 border border-zinc-800 text-yellow-400"
+              className="bg-special-inside p-6 rounded-xl shadow-2xl space-y-2 border border-zinc-800 text-yellow-400"
             >
-              <div className="text-lg lg:text-xl text-zinc-300 border-b border-zinc-700 pb-4">
+              <div className="text-base lg:text-xl text-zinc-300 border-b border-zinc-700 pb-2 mb-2">
                 {res.building}
               </div>
               <div>
@@ -177,16 +177,23 @@ export default function Home({ addAnotherTrigger }) {
                 <span>{res.toLevel}</span>
               </div>
               <div>
-                <span className="text-zinc-400">Original Time : </span>
-                <span className="text-red-400">{res.timeOriginal}</span>
-                <span className="text-zinc-500"> - </span>
+                <span className="text-zinc-400 text-base">
+                  Original Time :{' '}
+                </span>
+                <span className="text-red-400 text-base">
+                  {res.timeOriginal}
+                </span>
+                <span className="text-zinc-500">
+                  {' '}
+                  <br></br>{' '}
+                </span>
                 <span className="text-zinc-300">Reduce Time : </span>
-                <span className="text-lime-600">{res.timeReduced}</span>
+                <span className="text-lime-500">{res.timeReduced}</span>
               </div>
 
               <div>
                 <span className="text-zinc-400 mb-5">Resources: </span>
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-md">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-6 gap-4 text-base">
                   {Object.entries(res.resources || {}).map(([key, value]) => {
                     const need = res.rawResources?.[key] || 0
                     const hasCompare = compares[idx] && key in compares[idx]
@@ -196,24 +203,26 @@ export default function Home({ addAnotherTrigger }) {
                     const isMatch = diff === 0
                     const color =
                       diff > 0
-                        ? 'text-green-400'
+                        ? 'text-green-300 bg-green-700 py-0 px-2 py-1'
                         : diff < 0
-                        ? 'text-red-400'
-                        : 'text-zinc-500'
+                        ? 'text-red-300 bg-red-700 py-0 px-2 py-1'
+                        : 'text-blue-200 bg-blue-600 py-0 px-2 py-1'
                     const label =
                       diff > 0 ? 'Extra +' : diff < 0 ? 'Need -' : 'Match'
 
                     return (
                       <div
                         key={key}
-                        className="flex flex-col items-end bg-black/30 px-3 py-4 rounded-xl border border-zinc-800 mt-1"
+                        className="flex flex-col items-end  px-3 py-1 rounded-xl mt-1"
                       >
-                        <div className="flex items-center gap-1 text-white text-md md:text-lg">
+                        <div className="flex items-center justify-between gap-1 text-lime-400 text-sm md:text-base w-full">
                           <ResourceIcon type={key} />
                           {formatToShortNumber(value)}
                         </div>
                         {hasCompare && (
-                          <div className={`text-sm ${color}`}>
+                          <div
+                            className={`text-xs md:text-sm rounded-md mt-1 ${color}`}
+                          >
                             {label}
                             {!isMatch && (
                               <> {formatToShortNumber(Math.abs(diff))}</>

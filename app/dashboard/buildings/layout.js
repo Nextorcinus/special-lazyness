@@ -9,7 +9,7 @@ export default function BuildingsLayout({ children }) {
     <HistoryProvider>
       <AddAnotherProvider>
         <div className="min-h-screen bg-special text-white grid grid-cols-1 lg:grid-cols-[1fr_320px]">
-          <main className="flex flex-col w-full">
+          <main className="flex flex-col w-full min-w-0">
             <div className="p-4">{children}</div>
 
             {/* Mobile HistoryList */}
