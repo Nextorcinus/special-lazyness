@@ -3,7 +3,8 @@ import { formatToShortNumber } from '../utils/formatToShortNumber'
 
 const resourceOrder = ['Meat', 'Wood', 'Coal', 'Iron', 'Crystal', 'RFC']
 
-export default function TotalResult({ results }) {
+export default function TotalResult({ results, comparedData = null }) {
+  // Hitung total kebutuhan dari semua hasil
   const total = results.reduce(
     (acc, curr) => {
       const res = curr.resources || {}
@@ -15,8 +16,27 @@ export default function TotalResult({ results }) {
     { Meat: 0, Wood: 0, Coal: 0, Iron: 0, Crystal: 0, RFC: 0 }
   )
 
+  // Hitung compare terhadap total jika ada
+  const compare = {}
+  resourceOrder.forEach((key) => {
+    const have = comparedData?.[key] || 0
+    const need = total[key]
+    const diff = have - need
+
+    compare[key] = {
+      diff,
+      color:
+        diff > 0
+          ? 'text-green-400'
+          : diff < 0
+          ? 'text-red-400'
+          : 'text-zinc-400',
+      label: diff > 0 ? 'Extra +' : diff < 0 ? 'Need -' : 'Match',
+    }
+  })
+
   return (
-    <div className="bg-black border border-zinc-900 p-4 rounded-xl mt-6 ">
+    <div className="bg-black border border-zinc-900 p-4 rounded-xl mt-6">
       <h3 className="text-lg lg:text-xl mb-3 text-yellow-100">
         Total Result Required
       </h3>
@@ -24,10 +44,23 @@ export default function TotalResult({ results }) {
         {resourceOrder.map((key) => (
           <div
             key={key}
-            className="flex items-center gap-2 text-lime-500 text-md md:text-lg justify-start md:justify-center"
+            className="flex flex-col items-center bg-black/40 p-2 rounded-xl border border-zinc-800"
           >
-            <ResourceIcon type={key} />
-            <span>{formatToShortNumber(total[key])}</span>
+            {/* Total yang dibutuhkan */}
+            <div className="flex items-center gap-1 text-lime-400 text-md md:text-lg">
+              <ResourceIcon type={key} />
+              <span>{formatToShortNumber(total[key])}</span>
+            </div>
+
+            {/* Compare */}
+            {comparedData && (
+              <div className={`text-sm ${compare[key].color}`}>
+                {compare[key].label}
+                {compare[key].label !== 'Match' && (
+                  <> {formatToShortNumber(Math.abs(compare[key].diff))}</>
+                )}
+              </div>
+            )}
           </div>
         ))}
       </div>

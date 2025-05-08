@@ -1,24 +1,44 @@
-// page.js
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
 import SubcategoryScroll from '../../components/SubcategoryScroll'
 import BuildingForm from '../../components/BuildingForm'
 import CompareForm from '../../components/CompareForm'
-import HistoryList from '../../components/HistoryList'
-import { v4 as uuidv4 } from 'uuid'
-import { formatToShortNumber } from '../../utils/formatToShortNumber'
 import TotalResult from '../../components/TotalResult'
-import ResourceIcon from '../../components/ResourceIcon'
 import CategorySelector from '../../components/CategorySelector'
+import ResourceIcon from '../../components/ResourceIcon'
+import { formatToShortNumber } from '../../utils/formatToShortNumber'
+import { v4 as uuidv4 } from 'uuid'
+import { useHistory } from './HistoryContext'
 import '../../globals.css'
+import { useAddAnother } from './AddAnotherContext'
 
-export default function Home() {
+// ✅ TERIMA PROPS addAnotherTrigger
+export default function Home({ addAnotherTrigger }) {
   const [category, setCategory] = useState('Basic')
   const [selectedSub, setSelectedSub] = useState('')
   const [results, setResults] = useState([])
   const [compares, setCompares] = useState([])
-  const [history, setHistory] = useState([])
+
+  const { history, addHistory, deleteHistory, resetHistory } = useHistory()
+  useEffect(() => {
+    setResults(history)
+    setCompares(history.map(() => null))
+  }, [history])
+
+  // ✅ RESET saat trigger berubah
+  useEffect(() => {
+    setCategory('Basic')
+    setSelectedSub('')
+  }, [addAnotherTrigger])
+
+  const { trigger } = useAddAnother()
+
+  useEffect(() => {
+    // Saat trigger berubah, reset ke default
+    setCategory('Basic')
+    setSelectedSub('')
+  }, [trigger])
 
   const basicBuildings = [
     'Barricade',
@@ -46,25 +66,11 @@ export default function Home() {
 
   const buildings = category === 'Basic' ? basicBuildings : fireCrystalBuildings
 
-  useEffect(() => {
-    const saved = localStorage.getItem('buildingHistory')
-    if (saved) {
-      const parsed = JSON.parse(saved)
-      setHistory(parsed)
-      setResults(parsed)
-      setCompares(parsed.map(() => null))
-    }
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem('buildingHistory', JSON.stringify(history))
-  }, [history])
-
   const handleCalculate = (data) => {
     const resultWithId = { ...data, id: uuidv4() }
     setResults((prev) => [...prev, resultWithId])
     setCompares((prev) => [...prev, null])
-    setHistory((prev) => [...prev, resultWithId])
+    addHistory(resultWithId)
 
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
@@ -72,37 +78,44 @@ export default function Home() {
   }
 
   const handleCompare = (data, index = null) => {
-    if (index === null) {
-      // Compare input utama (global)
-      setCompares((prev) => prev.map(() => data))
-    } else {
-      // Compare untuk hasil spesifik
-      setCompares((prev) => {
-        const updated = [...prev]
+    setCompares((prev) => {
+      const updated = [...prev]
+      if (index === null) {
+        return prev.map(() => data)
+      } else {
         updated[index] = data
         return updated
-      })
-    }
+      }
+    })
   }
 
   const handleDeleteHistory = (id) => {
+    deleteHistory(id)
     const updated = history.filter((item) => item.id !== id)
-    setHistory(updated)
     setResults(updated)
     setCompares(updated.map(() => null))
   }
 
   const handleResetHistory = () => {
-    setHistory([])
+    resetHistory()
     setResults([])
     setCompares([])
-    localStorage.removeItem('buildingHistory')
   }
 
   const handleAddAnother = () => {
     setSelectedSub('')
     setCategory('Basic')
+    // Jika perlu juga reset hasil sebelumnya
+    // setResults([])
+    // setCompares([])
   }
+
+  // Listener untuk event dari layout
+  useEffect(() => {
+    const handler = () => handleAddAnother()
+    window.addEventListener('add-another-building', handler)
+    return () => window.removeEventListener('add-another-building', handler)
+  }, [])
 
   const defaultResources = useMemo(
     () => ({
@@ -147,7 +160,7 @@ export default function Home() {
         </div>
       )}
 
-      {Array.isArray(results) && results.length > 0 && (
+      {results.length > 0 && (
         <div className="mt-8 space-y-6">
           <h2 className="text-xl">Upgrade Results</h2>
 
@@ -161,17 +174,18 @@ export default function Home() {
               </div>
               <div>
                 <span className="text-zinc-400">From</span> {res.fromLevel} →{' '}
-                {res.toLevel}
+                <span>{res.toLevel}</span>
               </div>
               <div>
                 <span className="text-zinc-400">Original Time : </span>
-                <span className="text-red-400">{res.timeOriginal}</span>{' '}
-                <span className="text-zinc-500">-</span>{' '}
-                <span className="text-zinc-400">Reduce Time : </span>{' '}
-                <span className="text-lime-400">{res.timeReduced}</span>
+                <span className="text-red-400">{res.timeOriginal}</span>
+                <span className="text-zinc-500"> - </span>
+                <span className="text-zinc-300">Reduce Time : </span>
+                <span className="text-lime-600">{res.timeReduced}</span>
               </div>
+
               <div>
-                <span className="text-red-400 mb-5">Resources: </span>
+                <span className="text-zinc-400 mb-5">Resources: </span>
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-md">
                   {Object.entries(res.resources || {}).map(([key, value]) => {
                     const need = res.rawResources?.[key] || 0
@@ -179,23 +193,31 @@ export default function Home() {
                     const have = hasCompare ? compares[idx][key] : null
 
                     const diff = have - need
-                    const status = diff >= 0 ? 'Surplus' : 'Missing'
-                    const color = diff >= 0 ? 'text-green-400' : 'text-red-400'
-                    const display = diff >= 0 ? '+' : '-'
+                    const isMatch = diff === 0
+                    const color =
+                      diff > 0
+                        ? 'text-green-400'
+                        : diff < 0
+                        ? 'text-red-400'
+                        : 'text-zinc-500'
+                    const label =
+                      diff > 0 ? 'Extra +' : diff < 0 ? 'Need -' : 'Match'
 
                     return (
                       <div
                         key={key}
                         className="flex flex-col items-end bg-black/30 px-3 py-4 rounded-xl border border-zinc-800 mt-1"
                       >
-                        <div className="flex items-center gap-1 text-lime-500 text-md md:text-lg">
+                        <div className="flex items-center gap-1 text-white text-md md:text-lg">
                           <ResourceIcon type={key} />
                           {formatToShortNumber(value)}
                         </div>
                         {hasCompare && (
                           <div className={`text-sm ${color}`}>
-                            {display}
-                            {formatToShortNumber(Math.abs(have - need))}
+                            {label}
+                            {!isMatch && (
+                              <> {formatToShortNumber(Math.abs(diff))}</>
+                            )}
                           </div>
                         )}
                       </div>
@@ -206,17 +228,9 @@ export default function Home() {
             </div>
           ))}
 
-          {/* Tambahkan Total Result di sini */}
-          <TotalResult results={results} />
+          <TotalResult results={results} comparedData={compares[0]} />
         </div>
       )}
-
-      <HistoryList
-        history={history}
-        onDelete={handleDeleteHistory}
-        onReset={handleResetHistory}
-        onAdd={handleAddAnother}
-      />
     </main>
   )
 }
