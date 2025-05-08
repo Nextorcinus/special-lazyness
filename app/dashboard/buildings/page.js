@@ -130,7 +130,7 @@ export default function Home({ addAnotherTrigger }) {
   )
 
   return (
-    <main className="p-6 text-white w-full">
+    <main className="p-1 md:p-6 text-white w-full">
       <div className="relative bg-special-inside border border-zinc-800 rounded-2xl p-6 shadow-md">
         <h2 className="text-2xl text-white">Buildings Upgrade Details</h2>
 

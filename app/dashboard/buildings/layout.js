@@ -19,7 +19,7 @@ export default function BuildingsLayout({ children }) {
           </main>
 
           {/* Desktop HistoryList */}
-          <aside className="hidden lg:block border-l border-zinc-800 p-4">
+          <aside className="hidden lg:block border-l bg-[#1F1F1F] border-zinc-800 p-3">
             <HistoryList />
           </aside>
         </div>

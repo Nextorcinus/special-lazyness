@@ -11,15 +11,18 @@ export default function HistoryList() {
   const { addAnother } = useAddAnother()
 
   return (
-    <Card className="bg-gray-900 text-white mt-10">
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <h3 className="text-lg font-semibold">History Building</h3>
-        <Button variant="destructive" size="sm" onClick={resetHistory}>
+    <Card className="bg-special-inside text-white mt-10 border border-neutral-700">
+      <CardHeader className="flex flex-row items-center justify-between px-4 py-2">
+        <h3 className="text-lg">History Building</h3>
+        <Button
+          className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded"
+          onClick={resetHistory}
+        >
           Reset
         </Button>
       </CardHeader>
 
-      <CardContent className="space-y-2">
+      <CardContent className="space-y-2 px-4 pb-4">
         {history.length === 0 ? (
           <p className="text-sm text-gray-400">No history yet.</p>
         ) : (
@@ -27,17 +30,16 @@ export default function HistoryList() {
             {history.map((entry) => (
               <div
                 key={entry.id}
-                className="flex justify-between items-center bg-gray-800 rounded px-4 py-3"
+                className="flex justify-between items-center bg-zinc-800 rounded px-4 py-3"
               >
                 <div>
                   <div className="font-semibold text-sm">{entry.building}</div>
-                  <div className="text-xs text-gray-300">
+                  <div className="text-xs text-gray-300 p-2">
                     {entry.fromLevel} → {entry.toLevel}
                   </div>
                 </div>
                 <Button
-                  size="xs"
-                  variant="destructive"
+                  className="bg-red-600 hover:bg-red-700 text-white px-2  rounded"
                   onClick={() => deleteHistory(entry.id)}
                 >
                   Delete
