@@ -12,7 +12,7 @@ export default function CategorySelector({ selected, onChange }) {
           onClick={() => onChange(cat)}
           className={cn(
             'transition-colors',
-            selected === cat && 'text-green-500 font-semibold'
+            selected === cat && 'text-lime-500 '
           )}
         >
           {cat}

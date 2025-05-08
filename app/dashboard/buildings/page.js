@@ -193,7 +193,7 @@ export default function Home({ addAnotherTrigger }) {
 
               <div>
                 <span className="text-zinc-400 mb-5">Resources: </span>
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-6 gap-4 text-base">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-6 gap-4 text-base">
                   {Object.entries(res.resources || {}).map(([key, value]) => {
                     const need = res.rawResources?.[key] || 0
                     const hasCompare = compares[idx] && key in compares[idx]
@@ -206,14 +206,14 @@ export default function Home({ addAnotherTrigger }) {
                         ? 'text-green-300 bg-green-700 py-0 px-2 py-1'
                         : diff < 0
                         ? 'text-red-300 bg-red-700 py-0 px-2 py-1'
-                        : 'text-blue-200 bg-blue-600 py-0 px-2 py-1'
+                        : 'text-gray-200 bg-gray-600 py-0 px-2 py-1'
                     const label =
                       diff > 0 ? 'Extra +' : diff < 0 ? 'Need -' : 'Match'
 
                     return (
                       <div
                         key={key}
-                        className="flex flex-col items-end  px-3 py-1 rounded-xl mt-1"
+                        className="flex flex-col items-end  px-0 py-1 rounded-xl mt-1"
                       >
                         <div className="flex items-center justify-between gap-1 text-lime-400 text-sm md:text-base w-full">
                           <ResourceIcon type={key} />
