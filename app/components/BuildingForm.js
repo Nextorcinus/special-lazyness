@@ -21,13 +21,10 @@ import { Button } from './ui/button'
 const buildingAliasMap = {
   Marksman: 'Marksman',
   Lancer: 'Lancer Camp',
-  Infantry: 'Infantry Camp',
+  Infantry: 'Infantry',
   Research: 'Research Center',
-  Infirmary: 'Infirmary',
   Command: 'Command Center',
-  Store: 'Store House',
   Embassy: 'Embassy',
-  Barricade: 'Barricade',
 }
 
 function BuildingForm({

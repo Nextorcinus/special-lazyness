@@ -41,19 +41,17 @@ export default function Home({ addAnotherTrigger }) {
   }, [trigger])
 
   const basicBuildings = [
-    'Barricade',
+    'Furnace',
     'Marksman',
     'Lancers',
     'Infantry',
     'Research Center',
-    'Infirmary',
     'Command Center',
     'Embassy',
-    'Store House',
-    'Furnace',
   ]
 
   const fireCrystalBuildings = [
+    'FC Furnace',
     'FC Academy',
     'FC Marksman',
     'FC Lancers',
@@ -61,7 +59,6 @@ export default function Home({ addAnotherTrigger }) {
     'FC Embassy',
     'FC Infirmary',
     'FC Command Center',
-    'FC Furnace',
   ]
 
   const buildings = category === 'Basic' ? basicBuildings : fireCrystalBuildings
@@ -162,7 +159,7 @@ export default function Home({ addAnotherTrigger }) {
 
       {results.length > 0 && (
         <div className="mt-8 space-y-6">
-          <h2 className="text-xl">Upgrade Results</h2>
+          <h2 className="text-xl px-6">Upgrade Results</h2>
 
           {results.map((res, idx) => (
             <div

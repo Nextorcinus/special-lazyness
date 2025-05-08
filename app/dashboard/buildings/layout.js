@@ -13,7 +13,7 @@ export default function BuildingsLayout({ children }) {
             <div className="p-4">{children}</div>
 
             {/* Mobile HistoryList */}
-            <div className="lg:hidden px-4 mt-4">
+            <div className="lg:hidden px-6 sm:px-4 mt-4">
               <HistoryList />
             </div>
           </main>
