@@ -10,6 +10,8 @@ function CompareForm({
   comparedData = {},
   onCompare,
   readonly = false,
+  showComparisonTitle = false,
+  compareIndex = null,
 }) {
   const resources = ['Meat', 'Wood', 'Coal', 'Iron', 'Crystal', 'RFC']
 
@@ -17,38 +19,40 @@ function CompareForm({
     e.preventDefault()
     const formData = new FormData(e.target)
     const data = {}
+    let hasValue = false
+
     resources.forEach((key) => {
-      data[key] = parseFloat(formData.get(key)) || 0
+      const value = parseFloat(formData.get(key)) || 0
+      data[key] = value
+      if (value > 0) hasValue = true
     })
+
+    if (!hasValue) return // ❌ jangan kirim compare kosong
+
     onCompare?.(data)
   }
 
   return (
-    <div className="bg-gray-900 p-4 mt-4 rounded-xl text-white shadow">
-      {!readonly && (
-        <h3 className="text-lg font-semibold mb-2">Compare Your Resources</h3>
-      )}
+    <div className="lg:mt-6 p-4 bg-special-inside-green rounded-xl text-white shadow">
+      {!readonly && <h3 className="text-xl mb-2">Own Resources</h3>}
       {readonly ? (
         <div>
-          <h4 className="font-semibold mb-2">Comparison Result</h4>
-          <div className="flex flex-wrap items-center gap-4 text-sm">
+          {readonly && showComparisonTitle && (
+            <h4 className="mb-4 text-md font-semibold">Comparison Result</h4>
+          )}
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-4 text-sm">
             {Object.entries(requiredResources).map(([key, need]) => {
               const have = comparedData[key] || 0
               const diff = have - need
               const status = diff >= 0 ? 'Surplus' : 'Missing'
-              const value = Math.abs(diff)
               const color = diff >= 0 ? 'text-green-400' : 'text-red-400'
+              const display = diff >= 0 ? '+' : '-'
 
               return (
-                <div key={key} className="flex items-center gap-1">
-                  <ResourceIcon type={key} />
-                  <span>
-                    {key}: You have {formatToShortNumber(have)} / Need{' '}
-                    {formatToShortNumber(need)} →
-                    <span className={`ml-1 ${color}`}>
-                      {status}: {formatToShortNumber(value)}
-                    </span>
-                  </span>
+                <div key={key} className={`text-sm ${color}`}>
+                  {display}
+                  {formatToShortNumber(Math.abs(diff))}
                 </div>
               )
             })}
@@ -56,10 +60,13 @@ function CompareForm({
         </div>
       ) : (
         <form onSubmit={handleCompare}>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-2">
             {resources.map((key) => (
               <div key={key}>
-                <label htmlFor={key} className="text-sm block mb-1">
+                <label
+                  htmlFor={key}
+                  className="text-sm text-zinc-400 block sm:mt-1 sm:mb-1 lg:mt-3"
+                >
                   {key}
                 </label>
                 <input
@@ -68,14 +75,14 @@ function CompareForm({
                   name={key}
                   id={key}
                   defaultValue={comparedData?.[key] || ''}
-                  className="w-full bg-gray-800 p-2 rounded text-white"
+                  className="w-full bg-special-input-green p-2 rounded text-zinc-400"
                 />
               </div>
             ))}
           </div>
           <button
             type="submit"
-            className="mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white"
+            className="mt-6 px-4 py-2 bg-green-700 hover:bg-green-700 rounded text-white"
           >
             Compare
           </button>

@@ -76,13 +76,27 @@
   background-color: #1a1a1a;
 }
 
+.bg-special-inside-green {
+  background: linear-gradient(180deg, #202724 0%, rgb(26 26 26) 100%);
+  border: 1px #2f2f2f solid;
+}
+
+.bg-special-input-green {
+  background: rgba(24, 24, 24, 0.1);
+  box-shadow: 0px 12px 9.1px rgba(48, 59, 43, 0.3)
+    rgba(48.36, 58.85, 42.72, 0.3) inset;
+  border-radius: 5px;
+  border: 1px #36413e solid;
+}
+
 .bg-special-inside {
   background: linear-gradient(178deg, #252525 0%, rgb(15 15 15) 100%);
 }
 
 .bg-special-cat {
   background: #181818;
-  box-shadow: 0px 12px 9.100000381469727px rgba(78.46, 78.46, 78.46, 0.3) inset;
+  box-shadow: 0px 12px 9.1px rgba(48, 59, 43, 0.3)
+    rgba(78.46, 78.46, 78.46, 0.3) inset;
   border: 1px #222222 solid;
 }
 
@@ -91,7 +105,7 @@
   box-shadow: 0 4px 8px rgb(0 0 0 / 12%),
     inset 0 12px 9.100000381469727px rgb(18 18 18 / 30%);
   border: 1px #222222 solid;
-  height: 38px;
+  height: 45px;
 }
 
 @font-face {

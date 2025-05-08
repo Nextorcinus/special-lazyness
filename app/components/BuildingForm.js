@@ -239,7 +239,7 @@ function BuildingForm({
 
         <Button
           onClick={handleSubmit}
-          className="bg-lime-500 text-white hover:bg-green-600"
+          className="bg-lime-500 text-black hover:bg-lime-600 py-4"
         >
           Calculate Upgrade
         </Button>

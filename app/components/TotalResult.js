@@ -16,11 +16,16 @@ export default function TotalResult({ results }) {
   )
 
   return (
-    <div className="bg-black border border-green-500 p-4 rounded-xl mt-6 text-white">
-      <h3 className="text-lg font-bold mb-3">Total Results</h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 text-sm">
+    <div className="bg-black border border-zinc-900 p-4 rounded-xl mt-6 ">
+      <h3 className="text-lg lg:text-xl mb-3 text-yellow-100">
+        Total Result Required
+      </h3>
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-md">
         {resourceOrder.map((key) => (
-          <div key={key} className="flex items-center gap-2">
+          <div
+            key={key}
+            className="flex items-center gap-2 text-lime-500 text-md md:text-lg justify-start md:justify-center"
+          >
             <ResourceIcon type={key} />
             <span>{formatToShortNumber(total[key])}</span>
           </div>

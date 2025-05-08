@@ -71,9 +71,18 @@ export default function Home() {
     }, 100)
   }
 
-  const handleCompare = (data) => {
-    const updated = results.map(() => data)
-    setCompares(updated)
+  const handleCompare = (data, index = null) => {
+    if (index === null) {
+      // Compare input utama (global)
+      setCompares((prev) => prev.map(() => data))
+    } else {
+      // Compare untuk hasil spesifik
+      setCompares((prev) => {
+        const updated = [...prev]
+        updated[index] = data
+        return updated
+      })
+    }
   }
 
   const handleDeleteHistory = (id) => {
@@ -122,14 +131,14 @@ export default function Home() {
 
       {selectedSub && (
         <div className="flex flex-col lg:flex-row gap-6 mt-6 w-full">
-          <div className="w-full lg:w-1/2">
+          <div className="w-full lg:w-8/12">
             <BuildingForm
               category={category}
               selectedSub={selectedSub}
               onCalculate={handleCalculate}
             />
           </div>
-          <div className="w-full lg:w-1/2">
+          <div className="w-full lg:w-4/12">
             <CompareForm
               requiredResources={defaultResources}
               onCompare={handleCompare}
@@ -140,41 +149,60 @@ export default function Home() {
 
       {Array.isArray(results) && results.length > 0 && (
         <div className="mt-8 space-y-6">
-          <h2 className="text-xl font-semibold">Upgrade Results</h2>
+          <h2 className="text-xl">Upgrade Results</h2>
 
           {results.map((res, idx) => (
             <div
               key={res.id}
-              className="bg-gray-800 p-6 rounded-xl shadow-md space-y-4"
+              className="bg-special-inside p-6 rounded-xl shadow-2xl space-y-4 border border-zinc-800 text-yellow-400"
             >
-              <div className="text-xl font-semibold">{res.building}</div>
-              <div>
-                From <strong>{res.fromLevel}</strong> →{' '}
-                <strong>{res.toLevel}</strong>
+              <div className="text-lg lg:text-xl text-zinc-300 border-b border-zinc-700 pb-4">
+                {res.building}
               </div>
               <div>
-                Time:{' '}
-                <span className="text-yellow-400">{res.timeOriginal}</span> →{' '}
-                <span className="text-green-400">{res.timeReduced}</span>
+                <span className="text-zinc-400">From</span> {res.fromLevel} →{' '}
+                {res.toLevel}
               </div>
               <div>
-                <strong>Resources:</strong>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 text-md">
-                  {Object.entries(res.resources || {}).map(([key, value]) => (
-                    <div key={key} className="flex items-center gap-2 text-md">
-                      <ResourceIcon type={key} />
-                      <span>{formatToShortNumber(value)}</span>
-                    </div>
-                  ))}
+                <span className="text-zinc-400">Original Time : </span>
+                <span className="text-red-400">{res.timeOriginal}</span>{' '}
+                <span className="text-zinc-500">-</span>{' '}
+                <span className="text-zinc-400">Reduce Time : </span>{' '}
+                <span className="text-lime-400">{res.timeReduced}</span>
+              </div>
+              <div>
+                <span className="text-red-400 mb-5">Resources: </span>
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-md">
+                  {Object.entries(res.resources || {}).map(([key, value]) => {
+                    const need = res.rawResources?.[key] || 0
+                    const hasCompare = compares[idx] && key in compares[idx]
+                    const have = hasCompare ? compares[idx][key] : null
+
+                    const diff = have - need
+                    const status = diff >= 0 ? 'Surplus' : 'Missing'
+                    const color = diff >= 0 ? 'text-green-400' : 'text-red-400'
+                    const display = diff >= 0 ? '+' : '-'
+
+                    return (
+                      <div
+                        key={key}
+                        className="flex flex-col items-end bg-black/30 px-3 py-4 rounded-xl border border-zinc-800 mt-1"
+                      >
+                        <div className="flex items-center gap-1 text-lime-500 text-md md:text-lg">
+                          <ResourceIcon type={key} />
+                          {formatToShortNumber(value)}
+                        </div>
+                        {hasCompare && (
+                          <div className={`text-sm ${color}`}>
+                            {display}
+                            {formatToShortNumber(Math.abs(have - need))}
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
-              {compares[idx] && (
-                <CompareForm
-                  requiredResources={res.rawResources}
-                  readonly
-                  comparedData={compares[idx]}
-                />
-              )}
             </div>
           ))}
 
