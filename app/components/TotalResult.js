@@ -47,7 +47,7 @@ export default function TotalResult({ results, comparedData = null }) {
             className="flex flex-col items-center bg-black/10 p-2 rounded-xl border border-zinc-900"
           >
             {/* Total yang dibutuhkan */}
-            <div className="flex items-center gap-1 text-lime-400 text-xs md:text-base">
+            <div className="flex items-center gap-1 text-lime-400 text-sm md:text-sm lg:text-base">
               <ResourceIcon type={key} />
               <span>{formatToShortNumber(total[key])}</span>
             </div>
