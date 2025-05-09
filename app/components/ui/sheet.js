@@ -23,7 +23,6 @@ export const SheetContent = React.forwardRef(
           )}
           {...props}
         >
-          {/* Accessible hidden description */}
           <Dialog.Description id={descriptionId} className="sr-only">
             Sheet content area
           </Dialog.Description>

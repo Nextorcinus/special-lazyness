@@ -102,11 +102,9 @@ function BuildingForm({
     if (result) {
       onCalculate(result)
     } else {
-      alert('Level tidak valid atau data tidak ditemukan')
+      alert('Level invalid or data not found')
     }
   }
-
-  
 
   const petLevels = ['Off', 'Lv.1', 'Lv.2', 'Lv.3', 'Lv.4', 'Lv.5']
   const vpLevels = ['Off', '10%', '20%']
@@ -119,7 +117,7 @@ function BuildingForm({
 
         {levelOptions.length === 0 && (
           <p className="text-red-400 text-sm">
-            ⚠ Data level untuk "{selectedSub}" tidak ditemukan dalam JSON.
+            ⚠ Data level for "{selectedSub}" not found on JSON.
           </p>
         )}
 

@@ -52,8 +52,11 @@ export default function SubcategoryScroll({ items, selected, onSelect }) {
   }, [])
 
   return (
-    <div className="bg-special-cat p-1 w-full overflow-x-auto no-scrollbar mt-4 rounded-xl ">
-      <div className=" flex gap-1 cursor-grab select-none w-max whitespace-nowrap">
+    <div
+      ref={scrollRef}
+      className="bg-special-cat p-1 w-full overflow-x-auto no-scrollbar mt-4 rounded-xl "
+    >
+      <div className=" flex gap-1 cursor-grab select-none w-max ">
         {items.map((item) => (
           <button
             key={item}
