@@ -61,7 +61,7 @@ export default function SubcategoryScroll({ items, selected, onSelect }) {
             className={cn(
               'px-4 py-2 rounded-xl text-sm transition whitespace-nowrap',
               selected === item
-                ? 'bg-lime-500 text-white shadow'
+                ? 'bg-lime-600 text-white shadow'
                 : 'text-zinc-400 hover:text-white'
             )}
           >

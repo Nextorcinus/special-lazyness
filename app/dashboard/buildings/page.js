@@ -32,6 +32,11 @@ export default function Home({ addAnotherTrigger }) {
     setSelectedSub('')
   }, [addAnotherTrigger])
 
+  // fallback untuk proteksi kesalahan sub kategori belum terpilih
+  useEffect(() => {
+    setSelectedSub('')
+  }, [category])
+
   const { trigger } = useAddAnother()
 
   useEffect(() => {

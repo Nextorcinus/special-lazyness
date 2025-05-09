@@ -10,10 +10,13 @@ function parseDuration(str) {
 }
 
 function formatDuration(mins) {
-  const d = Math.floor(mins / 1440)
-  const h = Math.floor((mins % 1440) / 60)
-  const m = Math.round(mins % 60)
-  return `${d}d ${h}h ${m}m`
+  const totalSeconds = Math.round(mins * 60) // Konversi menit ke detik
+  const d = Math.floor(totalSeconds / 86400) // 86400 detik = 1 hari
+  const h = Math.floor((totalSeconds % 86400) / 3600)
+  const m = Math.floor((totalSeconds % 3600) / 60)
+  const s = totalSeconds % 60
+
+  return `${d}d ${h}h ${m}m ${s}s`
 }
 
 function getPetBuff(level) {
@@ -28,12 +31,6 @@ function getPetBuff(level) {
   return map[level] || 0
 }
 
-function getVipBuff(level) {
-  const vipNumber = parseInt(level?.match(/\d+/)?.[0])
-  if (!vipNumber || level === 'Off') return 0
-  return vipNumber >= 9 ? 20 : 10
-}
-
 function getZinmanBuff(level) {
   const map = {
     Off: 0,
@@ -44,6 +41,13 @@ function getZinmanBuff(level) {
     'Lv.5': 15,
   }
   return map[level] || 0
+}
+
+// ✅ Tambahkan ini
+const vpBuff = {
+  Off: 0,
+  '10%': 10,
+  '20%': 20,
 }
 
 export function calculateUpgrade({
@@ -91,7 +95,7 @@ export function calculateUpgrade({
 
   const buffPercent =
     getPetBuff(buffs.petLevel) +
-    getVipBuff(buffs.vipLevel) +
+    (vpBuff[buffs.vpLevel] || 0) +
     getZinmanBuff(buffs.zinmanSkill) +
     (buffs.doubleTime ? 20 : 0) +
     (buffs.constructionSpeed || 0)

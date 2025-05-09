@@ -36,7 +36,7 @@ function BuildingForm({
   const [fromLevel, setFromLevel] = useState('')
   const [toLevel, setToLevel] = useState('')
   const [petLevel, setPetLevel] = useState('Off')
-  const [vipLevel, setVipLevel] = useState('Off')
+  const [vpLevel, setvpLevel] = useState('Off')
   const [doubleTime, setDoubleTime] = useState(false)
   const [zinmanSkill, setZinmanSkill] = useState('Off')
   const [constructionSpeed, setConstructionSpeed] = useState(0)
@@ -44,25 +44,26 @@ function BuildingForm({
   const data = category === 'Basic' ? basicData : fireCrystalData
   const normalizedBuilding = buildingAliasMap[selectedSub] || selectedSub
 
+  // parsing data untuk mengurutkan level yang ada
   const levelOptions = useMemo(() => {
-    const levels = data
-      .filter(
-        (b) =>
-          b.Building?.trim().toLowerCase() ===
-          normalizedBuilding.trim().toLowerCase()
-      )
-      .map((b) => b.Level)
+    const buildingEntries = data.filter(
+      (b) =>
+        b.Building?.trim().toLowerCase() ===
+        normalizedBuilding.trim().toLowerCase()
+    )
 
-    return Array.from(new Set(levels)).sort((a, b) => {
-      const parseLevel = (lvl) =>
-        parseFloat(String(lvl).replace(/[^\d.]/g, '')) || 0
-      return parseLevel(a) - parseLevel(b)
-    })
+    const levels = buildingEntries.map((b) => b.Level)
+    return Array.from(new Set(levels))
   }, [normalizedBuilding, data])
 
+  // perbandingan level dari dan ke
+  // jika from level tidak ada , maka to level akan menampilkan semua level yang ada
+  // jika form level ada maka to level akan menampilkan level yang lebih besar dari from level
   const filteredToLevels = useMemo(() => {
     if (!fromLevel) return levelOptions
-    return levelOptions.filter((level) => level > fromLevel)
+
+    const fromIndex = levelOptions.findIndex((lvl) => lvl === fromLevel)
+    return levelOptions.slice(fromIndex + 1)
   }, [fromLevel, levelOptions])
 
   useEffect(() => {
@@ -71,7 +72,7 @@ function BuildingForm({
     setFromLevel((prev) => prev || defaultValues.fromLevel || '')
     setToLevel((prev) => prev || defaultValues.toLevel || '')
     setPetLevel((prev) => prev || defaultValues.buffs?.petLevel || 'Off')
-    setVipLevel((prev) => prev || defaultValues.buffs?.vipLevel || 'Off')
+    setvpLevel((prev) => prev || defaultValues.buffs?.vpLevel || 'Off')
     setDoubleTime((prev) =>
       typeof prev === 'boolean'
         ? prev
@@ -91,7 +92,7 @@ function BuildingForm({
       toLevel,
       buffs: {
         petLevel,
-        vipLevel,
+        vpLevel,
         doubleTime,
         zinmanSkill,
         constructionSpeed: +constructionSpeed,
@@ -106,18 +107,7 @@ function BuildingForm({
   }
 
   const petLevels = ['Off', 'Lv.1', 'Lv.2', 'Lv.3', 'Lv.4', 'Lv.5']
-  const vipLevels = [
-    'Off',
-    'VIP 4',
-    'VIP 5',
-    'VIP 6',
-    'VIP 7',
-    'VIP 8',
-    'VIP 9',
-    'VIP 10',
-    'VIP 11',
-    'VIP 12',
-  ]
+  const vpLevels = ['Off', '10%', '20%']
   const zinmanLevels = ['Off', 'Lv.1', 'Lv.2', 'Lv.3', 'Lv.4', 'Lv.5']
 
   return (
@@ -187,13 +177,13 @@ function BuildingForm({
             </Select>
           </div>
           <div>
-            <Label className="text-zinc-400">VIP</Label>
-            <Select value={vipLevel} onValueChange={setVipLevel}>
+            <Label className="text-zinc-400">Vp</Label>
+            <Select value={vpLevel} onValueChange={setvpLevel}>
               <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {vipLevels.map((level) => (
+                {vpLevels.map((level) => (
                   <SelectItem key={level} value={level}>
                     {level}
                   </SelectItem>

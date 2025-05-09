@@ -1,6 +1,6 @@
 export function calculateBuffSpeed({
   petLevel = 'Off',
-  vipLevel = 'Off',
+  vpLevel = 'Off',
   zinmanSkill = 'Off',
   doubleTime = false,
   constructionSpeed = 0,
@@ -14,17 +14,10 @@ export function calculateBuffSpeed({
     'Lv.5': 15,
   }
 
-  const vipBuff = {
+  const vpBuff = {
     Off: 0,
-    'VIP 4': 10,
-    'VIP 5': 10,
-    'VIP 6': 10,
-    'VIP 7': 10,
-    'VIP 8': 10,
-    'VIP 9': 20,
-    'VIP 10': 20,
-    'VIP 11': 20,
-    'VIP 12': 20,
+    '10%': 10,
+    '20%': 20,
   }
 
   const zinmanBuff = {
@@ -38,7 +31,7 @@ export function calculateBuffSpeed({
 
   const totalSpeed =
     (petBuff[petLevel] || 0) +
-    (vipBuff[vipLevel] || 0) +
+    (vpBuff[vipLevel] || 0) +
     (zinmanBuff[zinmanSkill] || 0) +
     (doubleTime ? 20 : 0) +
     parseFloat(constructionSpeed || 0)
