@@ -12,9 +12,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="antialiased font-fustat">
-        <div className="min-h-screen bg-gray-900 grid grid-cols-1 lg:grid-cols-[240px_1fr]">
+        <div className="min-h-screen bg-zinc-900 grid grid-cols-1 lg:grid-cols-[240px_1fr]">
           {/* Sidebar untuk Desktop */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:block bg-black">
             <Sidebar />
           </div>
 

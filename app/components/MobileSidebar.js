@@ -12,7 +12,7 @@ import Sidebar from './Sidebar'
 
 export default function MobileSidebar() {
   return (
-    <div className="lg:hidden p-4">
+    <div className="lg:hidden p-4 bg-zinc-800">
       <Sheet>
         <SheetTrigger className="flex flex-col gap-1 p-2 group">
           <span className="w-6 h-0.5 bg-white rounded"></span>
