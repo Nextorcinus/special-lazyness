@@ -189,13 +189,19 @@ export default function Home({ addAnotherTrigger }) {
                   {' '}
                   <br></br>{' '}
                 </span>
-                <span className="text-zinc-300">Reduce Time : </span>
+                <span className="text-zinc-400">Reduce Time : </span>
                 <span className="text-lime-500">{res.timeReduced}</span>
               </div>
 
+              <div className="mt-1 text-zinc-400">
+                SvS Points:{' '}
+                <span className="text-base">
+                  {formatToShortNumber(res.svsPoints || 0)}
+                </span>
+              </div>
               <div>
                 <span className="text-zinc-400 mb-5">Resources: </span>
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-6 gap-4 text-base">
+                <div className="flex flex-wrap gap-x-4 gap-y-2 text-base">
                   {Object.entries(res.resources || {}).map(([key, value]) => {
                     const need = res.rawResources?.[key] || 0
                     const hasCompare = compares[idx] && key in compares[idx]
@@ -205,10 +211,10 @@ export default function Home({ addAnotherTrigger }) {
                     const isMatch = diff === 0
                     const color =
                       diff > 0
-                        ? 'text-green-300 bg-green-700 py-0 px-2 py-1'
+                        ? 'text-green-300 bg-green-700 px-2 py-1'
                         : diff < 0
-                        ? 'text-red-300 bg-red-700 py-0 px-2 py-1'
-                        : 'text-gray-200 bg-gray-600 py-0 px-2 py-1'
+                        ? 'text-red-300 bg-red-500/20 px-2 py-1'
+                        : 'text-gray-200 bg-gray-700 px-2 py-1'
                     const label =
                       diff > 0 ? 'Extra +' : diff < 0 ? 'Need -' : 'Match'
 

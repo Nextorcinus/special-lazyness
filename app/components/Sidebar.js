@@ -38,8 +38,9 @@ export default function Sidebar() {
           <Image
             src="/icon/specialLazynessLogo.png"
             alt="Special Lazyness Logo"
-            width={120}
-            height={40} // or add style={{ height: 'auto' }}
+            width={179}
+            height={43}
+            style={{ height: 'auto' }}
             priority
           />
         </div>

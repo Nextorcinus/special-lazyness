@@ -102,6 +102,13 @@ export function calculateUpgrade({
 
   const reducedMins = totalMins / (1 + buffPercent / 100)
 
+  const totalSvsPoints = range.reduce((sum, item) => {
+    const svs = parseInt(
+      (item['SvS Points'] || '0').toString().replace(/,/g, '')
+    )
+    return sum + (isNaN(svs) ? 0 : svs)
+  }, 0)
+
   return {
     building,
     fromLevel,
@@ -111,5 +118,6 @@ export function calculateUpgrade({
     timeReduced: formatDuration(reducedMins),
     rawResources,
     resources: { ...rawResources },
+    svsPoints: totalSvsPoints,
   }
 }

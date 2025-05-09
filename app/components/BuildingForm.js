@@ -106,6 +106,8 @@ function BuildingForm({
     }
   }
 
+  
+
   const petLevels = ['Off', 'Lv.1', 'Lv.2', 'Lv.3', 'Lv.4', 'Lv.5']
   const vpLevels = ['Off', '10%', '20%']
   const zinmanLevels = ['Off', 'Lv.1', 'Lv.2', 'Lv.3', 'Lv.4', 'Lv.5']
