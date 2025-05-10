@@ -32,7 +32,7 @@ export default function Sidebar() {
   const [hovered, setHovered] = useState(null)
 
   return (
-    <aside className="w-full h-full lg:w-64 bg-[#1F1F1F] text-white justify-between">
+    <aside className="flex flex-col justify-between w-full h-full lg:w-64 bg-[#1F1F1F] text-white">
       <div>
         <div className="flex justify-center p-4">
           <Image
@@ -77,7 +77,7 @@ export default function Sidebar() {
       </div>
 
       {/* Footer */}
-      <div className="p-4 text-center text-xs text-zinc-500">
+      <div className="mt-auto p-4 text-center text-xs text-zinc-400">
         © Special Lazyness
       </div>
     </aside>
