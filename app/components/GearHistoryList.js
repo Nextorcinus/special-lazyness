@@ -1,3 +1,4 @@
+// GearHistoryList.js
 'use client'
 
 import React from 'react'
@@ -5,12 +6,12 @@ import { Card, CardHeader, CardContent } from './ui/card'
 import { Button } from './ui/button'
 import { useGearHistory } from '../dashboard/gear/GearContext'
 
-export default function GearHistoryList() {
+export default function GearHistoryList({ onResetGlobal }) {
   const { history, deleteHistory, resetHistory } = useGearHistory()
 
   const handleReset = () => {
+    // console.log('[GEAR HISTORY] 🧹 Tombol reset diklik')
     resetHistory()
-    window.location.reload() // 🔄 Ini akan mereset semua state seperti refresh
   }
 
   return (

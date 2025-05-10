@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button'
 const gearParts = ['Cap', 'Watch', 'Coat', 'Pants', 'Belt', 'Weapon']
 
 const GearForm = ({ onSubmit, onReset, materialDataLoaded, resetTrigger }) => {
+  // console.log('[GEAR FORM] 🚨 Props:', { resetTrigger })
   const initialState = gearParts.reduce((acc, part) => {
     acc[part] = { from: '', to: '' }
     return acc
@@ -23,8 +24,8 @@ const GearForm = ({ onSubmit, onReset, materialDataLoaded, resetTrigger }) => {
   const [selections, setSelections] = useState(initialState)
 
   useEffect(() => {
+    // console.log('[GEAR FORM] 🔄 resetTrigger berubah:', resetTrigger)
     setSelections(initialState)
-    if (onReset) onReset() // optional: panggil onReset saat reset global juga
   }, [resetTrigger])
 
   const getLevelIndex = (level) => levels.indexOf(level)

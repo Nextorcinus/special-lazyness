@@ -12,14 +12,16 @@ import { useGearHistory } from './GearContext'
 
 const materialData = rawMaterialData.data || []
 
-export default function GearPage({ resetFormTrigger }) {
+export default function GearPage() {
+  const { resetFormTrigger } = useGearHistory()
   const [selectedGears, setSelectedGears] = useState([])
   const [ownResources, setOwnResources] = useState(null)
 
   const { updateHistory, resetHistory } = useGearHistory()
 
   const handleFormSubmit = (selections) => {
-    if (!materialData.length) return console.error('Material data belum dimuat!')
+    if (!materialData.length)
+      return console.error('Material data belum dimuat!')
 
     const gearResults = []
 
@@ -69,9 +71,9 @@ export default function GearPage({ resetFormTrigger }) {
 
   useEffect(() => {
     if (resetFormTrigger) {
+      console.log('[GEAR PAGE] 🧼 resetFormTrigger berubah:', resetFormTrigger)
       setSelectedGears([])
       setOwnResources(null)
-      resetHistory()
     }
   }, [resetFormTrigger])
 
@@ -95,6 +97,7 @@ export default function GearPage({ resetFormTrigger }) {
       <div className="flex flex-col lg:flex-row gap-6 mt-6 w-full">
         <div className="w-full lg:w-8/12">
           <GearForm
+            key={resetFormTrigger}
             onSubmit={handleFormSubmit}
             materialDataLoaded={materialData.length > 0}
             resetTrigger={resetFormTrigger}

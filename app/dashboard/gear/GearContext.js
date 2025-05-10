@@ -36,12 +36,18 @@ export function GearHistoryProvider({ children }) {
   }
 
   const deleteHistory = (id) => {
-    setHistory((prev) => prev.filter((item) => item.id !== id))
+    setHistory((prev) => {
+      const updated = prev.filter((item) => item.id !== id)
+      if (updated.length === 0) {
+        setResetFormTrigger(Date.now()) // 💥 trigger global reset jika sudah kosong
+      }
+      return updated
+    })
   }
 
   const resetHistory = () => {
     setHistory([])
-    setResetFormTrigger(Date.now()) // Trigger new reset
+    setResetFormTrigger(Date.now()) // ⬅️ inilah trigger global reset
   }
 
   return (
