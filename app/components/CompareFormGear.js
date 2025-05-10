@@ -35,7 +35,7 @@ export default function CompareFormGear({ onCompare }) {
         Own Resources
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         <div>
           <label htmlFor="plans" className="text-sm text-zinc-400 block sm:mt-1 sm:mb-1 lg:mt-3">
             Design Plans

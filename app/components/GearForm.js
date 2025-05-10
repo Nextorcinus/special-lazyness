@@ -80,12 +80,12 @@ const GearForm = ({ onSubmit, onReset, materialDataLoaded, resetTrigger }) => {
         return (
           <div key={`${part}-${resetTrigger}`} className="space-y-2">
             <Label className="text-zinc-400">{part}</Label>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-row  gap-4">
               <Select
                 value={selections[part].from}
                 onValueChange={(val) => handleChange(part, 'from', val)}
               >
-                <SelectTrigger className="border-zinc-600 bg-special-input w-full sm:w-1/2 bg-zinc-800 text-white">
+                <SelectTrigger className="border-zinc-600 bg-special-input w-1/2 bg-zinc-800 text-white">
                   <SelectValue placeholder="From" />
                 </SelectTrigger>
                 <SelectContent>
@@ -102,7 +102,7 @@ const GearForm = ({ onSubmit, onReset, materialDataLoaded, resetTrigger }) => {
                 onValueChange={(val) => handleChange(part, 'to', val)}
                 disabled={!fromValue}
               >
-                <SelectTrigger className="bg-special-input border border-zinc-600 w-full sm:w-1/2 bg-zinc-800 text-white">
+                <SelectTrigger className="bg-special-input border border-zinc-600 w-1/2 bg-zinc-800 text-white">
                   <SelectValue placeholder="To" />
                 </SelectTrigger>
                 <SelectContent>
