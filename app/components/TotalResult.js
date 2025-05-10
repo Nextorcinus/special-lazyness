@@ -37,7 +37,7 @@ export default function TotalResult({ results, comparedData = null }) {
 
   return (
     <div className="bg-[#0a0a0a] border border-zinc-900 p-4 rounded-xl mt-6">
-      <h3 className="text-lg lg:text-xl mb-3 text-yellow-400">
+      <h3 className="text-lg lg:text-xl mb-3 text-lime-400">
         Total Result Required
       </h3>
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-md">

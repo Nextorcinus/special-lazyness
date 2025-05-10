@@ -13,7 +13,7 @@ import { useHistory } from './HistoryContext'
 import '../../globals.css'
 import { useAddAnother } from './AddAnotherContext'
 
-// ✅ TERIMA PROPS addAnotherTrigger
+//  TERIMA PROPS addAnotherTrigger
 export default function Home({ addAnotherTrigger }) {
   const [category, setCategory] = useState('Basic')
   const [selectedSub, setSelectedSub] = useState('')
@@ -26,7 +26,7 @@ export default function Home({ addAnotherTrigger }) {
     setCompares(history.map(() => null))
   }, [history])
 
-  // ✅ RESET saat trigger berubah
+  //  RESET saat trigger berubah
   useEffect(() => {
     setCategory('Basic')
     setSelectedSub('')
@@ -134,7 +134,7 @@ export default function Home({ addAnotherTrigger }) {
   return (
     <main className="p-1 md:p-6 text-white w-full">
       <div className="relative bg-special-inside border border-zinc-800 rounded-2xl p-6 shadow-md">
-        <h2 className="text-2xl text-white">Buildings Upgrade Details</h2>
+        <h2 className="text-2xl text-white">Buildings Upgrade </h2>
 
         <CategorySelector selected={category} onChange={setCategory} />
         <SubcategoryScroll
