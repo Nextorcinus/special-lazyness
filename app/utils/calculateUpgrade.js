@@ -1,50 +1,48 @@
 import basicData from '../data/BasicBuilding.json'
 import fireCrystalData from '../data/buildings.json'
 
-function parseDuration(str) {
+// Utility untuk konversi string durasi ke detik
+function parseDurationToSeconds(str) {
   const d = str.match(/(\d+)d/)?.[1] || 0
   const h = str.match(/(\d+)h/)?.[1] || 0
   const m = str.match(/(\d+)m/)?.[1] || 0
-  const s = str.match(/(\d+)s/)?.[1] || 0
-  return +d * 1440 + +h * 60 + +m + +s / 60
+  return +d * 86400 + +h * 3600 + +m * 60
 }
 
-function formatDuration(mins) {
-  const totalSeconds = Math.round(mins * 60) // Konversi menit ke detik
-  const d = Math.floor(totalSeconds / 86400) // 86400 detik = 1 hari
-  const h = Math.floor((totalSeconds % 86400) / 3600)
-  const m = Math.floor((totalSeconds % 3600) / 60)
-  const s = totalSeconds % 60
-
+// Format detik ke string waktu
+function formatDuration(seconds) {
+  const d = Math.floor(seconds / 86400)
+  const h = Math.floor((seconds % 86400) / 3600)
+  const m = Math.floor((seconds % 3600) / 60)
+  const s = Math.floor(seconds % 60)
   return `${d}d ${h}h ${m}m ${s}s`
 }
 
-function getPetBuff(level) {
-  const map = {
-    Off: 0,
-    'Lv.1': 5,
-    'Lv.2': 7,
-    'Lv.3': 9,
-    'Lv.4': 12,
-    'Lv.5': 15,
-  }
-  return map[level] || 0
+// parse untuk menyeesuaikan buff didalam input
+function normalizeBuff(value, map = {}) {
+  return map[value] ?? (parseFloat(value) || 0)
 }
 
-function getZinmanBuff(level) {
-  const map = {
-    Off: 0,
-    'Lv.1': 3,
-    'Lv.2': 6,
-    'Lv.3': 9,
-    'Lv.4': 12,
-    'Lv.5': 15,
-  }
-  return map[level] || 0
+// Mapping Buffs
+const petBuffMap = {
+  Off: 0,
+  'Lv.1': 5,
+  'Lv.2': 7,
+  'Lv.3': 9,
+  'Lv.4': 12,
+  'Lv.5': 15,
 }
 
-// ✅ Tambahkan ini
-const vpBuff = {
+const zinmanBuffMap = {
+  Off: 0,
+  'Lv.1': 3,
+  'Lv.2': 6,
+  'Lv.3': 9,
+  'Lv.4': 12,
+  'Lv.5': 15,
+}
+
+const vpBuffMap = {
   Off: 0,
   '10%': 10,
   '20%': 20,
@@ -67,13 +65,13 @@ export function calculateUpgrade({
   const endIndex = buildingEntries.findIndex((b) => b.Level === toLevel)
 
   if (startIndex === -1 || endIndex === -1 || startIndex >= endIndex) {
-    console.warn('Level tidak ditemukan dalam data:', { fromLevel, toLevel })
+    // console.warn(' Level not found on data:', { fromLevel, toLevel })
     return null
   }
 
   const range = buildingEntries.slice(startIndex + 1, endIndex + 1)
 
-  let totalMins = 0
+  let totalSeconds = 0
   const rawResources = {
     Meat: 0,
     Wood: 0,
@@ -83,41 +81,73 @@ export function calculateUpgrade({
     RFC: 0,
   }
 
+  const zinman = normalizeBuff(buffs.zinmanSkill, zinmanBuffMap)
+  const zinmanMultiplier = 1 - zinman / 100
+
+  // console.log(
+  //   'Building Range:',
+  //   range.map((r) => r.Level)
+  // )
+
   for (const r of range) {
-    totalMins += parseDuration(r.Duration || '0m')
-    rawResources.Meat += +r.Meat?.toString().replace(/[^0-9.]/g, '') || 0
-    rawResources.Wood += +r.Wood?.toString().replace(/[^0-9.]/g, '') || 0
-    rawResources.Coal += +r.Coal?.toString().replace(/[^0-9.]/g, '') || 0
-    rawResources.Iron += +r.Iron?.toString().replace(/[^0-9.]/g, '') || 0
+    const seconds = parseDurationToSeconds(r.Duration || '0m')
+    totalSeconds += seconds
+
+    // console.log(`Duration ${r.Level}: ${r.Duration} = ${seconds}s`)
+
+    // Calculate Zinman skill
+    rawResources.Meat +=
+      (+r.Meat?.toString().replace(/[^0-9.]/g, '') || 0) * zinmanMultiplier
+    rawResources.Wood +=
+      (+r.Wood?.toString().replace(/[^0-9.]/g, '') || 0) * zinmanMultiplier
+    rawResources.Coal +=
+      (+r.Coal?.toString().replace(/[^0-9.]/g, '') || 0) * zinmanMultiplier
+    rawResources.Iron +=
+      (+r.Iron?.toString().replace(/[^0-9.]/g, '') || 0) * zinmanMultiplier
+
+    // Zinman tidak mempengaruhi RFC dan Crystal
     rawResources.Crystal += +r.Crystal || 0
     rawResources.RFC += +r['Refined Fire Crystal'] || 0
   }
 
-  const buffPercent =
-    getPetBuff(buffs.petLevel) +
-    (vpBuff[buffs.vpLevel] || 0) +
-    getZinmanBuff(buffs.zinmanSkill) +
-    (buffs.doubleTime ? 20 : 0) +
-    (buffs.constructionSpeed || 0)
+  const constructionSpeed = parseFloat(buffs.constructionSpeed) || 0
+  const vp = normalizeBuff(buffs.vpLevel, vpBuffMap)
+  const pet = normalizeBuff(buffs.petLevel, petBuffMap)
+  const doubleTime = buffs.doubleTime ? 20 : 0
 
-  const reducedMins = totalMins / (1 + buffPercent / 100)
+  const totalBuff = constructionSpeed + vp + pet + doubleTime // menghapus Zinman tidak mempengaruhi waktu
 
-  const totalSvsPoints = range.reduce((sum, item) => {
-    const svs = parseInt(
-      (item['SvS Points'] || '0').toString().replace(/,/g, '')
-    )
-    return sum + (isNaN(svs) ? 0 : svs)
-  }, 0)
+  // console.log('⚙️ Buff Breakdown:', {
+  //   constructionSpeed,
+  //   vp,
+  //   pet,
+  //   zinman,
+  //   doubleTime,
+  //   totalBuffPercent: totalBuff,
+  // })
+
+  const reducedSeconds = totalSeconds / (1 + totalBuff / 100)
+
+  // console.log('🧮 Total Seconds:', totalSeconds)
+  // console.log('🧮 Reduced Seconds:', reducedSeconds)
+  // console.log('⏳ Formatted Original:', formatDuration(totalSeconds))
+  // console.log('⏳ Formatted Reduced:', formatDuration(reducedSeconds))
+  // console.log('📦 Total Resources:', rawResources)
 
   return {
     building,
     fromLevel,
     toLevel,
     buffs,
-    timeOriginal: formatDuration(totalMins),
-    timeReduced: formatDuration(reducedMins),
+    timeOriginal: formatDuration(totalSeconds),
+    timeReduced: formatDuration(reducedSeconds),
     rawResources,
     resources: { ...rawResources },
-    svsPoints: totalSvsPoints,
+    svsPoints: range.reduce((sum, r) => {
+      const svs = parseInt(
+        (r['SvS Points'] || '0').toString().replace(/,/g, '')
+      )
+      return sum + (isNaN(svs) ? 0 : svs)
+    }, 0),
   }
 }
