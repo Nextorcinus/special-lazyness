@@ -5,6 +5,7 @@ import React from 'react'
 import { Card, CardHeader, CardContent } from './ui/card'
 import { Button } from './ui/button'
 import { useGearHistory } from '../dashboard/gear/GearContext'
+import { toast } from 'sonner'
 
 export default function GearHistoryList({ onResetGlobal }) {
   const { history, deleteHistory, resetHistory } = useGearHistory()
@@ -12,6 +13,7 @@ export default function GearHistoryList({ onResetGlobal }) {
   const handleReset = () => {
     // console.log('[GEAR HISTORY] 🧹 Tombol reset diklik')
     resetHistory()
+    toast.success('All history has been reset.')
   }
 
   return (
@@ -43,7 +45,10 @@ export default function GearHistoryList({ onResetGlobal }) {
               </div>
               <Button
                 className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded"
-                onClick={() => deleteHistory(entry.id)}
+                onClick={() => {
+                  deleteHistory(entry.id)
+                  toast.success(`History ${entry.gear} has been deleted.`)
+                }}
               >
                 Delete
               </Button>

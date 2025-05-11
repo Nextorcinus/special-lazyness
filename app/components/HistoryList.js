@@ -5,10 +5,16 @@ import { Card, CardHeader, CardContent } from './ui/card'
 import { Button } from './ui/button'
 import { useHistory } from '../dashboard/buildings/HistoryContext'
 import { useAddAnother } from '../dashboard/buildings/AddAnotherContext'
+import { toast } from 'sonner'
 
 export default function HistoryList() {
   const { history, deleteHistory, resetHistory } = useHistory()
   const { addAnother } = useAddAnother()
+
+  const handleReset = () => {
+    resetHistory()
+    toast.success('All history has been reset.')
+  }
 
   return (
     <Card className="bg-special-inside text-white mt-10 border border-neutral-700">
@@ -40,7 +46,10 @@ export default function HistoryList() {
                 </div>
                 <Button
                   className="bg-red-600 hover:bg-red-700 text-white px-2  rounded"
-                  onClick={() => deleteHistory(entry.id)}
+                  onClick={() => {
+                    deleteHistory(entry.id)
+                    toast.success(`History ${entry.building} has been deleted.`)
+                  }}
                 >
                   Delete
                 </Button>

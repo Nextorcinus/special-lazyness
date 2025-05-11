@@ -4,6 +4,7 @@ import React from 'react'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
 import { parseNumber } from '../utils/parseNumber'
 import ResourceIcon from '../components/ResourceIcon'
+import { toast } from 'sonner'
 
 function CompareForm({
   requiredResources = {},
@@ -27,8 +28,12 @@ function CompareForm({
       if (value > 0) hasValue = true
     })
 
-    if (!hasValue) return // ❌ jangan kirim compare kosong
+    if (!hasValue) {
+      toast.warning('All inputs are empty. Enter at least one value.')
+      return
+    }
 
+    toast.success('Data successfully sent for comparison!')
     onCompare?.(data)
   }
 

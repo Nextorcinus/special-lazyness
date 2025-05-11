@@ -11,11 +11,12 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
 
 const gearParts = ['Cap', 'Watch', 'Coat', 'Pants', 'Belt', 'Weapon']
 
 const GearForm = ({ onSubmit, onReset, materialDataLoaded, resetTrigger }) => {
-  // console.log('[GEAR FORM] 🚨 Props:', { resetTrigger })
+  // console.log('[GEAR FORM] Props:', { resetTrigger })
   const initialState = gearParts.reduce((acc, part) => {
     acc[part] = { from: '', to: '' }
     return acc
@@ -55,13 +56,17 @@ const GearForm = ({ onSubmit, onReset, materialDataLoaded, resetTrigger }) => {
   const handleCalculate = (e) => {
     e.preventDefault()
     if (materialDataLoaded) {
+      toast.success('Upgrade calculated successfully!')
       onSubmit(selections)
+    } else {
+      toast.warning('Data belum dimuat sepenuhnya.')
     }
   }
 
   const handleLocalReset = () => {
     setSelections(initialState)
     if (onReset) onReset()
+    toast.info('Form telah direset.')
   }
 
   return (

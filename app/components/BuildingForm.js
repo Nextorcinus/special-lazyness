@@ -17,6 +17,7 @@ import {
 } from './ui/select'
 import { Checkbox } from './ui/checkbox'
 import { Button } from './ui/button'
+import { toast } from 'sonner'
 
 const buildingAliasMap = {
   Marksman: 'Marksman',
@@ -100,9 +101,10 @@ function BuildingForm({
     })
 
     if (result) {
+      toast.success('The upgrade calculation was successful!')
       onCalculate(result)
     } else {
-      alert('Level invalid or data not found')
+      toast.error('Invalid level or missing data.')
     }
   }
 

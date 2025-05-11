@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import GearForm from '@/components/GearForm'
 import GearTable from '@/components/GearTable'
 import GearProgress from '@/components/GearProgress'
@@ -16,6 +16,9 @@ export default function GearPage() {
   const { resetFormTrigger } = useGearHistory()
   const [selectedGears, setSelectedGears] = useState([])
   const [ownResources, setOwnResources] = useState(null)
+
+  const resultRef = useRef()
+  const compareRef = useRef()
 
   const { updateHistory, resetHistory } = useGearHistory()
 
@@ -63,15 +66,16 @@ export default function GearPage() {
     })
 
     setSelectedGears(gearResults)
+    resultRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   const handleCompare = (resources) => {
     setOwnResources(resources)
+    compareRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   useEffect(() => {
     if (resetFormTrigger) {
-      console.log('[GEAR PAGE] 🧼 resetFormTrigger berubah:', resetFormTrigger)
       setSelectedGears([])
       setOwnResources(null)
     }
@@ -109,13 +113,15 @@ export default function GearPage() {
         </div>
       </div>
 
-      <div className="lg:flex-row gap-6 mt-6 w-full">
-        {selectedGears.length > 0 && (
-          <>
-            <GearTable data={selectedGears} compare={ownResources} />
-            <GearProgress total={totalMaterial} compare={ownResources} />
-          </>
-        )}
+      <div ref={resultRef} className="lg:flex-row gap-6 mt-6 w-full">
+        <div ref={compareRef}>
+          {selectedGears.length > 0 && (
+            <>
+              <GearTable data={selectedGears} compare={ownResources} />
+              <GearProgress total={totalMaterial} compare={ownResources} />
+            </>
+          )}
+        </div>
       </div>
     </div>
   )
