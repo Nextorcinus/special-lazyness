@@ -22,7 +22,7 @@ export default function HistoryList() {
         <h3 className="text-lg">History Building</h3>
         <Button
           className="bg-slate-500 hover:bg-red-500  text-white px-2 py-0 rounded"
-          onClick={resetHistory}
+          onClick={handleReset}
         >
           Reset
         </Button>

@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { useHistory } from './HistoryContext'
 import '../../globals.css'
 import { useAddAnother } from './AddAnotherContext'
+import { toast } from 'sonner'
 
 //  TERIMA PROPS addAnotherTrigger
 export default function Home({ addAnotherTrigger }) {
@@ -102,6 +103,7 @@ export default function Home({ addAnotherTrigger }) {
     resetHistory()
     setResults([])
     setCompares([])
+    toast.success('History has been reset.')
   }
 
   const handleAddAnother = () => {
