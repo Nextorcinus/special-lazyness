@@ -25,6 +25,12 @@ const menu = [
     icon: '/icon/buildings.png',
     iconHover: '/icon/buildings-hover.png',
   },
+  {
+    label: 'War Academy',
+    href: '/dashboard/war-academy',
+    icon: '/icon/war-academy.png',
+    iconHover: '/icon/war-academy-hover.png',
+  },
 ]
 
 export default function Sidebar() {
