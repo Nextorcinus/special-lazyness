@@ -191,7 +191,11 @@ function BuildingForm({
                 <Label className="text-zinc-400">Vp</Label>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button type="button">
+                    <button
+                      type="button"
+                      onClick={(e) => e.preventDefault()}
+                      onTouchStart={(e) => e.preventDefault()}
+                    >
                       <Info className="w-4 h-4 text-muted-foreground" />
                     </button>
                   </TooltipTrigger>
