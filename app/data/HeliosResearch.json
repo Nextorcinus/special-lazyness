@@ -1,0 +1,3502 @@
+{
+  "Infantry": {
+    "Flame Squad": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 300000,
+          "Wood": 300000,
+          "Coal": 60000,
+          "Iron": 15000,
+          "Steel": 5000,
+          "FC Shards": 16
+        },
+        "raw_time_seconds": 28800,
+        "buff": "+200 Troop Deployment Capacity"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 480000,
+          "Wood": 480000,
+          "Coal": 96000,
+          "Iron": 24000,
+          "Steel": 8000,
+          "FC Shards": 25
+        },
+        "raw_time_seconds": 46080,
+        "buff": "+200 Troop Deployment Capacity"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 780000,
+          "Wood": 780000,
+          "Coal": 150000,
+          "Iron": 39000,
+          "Steel": 13000,
+          "FC Shards": 41
+        },
+        "raw_time_seconds": 74880,
+        "buff": "+200 Troop Deployment Capacity"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 1200000,
+          "Wood": 1200000,
+          "Coal": 250000,
+          "Iron": 64000,
+          "Steel": 21000,
+          "FC Shards": 68
+        },
+        "raw_time_seconds": 123840,
+        "buff": "+200 Troop Deployment Capacity"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 2000000,
+          "Wood": 2000000,
+          "Coal": 400000,
+          "Iron": 100000,
+          "Steel": 33000,
+          "FC Shards": 108
+        },
+        "raw_time_seconds": 194400,
+        "buff": "+200 Troop Deployment Capacity"
+      }
+    ],
+    "Flame Shield": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 800000,
+          "Wood": 800000,
+          "Coal": 160000,
+          "Iron": 40000,
+          "Steel": 10000,
+          "FC Shards": 40
+        },
+        "raw_time_seconds": 72000,
+        "buff": "+1.50% Infantry Health"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 1100000,
+          "Wood": 1100000,
+          "Coal": 220000,
+          "Iron": 56000,
+          "Steel": 14000,
+          "FC Shards": 56
+        },
+        "raw_time_seconds": 100800,
+        "buff": "+1.50% Infantry Health"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1400000,
+          "Wood": 1400000,
+          "Coal": 290000,
+          "Iron": 74000,
+          "Steel": 18000,
+          "FC Shards": 74
+        },
+        "raw_time_seconds": 133200,
+        "buff": "+3.00% Infantry Health"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 2000000,
+          "Wood": 2000000,
+          "Coal": 400000,
+          "Iron": 100000,
+          "Steel": 25000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 183600,
+        "buff": "+3.00% Infantry Health"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 2700000,
+          "Wood": 2700000,
+          "Coal": 540000,
+          "Iron": 130000,
+          "Steel": 34000,
+          "FC Shards": 136
+        },
+        "raw_time_seconds": 244800,
+        "buff": "+3.00% Infantry Health"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 3600000,
+          "Wood": 3600000,
+          "Coal": 730000,
+          "Iron": 180000,
+          "Steel": 46000,
+          "FC Shards": 184
+        },
+        "raw_time_seconds": 331200,
+        "buff": "+3.00% Infantry Health"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 4900000,
+          "Wood": 4900000,
+          "Coal": 990000,
+          "Iron": 240000,
+          "Steel": 62000,
+          "FC Shards": 248
+        },
+        "raw_time_seconds": 446400,
+        "buff": "+5.00% Infantry Health"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 6600000,
+          "Wood": 6600000,
+          "Coal": 1300000,
+          "Iron": 330000,
+          "Steel": 83000,
+          "FC Shards": 334
+        },
+        "raw_time_seconds": 601200,
+        "buff": "+5.00% Infantry Health"
+      }
+    ],
+    "Flame Strike": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 800000,
+          "Wood": 800000,
+          "Coal": 160000,
+          "Iron": 40000,
+          "Steel": 10000,
+          "FC Shards": 40
+        },
+        "raw_time_seconds": 72000,
+        "buff": "+1.50% Infantry Lethality"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 1100000,
+          "Wood": 1100000,
+          "Coal": 220000,
+          "Iron": 56000,
+          "Steel": 14000,
+          "FC Shards": 56
+        },
+        "raw_time_seconds": 100800,
+        "buff": "+1.50% Infantry Lethality"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1400000,
+          "Wood": 1400000,
+          "Coal": 290000,
+          "Iron": 74000,
+          "Steel": 18000,
+          "FC Shards": 74
+        },
+        "raw_time_seconds": 133200,
+        "buff": "+3.00% Infantry Lethality"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 2000000,
+          "Wood": 2000000,
+          "Coal": 400000,
+          "Iron": 100000,
+          "Steel": 25000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 183600,
+        "buff": "+3.00% Infantry Lethality"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 2700000,
+          "Wood": 2700000,
+          "Coal": 540000,
+          "Iron": 130000,
+          "Steel": 34000,
+          "FC Shards": 136
+        },
+        "raw_time_seconds": 244800,
+        "buff": "+3.00% Infantry Lethality"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 3600000,
+          "Wood": 3600000,
+          "Coal": 730000,
+          "Iron": 180000,
+          "Steel": 46000,
+          "FC Shards": 184
+        },
+        "raw_time_seconds": 331200,
+        "buff": "+3.00% Infantry Lethality"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 4900000,
+          "Wood": 4900000,
+          "Coal": 990000,
+          "Iron": 240000,
+          "Steel": 62000,
+          "FC Shards": 248
+        },
+        "raw_time_seconds": 446400,
+        "buff": "+5.00% Infantry Lethality"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 6600000,
+          "Wood": 6600000,
+          "Coal": 1300000,
+          "Iron": 330000,
+          "Steel": 83000,
+          "FC Shards": 334
+        },
+        "raw_time_seconds": 601200,
+        "buff": "+5.00% Infantry Lethality"
+      }
+    ],
+    "Flame Tomahawk": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 700000,
+          "Wood": 700000,
+          "Coal": 140000,
+          "Iron": 35000,
+          "Steel": 15000,
+          "FC Shards": 54
+        },
+        "raw_time_seconds": 68140,
+        "buff": "+2.00% Infantry Attack"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 860000,
+          "Wood": 860000,
+          "Coal": 170000,
+          "Iron": 43000,
+          "Steel": 18000,
+          "FC Shards": 66
+        },
+        "raw_time_seconds": 83812,
+        "buff": "+2.00% Infantry Attack"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1000000,
+          "Wood": 1000000,
+          "Coal": 210000,
+          "Iron": 52000,
+          "Steel": 22000,
+          "FC Shards": 81
+        },
+        "raw_time_seconds": 102210,
+        "buff": "+2.00% Infantry Attack"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 1200000,
+          "Wood": 1200000,
+          "Coal": 250000,
+          "Iron": 63000,
+          "Steel": 27000,
+          "FC Shards": 97
+        },
+        "raw_time_seconds": 122652,
+        "buff": "+2.50% Infantry Attack"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 1500000,
+          "Wood": 1500000,
+          "Coal": 300000,
+          "Iron": 77000,
+          "Steel": 33000,
+          "FC Shards": 118
+        },
+        "raw_time_seconds": 149908,
+        "buff": "+2.50% Infantry Attack"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 1800000,
+          "Wood": 1800000,
+          "Coal": 370000,
+          "Iron": 94000,
+          "Steel": 40000,
+          "FC Shards": 145
+        },
+        "raw_time_seconds": 183978,
+        "buff": "+3.00% Infantry Attack"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 2300000,
+          "Wood": 2300000,
+          "Coal": 460000,
+          "Iron": 110000,
+          "Steel": 49000,
+          "FC Shards": 178
+        },
+        "raw_time_seconds": 224862,
+        "buff": "+3.00% Infantry Attack"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 2800000,
+          "Wood": 2800000,
+          "Coal": 560000,
+          "Iron": 140000,
+          "Steel": 60000,
+          "FC Shards": 216
+        },
+        "raw_time_seconds": 272560,
+        "buff": "+3.00% Infantry Attack"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 3500000,
+          "Wood": 3500000,
+          "Coal": 700000,
+          "Iron": 170000,
+          "Steel": 75000,
+          "FC Shards": 270
+        },
+        "raw_time_seconds": 340700,
+        "buff": "+5.00% Infantry Attack"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 4200000,
+          "Wood": 4200000,
+          "Coal": 840000,
+          "Iron": 210000,
+          "Steel": 90000,
+          "FC Shards": 324
+        },
+        "raw_time_seconds": 408840,
+        "buff": "+5.00% Infantry Attack"
+      },
+      {
+        "level": 11,
+        "resources": {
+          "Meat": 5000000,
+          "Wood": 5000000,
+          "Coal": 1000000,
+          "Iron": 250000,
+          "Steel": 100000,
+          "FC Shards": 388
+        },
+        "raw_time_seconds": 490608,
+        "buff": "+5.00% Infantry Attack"
+      },
+      {
+        "level": 12,
+        "resources": {
+          "Meat": 6200000,
+          "Wood": 6200000,
+          "Coal": 1200000,
+          "Iron": 310000,
+          "Steel": 130000,
+          "FC Shards": 480
+        },
+        "raw_time_seconds": 606446,
+        "buff": "+5.00% Infantry Attack"
+      }
+    ],
+    "Flame Protection": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 700000,
+          "Wood": 700000,
+          "Coal": 140000,
+          "Iron": 35000,
+          "Steel": 15000,
+          "FC Shards": 54
+        },
+        "raw_time_seconds": 68140,
+        "buff": "+2.00% Infantry Defense"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 860000,
+          "Wood": 860000,
+          "Coal": 170000,
+          "Iron": 43000,
+          "Steel": 18000,
+          "FC Shards": 66
+        },
+        "raw_time_seconds": 83812,
+        "buff": "+2.00% Infantry Defense"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1000000,
+          "Wood": 1000000,
+          "Coal": 210000,
+          "Iron": 52000,
+          "Steel": 22000,
+          "FC Shards": 81
+        },
+        "raw_time_seconds": 102210,
+        "buff": "+2.00% Infantry Defense"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 1200000,
+          "Wood": 1200000,
+          "Coal": 250000,
+          "Iron": 63000,
+          "Steel": 27000,
+          "FC Shards": 97
+        },
+        "raw_time_seconds": 122652,
+        "buff": "+2.50% Infantry Defense"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 1500000,
+          "Wood": 1500000,
+          "Coal": 300000,
+          "Iron": 77000,
+          "Steel": 33000,
+          "FC Shards": 118
+        },
+        "raw_time_seconds": 149908,
+        "buff": "+2.50% Infantry Defense"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 1800000,
+          "Wood": 1800000,
+          "Coal": 370000,
+          "Iron": 94000,
+          "Steel": 40000,
+          "FC Shards": 145
+        },
+        "raw_time_seconds": 183978,
+        "buff": "+3.00% Infantry Defense"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 2300000,
+          "Wood": 2300000,
+          "Coal": 460000,
+          "Iron": 110000,
+          "Steel": 49000,
+          "FC Shards": 178
+        },
+        "raw_time_seconds": 224862,
+        "buff": "+3.00% Infantry Defense"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 2800000,
+          "Wood": 2800000,
+          "Coal": 560000,
+          "Iron": 140000,
+          "Steel": 60000,
+          "FC Shards": 216
+        },
+        "raw_time_seconds": 272560,
+        "buff": "+3.00% Infantry Defense"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 3500000,
+          "Wood": 3500000,
+          "Coal": 700000,
+          "Iron": 170000,
+          "Steel": 75000,
+          "FC Shards": 270
+        },
+        "raw_time_seconds": 340700,
+        "buff": "+5.00% Infantry Defense"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 4200000,
+          "Wood": 4200000,
+          "Coal": 840000,
+          "Iron": 210000,
+          "Steel": 90000,
+          "FC Shards": 324
+        },
+        "raw_time_seconds": 408840,
+        "buff": "+5.00% Infantry Defense"
+      },
+      {
+        "level": 11,
+        "resources": {
+          "Meat": 5000000,
+          "Wood": 5000000,
+          "Coal": 1000000,
+          "Iron": 250000,
+          "Steel": 100000,
+          "FC Shards": 388
+        },
+        "raw_time_seconds": 490608,
+        "buff": "+5.00% Infantry Defense"
+      }
+    ],
+    "Flame  Protection": [
+      {
+        "level": 12,
+        "resources": {
+          "Meat": 6200000,
+          "Wood": 6200000,
+          "Coal": 1200000,
+          "Iron": 310000,
+          "Steel": 130000,
+          "FC Shards": 480
+        },
+        "raw_time_seconds": 606446,
+        "buff": "+5.00% Infantry Defense"
+      }
+    ],
+    "Flame Legion": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 1000000,
+          "Wood": 1000000,
+          "Coal": 210000,
+          "Iron": 54000,
+          "Steel": 23000,
+          "FC Shards": 83
+        },
+        "raw_time_seconds": 105617,
+        "buff": "+1,500 Rally Capacity"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 1300000,
+          "Wood": 1300000,
+          "Coal": 260000,
+          "Iron": 66000,
+          "Steel": 28000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 129908,
+        "buff": "+1,500 Rally Capacity"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1600000,
+          "Wood": 1600000,
+          "Coal": 320000,
+          "Iron": 81000,
+          "Steel": 34000,
+          "FC Shards": 125
+        },
+        "raw_time_seconds": 158425,
+        "buff": "+2,000 Rally Capacity"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 1900000,
+          "Wood": 1900000,
+          "Coal": 390000,
+          "Iron": 97000,
+          "Steel": 41000,
+          "FC Shards": 150
+        },
+        "raw_time_seconds": 190110,
+        "buff": "+2,000 Rally Capacity"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 2300000,
+          "Wood": 2300000,
+          "Coal": 470000,
+          "Iron": 110000,
+          "Steel": 51000,
+          "FC Shards": 184
+        },
+        "raw_time_seconds": 232357,
+        "buff": "+2,500 Rally Capacity"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 2900000,
+          "Wood": 2900000,
+          "Coal": 580000,
+          "Iron": 140000,
+          "Steel": 62000,
+          "FC Shards": 225
+        },
+        "raw_time_seconds": 285165,
+        "buff": "+2,500 Rally Capacity"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 3500000,
+          "Wood": 3500000,
+          "Coal": 710000,
+          "Iron": 170000,
+          "Steel": 76000,
+          "FC Shards": 276
+        },
+        "raw_time_seconds": 348536,
+        "buff": "+2,500 Rally Capacity"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 4300000,
+          "Wood": 4300000,
+          "Coal": 860000,
+          "Iron": 210000,
+          "Steel": 93000,
+          "FC Shards": 334
+        },
+        "raw_time_seconds": 422468,
+        "buff": "+3,000 Rally Capacity"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 5400000,
+          "Wood": 5400000,
+          "Coal": 1000000,
+          "Iron": 270000,
+          "Steel": 110000,
+          "FC Shards": 418
+        },
+        "raw_time_seconds": 528085,
+        "buff": "+3,500 Rally Capacity"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 6500000,
+          "Wood": 6500000,
+          "Coal": 1300000,
+          "Iron": 320000,
+          "Steel": 130000,
+          "FC Shards": 502
+        },
+        "raw_time_seconds": 633702,
+        "buff": "+4,000 Rally Capacity"
+      },
+      {
+        "level": 11,
+        "resources": {
+          "Meat": 7800000,
+          "Wood": 7800000,
+          "Coal": 1500000,
+          "Iron": 390000,
+          "Steel": 160000,
+          "FC Shards": 602
+        },
+        "raw_time_seconds": 760442,
+        "buff": "+4,000 Rally Capacity"
+      },
+      {
+        "level": 12,
+        "resources": {
+          "Meat": 9600000,
+          "Wood": 9600000,
+          "Coal": 1900000,
+          "Iron": 480000,
+          "Steel": 200000,
+          "FC Shards": 744
+        },
+        "raw_time_seconds": 939991,
+        "buff": "+4,500 Rally Capacity"
+      }
+    ],
+    "Helios Infantry": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 85000000,
+          "Wood": 85000000,
+          "Coal": 17000000,
+          "Iron": 4200000,
+          "Steel": 1000000,
+          "FC Shards": 2236
+        },
+        "raw_time_seconds": 7892100,
+        "buff": "Unlock XI Helios Infantry"
+      }
+    ],
+    "Helios Infantry Healing": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 2500000,
+          "Wood": 2500000,
+          "Coal": 500000,
+          "Iron": 120000,
+          "Steel": 30000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 180000,
+        "buff": "+5.00% Helios Infantry Healing Cost Reduction"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 3300000,
+          "Wood": 3300000,
+          "Coal": 670000,
+          "Iron": 160000,
+          "Steel": 40000,
+          "FC Shards": 137
+        },
+        "raw_time_seconds": 243000,
+        "buff": "+5.00% Helios Infantry Healing Cost Reduction"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 4600000,
+          "Wood": 4600000,
+          "Coal": 920000,
+          "Iron": 230000,
+          "Steel": 55000,
+          "FC Shards": 188
+        },
+        "raw_time_seconds": 333000,
+        "buff": "+5.00% Helios Infantry Healing Cost Reduction"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 6200000,
+          "Wood": 6200000,
+          "Coal": 1200000,
+          "Iron": 310000,
+          "Steel": 75000,
+          "FC Shards": 255
+        },
+        "raw_time_seconds": 450000,
+        "buff": "+5.00% Helios Infantry Healing Cost Reduction"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 8300000,
+          "Wood": 8300000,
+          "Coal": 1600000,
+          "Iron": 410000,
+          "Steel": 100000,
+          "FC Shards": 341
+        },
+        "raw_time_seconds": 603000,
+        "buff": "+5.00% Helios Infantry Healing Cost Reduction"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 11000000,
+          "Wood": 11000000,
+          "Coal": 2200000,
+          "Iron": 560000,
+          "Steel": 130000,
+          "FC Shards": 459
+        },
+        "raw_time_seconds": 810000,
+        "buff": "+5.00% Helios Infantry Healing Cost Reduction"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 15000000,
+          "Wood": 15000000,
+          "Coal": 3000000,
+          "Iron": 750000,
+          "Steel": 180000,
+          "FC Shards": 612
+        },
+        "raw_time_seconds": 1080000,
+        "buff": "+5.00% Helios Infantry Healing Cost Reduction"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 20000000,
+          "Wood": 20000000,
+          "Coal": 4100000,
+          "Iron": 1000000,
+          "Steel": 240000,
+          "FC Shards": 836
+        },
+        "raw_time_seconds": 1476000,
+        "buff": "+5.00% Helios Infantry Healing Cost Reduction"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "+5.00% Helios Infantry Healing Cost Reduction"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "+5.00% Helios Infantry Healing Cost Reduction"
+      }
+    ],
+    "Helios Infantry Training": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 2500000,
+          "Wood": 2500000,
+          "Coal": 500000,
+          "Iron": 120000,
+          "Steel": 30000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 180000,
+        "buff": "+5.00% Helios Infantry Training Cost Reduction"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 3300000,
+          "Wood": 3300000,
+          "Coal": 670000,
+          "Iron": 160000,
+          "Steel": 40000,
+          "FC Shards": 137
+        },
+        "raw_time_seconds": 243000,
+        "buff": "+5.00% Helios Infantry Training Cost Reduction"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 4600000,
+          "Wood": 4600000,
+          "Coal": 920000,
+          "Iron": 230000,
+          "Steel": 55000,
+          "FC Shards": 188
+        },
+        "raw_time_seconds": 333000,
+        "buff": "+5.00% Helios Infantry Training Cost Reduction"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 6200000,
+          "Wood": 6200000,
+          "Coal": 1200000,
+          "Iron": 310000,
+          "Steel": 75000,
+          "FC Shards": 255
+        },
+        "raw_time_seconds": 450000,
+        "buff": "+5.00% Helios Infantry Training Cost Reduction"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 8300000,
+          "Wood": 8300000,
+          "Coal": 1600000,
+          "Iron": 410000,
+          "Steel": 100000,
+          "FC Shards": 341
+        },
+        "raw_time_seconds": 603000,
+        "buff": "+5.00% Helios Infantry Training Cost Reduction"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 11000000,
+          "Wood": 11000000,
+          "Coal": 2200000,
+          "Iron": 560000,
+          "Steel": 130000,
+          "FC Shards": 459
+        },
+        "raw_time_seconds": 810000,
+        "buff": "+5.00% Helios Infantry Training Cost Reduction"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 15000000,
+          "Wood": 15000000,
+          "Coal": 3000000,
+          "Iron": 750000,
+          "Steel": 180000,
+          "FC Shards": 612
+        },
+        "raw_time_seconds": 1080000,
+        "buff": "+5.00% Helios Infantry Training Cost Reduction"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 20000000,
+          "Wood": 20000000,
+          "Coal": 4100000,
+          "Iron": 1000000,
+          "Steel": 240000,
+          "FC Shards": 836
+        },
+        "raw_time_seconds": 1476000,
+        "buff": "+5.00% Helios Infantry Training Cost Reduction"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "+5.00% Helios Infantry Training Cost Reduction"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "+5.00% Helios Infantry Training Cost Reduction"
+      }
+    ],
+    "Helios Infantry First Aid": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 1200000,
+          "Wood": 1200000,
+          "Coal": 250000,
+          "Iron": 62000,
+          "Steel": 15000,
+          "FC Shards": 51
+        },
+        "raw_time_seconds": 90000,
+        "buff": "+1.50% Helios Infantry Healing Time Reduction"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 1600000,
+          "Wood": 1600000,
+          "Coal": 330000,
+          "Iron": 84000,
+          "Steel": 20000,
+          "FC Shards": 68
+        },
+        "raw_time_seconds": 121500,
+        "buff": "+1.50% Helios Infantry Healing Time Reduction"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 2300000,
+          "Wood": 2300000,
+          "Coal": 460000,
+          "Iron": 110000,
+          "Steel": 27000,
+          "FC Shards": 94
+        },
+        "raw_time_seconds": 166500,
+        "buff": "+1.50% Helios Infantry Healing Time Reduction"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 3100000,
+          "Wood": 3100000,
+          "Coal": 620000,
+          "Iron": 150000,
+          "Steel": 37000,
+          "FC Shards": 127
+        },
+        "raw_time_seconds": 225000,
+        "buff": "+1.50% Helios Infantry Healing Time Reduction"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 4100000,
+          "Wood": 4100000,
+          "Coal": 830000,
+          "Iron": 200000,
+          "Steel": 50000,
+          "FC Shards": 170
+        },
+        "raw_time_seconds": 301500,
+        "buff": "+1.50% Helios Infantry Healing Time Reduction"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 5600000,
+          "Wood": 5600000,
+          "Coal": 1100000,
+          "Iron": 280000,
+          "Steel": 67000,
+          "FC Shards": 229
+        },
+        "raw_time_seconds": 405000,
+        "buff": "+1.50% Helios Infantry Healing Time Reduction"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 7500000,
+          "Wood": 7500000,
+          "Coal": 1500000,
+          "Iron": 370000,
+          "Steel": 90000,
+          "FC Shards": 306
+        },
+        "raw_time_seconds": 540000,
+        "buff": "+1.50% Helios Infantry Healing Time Reduction"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 10000000,
+          "Wood": 10000000,
+          "Coal": 2000000,
+          "Iron": 510000,
+          "Steel": 120000,
+          "FC Shards": 418
+        },
+        "raw_time_seconds": 738000,
+        "buff": "+1.50% Helios Infantry Healing Time Reduction"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 13000000,
+          "Wood": 13000000,
+          "Coal": 2700000,
+          "Iron": 680000,
+          "Steel": 160000,
+          "FC Shards": 561
+        },
+        "raw_time_seconds": 990000,
+        "buff": "+1.50% Helios Infantry Healing Time Reduction"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 18000000,
+          "Wood": 18000000,
+          "Coal": 3700000,
+          "Iron": 930000,
+          "Steel": 220000,
+          "FC Shards": 765
+        },
+        "raw_time_seconds": 1350000,
+        "buff": "+1.50% Helios Infantry Healing Time Reduction"
+      }
+    ]
+  },
+  "Marksman": {
+    "Flame Squad": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 300000,
+          "Wood": 300000,
+          "Coal": 60000,
+          "Iron": 15000,
+          "Steel": 5000,
+          "FC Shards": 16
+        },
+        "raw_time_seconds": 28800,
+        "buff": "+200 Troop Deployment Capacity"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 480000,
+          "Wood": 480000,
+          "Coal": 96000,
+          "Iron": 24000,
+          "Steel": 8000,
+          "FC Shards": 25
+        },
+        "raw_time_seconds": 46080,
+        "buff": "+200 Troop Deployment Capacity"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 780000,
+          "Wood": 780000,
+          "Coal": 150000,
+          "Iron": 39000,
+          "Steel": 13000,
+          "FC Shards": 41
+        },
+        "raw_time_seconds": 74880,
+        "buff": "+200 Troop Deployment Capacity"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 1200000,
+          "Wood": 1200000,
+          "Coal": 250000,
+          "Iron": 64000,
+          "Steel": 21000,
+          "FC Shards": 68
+        },
+        "raw_time_seconds": 123840,
+        "buff": "+200 Troop Deployment Capacity"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 2000000,
+          "Wood": 2000000,
+          "Coal": 400000,
+          "Iron": 100000,
+          "Steel": 33000,
+          "FC Shards": 108
+        },
+        "raw_time_seconds": 194400,
+        "buff": "+200 Troop Deployment Capacity"
+      }
+    ],
+    "Crystal Armor": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 800000,
+          "Wood": 800000,
+          "Coal": 160000,
+          "Iron": 40000,
+          "Steel": 10000,
+          "FC Shards": 40
+        },
+        "raw_time_seconds": 72000,
+        "buff": "+1.50% Marksman Health"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 1100000,
+          "Wood": 1100000,
+          "Coal": 220000,
+          "Iron": 56000,
+          "Steel": 14000,
+          "FC Shards": 56
+        },
+        "raw_time_seconds": 100800,
+        "buff": "+1.50% Marksman Health"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1400000,
+          "Wood": 1400000,
+          "Coal": 290000,
+          "Iron": 74000,
+          "Steel": 18000,
+          "FC Shards": 74
+        },
+        "raw_time_seconds": 133200,
+        "buff": "+3.00% Marksman Health"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 2000000,
+          "Wood": 2000000,
+          "Coal": 400000,
+          "Iron": 100000,
+          "Steel": 25000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 183600,
+        "buff": "+3.00% Marksman Health"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 2700000,
+          "Wood": 2700000,
+          "Coal": 540000,
+          "Iron": 130000,
+          "Steel": 34000,
+          "FC Shards": 136
+        },
+        "raw_time_seconds": 244800,
+        "buff": "+3.00% Marksman Health"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 3600000,
+          "Wood": 3600000,
+          "Coal": 730000,
+          "Iron": 180000,
+          "Steel": 46000,
+          "FC Shards": 184
+        },
+        "raw_time_seconds": 331200,
+        "buff": "+3.00% Marksman Health"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 4900000,
+          "Wood": 4900000,
+          "Coal": 990000,
+          "Iron": 240000,
+          "Steel": 46000,
+          "FC Shards": 248
+        },
+        "raw_time_seconds": 446400,
+        "buff": "+5.00% Marksman Health"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 6600000,
+          "Wood": 6600000,
+          "Coal": 1300000,
+          "Iron": 330000,
+          "Steel": 83000,
+          "FC Shards": 334
+        },
+        "raw_time_seconds": 601200,
+        "buff": "+5.00% Marksman Health"
+      }
+    ],
+    "Crystal Vision": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 800000,
+          "Wood": 800000,
+          "Coal": 160000,
+          "Iron": 40000,
+          "Steel": 10000,
+          "FC Shards": 40
+        },
+        "raw_time_seconds": 72000,
+        "buff": "+1.50% Marksman Lethality"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 1100000,
+          "Wood": 1100000,
+          "Coal": 220000,
+          "Iron": 56000,
+          "Steel": 14000,
+          "FC Shards": 56
+        },
+        "raw_time_seconds": 100800,
+        "buff": "+1.50% Marksman Lethality"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1400000,
+          "Wood": 1400000,
+          "Coal": 290000,
+          "Iron": 74000,
+          "Steel": 18000,
+          "FC Shards": 74
+        },
+        "raw_time_seconds": 133200,
+        "buff": "+3.00% Marksman Lethality"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 2000000,
+          "Wood": 2000000,
+          "Coal": 400000,
+          "Iron": 100000,
+          "Steel": 25000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 183600,
+        "buff": "+3.00% Marksman Lethality"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 2700000,
+          "Wood": 2700000,
+          "Coal": 540000,
+          "Iron": 130000,
+          "Steel": 34000,
+          "FC Shards": 136
+        },
+        "raw_time_seconds": 244800,
+        "buff": "+3.00% Marksman Lethality"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 3600000,
+          "Wood": 3600000,
+          "Coal": 730000,
+          "Iron": 180000,
+          "Steel": 46000,
+          "FC Shards": 184
+        },
+        "raw_time_seconds": 331200,
+        "buff": "+3.00% Marksman Lethality"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 4900000,
+          "Wood": 4900000,
+          "Coal": 990000,
+          "Iron": 240000,
+          "Steel": 62000,
+          "FC Shards": 248
+        },
+        "raw_time_seconds": 446400,
+        "buff": "+5.00% Marksman Lethality"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 6600000,
+          "Wood": 6600000,
+          "Coal": 1300000,
+          "Iron": 330000,
+          "Steel": 83000,
+          "FC Shards": 334
+        },
+        "raw_time_seconds": 601200,
+        "buff": "+5.00% Marksman Lethality"
+      }
+    ],
+    "Crystal Arrow": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 700000,
+          "Wood": 700000,
+          "Coal": 140000,
+          "Iron": 35000,
+          "Steel": 15000,
+          "FC Shards": 54
+        },
+        "raw_time_seconds": 68140,
+        "buff": "+2.00% Marksman Attack"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 860000,
+          "Wood": 860000,
+          "Coal": 170000,
+          "Iron": 43000,
+          "Steel": 18000,
+          "FC Shards": 66
+        },
+        "raw_time_seconds": 83812,
+        "buff": "+2.00% Marksman Attack"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1000000,
+          "Wood": 1000000,
+          "Coal": 210000,
+          "Iron": 52000,
+          "Steel": 22000,
+          "FC Shards": 81
+        },
+        "raw_time_seconds": 102210,
+        "buff": "+2.00% Marksman Attack"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 1200000,
+          "Wood": 1200000,
+          "Coal": 250000,
+          "Iron": 63000,
+          "Steel": 27000,
+          "FC Shards": 97
+        },
+        "raw_time_seconds": 122652,
+        "buff": "+2.50% Marksman Attack"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 1500000,
+          "Wood": 1500000,
+          "Coal": 300000,
+          "Iron": 77000,
+          "Steel": 33000,
+          "FC Shards": 118
+        },
+        "raw_time_seconds": 149908,
+        "buff": "+2.50% Marksman Attack"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 1800000,
+          "Wood": 1800000,
+          "Coal": 370000,
+          "Iron": 94000,
+          "Steel": 40000,
+          "FC Shards": 145
+        },
+        "raw_time_seconds": 183978,
+        "buff": "+3.00% Marksman Attack"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 2300000,
+          "Wood": 2300000,
+          "Coal": 460000,
+          "Iron": 94000,
+          "Steel": 49000,
+          "FC Shards": 178
+        },
+        "raw_time_seconds": 224862,
+        "buff": "+3.00% Marksman Attack"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 2800000,
+          "Wood": 2800000,
+          "Coal": 560000,
+          "Iron": 140000,
+          "Steel": 60000,
+          "FC Shards": 216
+        },
+        "raw_time_seconds": 272560,
+        "buff": "+3.00% Marksman Attack"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 3500000,
+          "Wood": 3500000,
+          "Coal": 700000,
+          "Iron": 170000,
+          "Steel": 75000,
+          "FC Shards": 270
+        },
+        "raw_time_seconds": 340700,
+        "buff": "+5.00% Marksman Attack"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 4200000,
+          "Wood": 4200000,
+          "Coal": 840000,
+          "Iron": 210000,
+          "Steel": 90000,
+          "FC Shards": 324
+        },
+        "raw_time_seconds": 408840,
+        "buff": "+5.00% Marksman Attack"
+      },
+      {
+        "level": 11,
+        "resources": {
+          "Meat": 5000000,
+          "Wood": 5000000,
+          "Coal": 1000000,
+          "Iron": 250000,
+          "Steel": 100000,
+          "FC Shards": 388
+        },
+        "raw_time_seconds": 490608,
+        "buff": "+5.00% Marksman Attack"
+      },
+      {
+        "level": 12,
+        "resources": {
+          "Meat": 6200000,
+          "Wood": 6200000,
+          "Coal": 1200000,
+          "Iron": 310000,
+          "Steel": 130000,
+          "FC Shards": 480
+        },
+        "raw_time_seconds": 606446,
+        "buff": "+5.00% Marksman Attack"
+      }
+    ],
+    "Crystal Protection": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 700000,
+          "Wood": 700000,
+          "Coal": 140000,
+          "Iron": 35000,
+          "Steel": 15000,
+          "FC Shards": 54
+        },
+        "raw_time_seconds": 68140,
+        "buff": "+2.00% Marksman Defense"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 860000,
+          "Wood": 860000,
+          "Coal": 170000,
+          "Iron": 43000,
+          "Steel": 18000,
+          "FC Shards": 66
+        },
+        "raw_time_seconds": 83812,
+        "buff": "+2.00% Marksman Defense"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1000000,
+          "Wood": 1000000,
+          "Coal": 210000,
+          "Iron": 52000,
+          "Steel": 22000,
+          "FC Shards": 81
+        },
+        "raw_time_seconds": 102210,
+        "buff": "+2.00% Marksman Defense"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 1200000,
+          "Wood": 1200000,
+          "Coal": 250000,
+          "Iron": 63000,
+          "Steel": 27000,
+          "FC Shards": 97
+        },
+        "raw_time_seconds": 122652,
+        "buff": "+2.50% Marksman Defense"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 1500000,
+          "Wood": 1500000,
+          "Coal": 300000,
+          "Iron": 77000,
+          "Steel": 33000,
+          "FC Shards": 118
+        },
+        "raw_time_seconds": 149908,
+        "buff": "+2.50% Marksman Defense"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 1800000,
+          "Wood": 1800000,
+          "Coal": 370000,
+          "Iron": 94000,
+          "Steel": 40000,
+          "FC Shards": 145
+        },
+        "raw_time_seconds": 183978,
+        "buff": "+3.00% Marksman Defense"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 2300000,
+          "Wood": 2300000,
+          "Coal": 460000,
+          "Iron": 110000,
+          "Steel": 49000,
+          "FC Shards": 178
+        },
+        "raw_time_seconds": 224862,
+        "buff": "+3.00% Marksman Defense"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 2800000,
+          "Wood": 2800000,
+          "Coal": 560000,
+          "Iron": 140000,
+          "Steel": 60000,
+          "FC Shards": 216
+        },
+        "raw_time_seconds": 272560,
+        "buff": "+3.00% Marksman Defense"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 3500000,
+          "Wood": 3500000,
+          "Coal": 700000,
+          "Iron": 170000,
+          "Steel": 75000,
+          "FC Shards": 270
+        },
+        "raw_time_seconds": 340700,
+        "buff": "+5.00% Marksman Defense"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 4200000,
+          "Wood": 4200000,
+          "Coal": 840000,
+          "Iron": 210000,
+          "Steel": 90000,
+          "FC Shards": 324
+        },
+        "raw_time_seconds": 408840,
+        "buff": "+5.00% Marksman Defense"
+      },
+      {
+        "level": 11,
+        "resources": {
+          "Meat": 5000000,
+          "Wood": 5000000,
+          "Coal": 1000000,
+          "Iron": 250000,
+          "Steel": 100000,
+          "FC Shards": 388
+        },
+        "raw_time_seconds": 490608,
+        "buff": "+5.00% Marksman Defense"
+      },
+      {
+        "level": 12,
+        "resources": {
+          "Meat": 6200000,
+          "Wood": 6200000,
+          "Coal": 1200000,
+          "Iron": 310000,
+          "Steel": 130000,
+          "FC Shards": 480
+        },
+        "raw_time_seconds": 606446,
+        "buff": "+5.00% Marksman Defense"
+      }
+    ],
+    "Flame Legion": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 1000000,
+          "Wood": 1000000,
+          "Coal": 210000,
+          "Iron": 54000,
+          "Steel": 23000,
+          "FC Shards": 83
+        },
+        "raw_time_seconds": 105617,
+        "buff": "+1,500 Rally Capacity"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 1300000,
+          "Wood": 1300000,
+          "Coal": 260000,
+          "Iron": 66000,
+          "Steel": 28000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 129908,
+        "buff": "+1,500 Rally Capacity"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1600000,
+          "Wood": 1600000,
+          "Coal": 320000,
+          "Iron": 81000,
+          "Steel": 34000,
+          "FC Shards": 125
+        },
+        "raw_time_seconds": 158425,
+        "buff": "+2,000 Rally Capacity"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 1900000,
+          "Wood": 1900000,
+          "Coal": 390000,
+          "Iron": 97000,
+          "Steel": 41000,
+          "FC Shards": 150
+        },
+        "raw_time_seconds": 190110,
+        "buff": "+2,000 Rally Capacity"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 2300000,
+          "Wood": 2300000,
+          "Coal": 470000,
+          "Iron": 110000,
+          "Steel": 51000,
+          "FC Shards": 184
+        },
+        "raw_time_seconds": 232357,
+        "buff": "+2,500 Rally Capacity"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 2900000,
+          "Wood": 2900000,
+          "Coal": 580000,
+          "Iron": 140000,
+          "Steel": 62000,
+          "FC Shards": 225
+        },
+        "raw_time_seconds": 285165,
+        "buff": "+2,500 Rally Capacity"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 3500000,
+          "Wood": 3500000,
+          "Coal": 710000,
+          "Iron": 170000,
+          "Steel": 76000,
+          "FC Shards": 276
+        },
+        "raw_time_seconds": 348536,
+        "buff": "+2,500 Rally Capacity"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 4300000,
+          "Wood": 4300000,
+          "Coal": 860000,
+          "Iron": 210000,
+          "Steel": 76000,
+          "FC Shards": 334
+        },
+        "raw_time_seconds": 422468,
+        "buff": "+3,000 Rally Capacity"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 5400000,
+          "Wood": 5400000,
+          "Coal": 1000000,
+          "Iron": 270000,
+          "Steel": 110000,
+          "FC Shards": 418
+        },
+        "raw_time_seconds": 528085,
+        "buff": "+3,500 Rally Capacity"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 6500000,
+          "Wood": 6500000,
+          "Coal": 1300000,
+          "Iron": 320000,
+          "Steel": 130000,
+          "FC Shards": 502
+        },
+        "raw_time_seconds": 633702,
+        "buff": "+4,000 Rally Capacity"
+      },
+      {
+        "level": 11,
+        "resources": {
+          "Meat": 7800000,
+          "Wood": 7800000,
+          "Coal": 1500000,
+          "Iron": 390000,
+          "Steel": 160000,
+          "FC Shards": 602
+        },
+        "raw_time_seconds": 760442,
+        "buff": "+4,000 Rally Capacity"
+      },
+      {
+        "level": 12,
+        "resources": {
+          "Meat": 9600000,
+          "Wood": 9600000,
+          "Coal": 1900000,
+          "Iron": 480000,
+          "Steel": 200000,
+          "FC Shards": 744
+        },
+        "raw_time_seconds": 939991,
+        "buff": "+4,500 Rally Capacity"
+      }
+    ],
+    "Helios Marksman": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 85000000,
+          "Wood": 85000000,
+          "Coal": 17000000,
+          "Iron": 4200000,
+          "Steel": 1000000,
+          "FC Shards": 2236
+        },
+        "raw_time_seconds": 7892100,
+        "buff": "Unlock XI Helios Marksmen"
+      }
+    ],
+    "Helios Marksman Healing": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 2500000,
+          "Wood": 2500000,
+          "Coal": 500000,
+          "Iron": 120000,
+          "Steel": 30000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 180000,
+        "buff": "+5.00% Helios Marksman Healing Cost Reduction"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 3300000,
+          "Wood": 3300000,
+          "Coal": 670000,
+          "Iron": 160000,
+          "Steel": 40000,
+          "FC Shards": 137
+        },
+        "raw_time_seconds": 243000,
+        "buff": "+5.00% Helios Marksman Healing Cost Reduction"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 4600000,
+          "Wood": 4600000,
+          "Coal": 920000,
+          "Iron": 230000,
+          "Steel": 55000,
+          "FC Shards": 188
+        },
+        "raw_time_seconds": 333000,
+        "buff": "+5.00% Helios Marksman Healing Cost Reduction"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 6200000,
+          "Wood": 6200000,
+          "Coal": 1200000,
+          "Iron": 310000,
+          "Steel": 75000,
+          "FC Shards": 255
+        },
+        "raw_time_seconds": 450000,
+        "buff": "+5.00% Helios Marksman Healing Cost Reduction"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 8300000,
+          "Wood": 8300000,
+          "Coal": 1600000,
+          "Iron": 410000,
+          "Steel": 100000,
+          "FC Shards": 341
+        },
+        "raw_time_seconds": 603000,
+        "buff": "+5.00% Helios Marksman Healing Cost Reduction"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 11000000,
+          "Wood": 11000000,
+          "Coal": 2200000,
+          "Iron": 560000,
+          "Steel": 130000,
+          "FC Shards": 459
+        },
+        "raw_time_seconds": 810000,
+        "buff": "+5.00% Helios Marksman Healing Cost Reduction"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 15000000,
+          "Wood": 15000000,
+          "Coal": 3000000,
+          "Iron": 750000,
+          "Steel": 180000,
+          "FC Shards": 612
+        },
+        "raw_time_seconds": 1080000,
+        "buff": "+5.00% Helios Marksman Healing Cost Reduction"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 20000000,
+          "Wood": 20000000,
+          "Coal": 4100000,
+          "Iron": 1000000,
+          "Steel": 240000,
+          "FC Shards": 836
+        },
+        "raw_time_seconds": 1476000,
+        "buff": "+5.00% Helios Marksman Healing Cost Reduction"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "+5.00% Helios Marksman Healing Cost Reduction"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "+5.00% Helios Marksman Healing Cost Reduction"
+      }
+    ],
+    "Helios Marksman Training": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 2500000,
+          "Wood": 2500000,
+          "Coal": 500000,
+          "Iron": 120000,
+          "Steel": 30000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 180000,
+        "buff": "+5.00% Helios Marksman Training Cost Reduction"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 3300000,
+          "Wood": 3300000,
+          "Coal": 670000,
+          "Iron": 160000,
+          "Steel": 40000,
+          "FC Shards": 137
+        },
+        "raw_time_seconds": 243000,
+        "buff": "+5.00% Helios Marksman Training Cost Reduction"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 4600000,
+          "Wood": 4600000,
+          "Coal": 920000,
+          "Iron": 230000,
+          "Steel": 55000,
+          "FC Shards": 188
+        },
+        "raw_time_seconds": 333000,
+        "buff": "+5.00% Helios Marksman Training Cost Reduction"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 6200000,
+          "Wood": 6200000,
+          "Coal": 1200000,
+          "Iron": 310000,
+          "Steel": 75000,
+          "FC Shards": 255
+        },
+        "raw_time_seconds": 450000,
+        "buff": "+5.00% Helios Marksman Training Cost Reduction"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 8300000,
+          "Wood": 8300000,
+          "Coal": 1600000,
+          "Iron": 410000,
+          "Steel": 100000,
+          "FC Shards": 341
+        },
+        "raw_time_seconds": 603000,
+        "buff": "+5.00% Helios Marksman Training Cost Reduction"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 11000000,
+          "Wood": 11000000,
+          "Coal": 2200000,
+          "Iron": 560000,
+          "Steel": 130000,
+          "FC Shards": 459
+        },
+        "raw_time_seconds": 810000,
+        "buff": "+5.00% Helios Marksman Training Cost Reduction"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 15000000,
+          "Wood": 15000000,
+          "Coal": 3000000,
+          "Iron": 750000,
+          "Steel": 180000,
+          "FC Shards": 612
+        },
+        "raw_time_seconds": 1080000,
+        "buff": "+5.00% Helios Marksman Training Cost Reduction"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 20000000,
+          "Wood": 20000000,
+          "Coal": 4100000,
+          "Iron": 1000000,
+          "Steel": 240000,
+          "FC Shards": 836
+        },
+        "raw_time_seconds": 1476000,
+        "buff": "+5.00% Helios Marksman Training Cost Reduction"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "+5.00% Helios Marksman Training Cost Reduction"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "+5.00% Helios Marksman Training Cost Reduction"
+      }
+    ],
+    "Helios Marksman First Aid": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 1200000,
+          "Wood": 1200000,
+          "Coal": 250000,
+          "Iron": 62000,
+          "Steel": 15000,
+          "FC Shards": 51
+        },
+        "raw_time_seconds": 90000,
+        "buff": "+1.50% Helios Marksman Healing Time Reduction"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 1600000,
+          "Wood": 1600000,
+          "Coal": 330000,
+          "Iron": 84000,
+          "Steel": 20000,
+          "FC Shards": 68
+        },
+        "raw_time_seconds": 121500,
+        "buff": "+1.50% Helios Marksman Healing Time Reduction"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 2300000,
+          "Wood": 2300000,
+          "Coal": 460000,
+          "Iron": 110000,
+          "Steel": 27000,
+          "FC Shards": 94
+        },
+        "raw_time_seconds": 166500,
+        "buff": "+1.50% Helios Marksman Healing Time Reduction"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 3100000,
+          "Wood": 3100000,
+          "Coal": 620000,
+          "Iron": 150000,
+          "Steel": 37000,
+          "FC Shards": 127
+        },
+        "raw_time_seconds": 225000,
+        "buff": "+1.50% Helios Marksman Healing Time Reduction"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 4100000,
+          "Wood": 4100000,
+          "Coal": 830000,
+          "Iron": 200000,
+          "Steel": 50000,
+          "FC Shards": 170
+        },
+        "raw_time_seconds": 301500,
+        "buff": "+1.50% Helios Marksman Healing Time Reduction"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 5600000,
+          "Wood": 5600000,
+          "Coal": 1100000,
+          "Iron": 280000,
+          "Steel": 67000,
+          "FC Shards": 229
+        },
+        "raw_time_seconds": 405000,
+        "buff": "+1.50% Helios Marksman Healing Time Reduction"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 7500000,
+          "Wood": 7500000,
+          "Coal": 1500000,
+          "Iron": 370000,
+          "Steel": 90000,
+          "FC Shards": 306
+        },
+        "raw_time_seconds": 540000,
+        "buff": "+1.50% Helios Marksman Healing Time Reduction"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 10000000,
+          "Wood": 10000000,
+          "Coal": 2000000,
+          "Iron": 510000,
+          "Steel": 120000,
+          "FC Shards": 418
+        },
+        "raw_time_seconds": 738000,
+        "buff": "+1.50% Helios Marksman Healing Time Reduction"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 13000000,
+          "Wood": 13000000,
+          "Coal": 2700000,
+          "Iron": 680000,
+          "Steel": 160000,
+          "FC Shards": 561
+        },
+        "raw_time_seconds": 990000,
+        "buff": "+1.50% Helios Marksman Healing Time Reduction"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 18000000,
+          "Wood": 18000000,
+          "Coal": 3700000,
+          "Iron": 930000,
+          "Steel": 220000,
+          "FC Shards": 765
+        },
+        "raw_time_seconds": 1350000,
+        "buff": "+1.50% Helios Marksman Healing Time Reduction"
+      }
+    ]
+  },
+  "Lancer": {
+    "Flame Squad": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 300000,
+          "Wood": 300000,
+          "Coal": 60000,
+          "Iron": 15000,
+          "Steel": 5000,
+          "FC Shards": 16
+        },
+        "raw_time_seconds": 28800,
+        "buff": "+200 Troop Deployment Capacity"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 480000,
+          "Wood": 480000,
+          "Coal": 96000,
+          "Iron": 24000,
+          "Steel": 8000,
+          "FC Shards": 25
+        },
+        "raw_time_seconds": 46080,
+        "buff": "+200 Troop Deployment Capacity"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 780000,
+          "Wood": 780000,
+          "Coal": 150000,
+          "Iron": 39000,
+          "Steel": 13000,
+          "FC Shards": 41
+        },
+        "raw_time_seconds": 74880,
+        "buff": "+200 Troop Deployment Capacity"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 1200000,
+          "Wood": 1200000,
+          "Coal": 250000,
+          "Iron": 64000,
+          "Steel": 21000,
+          "FC Shards": 68
+        },
+        "raw_time_seconds": 123840,
+        "buff": "+200 Troop Deployment Capacity"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 2000000,
+          "Wood": 2000000,
+          "Coal": 400000,
+          "Iron": 100000,
+          "Steel": 33000,
+          "FC Shards": 108
+        },
+        "raw_time_seconds": 194400,
+        "buff": "+200 Troop Deployment Capacity"
+      }
+    ],
+    "Blazing Armor": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 800000,
+          "Wood": 800000,
+          "Coal": 160000,
+          "Iron": 40000,
+          "Steel": 10000,
+          "FC Shards": 40
+        },
+        "raw_time_seconds": 72000,
+        "buff": "+1.50% Lancer Health"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 1100000,
+          "Wood": 1100000,
+          "Coal": 220000,
+          "Iron": 56000,
+          "Steel": 14000,
+          "FC Shards": 56
+        },
+        "raw_time_seconds": 100800,
+        "buff": "+1.50% Lancer Health"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1400000,
+          "Wood": 1400000,
+          "Coal": 290000,
+          "Iron": 74000,
+          "Steel": 18000,
+          "FC Shards": 74
+        },
+        "raw_time_seconds": 133200,
+        "buff": "+3.00% Lancer Health"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 2000000,
+          "Wood": 2000000,
+          "Coal": 400000,
+          "Iron": 100000,
+          "Steel": 25000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 183600,
+        "buff": "+3.00% Lancer Health"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 2700000,
+          "Wood": 2700000,
+          "Coal": 540000,
+          "Iron": 130000,
+          "Steel": 34000,
+          "FC Shards": 136
+        },
+        "raw_time_seconds": 244800,
+        "buff": "+3.00% Lancer Health"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 3600000,
+          "Wood": 3600000,
+          "Coal": 730000,
+          "Iron": 180000,
+          "Steel": 46000,
+          "FC Shards": 184
+        },
+        "raw_time_seconds": 331200,
+        "buff": "+3.00% Lancer Health"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 4900000,
+          "Wood": 4900000,
+          "Coal": 990000,
+          "Iron": 240000,
+          "Steel": 46000,
+          "FC Shards": 248
+        },
+        "raw_time_seconds": 446400,
+        "buff": "+5.00% Lancer Health"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 6600000,
+          "Wood": 6600000,
+          "Coal": 1300000,
+          "Iron": 330000,
+          "Steel": 83000,
+          "FC Shards": 334
+        },
+        "raw_time_seconds": 601200,
+        "buff": "+5.00% Lancer Health"
+      }
+    ],
+    "Blazing Charge": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 800000,
+          "Wood": 800000,
+          "Coal": 160000,
+          "Iron": 40000,
+          "Steel": 10000,
+          "FC Shards": 40
+        },
+        "raw_time_seconds": 72000,
+        "buff": "+1.50% Lancer Lethality"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 1100000,
+          "Wood": 1100000,
+          "Coal": 220000,
+          "Iron": 56000,
+          "Steel": 14000,
+          "FC Shards": 56
+        },
+        "raw_time_seconds": 100800,
+        "buff": "+1.50% Lancer Lethality"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1400000,
+          "Wood": 1400000,
+          "Coal": 290000,
+          "Iron": 74000,
+          "Steel": 18000,
+          "FC Shards": 74
+        },
+        "raw_time_seconds": 133200,
+        "buff": "+3.00% Lancer Lethality"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 2000000,
+          "Wood": 2000000,
+          "Coal": 400000,
+          "Iron": 100000,
+          "Steel": 25000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 183600,
+        "buff": "+3.00% Lancer Lethality"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 2700000,
+          "Wood": 2700000,
+          "Coal": 540000,
+          "Iron": 130000,
+          "Steel": 34000,
+          "FC Shards": 136
+        },
+        "raw_time_seconds": 244800,
+        "buff": "+3.00% Lancer Lethality"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 3600000,
+          "Wood": 3600000,
+          "Coal": 730000,
+          "Iron": 180000,
+          "Steel": 46000,
+          "FC Shards": 184
+        },
+        "raw_time_seconds": 331200,
+        "buff": "+3.00% Lancer Lethality"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 4900000,
+          "Wood": 4900000,
+          "Coal": 990000,
+          "Iron": 240000,
+          "Steel": 62000,
+          "FC Shards": 248
+        },
+        "raw_time_seconds": 446400,
+        "buff": "+5.00% Lancer Lethality"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 6600000,
+          "Wood": 6600000,
+          "Coal": 1300000,
+          "Iron": 330000,
+          "Steel": 83000,
+          "FC Shards": 334
+        },
+        "raw_time_seconds": 601200,
+        "buff": "+5.00% Lancer Lethality"
+      }
+    ],
+    "Blazing Lance": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 700000,
+          "Wood": 700000,
+          "Coal": 140000,
+          "Iron": 35000,
+          "Steel": 15000,
+          "FC Shards": 54
+        },
+        "raw_time_seconds": 68140,
+        "buff": "+2.00% Lancer Attack"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 860000,
+          "Wood": 860000,
+          "Coal": 170000,
+          "Iron": 43000,
+          "Steel": 18000,
+          "FC Shards": 66
+        },
+        "raw_time_seconds": 83812,
+        "buff": "+2.00% Lancer Attack"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1000000,
+          "Wood": 1000000,
+          "Coal": 210000,
+          "Iron": 52000,
+          "Steel": 22000,
+          "FC Shards": 81
+        },
+        "raw_time_seconds": 102210,
+        "buff": "+2.00% Lancer Attack"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 1200000,
+          "Wood": 1200000,
+          "Coal": 250000,
+          "Iron": 63000,
+          "Steel": 27000,
+          "FC Shards": 97
+        },
+        "raw_time_seconds": 122652,
+        "buff": "+2.50% Lancer Attack"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 1500000,
+          "Wood": 1500000,
+          "Coal": 300000,
+          "Iron": 77000,
+          "Steel": 33000,
+          "FC Shards": 118
+        },
+        "raw_time_seconds": 149908,
+        "buff": "+2.50% Lancer Attack"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 1800000,
+          "Wood": 1800000,
+          "Coal": 370000,
+          "Iron": 94000,
+          "Steel": 40000,
+          "FC Shards": 145
+        },
+        "raw_time_seconds": 183978,
+        "buff": "+3.00% Lancer Attack"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 2300000,
+          "Wood": 2300000,
+          "Coal": 460000,
+          "Iron": 94000,
+          "Steel": 49000,
+          "FC Shards": 178
+        },
+        "raw_time_seconds": 224862,
+        "buff": "+3.00% Lancer Attack"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 2800000,
+          "Wood": 2800000,
+          "Coal": 560000,
+          "Iron": 140000,
+          "Steel": 60000,
+          "FC Shards": 216
+        },
+        "raw_time_seconds": 272560,
+        "buff": "+3.00% Lancer Attack"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 3500000,
+          "Wood": 3500000,
+          "Coal": 700000,
+          "Iron": 170000,
+          "Steel": 75000,
+          "FC Shards": 270
+        },
+        "raw_time_seconds": 340700,
+        "buff": "+5.00% Lancer Attack"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 4200000,
+          "Wood": 4200000,
+          "Coal": 840000,
+          "Iron": 210000,
+          "Steel": 90000,
+          "FC Shards": 324
+        },
+        "raw_time_seconds": 408840,
+        "buff": "+5.00% Lancer Attack"
+      },
+      {
+        "level": 11,
+        "resources": {
+          "Meat": 5000000,
+          "Wood": 5000000,
+          "Coal": 1000000,
+          "Iron": 250000,
+          "Steel": 100000,
+          "FC Shards": 388
+        },
+        "raw_time_seconds": 490608,
+        "buff": "+5.00% Lancer Attack"
+      },
+      {
+        "level": 12,
+        "resources": {
+          "Meat": 6200000,
+          "Wood": 6200000,
+          "Coal": 1200000,
+          "Iron": 310000,
+          "Steel": 130000,
+          "FC Shards": 480
+        },
+        "raw_time_seconds": 606446,
+        "buff": "+5.00% Lancer Attack"
+      }
+    ],
+    "Blazing Guardian": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 700000,
+          "Wood": 700000,
+          "Coal": 140000,
+          "Iron": 35000,
+          "Steel": 15000,
+          "FC Shards": 54
+        },
+        "raw_time_seconds": 68140,
+        "buff": "+2.00% Lancer Defense"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 860000,
+          "Wood": 860000,
+          "Coal": 170000,
+          "Iron": 43000,
+          "Steel": 18000,
+          "FC Shards": 66
+        },
+        "raw_time_seconds": 83812,
+        "buff": "+2.00% Lancer Defense"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1000000,
+          "Wood": 1000000,
+          "Coal": 210000,
+          "Iron": 52000,
+          "Steel": 22000,
+          "FC Shards": 81
+        },
+        "raw_time_seconds": 102210,
+        "buff": "+2.00% Lancer Defense"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 1200000,
+          "Wood": 1200000,
+          "Coal": 250000,
+          "Iron": 63000,
+          "Steel": 27000,
+          "FC Shards": 97
+        },
+        "raw_time_seconds": 122652,
+        "buff": "+2.50% Lancer Defense"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 1500000,
+          "Wood": 1500000,
+          "Coal": 300000,
+          "Iron": 77000,
+          "Steel": 33000,
+          "FC Shards": 118
+        },
+        "raw_time_seconds": 149908,
+        "buff": "+2.50% Lancer Defense"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 1800000,
+          "Wood": 1800000,
+          "Coal": 370000,
+          "Iron": 94000,
+          "Steel": 40000,
+          "FC Shards": 145
+        },
+        "raw_time_seconds": 183978,
+        "buff": "+3.00% Lancer Defense"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 2300000,
+          "Wood": 2300000,
+          "Coal": 460000,
+          "Iron": 110000,
+          "Steel": 49000,
+          "FC Shards": 178
+        },
+        "raw_time_seconds": 224862,
+        "buff": "+3.00% Lancer Defense"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 2800000,
+          "Wood": 2800000,
+          "Coal": 560000,
+          "Iron": 140000,
+          "Steel": 60000,
+          "FC Shards": 216
+        },
+        "raw_time_seconds": 272560,
+        "buff": "+3.00% Lancer Defense"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 3500000,
+          "Wood": 3500000,
+          "Coal": 700000,
+          "Iron": 170000,
+          "Steel": 75000,
+          "FC Shards": 270
+        },
+        "raw_time_seconds": 340700,
+        "buff": "+5.00% Lancer Defense"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 4200000,
+          "Wood": 4200000,
+          "Coal": 840000,
+          "Iron": 210000,
+          "Steel": 90000,
+          "FC Shards": 324
+        },
+        "raw_time_seconds": 408840,
+        "buff": "+5.00% Lancer Defense"
+      },
+      {
+        "level": 11,
+        "resources": {
+          "Meat": 5000000,
+          "Wood": 5000000,
+          "Coal": 1000000,
+          "Iron": 250000,
+          "Steel": 100000,
+          "FC Shards": 388
+        },
+        "raw_time_seconds": 490608,
+        "buff": "+5.00% Lancer Defense"
+      },
+      {
+        "level": 12,
+        "resources": {
+          "Meat": 6200000,
+          "Wood": 6200000,
+          "Coal": 1200000,
+          "Iron": 310000,
+          "Steel": 130000,
+          "FC Shards": 480
+        },
+        "raw_time_seconds": 606446,
+        "buff": "+5.00% Lancer Defense"
+      }
+    ],
+    "Flame Legion": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 1000000,
+          "Wood": 1000000,
+          "Coal": 210000,
+          "Iron": 54000,
+          "Steel": 23000,
+          "FC Shards": 83
+        },
+        "raw_time_seconds": 105617,
+        "buff": "+1,500 Rally Capacity"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 1300000,
+          "Wood": 1300000,
+          "Coal": 260000,
+          "Iron": 66000,
+          "Steel": 28000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 129908,
+        "buff": "+1,500 Rally Capacity"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 1600000,
+          "Wood": 1600000,
+          "Coal": 320000,
+          "Iron": 81000,
+          "Steel": 34000,
+          "FC Shards": 125
+        },
+        "raw_time_seconds": 158425,
+        "buff": "+2,000 Rally Capacity"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 1900000,
+          "Wood": 1900000,
+          "Coal": 390000,
+          "Iron": 97000,
+          "Steel": 41000,
+          "FC Shards": 150
+        },
+        "raw_time_seconds": 190110,
+        "buff": "+2,000 Rally Capacity"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 2300000,
+          "Wood": 2300000,
+          "Coal": 470000,
+          "Iron": 110000,
+          "Steel": 51000,
+          "FC Shards": 184
+        },
+        "raw_time_seconds": 232357,
+        "buff": "+2,500 Rally Capacity"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 2900000,
+          "Wood": 2900000,
+          "Coal": 580000,
+          "Iron": 140000,
+          "Steel": 62000,
+          "FC Shards": 225
+        },
+        "raw_time_seconds": 285165,
+        "buff": "+2,500 Rally Capacity"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 3500000,
+          "Wood": 3500000,
+          "Coal": 710000,
+          "Iron": 170000,
+          "Steel": 76000,
+          "FC Shards": 276
+        },
+        "raw_time_seconds": 348536,
+        "buff": "+2,500 Rally Capacity"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 4300000,
+          "Wood": 4300000,
+          "Coal": 860000,
+          "Iron": 210000,
+          "Steel": 93000,
+          "FC Shards": 334
+        },
+        "raw_time_seconds": 422468,
+        "buff": "+3,000 Rally Capacity"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 5400000,
+          "Wood": 5400000,
+          "Coal": 1000000,
+          "Iron": 270000,
+          "Steel": 110000,
+          "FC Shards": 418
+        },
+        "raw_time_seconds": 528085,
+        "buff": "+3,500 Rally Capacity"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 6500000,
+          "Wood": 6500000,
+          "Coal": 1300000,
+          "Iron": 320000,
+          "Steel": 130000,
+          "FC Shards": 502
+        },
+        "raw_time_seconds": 633702,
+        "buff": "+4,000 Rally Capacity"
+      },
+      {
+        "level": 11,
+        "resources": {
+          "Meat": 7800000,
+          "Wood": 7800000,
+          "Coal": 1500000,
+          "Iron": 390000,
+          "Steel": 160000,
+          "FC Shards": 602
+        },
+        "raw_time_seconds": 760442,
+        "buff": "+4,000 Rally Capacity"
+      },
+      {
+        "level": 12,
+        "resources": {
+          "Meat": 9600000,
+          "Wood": 9600000,
+          "Coal": 1900000,
+          "Iron": 480000,
+          "Steel": 200000,
+          "FC Shards": 744
+        },
+        "raw_time_seconds": 939991,
+        "buff": "+4,500 Rally Capacity"
+      }
+    ],
+    "Helios Lancer": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 85000000,
+          "Wood": 85000000,
+          "Coal": 17000000,
+          "Iron": 4200000,
+          "Steel": 1000000,
+          "FC Shards": 2236
+        },
+        "raw_time_seconds": 7892100,
+        "buff": "Unlock XI Helios Lancer"
+      }
+    ],
+    "Helios Lancer Healing": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 2500000,
+          "Wood": 2500000,
+          "Coal": 500000,
+          "Iron": 120000,
+          "Steel": 30000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 180000,
+        "buff": "+5.00% Helios Lancer Healing Cost Reduction"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 3300000,
+          "Wood": 3300000,
+          "Coal": 670000,
+          "Iron": 160000,
+          "Steel": 40000,
+          "FC Shards": 137
+        },
+        "raw_time_seconds": 243000,
+        "buff": "+5.00% Helios Lancer Healing Cost Reduction"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 4600000,
+          "Wood": 4600000,
+          "Coal": 920000,
+          "Iron": 230000,
+          "Steel": 55000,
+          "FC Shards": 188
+        },
+        "raw_time_seconds": 333000,
+        "buff": "+5.00% Helios Lancer Healing Cost Reduction"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 6200000,
+          "Wood": 6200000,
+          "Coal": 1200000,
+          "Iron": 310000,
+          "Steel": 75000,
+          "FC Shards": 255
+        },
+        "raw_time_seconds": 450000,
+        "buff": "+5.00% Helios Lancer Healing Cost Reduction"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 8300000,
+          "Wood": 8300000,
+          "Coal": 1600000,
+          "Iron": 410000,
+          "Steel": 100000,
+          "FC Shards": 341
+        },
+        "raw_time_seconds": 603000,
+        "buff": "+5.00% Helios Lancer Healing Cost Reduction"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 11000000,
+          "Wood": 11000000,
+          "Coal": 2200000,
+          "Iron": 560000,
+          "Steel": 130000,
+          "FC Shards": 459
+        },
+        "raw_time_seconds": 810000,
+        "buff": "+5.00% Helios Lancer Healing Cost Reduction"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 15000000,
+          "Wood": 15000000,
+          "Coal": 3000000,
+          "Iron": 750000,
+          "Steel": 180000,
+          "FC Shards": 612
+        },
+        "raw_time_seconds": 1080000,
+        "buff": "+5.00% Helios Lancer Healing Cost Reduction"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 20000000,
+          "Wood": 20000000,
+          "Coal": 4100000,
+          "Iron": 1000000,
+          "Steel": 240000,
+          "FC Shards": 836
+        },
+        "raw_time_seconds": 1476000,
+        "buff": "+5.00% Helios Lancer Healing Cost Reduction"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "+5.00% Helios Lancer Healing Cost Reduction"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "+5.00% Helios Lancer Healing Cost Reduction"
+      }
+    ],
+    "Helios Lancer Training": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 2500000,
+          "Wood": 2500000,
+          "Coal": 500000,
+          "Iron": 120000,
+          "Steel": 30000,
+          "FC Shards": 102
+        },
+        "raw_time_seconds": 180000,
+        "buff": "+5.00% Helios Lancer Training Cost Reduction"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 3300000,
+          "Wood": 3300000,
+          "Coal": 670000,
+          "Iron": 160000,
+          "Steel": 40000,
+          "FC Shards": 137
+        },
+        "raw_time_seconds": 243000,
+        "buff": "+5.00% Helios Lancer Training Cost Reduction"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 4600000,
+          "Wood": 4600000,
+          "Coal": 920000,
+          "Iron": 230000,
+          "Steel": 55000,
+          "FC Shards": 188
+        },
+        "raw_time_seconds": 333000,
+        "buff": "+5.00% Helios Lancer Training Cost Reduction"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 6200000,
+          "Wood": 6200000,
+          "Coal": 1200000,
+          "Iron": 310000,
+          "Steel": 75000,
+          "FC Shards": 255
+        },
+        "raw_time_seconds": 450000,
+        "buff": "+5.00% Helios Lancer Training Cost Reduction"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 8300000,
+          "Wood": 8300000,
+          "Coal": 1600000,
+          "Iron": 410000,
+          "Steel": 100000,
+          "FC Shards": 341
+        },
+        "raw_time_seconds": 603000,
+        "buff": "+5.00% Helios Lancer Training Cost Reduction"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 11000000,
+          "Wood": 11000000,
+          "Coal": 2200000,
+          "Iron": 560000,
+          "Steel": 130000,
+          "FC Shards": 459
+        },
+        "raw_time_seconds": 810000,
+        "buff": "+5.00% Helios Lancer Training Cost Reduction"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 15000000,
+          "Wood": 15000000,
+          "Coal": 3000000,
+          "Iron": 750000,
+          "Steel": 180000,
+          "FC Shards": 612
+        },
+        "raw_time_seconds": 1080000,
+        "buff": "+5.00% Helios Lancer Training Cost Reduction"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 20000000,
+          "Wood": 20000000,
+          "Coal": 4100000,
+          "Iron": 1000000,
+          "Steel": 240000,
+          "FC Shards": 836
+        },
+        "raw_time_seconds": 1476000,
+        "buff": "+5.00% Helios Lancer Training Cost Reduction"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "+5.00% Helios Lancer Training Cost Reduction"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "+5.00% Helios Lancer Training Cost Reduction"
+      }
+    ],
+    "Helios Lancer First Aid": [
+      {
+        "level": 1,
+        "resources": {
+          "Meat": 1200000,
+          "Wood": 1200000,
+          "Coal": 250000,
+          "Iron": 62000,
+          "Steel": 15000,
+          "FC Shards": 51
+        },
+        "raw_time_seconds": 90000,
+        "buff": "+1.50% Helios Lancer Healing Time Reduction"
+      },
+      {
+        "level": 2,
+        "resources": {
+          "Meat": 1600000,
+          "Wood": 1600000,
+          "Coal": 330000,
+          "Iron": 84000,
+          "Steel": 20000,
+          "FC Shards": 68
+        },
+        "raw_time_seconds": 121500,
+        "buff": "+1.50% Helios Lancer Healing Time Reduction"
+      },
+      {
+        "level": 3,
+        "resources": {
+          "Meat": 2300000,
+          "Wood": 2300000,
+          "Coal": 460000,
+          "Iron": 110000,
+          "Steel": 27000,
+          "FC Shards": 94
+        },
+        "raw_time_seconds": 166500,
+        "buff": "+1.50% Helios Lancer Healing Time Reduction"
+      },
+      {
+        "level": 4,
+        "resources": {
+          "Meat": 3100000,
+          "Wood": 3100000,
+          "Coal": 620000,
+          "Iron": 150000,
+          "Steel": 37000,
+          "FC Shards": 127
+        },
+        "raw_time_seconds": 225000,
+        "buff": "+1.50% Helios Lancer Healing Time Reduction"
+      },
+      {
+        "level": 5,
+        "resources": {
+          "Meat": 4100000,
+          "Wood": 4100000,
+          "Coal": 830000,
+          "Iron": 200000,
+          "Steel": 50000,
+          "FC Shards": 170
+        },
+        "raw_time_seconds": 301500,
+        "buff": "+1.50% Helios Lancer Healing Time Reduction"
+      },
+      {
+        "level": 6,
+        "resources": {
+          "Meat": 5600000,
+          "Wood": 5600000,
+          "Coal": 1100000,
+          "Iron": 280000,
+          "Steel": 67000,
+          "FC Shards": 229
+        },
+        "raw_time_seconds": 405000,
+        "buff": "+1.50% Helios Lancer Healing Time Reduction"
+      },
+      {
+        "level": 7,
+        "resources": {
+          "Meat": 7500000,
+          "Wood": 7500000,
+          "Coal": 1500000,
+          "Iron": 370000,
+          "Steel": 90000,
+          "FC Shards": 306
+        },
+        "raw_time_seconds": 540000,
+        "buff": "+1.50% Helios Lancer Healing Time Reduction"
+      },
+      {
+        "level": 8,
+        "resources": {
+          "Meat": 10000000,
+          "Wood": 10000000,
+          "Coal": 2000000,
+          "Iron": 510000,
+          "Steel": 120000,
+          "FC Shards": 418
+        },
+        "raw_time_seconds": 738000,
+        "buff": "+1.50% Helios Lancer Healing Time Reduction"
+      },
+      {
+        "level": 9,
+        "resources": {
+          "Meat": 13000000,
+          "Wood": 13000000,
+          "Coal": 2700000,
+          "Iron": 680000,
+          "Steel": 160000,
+          "FC Shards": 561
+        },
+        "raw_time_seconds": 990000,
+        "buff": "+1.50% Helios Lancer Healing Time Reduction"
+      },
+      {
+        "level": 10,
+        "resources": {
+          "Meat": 18000000,
+          "Wood": 18000000,
+          "Coal": 3700000,
+          "Iron": 930000,
+          "Steel": 220000,
+          "FC Shards": 765
+        },
+        "raw_time_seconds": 1350000,
+        "buff": "+1.50% Helios Lancer Healing Time Reduction"
+      }
+    ]
+  }
+}
