@@ -91,7 +91,10 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-6 bg-special-inside rounded-xl shadow-2xl border border-zinc-800">
+    <div
+      id="research-form"
+      className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-6 bg-special-inside rounded-xl shadow-2xl border border-zinc-800"
+    >
       <div className="col-span-full">
         <Label className="text-zinc-400">Tier</Label>
         <Select value={tier} onValueChange={setTier}>
