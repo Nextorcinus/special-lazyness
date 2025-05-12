@@ -126,7 +126,7 @@ function BuildingForm({
 
         {levelOptions.length === 0 && (
           <p className="text-red-400 text-sm">
-            ⚠ Data level for "{selectedSub}" not found on JSON.
+            ⚠ Data level for &quot;{selectedSub}&quot; not found on JSON.
           </p>
         )}
         <TooltipProvider>
@@ -187,20 +187,23 @@ function BuildingForm({
               </Select>
             </div>
             <div>
-              <Label className="text-zinc-400">Vp</Label>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button type="button">
-                    <Info className="w-4 h-4 ml-2 a text-muted-foreground" />
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>
-                    Buff from Vice President +10%, if president activates buff
-                    speed (for SvS /KOI) choose 20%
-                  </p>
-                </TooltipContent>
-              </Tooltip>
+              <div className="flex items-center gap-1 mb-1">
+                <Label className="text-zinc-400">Vp</Label>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button type="button">
+                      <Info className="w-4 h-4 text-muted-foreground" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="top">
+                    <p>
+                      Buff from Vice President +10%, if president activates buff
+                      speed (for SvS /KOI) choose 20%
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+
               <Select value={vpLevel} onValueChange={setvpLevel}>
                 <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
                   <SelectValue />
@@ -214,7 +217,6 @@ function BuildingForm({
                 </SelectContent>
               </Select>
             </div>
-
             <div>
               <Label className="text-zinc-400">Zinman Skill</Label>
               <Select value={zinmanSkill} onValueChange={setZinmanSkill}>
