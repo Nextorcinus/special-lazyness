@@ -21,7 +21,7 @@ export default function GearHistoryList({ onResetGlobal }) {
       <CardHeader className="flex flex-row items-center justify-between px-4 py-2">
         <h3 className="text-lg">Gear Upgrade History</h3>
         <Button
-          className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+          className="bg-slate-500 hover:bg-red-500 text-white px-2 py-0 rounded"
           onClick={handleReset}
         >
           Reset

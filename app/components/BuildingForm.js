@@ -18,6 +18,13 @@ import {
 import { Checkbox } from './ui/checkbox'
 import { Button } from './ui/button'
 import { toast } from 'sonner'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
+import { Info } from 'lucide-react'
 
 const buildingAliasMap = {
   Marksman: 'Marksman',
@@ -122,110 +129,124 @@ function BuildingForm({
             ⚠ Data level for "{selectedSub}" not found on JSON.
           </p>
         )}
+        <TooltipProvider>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
+            <div>
+              <Label className="text-zinc-400">From</Label>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <Label className="text-zinc-400">From</Label>
-            <Select
-              value={fromLevel}
-              onValueChange={(v) => {
-                setFromLevel(v)
-                setToLevel('')
-              }}
-            >
-              <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
-                <SelectValue placeholder="-- Select Level --" />
-              </SelectTrigger>
-              <SelectContent>
-                {levelOptions.map((level) => (
-                  <SelectItem key={level} value={level}>
-                    {level}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Label className="text-zinc-400 ">To</Label>
-            <Select value={toLevel} onValueChange={setToLevel}>
-              <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
-                <SelectValue placeholder="-- Select Level --" />
-              </SelectTrigger>
-              <SelectContent>
-                {filteredToLevels.map((level) => (
-                  <SelectItem key={level} value={level}>
-                    {level}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          <div>
-            <Label className="text-zinc-400">Pet</Label>
-            <Select value={petLevel} onValueChange={setPetLevel}>
-              <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {petLevels.map((level) => (
-                  <SelectItem key={level} value={level}>
-                    {level}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Label className="text-zinc-400">Vp</Label>
-            <Select value={vpLevel} onValueChange={setvpLevel}>
-              <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {vpLevels.map((level) => (
-                  <SelectItem key={level} value={level}>
-                    {level}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <Select
+                value={fromLevel}
+                onValueChange={(v) => {
+                  setFromLevel(v)
+                  setToLevel('')
+                }}
+              >
+                <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
+                  <SelectValue placeholder="-- Select Level --" />
+                </SelectTrigger>
+                <SelectContent>
+                  {levelOptions.map((level) => (
+                    <SelectItem key={level} value={level}>
+                      {level}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label className="text-zinc-400 ">To</Label>
+              <Select value={toLevel} onValueChange={setToLevel}>
+                <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
+                  <SelectValue placeholder="-- Select Level --" />
+                </SelectTrigger>
+                <SelectContent>
+                  {filteredToLevels.map((level) => (
+                    <SelectItem key={level} value={level}>
+                      {level}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
-          <div>
-            <Label className="text-zinc-400">Zinman Skill</Label>
-            <Select value={zinmanSkill} onValueChange={setZinmanSkill}>
-              <SelectTrigger className=" bg-special-input  text-white">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {zinmanLevels.map((level) => (
-                  <SelectItem key={level} value={level}>
-                    {level}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Label className="text-zinc-400">Const Speed (%)</Label>
-            <Input
-              type="number"
-              value={constructionSpeed}
-              onChange={(e) => setConstructionSpeed(e.target.value)}
-              min={0}
-              max={100}
-              className=" shadow-md hover:shadow-lg bg-special-input text-white"
-            />
-          </div>
-          <div className="flex items-center gap-2 pt-4">
-            <Checkbox checked={doubleTime} onCheckedChange={setDoubleTime} />
-            <Label>Double Time</Label>
-          </div>
-        </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div>
+              <Label className="text-zinc-400">Pet</Label>
+              <Select value={petLevel} onValueChange={setPetLevel}>
+                <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {petLevels.map((level) => (
+                    <SelectItem key={level} value={level}>
+                      {level}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label className="text-zinc-400">Vp</Label>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button type="button">
+                    <Info className="w-4 h-4 ml-2 a text-muted-foreground" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>
+                    Buff from Vice President +10%, if president activates buff
+                    speed (for SvS /KOI) choose 20%
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+              <Select value={vpLevel} onValueChange={setvpLevel}>
+                <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {vpLevels.map((level) => (
+                    <SelectItem key={level} value={level}>
+                      {level}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
+            <div>
+              <Label className="text-zinc-400">Zinman Skill</Label>
+              <Select value={zinmanSkill} onValueChange={setZinmanSkill}>
+                <SelectTrigger className=" bg-special-input  text-white">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {zinmanLevels.map((level) => (
+                    <SelectItem key={level} value={level}>
+                      {level}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label className="text-zinc-400">Const Speed (%)</Label>
+              <Input
+                type="number"
+                value={constructionSpeed}
+                onChange={(e) => setConstructionSpeed(e.target.value)}
+                min={0}
+                max={100}
+                className=" shadow-md hover:shadow-lg bg-special-input text-white"
+              />
+            </div>
+            <div className="flex items-center gap-2 pt-4">
+              <Checkbox checked={doubleTime} onCheckedChange={setDoubleTime} />
+              <Label>Double Time</Label>
+            </div>
+          </div>
+        </TooltipProvider>
         <Button
           onClick={handleSubmit}
           className="bg-lime-600 text-white hover:bg-green-700 rounded-sm py-5"
