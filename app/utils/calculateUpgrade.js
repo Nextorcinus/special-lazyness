@@ -115,9 +115,9 @@ export function calculateUpgrade({
   const pet = normalizeBuff(buffs.petLevel, petBuffMap)
   const doubleTime = buffs.doubleTime ? 20 : 0
 
-  const totalBuff = constructionSpeed + vp + pet + doubleTime // menghapus Zinman tidak mempengaruhi waktu
+  const totalBuff = constructionSpeed + vp + pet + doubleTime // hapus Zinman tidak mempengaruhi waktu
 
-  // console.log('⚙️ Buff Breakdown:', {
+  // console.log(' Buff Breakdown:', {
   //   constructionSpeed,
   //   vp,
   //   pet,
@@ -128,11 +128,11 @@ export function calculateUpgrade({
 
   const reducedSeconds = totalSeconds / (1 + totalBuff / 100)
 
-  // console.log('🧮 Total Seconds:', totalSeconds)
-  // console.log('🧮 Reduced Seconds:', reducedSeconds)
-  // console.log('⏳ Formatted Original:', formatDuration(totalSeconds))
-  // console.log('⏳ Formatted Reduced:', formatDuration(reducedSeconds))
-  // console.log('📦 Total Resources:', rawResources)
+  // console.log(' Total Seconds:', totalSeconds)
+  // console.log(' Reduced Seconds:', reducedSeconds)
+  // console.log(' Formatted Original:', formatDuration(totalSeconds))
+  // console.log(' Formatted Reduced:', formatDuration(reducedSeconds))
+  // console.log(' Total Resources:', rawResources)
 
   return {
     building,
