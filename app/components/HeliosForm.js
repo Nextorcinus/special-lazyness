@@ -11,7 +11,8 @@ import {
   SelectContent,
 } from './ui/select'
 import { Button } from './ui/button'
-import { useResearchHistory } from '../dashboard/research/ResearchHistoryContext'
+import { toast } from 'sonner'
+import { useHeliosHistory } from '../dashboard/war-academy/HeliosHistoryContext'
 
 export default function HeliosForm({
   category,
@@ -22,8 +23,7 @@ export default function HeliosForm({
   const [fromLevel, setFromLevel] = useState('')
   const [toLevel, setToLevel] = useState('')
   const [speed, setSpeed] = useState('0')
-
-  const { addToHistory } = useResearchHistory()
+  const { addToHistory } = useHeliosHistory()
 
   const levelOptions = useMemo(() => {
     return (
@@ -41,7 +41,10 @@ export default function HeliosForm({
     const to = parseInt(toLevel)
     const speedBonus = parseFloat(speed) || 0
 
-    if (isNaN(from) || isNaN(to) || to <= from) return
+    if (isNaN(from) || isNaN(to) || to <= from) {
+      toast.error('Make sure levels are selected correctly.')
+      return
+    }
 
     const entries = dataSource[category][researchName].filter(
       (item) => item.level > from && item.level <= to
@@ -61,8 +64,9 @@ export default function HeliosForm({
       Steel: 0,
       'FC Shards': 0,
     }
+
     entries.forEach((item) => {
-      Object.keys(resources).forEach((key) => {
+      Object.entries(resources).forEach(([key]) => {
         resources[key] += item.resources?.[key] || 0
       })
     })
@@ -77,17 +81,17 @@ export default function HeliosForm({
       resources,
     }
 
-    addToHistory(result)
     onCalculate(result)
+    toast.success('Helios research calculation complete!')
   }
 
   return (
-    <div className="grid gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-6 bg-special-inside rounded-xl shadow-2xl border border-zinc-800 mt-6">
       <div>
-        <Label>Level Dari</Label>
+        <Label className="text-zinc-400">From</Label>
         <Select value={fromLevel} onValueChange={setFromLevel}>
-          <SelectTrigger>
-            <SelectValue placeholder="Pilih Level Awal" />
+          <SelectTrigger className="bg-special-input text-white">
+            <SelectValue placeholder="Select From Level" />
           </SelectTrigger>
           <SelectContent>
             {levelOptions.map((lvl) => (
@@ -100,10 +104,10 @@ export default function HeliosForm({
       </div>
 
       <div>
-        <Label>Level Ke</Label>
+        <Label className="text-zinc-400">To</Label>
         <Select value={toLevel} onValueChange={setToLevel}>
-          <SelectTrigger>
-            <SelectValue placeholder="Pilih Level Akhir" />
+          <SelectTrigger className="bg-special-input text-white">
+            <SelectValue placeholder="Select To Level" />
           </SelectTrigger>
           <SelectContent>
             {toLevelOptions.map((lvl) => (
@@ -116,16 +120,24 @@ export default function HeliosForm({
       </div>
 
       <div>
-        <Label>Research Speed (%)</Label>
+        <Label className="text-zinc-400">Research Speed (%)</Label>
         <Input
           type="number"
           value={speed}
           onChange={(e) => setSpeed(e.target.value)}
           placeholder="Contoh: 25"
+          className="bg-special-input text-white"
         />
       </div>
 
-      <Button onClick={handleCalculate}>Hitung</Button>
+      <div className="col-span-full">
+        <Button
+          onClick={handleCalculate}
+          className="bg-lime-600 mt-2 text-white hover:bg-green-700 rounded-sm py-5 w-full"
+        >
+          Hitung Helios Research
+        </Button>
+      </div>
     </div>
   )
 }

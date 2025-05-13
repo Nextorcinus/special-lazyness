@@ -10,6 +10,7 @@ const iconMap = {
   Crystal: 'crystal.png',
   RFC: 'rfc.png',
   Steel: 'steel.png',
+  'FC Shards': 'FC Shards.png',
 }
 
 export default function ResourceIcon({ type, size = 20 }) {

@@ -1,46 +1,67 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { toast } from 'sonner'
 
-import ResearchCategorySelector from '../../components/ResearchCategorySelector'
-import ResearchSubcategoryScroll from '../../components/ResearchSubcategoryScroll'
-import ResearchForm from '../../components/ResearchForm'
-import ResearchTotalResult from '../../components/ResearchTotalResult'
+import HeliosCategorySelector from '../../components/HeliosCategorySelector'
+import HeliosSubcategoryScroll from '../../components/HeliosSubCategorySelector'
+import HeliosForm from '../../components/HeliosForm'
+import HeliosCompareForm from '../../components/HeliosCompareForm'
+import HeliosTotalResult from '../../components/HeliosTotalResult'
 import ResourceIcon from '../../components/ResourceIcon'
+import { formatToShortNumber } from '../../utils/formatToShortNumber'
 
-import researchData from '../../data/heliosResearch.json'
-import { useResearchHistory } from '../../dashboard/research/ResearchHistoryContext'
+import heliosData from '../../data/heliosResearch.json'
+import { useHeliosHistory } from './HeliosHistoryContext'
 import { useAddAnother } from '../../dashboard/research/AddAnotherContext'
 
-export default function HeliosPage() {
-  const { history, addToHistory } = useResearchHistory()
+export default function HeliosPage({ addAnotherTrigger }) {
+  const { history, addToHistory, deleteHistory, resetHistory } =
+    useHeliosHistory()
   const { trigger } = useAddAnother()
 
   const [category, setCategory] = useState('Infantry')
   const [selectedSub, setSelectedSub] = useState('')
+  const [results, setResults] = useState([])
+  const [compares, setCompares] = useState([])
+
+  const subcategories = useMemo(
+    () => Object.keys(heliosData[category] || {}),
+    [category]
+  )
+
+  useEffect(() => {
+    setResults(history)
+    setCompares(history.map(() => null))
+  }, [history])
 
   useEffect(() => {
     setCategory('Infantry')
     setSelectedSub('')
-  }, [trigger])
-
-  useEffect(() => {
-    setSelectedSub('')
-  }, [category])
-
-  const subcategories = useMemo(
-    () => Object.keys(researchData[category] || {}),
-    [category]
-  )
+  }, [trigger, addAnotherTrigger, category])
 
   const handleCalculate = (data) => {
     const resultWithId = { ...data, id: uuidv4() }
+    setResults((prev) => [...prev, resultWithId])
+    setCompares((prev) => [...prev, null])
     addToHistory(resultWithId)
 
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }, 100)
+  }
+
+  const handleCompare = (data, index = null) => {
+    setCompares((prev) => {
+      const updated = [...prev]
+      if (index === null) {
+        return prev.map(() => data)
+      } else {
+        updated[index] = data
+        return updated
+      }
+    })
   }
 
   const formatTime = (seconds) => {
@@ -56,16 +77,28 @@ export default function HeliosPage() {
     return parts.join(' ')
   }
 
+  const defaultResources = useMemo(
+    () => ({
+      Meat: 0,
+      Wood: 0,
+      Coal: 0,
+      Iron: 0,
+      Steel: 0,
+      'FC Shards': 0,
+    }),
+    []
+  )
+
   return (
     <main className="p-1 md:p-6 text-white w-full">
       <div className="relative bg-special-inside border border-zinc-800 rounded-2xl p-6 shadow-md">
         <h2 className="text-2xl">Helios Research</h2>
-        <ResearchCategorySelector
+        <HeliosCategorySelector
           selected={category}
           onChange={setCategory}
           categories={['Infantry', 'Marksman', 'Lancer']}
         />
-        <ResearchSubcategoryScroll
+        <HeliosSubcategoryScroll
           items={subcategories}
           selected={selectedSub}
           onSelect={setSelectedSub}
@@ -73,21 +106,29 @@ export default function HeliosPage() {
       </div>
 
       {selectedSub && (
-        <div className="mt-6 w-full md:w-3/4">
-          <ResearchForm
-            category={category}
-            researchName={selectedSub}
-            onCalculate={handleCalculate}
-            dataSource={researchData}
-          />
+        <div className="flex flex-col lg:flex-row gap-6 mt-6 w-full">
+          <div className="w-full lg:w-8/12">
+            <HeliosForm
+              category={category}
+              researchName={selectedSub}
+              onCalculate={handleCalculate}
+              dataSource={heliosData}
+            />
+          </div>
+          <div className="w-full lg:w-4/12">
+            <HeliosCompareForm
+              requiredResources={defaultResources}
+              onCompare={handleCompare}
+            />
+          </div>
         </div>
       )}
 
-      {history.length > 0 && (
+      {results.length > 0 && (
         <div className="mt-8 space-y-6">
-          <h2 className="text-xl px-6">Research Results</h2>
+          <h2 className="text-xl px-6">Helios Results</h2>
 
-          {history.map((res) => (
+          {results.map((res, index) => (
             <div
               key={res.id}
               className="bg-special-inside p-6 rounded-xl shadow-2xl space-y-2 border border-zinc-800 text-yellow-400"
@@ -115,18 +156,53 @@ export default function HeliosPage() {
                 </span>
               </div>
 
-              <div className="grid grid-cols-3 gap-2 text-white mt-2">
-                {Object.entries(res.resources || {}).map(([key, val]) => (
-                  <div key={key} className="flex items-center gap-1">
-                    <ResourceIcon name={key} />
-                    <span>{val.toLocaleString()}</span>
-                  </div>
-                ))}
+              <div>
+                <span className="text-zinc-400 mb-5">Resources:</span>
+                <div className="flex flex-wrap gap-x-4 gap-y-2 text-base">
+                  {Object.entries(res.resources || {}).map(([key, value]) => {
+                    const need = res.resources?.[key] || 0
+                    const hasCompare = compares[0] && key in compares[0]
+                    const have = hasCompare ? compares[0][key] : null
+
+                    const diff = have - need
+                    const isMatch = diff === 0
+                    const color =
+                      diff > 0
+                        ? 'text-green-300 bg-green-700 px-2 py-1'
+                        : diff < 0
+                        ? 'text-red-300 bg-red-500/20 px-2 py-1'
+                        : 'text-gray-200 bg-gray-700 px-2 py-1'
+                    const label =
+                      diff > 0 ? 'Extra +' : diff < 0 ? 'Need -' : 'Match'
+
+                    return (
+                      <div
+                        key={key}
+                        className="flex flex-col items-end px-0 py-1 rounded-xl mt-1"
+                      >
+                        <div className="flex items-center justify-between gap-1 text-lime-400 text-sm md:text-base w-full">
+                          <ResourceIcon type={key} />
+                          {formatToShortNumber(value)}
+                        </div>
+                        {hasCompare && (
+                          <div
+                            className={`text-xs md:text-sm rounded-md mt-1 ${color}`}
+                          >
+                            {label}
+                            {!isMatch && (
+                              <> {formatToShortNumber(Math.abs(diff))}</>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
             </div>
           ))}
 
-          <ResearchTotalResult results={history} />
+          <HeliosTotalResult results={results} comparedData={compares[0]} />
         </div>
       )}
     </main>
