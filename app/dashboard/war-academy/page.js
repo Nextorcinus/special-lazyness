@@ -39,7 +39,7 @@ export default function HeliosPage({ addAnotherTrigger }) {
   useEffect(() => {
     setCategory('Infantry')
     setSelectedSub('')
-  }, [trigger, addAnotherTrigger, category])
+  }, [trigger, addAnotherTrigger])
 
   const handleCalculate = (data) => {
     const resultWithId = { ...data, id: uuidv4() }
