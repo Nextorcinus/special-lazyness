@@ -580,9 +580,7 @@
         },
         "raw_time_seconds": 490608,
         "buff": "+5.00% Infantry Defense"
-      }
-    ],
-    "Flame  Protection": [
+      },
       {
         "level": 12,
         "resources": {
@@ -755,9 +753,22 @@
         "buff": "+4,500 Rally Capacity"
       }
     ],
-    "Helios Infantry": [
+    "Unlock XI Helios Infantry": [
       {
-        "level": 1,
+        "level": 11,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "Unlock XI Helios Infantry"
+      },
+      {
+        "level": 12,
         "resources": {
           "Meat": 85000000,
           "Wood": 85000000,
@@ -1921,9 +1932,22 @@
         "buff": "+4,500 Rally Capacity"
       }
     ],
-    "Helios Marksman": [
+    "Unlock XI Helios Marksman": [
       {
-        "level": 1,
+        "level": 11,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": "Unlock XI Helios Marksmen"
+      },
+      {
+        "level": 12,
         "resources": {
           "Meat": 85000000,
           "Wood": 85000000,
@@ -3087,9 +3111,22 @@
         "buff": "+4,500 Rally Capacity"
       }
     ],
-    "Helios Lancer": [
+    "Unlock XI Helios Lancer": [
       {
-        "level": 1,
+        "level": 10,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 78921000,
+        "buff": "Unlock XI Helios Lancer"
+      },
+      {
+        "level": 11,
         "resources": {
           "Meat": 85000000,
           "Wood": 85000000,
