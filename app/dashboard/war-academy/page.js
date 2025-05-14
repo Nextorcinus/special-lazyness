@@ -12,7 +12,7 @@ import HeliosTotalResult from '../../components/HeliosTotalResult'
 import ResourceIcon from '../../components/ResourceIcon'
 import { formatToShortNumber } from '../../utils/formatToShortNumber'
 
-import heliosData from '@/data/heliosResearch.json'
+import heliosData from '../../data/HelliosResearch.json'
 import { useHeliosHistory } from './HeliosHistoryContext'
 import { useAddAnother } from '../../dashboard/research/AddAnotherContext'
 
