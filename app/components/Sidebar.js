@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { cn } from '../lib/utils'
 import { useState } from 'react'
+import { useGitVersion } from '../lib/getGitVersion'
 
 const menu = [
   {
@@ -36,6 +37,7 @@ const menu = [
 export default function Sidebar() {
   const pathname = usePathname()
   const [hovered, setHovered] = useState(null)
+  const version = useGitVersion() // ✅ Panggil hook di dalam komponen
 
   return (
     <aside className="flex flex-col justify-between w-full h-full lg:w-64 bg-[#1F1F1F] text-white">
@@ -84,7 +86,10 @@ export default function Sidebar() {
 
       {/* Footer */}
       <div className="mt-auto p-10 text-center text-xs text-zinc-400">
-        © Special Lazyness. <br></br> app created by special one #998
+        © Special Lazyness. <br /> app created by special one #998
+        <p className="mt-2 text-sm text-zinc-400 font-mono">
+          Version: {version}
+        </p>
       </div>
     </aside>
   )

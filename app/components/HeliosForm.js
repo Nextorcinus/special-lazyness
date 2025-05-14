@@ -23,6 +23,7 @@ export default function HeliosForm({
   const [fromLevel, setFromLevel] = useState('')
   const [toLevel, setToLevel] = useState('')
   const [speed, setSpeed] = useState('0')
+  const [vpBonus, setVpBonus] = useState('0')
   const { addToHistory } = useHeliosHistory()
 
   const levelOptions = useMemo(() => {
@@ -39,7 +40,7 @@ export default function HeliosForm({
   const handleCalculate = () => {
     const from = parseInt(fromLevel)
     const to = parseInt(toLevel)
-    const speedBonus = parseFloat(speed) || 0
+    const speedBonus = (parseFloat(speed) || 0) + (parseFloat(vpBonus) || 0)
 
     if (isNaN(from) || isNaN(to) || to <= from) {
       toast.error('Make sure levels are selected correctly.')
@@ -130,12 +131,26 @@ export default function HeliosForm({
         />
       </div>
 
+      <div>
+        <Label className="text-zinc-400">VP Bonus</Label>
+        <Select value={vpBonus} onValueChange={setVpBonus}>
+          <SelectTrigger className="bg-special-input text-white">
+            <SelectValue placeholder="Choose VP Bonus" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="0">Off</SelectItem>
+            <SelectItem value="10">10%</SelectItem>
+            <SelectItem value="20">20%</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
       <div className="col-span-full">
         <Button
           onClick={handleCalculate}
           className="bg-lime-600 mt-2 text-white hover:bg-green-700 rounded-sm py-5 w-full"
         >
-          Hitung Helios Research
+          Calculate Helios Research
         </Button>
       </div>
     </div>

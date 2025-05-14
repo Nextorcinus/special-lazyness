@@ -201,8 +201,8 @@ function BuildingForm({
                   </TooltipTrigger>
                   <TooltipContent side="top">
                     <p>
-                      Buff from Vice President +10%, if president activates buff
-                      speed (for SvS /KOI) choose 20%
+                      Buff from Vice President +10%, + if president activates
+                      buff speed (for SvS /KOI) choose 20%
                     </p>
                   </TooltipContent>
                 </Tooltip>
