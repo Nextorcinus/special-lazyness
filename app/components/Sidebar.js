@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { cn } from '../lib/utils'
 import { useState } from 'react'
-import { useGitVersion } from '../lib/getGitVersion'
+import { useGitVersion } from '../../lib/getGitVersion'
 
 const menu = [
   {
