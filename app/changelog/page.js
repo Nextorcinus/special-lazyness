@@ -1,6 +1,6 @@
 'use client'
 
-import changelog from '../../app/data/changelog'
+import changelog from 'data/changelog'
 import { useGitVersion } from 'lib/getGitVersion'
 
 export default function ChangelogPage() {
