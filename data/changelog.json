@@ -1,5 +1,13 @@
 [
   {
+    "version": "bb5ab5b",
+    "date": "2025-05-14",
+    "title": "Fix changelog Path",
+    "changes": [
+      "Fix changelog Path"
+    ]
+  },
+  {
     "version": "5bb8ca9",
     "date": "2025-05-14",
     "title": "Publish War Academy",

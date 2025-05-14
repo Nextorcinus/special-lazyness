@@ -86,6 +86,23 @@ export default function Sidebar() {
 
       {/* Footer */}
       <div className="mt-auto p-10 text-center text-xs text-zinc-400">
+        {/* Discord Button */}
+        <div className="mb-4">
+          <a
+            href="https://discordapp.com/users/380668333948928000"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2  hover:bg-indigo-700 text-white text-sm px-4 py-2 rounded-md transition"
+          >
+            <Image
+              src="/icon/discord.png"
+              alt="Discord Icon"
+              width={16}
+              height={16}
+            />
+            Contact Me
+          </a>
+        </div>
         © Special Lazyness. <br /> app created by special one #998
         <p className="mt-2 text-xs text-zinc-700 font-mono">
           Version: {version}
