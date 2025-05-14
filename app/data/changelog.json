@@ -1,7 +1,11 @@
 [
   {
-    "version": "your-latest-hash",
+    "version": "Publish War Academy",
     "date": "2025-05-14",
-    "changes": ["Initial release", "Added version display"]
+    "changes": [
+      "publish War Academy",
+      "Fix Json Helios Research",
+      "Update Version"
+    ]
   }
 ]

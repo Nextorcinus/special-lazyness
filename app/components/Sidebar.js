@@ -87,7 +87,7 @@ export default function Sidebar() {
       {/* Footer */}
       <div className="mt-auto p-10 text-center text-xs text-zinc-400">
         © Special Lazyness. <br /> app created by special one #998
-        <p className="mt-2 text-sm text-zinc-400 font-mono">
+        <p className="mt-2 text-xs text-zinc-700 font-mono">
           Version: {version}
         </p>
       </div>
