@@ -5,7 +5,8 @@
     "changes": [
       "publish War Academy",
       "Fix Json Helios Research",
-      "Update Version"
+      "Update Version",
+      "Fix form validation 0 from select level"
     ]
   }
 ]
