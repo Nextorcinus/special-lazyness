@@ -1,7 +1,7 @@
 'use client'
 
 import changelog from '../../app/data/changelog'
-import { useGitVersion } from '/lib/useGitVersion'
+import { useGitVersion } from 'lib/getGitVersion'
 
 export default function ChangelogPage() {
   const currentVersion = useGitVersion()
