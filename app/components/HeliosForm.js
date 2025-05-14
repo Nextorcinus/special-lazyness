@@ -20,7 +20,7 @@ export default function HeliosForm({
   onCalculate,
   dataSource,
 }) {
-  const [fromLevel, setFromLevel] = useState('')
+  const [fromLevel, setFromLevel] = useState('') // default kosong, bisa diubah ke '0'
   const [toLevel, setToLevel] = useState('')
   const [speed, setSpeed] = useState('0')
   const [vpBonus, setVpBonus] = useState('0')
@@ -88,11 +88,14 @@ export default function HeliosForm({
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-6 bg-special-inside rounded-xl shadow-2xl border border-zinc-800 mt-6">
+      {/* From */}
       <div>
         <Label className="text-zinc-400">From</Label>
         <Select value={fromLevel} onValueChange={setFromLevel}>
           <SelectTrigger className="bg-special-input text-white">
-            <SelectValue placeholder="Select From Level" />
+            <SelectValue placeholder="From Level">
+              {fromLevel !== '' ? fromLevel : undefined}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {levelOptions.map((lvl) => (
@@ -104,11 +107,12 @@ export default function HeliosForm({
         </Select>
       </div>
 
+      {/* To */}
       <div>
         <Label className="text-zinc-400">To</Label>
         <Select value={toLevel} onValueChange={setToLevel}>
           <SelectTrigger className="bg-special-input text-white">
-            <SelectValue placeholder="Select To Level" />
+            <SelectValue placeholder="To Level" />
           </SelectTrigger>
           <SelectContent>
             {toLevelOptions.map((lvl) => (
@@ -120,6 +124,7 @@ export default function HeliosForm({
         </Select>
       </div>
 
+      {/* Speed */}
       <div>
         <Label className="text-zinc-400">Research Speed (%)</Label>
         <Input
@@ -131,6 +136,7 @@ export default function HeliosForm({
         />
       </div>
 
+      {/* VP Bonus */}
       <div>
         <Label className="text-zinc-400">VP Bonus</Label>
         <Select value={vpBonus} onValueChange={setVpBonus}>
@@ -145,6 +151,7 @@ export default function HeliosForm({
         </Select>
       </div>
 
+      {/* Button */}
       <div className="col-span-full">
         <Button
           onClick={handleCalculate}

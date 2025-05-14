@@ -2,6 +2,19 @@
   "Infantry": {
     "Flame Squad": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 300000,
@@ -68,6 +81,19 @@
       }
     ],
     "Flame Shield": [
+      {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
       {
         "level": 1,
         "resources": {
@@ -175,6 +201,19 @@
     ],
     "Flame Strike": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 800000,
@@ -280,6 +319,19 @@
       }
     ],
     "Flame Tomahawk": [
+      {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
       {
         "level": 1,
         "resources": {
@@ -439,6 +491,19 @@
     ],
     "Flame Protection": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 700000,
@@ -596,6 +661,19 @@
       }
     ],
     "Flame Legion": [
+      {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
       {
         "level": 1,
         "resources": {
@@ -783,6 +861,19 @@
     ],
     "Helios Infantry Healing": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 2500000,
@@ -915,6 +1006,19 @@
     ],
     "Helios Infantry Training": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 2500000,
@@ -1046,6 +1150,19 @@
       }
     ],
     "Helios Infantry First Aid": [
+      {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
       {
         "level": 1,
         "resources": {
@@ -1181,6 +1298,19 @@
   "Marksman": {
     "Flame Squad": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 300000,
@@ -1247,6 +1377,19 @@
       }
     ],
     "Crystal Armor": [
+      {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
       {
         "level": 1,
         "resources": {
@@ -1354,6 +1497,19 @@
     ],
     "Crystal Vision": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 800000,
@@ -1459,6 +1615,19 @@
       }
     ],
     "Crystal Arrow": [
+      {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
       {
         "level": 1,
         "resources": {
@@ -1618,6 +1787,19 @@
     ],
     "Crystal Protection": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 700000,
@@ -1775,6 +1957,19 @@
       }
     ],
     "Flame Legion": [
+      {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
       {
         "level": 1,
         "resources": {
@@ -1962,6 +2157,19 @@
     ],
     "Helios Marksman Healing": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 2500000,
@@ -2094,6 +2302,19 @@
     ],
     "Helios Marksman Training": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 2500000,
@@ -2225,6 +2446,19 @@
       }
     ],
     "Helios Marksman First Aid": [
+      {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
       {
         "level": 1,
         "resources": {
@@ -2360,6 +2594,19 @@
   "Lancer": {
     "Flame Squad": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 300000,
@@ -2426,6 +2673,19 @@
       }
     ],
     "Blazing Armor": [
+      {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
       {
         "level": 1,
         "resources": {
@@ -2533,6 +2793,19 @@
     ],
     "Blazing Charge": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 800000,
@@ -2638,6 +2911,19 @@
       }
     ],
     "Blazing Lance": [
+      {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
       {
         "level": 1,
         "resources": {
@@ -2797,6 +3083,19 @@
     ],
     "Blazing Guardian": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 700000,
@@ -2954,6 +3253,19 @@
       }
     ],
     "Flame Legion": [
+      {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
       {
         "level": 1,
         "resources": {
@@ -3141,6 +3453,19 @@
     ],
     "Helios Lancer Healing": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 2500000,
@@ -3273,6 +3598,19 @@
     ],
     "Helios Lancer Training": [
       {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
+      {
         "level": 1,
         "resources": {
           "Meat": 2500000,
@@ -3404,6 +3742,19 @@
       }
     ],
     "Helios Lancer First Aid": [
+      {
+        "level": 0,
+        "resources": {
+          "Meat": 0,
+          "Wood": 0,
+          "Coal": 0,
+          "Iron": 0,
+          "Steel": 0,
+          "FC Shards": 0
+        },
+        "raw_time_seconds": 0,
+        "buff": ""
+      },
       {
         "level": 1,
         "resources": {
