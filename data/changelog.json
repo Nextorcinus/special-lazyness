@@ -1,5 +1,17 @@
 [
   {
+    "version": "5bb8ca9",
+    "date": "2025-05-14",
+    "title": "Publish War Academy",
+    "changes": [
+      "Publish War Academy",
+      "",
+      "Fix Json Helios Research",
+      "Update Version",
+      "Fix form validation 0 from select level"
+    ]
+  },
+  {
     "version": "8d04a0b",
     "date": "2025-05-14",
     "title": "update",
