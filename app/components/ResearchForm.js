@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import researchData from '../data/MaterialBasicResearch'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
@@ -21,18 +21,37 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
   const [researchSpeed, setResearchSpeed] = useState('0')
   const [vpBonus, setVpBonus] = useState('0')
 
-  const tierOptions = useMemo(() => {
-    return Object.keys(researchData[category]?.[researchName]?.tiers || {})
-  }, [category, researchName])
+  // Tier options
+  const tierOptions = useMemo(
+    () => Object.keys(researchData[category]?.[researchName]?.tiers || {}),
+    [category, researchName]
+  )
 
+  // Available levels for selected tier
   const levelOptions = useMemo(() => {
-    if (!tier || !researchData[category]?.[researchName]?.tiers?.[tier])
+    if (
+      !tier ||
+      !Array.isArray(researchData[category]?.[researchName]?.tiers?.[tier])
+    )
       return []
     return researchData[category][researchName].tiers[tier].map(
       (item) => item.level
     )
   }, [category, researchName, tier])
 
+  // Set default fromLevel to '0' if only one level in data, else reset
+  useEffect(() => {
+    if (tier) {
+      if (levelOptions.length <= 1) {
+        setFromLevel('0')
+      } else {
+        setFromLevel('')
+      }
+      setToLevel('')
+    }
+  }, [tier, levelOptions])
+
+  // Filter to levels greater than fromLevel
   const toLevelOptions = useMemo(() => {
     const from = parseInt(fromLevel)
     if (!Array.isArray(levelOptions)) return []
@@ -56,19 +75,11 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
       (sum, item) => sum + (item.raw_time_seconds || 0),
       0
     )
-
     const totalBonus =
       (parseFloat(researchSpeed) || 0) + (parseFloat(vpBonus) || 0)
     const finalTime = totalRawTime / (1 + totalBonus / 100)
 
-    const totalResources = {
-      Meat: 0,
-      Wood: 0,
-      Coal: 0,
-      Iron: 0,
-      Steel: 0,
-    }
-
+    const totalResources = { Meat: 0, Wood: 0, Coal: 0, Iron: 0, Steel: 0 }
     entries.forEach((item) => {
       if (item.resources) {
         Object.keys(totalResources).forEach((resource) => {
@@ -98,7 +109,7 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
       <div className="col-span-full">
         <Label className="text-zinc-400">Tier</Label>
         <Select value={tier} onValueChange={setTier}>
-          <SelectTrigger className=" bg-special-input text-white">
+          <SelectTrigger className="bg-special-input text-white">
             <SelectValue placeholder="Choose Tier" />
           </SelectTrigger>
           <SelectContent>
@@ -118,6 +129,8 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
             <SelectValue placeholder="select level" />
           </SelectTrigger>
           <SelectContent>
+            {/* Default level 0 option */}
+            <SelectItem value="0">0</SelectItem>
             {levelOptions.map((lvl) => (
               <SelectItem key={lvl} value={String(lvl)}>
                 {lvl}
@@ -172,7 +185,7 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
         onClick={handleCalculate}
         className="bg-lime-600 mt-2 text-white hover:bg-green-700 rounded-sm py-5 col-span-full"
       >
-        Hitung Research
+        Calculate Research
       </Button>
     </div>
   )

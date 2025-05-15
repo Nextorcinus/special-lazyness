@@ -1,5 +1,13 @@
 [
   {
+    "version": "dde40f6",
+    "date": "2025-05-14",
+    "title": "add Contact Me to discord",
+    "changes": [
+      "add Contact Me to discord"
+    ]
+  },
+  {
     "version": "bb5ab5b",
     "date": "2025-05-14",
     "title": "Fix changelog Path",
