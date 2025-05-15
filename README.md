@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Special Lazyness 
 
-## Getting Started
+A Next.js application that helps Whiteout Survival players plan and track progress across multiple in-game systems:
 
-First, run the development server:
+- **Chief Gear** upgrade calculator  
+- **Research** time & resource planner  
+- **Buildings Upgrade** estimator (Basic & Fire Crystal tiers)  
+- **War Academy** progression tracker  
+- **History & Comparison**: save past calculations and compare results  
+- **Responsive UI** built with Shadcn/UI, Tailwind CSS, and Radix components  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Table of Contents
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. [Features](#features)  
+2. [Tech Stack](#tech-stack)  
+3. [Getting Started](#getting-started)  
+4. [Project Structure](#project-structure)  
+5. [Environment Variables](#environment-variables)  
+6. [Contributing](#contributing)  
+7. [License](#license)  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- **Smart Calculations**  
+  Calculate resources & build/research times, factoring in buffs (Pet, VIP, Zinman Skill, Double Time, VP/President bonuses).
+- **Drag-scroll Subcategories**  
+  Smooth horizontal scroll with no visible scrollbar for selecting Crystal tiers, Helios subcategories, etc.
+- **History & Compare**  
+  Save each run, reset or delete entries, and see global surplus/shortage in a color-coded grid.
+- **War Academy Module**  
+  Plan your War Academy level-ups, track XP requirements, and visualize progress.
+- **Modern UI**  
+  Built with [Next.js](https://nextjs.org/) App Router, [Shadcn/UI](https://ui.shadcn.com/), [Radix](https://www.radix-ui.com/), and Tailwind CSS.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech Stack
 
-## Deploy on Vercel
+- **Framework**: Next.js 13 (App Router)  
+- **Language**: JavaScript (ES2023)  
+- **UI**: Shadcn/UI & Radix primitives, Tailwind CSS  
+- **Data**: Local JSON under `/data/`  
+- **Bundler**: Vercel (production), `vercel.json` config  
+- **Linting**: ESLint (via `eslint.config.mjs`)  
+- **PostCSS** & **Autoprefixer** (via `postcss.config.js`)  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+##  Konfigurasi
+Tailwind CSS: tailwind.config.js & postcss.config.js
+
+Next.js: next.config.js (setting experimental, rewrites, dsb.)
+
+Vercel: vercel.json (environment, redirects)
+
+Sesuaikan environment variables di .env.local sesuai kebutuhan (misal API keys, base URL, dsb.).
+
+### Prerequisites
+
+- **Node.js** ≥ 18.x  
+- **npm** ≥ 9.x  
+
+
