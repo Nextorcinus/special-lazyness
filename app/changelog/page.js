@@ -35,21 +35,6 @@ export default function ChangelogPage() {
         </ul>
       )}
 
-      {!currentEntry && (
-        <p className="text-red-500">
-          ⚠️ Tidak ditemukan changelog untuk versi ini.
-        </p>
-      )}
-
-      {/* Tambahkan daftar perubahan versi saat ini */}
-      {currentEntry && (
-        <ul className="list-disc list-inside mb-6 text-zinc-300">
-          {currentEntry.changes.map((change, idx) => (
-            <li key={idx}>{change}</li>
-          ))}
-        </ul>
-      )}
-
       {/* Tampilkan seluruh changelog lainnya */}
       {changelog.map((entry) => (
         <div key={entry.version} className="mb-6">
