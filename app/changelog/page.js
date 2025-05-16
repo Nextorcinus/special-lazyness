@@ -13,6 +13,9 @@ export default function ChangelogPage() {
       <p className="mb-6 text-sm text-zinc-400">
         Current Version:{' '}
         <span className="text-green-400 font-mono">{currentVersion}</span>
+        <span className="text-sm text-zinc-500 font-normal">
+          ({entry.date})
+        </span>
       </p>
 
       {changelog.map((entry) => (
