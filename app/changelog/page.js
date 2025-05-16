@@ -6,6 +6,9 @@ import { useGitVersion } from 'lib/getGitVersion'
 export default function ChangelogPage() {
   const currentVersion = useGitVersion()
 
+  
+  const currentEntry = changelog.find((entry) => entry.version === currentVersion)
+
   return (
     <div className="p-6 max-w-3xl mx-auto text-white">
       <h1 className="text-2xl font-bold mb-4">Changelog</h1>
@@ -13,9 +16,11 @@ export default function ChangelogPage() {
       <p className="mb-6 text-sm text-zinc-400">
         Current Version:{' '}
         <span className="text-green-400 font-mono">{currentVersion}</span>
-        <span className="text-sm text-zinc-500 font-normal">
-          ({entry.date})
-        </span>
+        {currentEntry && (
+          <span className="text-sm text-zinc-500 font-normal">
+            {' '}({currentEntry.date})
+          </span>
+        )}
       </p>
 
       {changelog.map((entry) => (
