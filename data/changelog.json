@@ -1,5 +1,13 @@
 [
   {
+    "version": "4c92a89",
+    "date": "2025-05-16",
+    "title": "change log",
+    "changes": [
+      "change log"
+    ]
+  },
+  {
     "version": "1eaad48",
     "date": "2025-05-15",
     "title": "Merge branch 'main' of https://github.com/Nextorcinus/special-lazyness",
