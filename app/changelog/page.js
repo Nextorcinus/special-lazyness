@@ -53,7 +53,7 @@ export default function ChangelogPage() {
       {/* Tampilkan seluruh changelog lainnya */}
       {changelog.map((entry) => (
         <div key={entry.version} className="mb-6">
-          <h2 className="text-lg font-semibold text-lime-400">
+          <h2 className="text-sm  text-lime-400">
             {entry.version}{' '}
             <span className="text-sm text-zinc-500 font-normal">
               ({entry.date})

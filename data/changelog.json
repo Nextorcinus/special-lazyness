@@ -1,5 +1,13 @@
 [
   {
+    "version": "ad1b021",
+    "date": "2025-05-16",
+    "title": "log error",
+    "changes": [
+      "log error"
+    ]
+  },
+  {
     "version": "4c92a89",
     "date": "2025-05-16",
     "title": "change log",
@@ -37,7 +45,7 @@
     "title": "Publish War Academy",
     "changes": [
       "Publish War Academy",
-      "",
+      "Fix app stability",
       "Fix Json Helios Research",
       "Update Version",
       "Fix form validation 0 from select level"
