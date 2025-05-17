@@ -5,6 +5,7 @@ import { Toaster } from 'sonner'
 import { HeliosHistoryProvider } from './HeliosHistoryContext'
 import HeliosHistoryList from '../../components/HeliosHistoryList'
 import { AddAnotherProvider } from '../../dashboard/research/AddAnotherContext'
+import PageWrapper from '@/components/PageWrapper'
 
 export default function HeliosLayout({ children }) {
   const [resetFormTrigger, setResetFormTrigger] = useState(0)
@@ -14,6 +15,7 @@ export default function HeliosLayout({ children }) {
   }
 
   return (
+    <PageWrapper>
     <HeliosHistoryProvider>
       <AddAnotherProvider>
         <div className="min-h-screen bg-special text-white grid grid-cols-1 lg:grid-cols-[1fr_320px]">
@@ -36,5 +38,6 @@ export default function HeliosLayout({ children }) {
         </div>
       </AddAnotherProvider>
     </HeliosHistoryProvider>
+    </PageWrapper>
   )
 }

@@ -104,7 +104,7 @@ export default function Sidebar() {
           </a>
         </div>
         © Special Lazyness. <br /> app created by special one #998
-        <p className="mt-2 text-xs text-zinc-700 font-mono">
+        <p className="mt-2 text-xs text-zinc-600 font-mono">
           Version: {version}
         </p>
       </div>

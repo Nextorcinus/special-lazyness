@@ -14,6 +14,7 @@ import '../../globals.css'
 import { useAddAnother } from './AddAnotherContext'
 import { toast } from 'sonner'
 
+
 //  TERIMA PROPS addAnotherTrigger
 export default function Home({ addAnotherTrigger }) {
   const [category, setCategory] = useState('Basic')

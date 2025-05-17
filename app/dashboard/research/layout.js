@@ -7,6 +7,7 @@ import { Toaster } from 'sonner'
 import { ResearchHistoryProvider } from '../../dashboard/research/ResearchHistoryContext'
 import ResearchHistoryList from '../../components/ResearhHistoryList'
 import { AddAnotherProvider } from '../../dashboard/research/AddAnotherContext'
+import PageWrapper from '@/components/PageWrapper'
 
 export default function ResearchLayout({ children }) {
   const [resetFormTrigger, setResetFormTrigger] = useState(0)
@@ -17,6 +18,7 @@ export default function ResearchLayout({ children }) {
   }
 
   return (
+    <PageWrapper>
     <ResearchHistoryProvider>
       <AddAnotherProvider>
         {' '}
@@ -41,5 +43,6 @@ export default function ResearchLayout({ children }) {
         </div>
       </AddAnotherProvider>
     </ResearchHistoryProvider>
+    </PageWrapper>
   )
 }

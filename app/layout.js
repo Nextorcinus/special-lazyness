@@ -2,6 +2,8 @@
 import Sidebar from './components/Sidebar'
 import MobileSidebar from './components/MobileSidebar'
 
+import { Component, Router } from 'lucide-react'
+
 export const metadata = {
   title: 'Special Lazyness',
   description: 'Upgrade Calculator for Chief Gear, Research, and Buildings',
