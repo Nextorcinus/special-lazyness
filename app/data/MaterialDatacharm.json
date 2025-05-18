@@ -1,0 +1,112 @@
+[
+  {
+    "level": 1,
+    "guide_cost": 5,
+    "design_cost": 5,
+    "power_total": 205700,
+    "stat_total": 9.0,
+    "power_diff": 205700,
+    "stat_diff": 9.0,
+    "svs_point": null
+  },
+  {
+    "level": 2,
+    "guide_cost": 40,
+    "design_cost": 15,
+    "power_total": 288000,
+    "stat_total": 12.0,
+    "power_diff": 82300,
+    "stat_diff": 3.0,
+    "svs_point": 87500
+  },
+  {
+    "level": 3,
+    "guide_cost": 60,
+    "design_cost": 40,
+    "power_total": 370000,
+    "stat_total": 16.0,
+    "power_diff": 82000,
+    "stat_diff": 4.0,
+    "svs_point": 218750
+  },
+  {
+    "level": 4,
+    "guide_cost": 80,
+    "design_cost": 100,
+    "power_total": 452000,
+    "stat_total": 19.0,
+    "power_diff": 82000,
+    "stat_diff": 3.0,
+    "svs_point": 612500
+  },
+  {
+    "level": 5,
+    "guide_cost": 100,
+    "design_cost": 200,
+    "power_total": 576000,
+    "stat_total": 25.0,
+    "power_diff": 124000,
+    "stat_diff": 6.0,
+    "svs_point": 787500
+  },
+  {
+    "level": 6,
+    "guide_cost": 120,
+    "design_cost": 300,
+    "power_total": 700000,
+    "stat_total": 30.0,
+    "power_diff": 124000,
+    "stat_diff": 5.0,
+    "svs_point": 875000.0
+  },
+  {
+    "level": 7,
+    "guide_cost": 140,
+    "design_cost": 400,
+    "power_total": 824000,
+    "stat_total": 35.0,
+    "power_diff": 124000,
+    "stat_diff": 5.0,
+    "svs_point": 875000
+  },
+  {
+    "level": 8,
+    "guide_cost": 200,
+    "design_cost": 400,
+    "power_total": 948000,
+    "stat_total": 40.0,
+    "power_diff": 124000,
+    "stat_diff": 5.0,
+    "svs_point": 910000
+  },
+  {
+    "level": 9,
+    "guide_cost": 300,
+    "design_cost": 400,
+    "power_total": 1072000,
+    "stat_total": 45.0,
+    "power_diff": 124000,
+    "stat_diff": 5.0,
+    "svs_point": 980000
+  },
+  {
+    "level": 10,
+    "guide_cost": 420,
+    "design_cost": 420,
+    "power_total": 1196000,
+    "stat_total": 50.0,
+    "power_diff": 124000,
+    "stat_diff": 5.0,
+    "svs_point": 1050000
+  },
+  {
+    "level": 11,
+    "guide_cost": 560,
+    "design_cost": 420,
+    "power_total": 1320000,
+    "stat_total": 55.0,
+    "power_diff": 124000,
+    "stat_diff": 5.0,
+    "svs_point": 1120000
+  }
+]

@@ -32,6 +32,12 @@ const menu = [
     icon: '/icon/war-academy.png',
     iconHover: '/icon/war-academy-hover.png',
   },
+  {
+    label: 'Chief Charm(try error)',
+    href: '/dashboard/charm',
+    icon: '/icon/war-academy.png',
+    iconHover: '/icon/war-academy-hover.png',
+  },
 ]
 
 export default function Sidebar() {
