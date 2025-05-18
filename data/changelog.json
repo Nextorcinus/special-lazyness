@@ -1,5 +1,13 @@
 [
   {
+    "version": "f30e5f2",
+    "date": "2025-05-17",
+    "title": "add framer-motion, fix path",
+    "changes": [
+      "add framer-motion, fix path"
+    ]
+  },
+  {
     "version": "25316ea",
     "date": "2025-05-16",
     "title": "log update has been Fixed",

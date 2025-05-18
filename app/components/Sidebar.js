@@ -43,14 +43,16 @@ export default function Sidebar() {
     <aside className="flex flex-col justify-between w-full h-full lg:w-64 bg-[#1F1F1F] text-white">
       <div>
         <div className="flex justify-center p-4">
-          <Image
-            src="/icon/specialLazynessLogo.png"
-            alt="Special Lazyness Logo"
-            width={179}
-            height={43}
-            style={{ height: 'auto' }}
-            priority
-          />
+          <Link href="/" passHref>
+            <Image
+              src="/icon/specialLazynessLogo.png"
+              alt="Special Lazyness Logo"
+              width={179}
+              height={43}
+              style={{ height: 'auto' }}
+              priority
+            />
+          </Link>
         </div>
 
         <nav className="flex flex-col gap-2 px-4">
