@@ -19,7 +19,7 @@ export default function PageTransitionWrapper({ children }) {
     const enterTimeout = setTimeout(() => {
       setIsTransitioning(false)
       setShowContent(true)
-    }, 1000)
+    }, 900)
 
     return () => {
       clearTimeout(enterTimeout)
@@ -40,7 +40,7 @@ export default function PageTransitionWrapper({ children }) {
               exit={{ y: '100%' }}
               transition={{
                 delay: i * 0.07,
-                duration: 0.6,
+                duration: 0.45,
                 ease: 'easeInOut',
               }}
             />
@@ -55,7 +55,7 @@ export default function PageTransitionWrapper({ children }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4 }}
             className="relative z-0"
           >
             {children}
