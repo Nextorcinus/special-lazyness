@@ -42,11 +42,12 @@ export default function CharmTable({ data }) {
     (acc, item) => ({
       guide: acc.guide + item.guide,
       design: acc.design + item.design,
+      jewel: acc.jewel + (item.jewel || 0),
       power: acc.power + item.power,
       stat_total: acc.stat_total + item.stat_total,
       svs: acc.svs + item.svs,
     }),
-    { guide: 0, design: 0, power: 0, stat_total: 0, svs: 0 }
+    { guide: 0, design: 0, jewel: 0, power: 0, stat_total: 0, svs: 0 }
   )
 
   return (
@@ -94,6 +95,7 @@ export default function CharmTable({ data }) {
               <th className="text-left py-2 px-2">To</th>
               <th className="text-left py-2 px-2">Guide</th>
               <th className="text-left py-2 px-2">Design</th>
+              <th className="text-left py-2 px-2">Jewel</th>
               <th className="text-left py-2 px-2">Power</th>
               <th className="text-left py-2 px-2">Stat</th>
               <th className="text-left py-2 px-2">SvS</th>
@@ -108,6 +110,7 @@ export default function CharmTable({ data }) {
                 <td className="py-1 px-2">{row.to}</td>
                 <td className="py-1 px-2">{formatNumber(row.guide)}</td>
                 <td className="py-1 px-2">{formatNumber(row.design)}</td>
+                <td className="py-1 px-2">{formatNumber(row.jewel || 0)}</td>
                 <td className="py-1 px-2">{formatNumber(row.power)}</td>
                 <td className="py-1 px-2">+{formatPercent(row.stat_total)}</td>
                 <td className="py-1 px-2">{formatNumber(row.svs)}</td>
@@ -121,6 +124,7 @@ export default function CharmTable({ data }) {
               </td>
               <td className="py-2 px-2">{formatNumber(totalRow.guide)}</td>
               <td className="py-2 px-2">{formatNumber(totalRow.design)}</td>
+              <td className="py-2 px-2">{formatNumber(totalRow.jewel)}</td>
               <td className="py-2 px-2">{formatNumber(totalRow.power)}</td>
               <td className="py-2 px-2">
                 +{formatPercent(totalRow.stat_total)}

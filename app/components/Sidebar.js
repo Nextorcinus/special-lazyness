@@ -15,6 +15,12 @@ const menu = [
     iconHover: '/icon/gear-hover.png',
   },
   {
+    label: 'Chief Charm',
+    href: '/dashboard/charm',
+    icon: '/icon/charm.png',
+    iconHover: '/icon/charm-hover.png',
+  },
+  {
     label: 'Research',
     href: '/dashboard/research',
     icon: '/icon/research.png',
@@ -29,12 +35,6 @@ const menu = [
   {
     label: 'War Academy',
     href: '/dashboard/war-academy',
-    icon: '/icon/war-academy.png',
-    iconHover: '/icon/war-academy-hover.png',
-  },
-  {
-    label: 'Chief Charm(try error)',
-    href: '/dashboard/charm',
     icon: '/icon/war-academy.png',
     iconHover: '/icon/war-academy-hover.png',
   },

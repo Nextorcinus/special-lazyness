@@ -1,5 +1,16 @@
 [
   {
+    "level": 0,
+    "guide_cost": 0,
+    "design_cost": 0,
+    "jewel_cost": 0,
+    "power_total": 0,
+    "stat_total": 0.0,
+    "power_diff": 0,
+    "stat_diff": 0.0,
+    "svs_point": 0
+  },
+  {
     "level": 1,
     "guide_cost": 5,
     "design_cost": 5,
@@ -7,7 +18,8 @@
     "stat_total": 9.0,
     "power_diff": 205700,
     "stat_diff": 9.0,
-    "svs_point": null
+    "svs_point": 43000,
+    "jewel_cost": 0
   },
   {
     "level": 2,
@@ -17,7 +29,8 @@
     "stat_total": 12.0,
     "power_diff": 82300,
     "stat_diff": 3.0,
-    "svs_point": 87500
+    "svs_point": 87500,
+    "jewel_cost": 0
   },
   {
     "level": 3,
@@ -27,7 +40,8 @@
     "stat_total": 16.0,
     "power_diff": 82000,
     "stat_diff": 4.0,
-    "svs_point": 218750
+    "svs_point": 218750,
+    "jewel_cost": 0
   },
   {
     "level": 4,
@@ -37,7 +51,8 @@
     "stat_total": 19.0,
     "power_diff": 82000,
     "stat_diff": 3.0,
-    "svs_point": 612500
+    "svs_point": 612500,
+    "jewel_cost": 0
   },
   {
     "level": 5,
@@ -47,7 +62,8 @@
     "stat_total": 25.0,
     "power_diff": 124000,
     "stat_diff": 6.0,
-    "svs_point": 787500
+    "svs_point": 787500,
+    "jewel_cost": 0
   },
   {
     "level": 6,
@@ -57,7 +73,8 @@
     "stat_total": 30.0,
     "power_diff": 124000,
     "stat_diff": 5.0,
-    "svs_point": 875000.0
+    "svs_point": 875000.0,
+    "jewel_cost": 0
   },
   {
     "level": 7,
@@ -67,7 +84,8 @@
     "stat_total": 35.0,
     "power_diff": 124000,
     "stat_diff": 5.0,
-    "svs_point": 875000
+    "svs_point": 875000,
+    "jewel_cost": 0
   },
   {
     "level": 8,
@@ -77,7 +95,8 @@
     "stat_total": 40.0,
     "power_diff": 124000,
     "stat_diff": 5.0,
-    "svs_point": 910000
+    "svs_point": 910000,
+    "jewel_cost": 0
   },
   {
     "level": 9,
@@ -87,7 +106,8 @@
     "stat_total": 45.0,
     "power_diff": 124000,
     "stat_diff": 5.0,
-    "svs_point": 980000
+    "svs_point": 980000,
+    "jewel_cost": 0
   },
   {
     "level": 10,
@@ -97,7 +117,8 @@
     "stat_total": 50.0,
     "power_diff": 124000,
     "stat_diff": 5.0,
-    "svs_point": 1050000
+    "svs_point": 1050000,
+    "jewel_cost": 0
   },
   {
     "level": 11,
@@ -107,6 +128,7 @@
     "stat_total": 55.0,
     "power_diff": 124000,
     "stat_diff": 5.0,
-    "svs_point": 1120000
+    "svs_point": 1120000,
+    "jewel_cost": 0
   }
 ]

@@ -2,12 +2,16 @@
 
 import { useState, useEffect } from 'react'
 
+function formatNumber(val) {
+  const num = parseInt(val)
+  return isNaN(num) ? '0' : num.toLocaleString('en-US')
+}
+
 export default function CharmProgress({ total, compare }) {
   const [existing, setExisting] = useState({
     guide: '',
     design: '',
-    power: '',
-    stat: '',
+    jewel: '',
   })
 
   const [result, setResult] = useState(null)
@@ -17,19 +21,17 @@ export default function CharmProgress({ total, compare }) {
       setExisting({
         guide: compare.guide || '',
         design: compare.design || '',
-        power: compare.power || '',
-        stat: compare.stat || '',
+        jewel: compare.jewel || '',
       })
     }
   }, [compare])
 
   useEffect(() => {
-    if (compare) {
+    if (compare && total) {
       const newResult = {
-        guide: (parseInt(compare.guide) || 0) - total.guide,
-        design: (parseInt(compare.design) || 0) - total.design,
-        power: (parseInt(compare.power) || 0) - total.power,
-        stat: (parseFloat(compare.stat) || 0) - total.stat,
+        guide: (parseInt(compare.guide) || 0) - (total.guide || 0),
+        design: (parseInt(compare.design) || 0) - (total.design || 0),
+        jewel: (parseInt(compare.jewel) || 0) - (total.jewel || 0),
       }
       setResult(newResult)
     }
@@ -50,11 +52,10 @@ export default function CharmProgress({ total, compare }) {
   const fields = [
     { name: 'guide', label: 'Charm Guide' },
     { name: 'design', label: 'Design Manual' },
-    { name: 'power', label: 'Power Increase' },
-    { name: 'stat', label: 'Stat Bonus' },
+    { name: 'jewel', label: 'Jewel Secrets' },
   ]
 
-  if (!compare) return null
+  if (!compare || !total) return null
 
   return (
     <div className="mt-10 p-6 bg-special-inside rounded-xl shadow-2xl border border-zinc-800 space-y-6">
@@ -71,10 +72,11 @@ export default function CharmProgress({ total, compare }) {
           <tbody>
             {result &&
               fields.map((item) => {
-                const available = parseFloat(existing[item.name]) || 0
+                const available = parseInt(existing[item.name]) || 0
                 const required = total[item.name] || 0
                 const progress = calculateProgress(available, required)
                 const isSufficient = result[item.name] >= 0
+                const diff = Math.abs(result[item.name])
 
                 return (
                   <tr key={item.name}>
@@ -82,11 +84,11 @@ export default function CharmProgress({ total, compare }) {
                     <td className="border border-zinc-800 p-2">
                       {isSufficient ? (
                         <span className="text-green-600">
-                          ({result[item.name]} left) Sufficient
+                          ({formatNumber(diff)} left) Sufficient
                         </span>
                       ) : (
                         <span className="text-red-400">
-                          Need -{Math.abs(result[item.name])}
+                          Need -{formatNumber(diff)}
                         </span>
                       )}
                     </td>

@@ -4,47 +4,33 @@ import { createContext, useContext, useState } from 'react'
 
 const CharmHistoryContext = createContext()
 
-export function HistoryProvider({ children }) {
+export const CharmHistoryProvider = ({ children }) => {
   const [history, setHistory] = useState([])
   const [resetFormTrigger, setResetFormTrigger] = useState(0)
-
-  const addToHistory = (entry) => {
-    setHistory((prev) => {
-      const exists = prev.some(
-        (item) => item.from === entry.from && item.to === entry.to
-      )
-      if (exists) return prev
-      return [...prev, { ...entry, id: `${entry.from}->${entry.to}` }]
-    })
-  }
 
   const updateHistory = (entry) => {
     setHistory((prev) => {
       const filtered = prev.filter(
-        (item) => item.id !== `${entry.from}->${entry.to}`
+        (item) => !(item.gear === entry.gear && item.index === entry.index)
       )
-      return [...filtered, { ...entry, id: `${entry.from}->${entry.to}` }]
+      return [...filtered, { ...entry, id: `${entry.gear}-${entry.index}` }]
     })
   }
 
   const deleteHistory = (id) => {
-    setHistory((prev) => {
-      const updated = prev.filter((item) => item.id !== id)
-      if (updated.length === 0) setResetFormTrigger(Date.now())
-      return updated
-    })
+    setHistory((prev) => prev.filter((item) => item.id !== id))
+    setResetFormTrigger((prev) => prev + 1)
   }
 
   const resetHistory = () => {
     setHistory([])
-    setResetFormTrigger(Date.now())
+    setResetFormTrigger((prev) => prev + 1)
   }
 
   return (
     <CharmHistoryContext.Provider
       value={{
         history,
-        addToHistory,
         updateHistory,
         deleteHistory,
         resetHistory,
@@ -56,4 +42,12 @@ export function HistoryProvider({ children }) {
   )
 }
 
-export const useCharmHistory = () => useContext(CharmHistoryContext)
+export const useCharmHistory = () => {
+  const context = useContext(CharmHistoryContext)
+  if (!context) {
+    throw new Error(
+      'useCharmHistory must be used within a CharmHistoryProvider'
+    )
+  }
+  return context
+}

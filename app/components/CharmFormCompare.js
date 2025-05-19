@@ -9,8 +9,7 @@ export default function CompareFormCharm({ onCompare }) {
   const [form, setForm] = useState({
     guide: '',
     design: '',
-    power: '',
-    stat: '',
+    jewel: '',
   })
 
   const handleChange = (e) => {
@@ -33,7 +32,7 @@ export default function CompareFormCharm({ onCompare }) {
       {[
         { name: 'guide', label: 'Charm Guide' },
         { name: 'design', label: 'Design Manual' },
-        { name: 'Jewel', label: 'Jewel Secrets' },
+        { name: 'jewel', label: 'Jewel Secrets' },
       ].map((item) => (
         <div key={item.name} className="space-y-2">
           <Label htmlFor={item.name} className="text-zinc-400">

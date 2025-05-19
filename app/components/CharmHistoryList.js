@@ -12,6 +12,7 @@ export default function CharmHistoryList({ onResetGlobal }) {
   const handleReset = () => {
     resetHistory()
     toast.success('All charm history has been reset.')
+    onResetGlobal?.()
   }
 
   return (
@@ -28,7 +29,7 @@ export default function CharmHistoryList({ onResetGlobal }) {
 
       <CardContent className="space-y-2 px-4 pb-4">
         {history.length === 0 ? (
-          <p className="text-sm text-gray-400">No history yet.</p>
+          <p className="text-sm text-gray-400">No charm history yet.</p>
         ) : (
           history.map((entry) => (
             <div
@@ -36,7 +37,7 @@ export default function CharmHistoryList({ onResetGlobal }) {
               className="flex justify-between items-center bg-zinc-800 rounded px-4 py-3"
             >
               <div>
-                <div className="text-sm font-semibold">Charm</div>
+                <div className="text-sm font-semibold">{entry.gear}</div>
                 <div className="text-xs text-zinc-400 mt-1">
                   {entry.from} → {entry.to}
                 </div>
@@ -45,7 +46,10 @@ export default function CharmHistoryList({ onResetGlobal }) {
                 className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded"
                 onClick={() => {
                   deleteHistory(entry.id)
-                  toast.success(`History from ${entry.from} has been deleted.`)
+                  toast.success(
+                    `History ${entry.gear} ${entry.from}→${entry.to} deleted.`
+                  )
+                  onResetGlobal?.()
                 }}
               >
                 Delete

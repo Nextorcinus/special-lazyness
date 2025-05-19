@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import charmData from '@/data/MaterialDatacharm.json'
 import { Label } from '@/components/ui/label'
 import {
   Select,
@@ -12,7 +13,11 @@ import {
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 
-const charmLevels = Array.from({ length: 11 }, (_, i) => `${i + 1}`)
+// Ambil level maksimum dari data JSON
+const maxLevel = Math.max(...charmData.map((item) => item.level))
+// Buat array level dari 0 hingga maxLevel
+const charmLevels = Array.from({ length: maxLevel + 1 }, (_, i) => `${i}`)
+
 const charmParts = {
   Lancer: ['Cap', 'Watch'],
   Infantry: ['Coat', 'Pants'],
@@ -81,7 +86,7 @@ export default function CharmForm({
       onSubmit={handleCalculate}
       className="p-6 bg-special-inside rounded-xl shadow-2xl border border-zinc-800 space-y-6"
     >
-      <h2 className="text-xl">Select the current and desired charm level</h2>
+      <h2 className="text-xl">Select Level</h2>
 
       {Object.entries(charmParts).map(([category, parts]) => (
         <div key={category} className="space-y-2">
