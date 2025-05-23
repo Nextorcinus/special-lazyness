@@ -1,5 +1,13 @@
 [
   {
+    "version": "b0480c7",
+    "date": "2025-05-23",
+    "title": "fix stable charm useEffect delete charm input",
+    "changes": [
+      "fix stable charm useEffect delete charm input"
+    ]
+  },
+  {
     "version": "06c5198",
     "date": "2025-05-19",
     "title": "Fix Chief Charm, Material Charm Json, Fix logic Compare Charm",
