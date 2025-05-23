@@ -12,22 +12,42 @@ import {
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
+import { useGearHistory } from '../dashboard/gear/GearContext'
 
 const gearParts = ['Cap', 'Watch', 'Coat', 'Pants', 'Belt', 'Weapon']
 
 const GearForm = ({ onSubmit, onReset, materialDataLoaded, resetTrigger }) => {
-  // console.log('[GEAR FORM] Props:', { resetTrigger })
   const initialState = gearParts.reduce((acc, part) => {
     acc[part] = { from: '', to: '' }
     return acc
   }, {})
 
   const [selections, setSelections] = useState(initialState)
+  const { resetGearParts, consumeResetGearPart } = useGearHistory()
 
   useEffect(() => {
-    // console.log('[GEAR FORM] 🔄 resetTrigger berubah:', resetTrigger)
     setSelections(initialState)
   }, [resetTrigger])
+
+  // ✅ Reset hanya bagian tertentu jika dihapus dari history
+  useEffect(() => {
+    if (!resetGearParts || resetGearParts.length === 0) return
+
+    const updated = { ...selections }
+    let didReset = false
+
+    resetGearParts.forEach((gear) => {
+      if (updated[gear]) {
+        updated[gear] = { from: '', to: '' }
+        consumeResetGearPart(gear)
+        didReset = true
+      }
+    })
+
+    if (didReset) {
+      setSelections(updated)
+    }
+  }, [JSON.stringify(resetGearParts)])
 
   const getLevelIndex = (level) => levels.indexOf(level)
 
@@ -85,7 +105,7 @@ const GearForm = ({ onSubmit, onReset, materialDataLoaded, resetTrigger }) => {
         return (
           <div key={`${part}-${resetTrigger}`} className="space-y-2">
             <Label className="text-zinc-400">{part}</Label>
-            <div className="flex flex-row  gap-4">
+            <div className="flex flex-row gap-4">
               <Select
                 value={selections[part].from}
                 onValueChange={(val) => handleChange(part, 'from', val)}

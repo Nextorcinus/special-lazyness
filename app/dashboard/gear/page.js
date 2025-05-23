@@ -14,13 +14,28 @@ const materialData = rawMaterialData.data || []
 
 export default function GearPage() {
   const { resetFormTrigger } = useGearHistory()
+
   const [selectedGears, setSelectedGears] = useState([])
   const [ownResources, setOwnResources] = useState(null)
 
   const resultRef = useRef()
   const compareRef = useRef()
 
-  const { updateHistory, resetHistory } = useGearHistory()
+  const { updateHistory } = useGearHistory()
+
+  const { history } = useGearHistory()
+
+  useEffect(() => {
+    if (!history || history.length === 0) {
+      setSelectedGears([])
+      return
+    }
+
+    const activeGears = history.map((entry) => entry.gear)
+    setSelectedGears((prev) =>
+      prev.filter((item) => activeGears.includes(item.gear))
+    )
+  }, [history])
 
   const handleFormSubmit = (selections) => {
     if (!materialData.length)
@@ -74,6 +89,7 @@ export default function GearPage() {
     compareRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  // Reset total saat global trigger diaktifkan
   useEffect(() => {
     if (resetFormTrigger) {
       setSelectedGears([])

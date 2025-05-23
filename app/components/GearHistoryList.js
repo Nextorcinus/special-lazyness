@@ -48,6 +48,11 @@ export default function GearHistoryList({ onResetGlobal }) {
                 onClick={() => {
                   deleteHistory(entry.id)
                   toast.success(`History ${entry.gear} has been deleted.`)
+
+                  // Trigger reset jika hanya satu entry yang tersisa
+                  if (history.length === 1 && typeof window !== 'undefined') {
+                    window.dispatchEvent(new CustomEvent('gear:forceReset'))
+                  }
                 }}
               >
                 Delete
