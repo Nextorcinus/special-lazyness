@@ -7,6 +7,7 @@ const CharmHistoryContext = createContext()
 export const CharmHistoryProvider = ({ children }) => {
   const [history, setHistory] = useState([])
   const [resetFormTrigger, setResetFormTrigger] = useState(0)
+  const [resetGearPairs, setResetGearPairs] = useState([])
 
   const updateHistory = (entry) => {
     setHistory((prev) => {
@@ -18,13 +19,32 @@ export const CharmHistoryProvider = ({ children }) => {
   }
 
   const deleteHistory = (id) => {
-    setHistory((prev) => prev.filter((item) => item.id !== id))
-    setResetFormTrigger((prev) => prev + 1)
+    setHistory((prev) => {
+      const updated = prev.filter((item) => item.id !== id)
+      const deleted = prev.find((item) => item.id === id)
+
+      if (deleted) {
+        setResetGearPairs((prevReset) => [
+          ...prevReset,
+          { part: deleted.gear, index: deleted.index },
+        ])
+      }
+
+      return updated
+    })
+
+    // Do not trigger resetFormTrigger anymore here
   }
 
   const resetHistory = () => {
     setHistory([])
     setResetFormTrigger((prev) => prev + 1)
+  }
+
+  const consumeResetGearPair = (part, index) => {
+    setResetGearPairs((prev) =>
+      prev.filter((item) => !(item.part === part && item.index === index))
+    )
   }
 
   return (
@@ -35,6 +55,8 @@ export const CharmHistoryProvider = ({ children }) => {
         deleteHistory,
         resetHistory,
         resetFormTrigger,
+        resetGearPairs,
+        consumeResetGearPair,
       }}
     >
       {children}
@@ -45,9 +67,7 @@ export const CharmHistoryProvider = ({ children }) => {
 export const useCharmHistory = () => {
   const context = useContext(CharmHistoryContext)
   if (!context) {
-    throw new Error(
-      'useCharmHistory must be used within a CharmHistoryProvider'
-    )
+    throw new Error('useCharmHistory must be used within CharmHistoryProvider')
   }
   return context
 }

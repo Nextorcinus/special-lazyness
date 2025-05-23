@@ -6,7 +6,7 @@ import CharmTable from '@/components/CharmTable'
 import CharmProgress from '@/components/CharmProgress'
 import CompareFormCharm from '@/components/CharmFormCompare'
 import charmDataRaw from '@/data/MaterialDatacharm.json'
-import { useCharmHistory } from './HistoryContext'
+import { useCharmHistory } from './CharmHistoryContext'
 import { useAddAnother } from './AddAnotherContext'
 
 export default function CharmPage() {
@@ -14,7 +14,9 @@ export default function CharmPage() {
   const [compare, setCompare] = useState(null)
   const resultRef = useRef()
   const compareRef = useRef()
-  const { updateHistory, resetFormTrigger, resetHistory } = useCharmHistory()
+
+  const { history, updateHistory, resetFormTrigger, resetHistory } =
+    useCharmHistory()
   const { addAnother } = useAddAnother()
 
   const handleFormSubmit = (selections) => {
@@ -40,27 +42,25 @@ export default function CharmPage() {
           if (!levelData) return
 
           upgrades.push({
-            gear: part,
+            part,
             class: charmClass,
             from: `${i - 1}`,
             to: `${i}`,
             guide: levelData.guide_cost,
             design: levelData.design_cost,
+            jewel: levelData.jewel_cost || 0,
             power: levelData.power_diff,
             stat_total: levelData.stat_diff,
             svs: levelData.svs_point || 0,
+            index,
           })
         }
-        updateHistory({ gear: part, from, to, index })
+
+        updateHistory({ gear: part, from, to, index }) // keep this for compatibility
       })
     }
 
-    if (addAnother) {
-      setResults((prev) => [...prev, ...upgrades])
-    } else {
-      setResults(upgrades)
-    }
-
+    setResults((prev) => (addAnother ? [...prev, ...upgrades] : upgrades))
     resultRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
@@ -69,6 +69,7 @@ export default function CharmPage() {
     compareRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  // Reset all when trigger fired
   useEffect(() => {
     if (resetFormTrigger) {
       setResults([])
@@ -76,15 +77,38 @@ export default function CharmPage() {
     }
   }, [resetFormTrigger])
 
+  // Filter only remaining result data
+  useEffect(() => {
+    const activeSet = new Set(
+      history.flatMap(({ gear, from, to, index }) => {
+        const start = parseInt(from)
+        const end = parseInt(to)
+        const part = gear
+        const list = []
+        for (let i = start; i < end; i++) {
+          list.push(`${part}-${i}-${index}`)
+        }
+        return list
+      })
+    )
+
+    setResults((prev) =>
+      prev.filter((item) =>
+        activeSet.has(`${item.part}-${item.from}-${item.index}`)
+      )
+    )
+  }, [history])
+
   const total = results.reduce(
     (acc, item) => ({
       guide: acc.guide + item.guide,
       design: acc.design + item.design,
+      jewel: acc.jewel + (item.jewel || 0),
       power: acc.power + item.power,
       stat_total: acc.stat_total + item.stat_total,
       svs: acc.svs + item.svs,
     }),
-    { guide: 0, design: 0, power: 0, stat_total: 0, svs: 0 }
+    { guide: 0, design: 0, jewel: 0, power: 0, stat_total: 0, svs: 0 }
   )
 
   return (
@@ -104,7 +128,6 @@ export default function CharmPage() {
               resetHistory()
             }}
             dataLoaded={!!charmDataRaw?.length}
-            resetTrigger={resetFormTrigger}
           />
         </div>
 

@@ -3,7 +3,7 @@
 import { Toaster } from 'sonner'
 import PageWrapper from '@/components/PageWrapper'
 import HistoryList from '@/components/CharmHistoryList'
-import { CharmHistoryProvider } from './HistoryContext'
+import { CharmHistoryProvider } from './CharmHistoryContext'
 import { AddAnotherProvider } from './AddAnotherContext'
 
 export default function Layout({ children }) {

@@ -12,10 +12,9 @@ import {
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
+import { useCharmHistory } from '../dashboard/charm/CharmHistoryContext'
 
-// Ambil level maksimum dari data JSON
 const maxLevel = Math.max(...charmData.map((item) => item.level))
-// Buat array level dari 0 hingga maxLevel
 const charmLevels = Array.from({ length: maxLevel + 1 }, (_, i) => `${i}`)
 
 const charmParts = {
@@ -24,24 +23,55 @@ const charmParts = {
   Marksman: ['Belt', 'Weapon'],
 }
 
-export default function CharmForm({
-  onSubmit,
-  onReset,
-  dataLoaded,
-  resetTrigger,
-}) {
+export default function CharmForm({ onSubmit, onReset, dataLoaded }) {
   const initialState = Object.values(charmParts)
     .flat()
     .reduce((acc, part) => {
-      acc[part] = Array(3).fill({ from: '', to: '' })
+      acc[part] = Array.from({ length: 3 }, () => ({ from: '', to: '' }))
       return acc
     }, {})
 
   const [selections, setSelections] = useState(initialState)
 
+  const { resetGearPairs, consumeResetGearPair, history } = useCharmHistory()
+
+  // ✅ Reset hanya input yang dihapus (tanpa trigger render error)
   useEffect(() => {
-    setSelections(initialState)
-  }, [resetTrigger])
+    if (!Array.isArray(resetGearPairs) || resetGearPairs.length === 0) return
+
+    const updated = { ...selections }
+    let changed = false
+
+    resetGearPairs.forEach(({ part, index }) => {
+      const stillExists = history.some(
+        (entry) => entry.gear === part && entry.index === index
+      )
+      if (stillExists) return
+
+      if (updated[part] && updated[part][index]) {
+        updated[part][index] = { from: '', to: '' }
+        changed = true
+      }
+    })
+
+    if (changed) {
+      setSelections(updated)
+    }
+  }, [resetGearPairs, history])
+
+  // ✅ Konsumsi resetGearPairs setelah perubahan
+  useEffect(() => {
+    if (!Array.isArray(resetGearPairs) || resetGearPairs.length === 0) return
+
+    resetGearPairs.forEach(({ part, index }) => {
+      const stillExists = history.some(
+        (entry) => entry.gear === part && entry.index === index
+      )
+      if (!stillExists) {
+        consumeResetGearPair(part, index)
+      }
+    })
+  }, [resetGearPairs, history])
 
   const getLevelIndex = (level) => charmLevels.indexOf(level)
 
