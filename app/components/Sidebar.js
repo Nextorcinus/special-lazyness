@@ -4,8 +4,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { cn } from '../lib/utils'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useGitVersion } from 'lib/getGitVersion'
+import WelcomePopup from '@/components/Popup'
 
 const menu = [
   {
@@ -49,7 +50,22 @@ const menu = [
 export default function Sidebar() {
   const pathname = usePathname()
   const [hovered, setHovered] = useState(null)
-  const version = useGitVersion() // ✅ Panggil hook di dalam komponen
+  const version = useGitVersion()
+
+  // ✅ Popup state & logic
+  const [showPopup, setShowPopup] = useState(false)
+
+  useEffect(() => {
+    const hasClosed = localStorage.getItem('welcomePopupClosed')
+    if (!hasClosed) {
+      setShowPopup(true)
+    }
+  }, [])
+
+  const handleClosePopup = () => {
+    setShowPopup(false)
+    localStorage.setItem('welcomePopupClosed', 'true')
+  }
 
   return (
     <aside className="flex flex-col justify-between w-full h-full lg:w-64 bg-[#1F1F1F] text-white">
@@ -122,6 +138,7 @@ export default function Sidebar() {
           Version: {version}
         </p>
       </div>
+      <WelcomePopup />
     </aside>
   )
 }

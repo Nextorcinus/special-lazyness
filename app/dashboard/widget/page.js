@@ -1,8 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
 import heroData from '../../data/heroData'
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from '@/components/ui/select'
+
+import { Label } from '@/components/ui/label'
 
 export default function WidgetPage({ onCalculate }) {
   let levelData = [
@@ -22,17 +31,23 @@ export default function WidgetPage({ onCalculate }) {
   const [selectedHero, setSelectedHero] = useState('')
   const [selectedRequired, setSelectedRequired] = useState('')
   const [result, setResult] = useState(null)
+  const [fromLevel, setFromLevel] = useState()
+  const [toLevel, setToLevel] = useState('')
+
+  const levelOptions = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+
+  function getTotalRequired(from, to) {
+    return levelData
+      .filter((lvl) => lvl.level > from && lvl.level <= to)
+      .reduce((sum, lvl) => sum + lvl.required, 0)
+  }
 
   function handleSubmit(e) {
     e.preventDefault()
-    const hero = heroData.find((h) => h.heroes === selectedHero)
-    const level = levelData.find((l) => l.required === Number(selectedRequired))
 
-    console.log('Selected hero:', selectedHero)
-    console.log(
-      'Hero list:',
-      heroData.map((h) => h.heroes)
-    )
+    const hero = heroData.find((h) => h.heroes === selectedHero)
+    const level = levelData.find((l) => l.level === Number(toLevel))
+    const totalRequired = getTotalRequired(Number(fromLevel), Number(toLevel))
 
     if (hero && level) {
       setResult({
@@ -41,6 +56,7 @@ export default function WidgetPage({ onCalculate }) {
         value: level.value,
         type: level.type,
         skill: hero[level.type],
+        totalRequired,
       })
       toast.success('Widget successfully calculated!')
     } else {
@@ -49,43 +65,105 @@ export default function WidgetPage({ onCalculate }) {
     }
   }
 
+  useEffect(() => {
+    if (toLevel && Number(toLevel) <= Number(fromLevel)) {
+      setToLevel('')
+    }
+  }, [fromLevel])
+
   return (
     <div className="p-4 md:p-6 text-white w-full">
       <div className="relative bg-special-inside border border-zinc-800 rounded-2xl p-6 shadow-md">
         <h2 className="text-2xl text-white">Widget Hero</h2>
       </div>
-      <div className="bg-special-inside w-full border-zinc-800 text-white mt-6 px-4 py-6 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded">
+      <div className="bg-special-inside w-full border border-zinc-800 text-white mt-6 px-4 py-6 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl">
         <h1 className="text-xl mb-4 text-zinc-400">Widget Calculate</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Dropdown Hero */}
-          <select
-            value={selectedHero}
-            onChange={(e) => setSelectedHero(e.target.value)}
-            className="w-full bg-zinc-800 bg-special-input text-white px-3 py-2 border border-zinc-700 rounded"
-          >
-            <option value="">Choose Hero</option>
-            {heroData.map((hero) => (
-              <option key={hero.heroes} value={hero.heroes}>
-                {hero.heroes}
-              </option>
-            ))}
-          </select>
+          <div className="w-full">
+            <Label className="text-zinc-400 mb-1 block">Hero</Label>
+            <Select
+              value={selectedHero}
+              onValueChange={(value) => setSelectedHero(value)}
+            >
+              <SelectTrigger className="w-full bg-zinc-800 text-white px-3 py-2 border border-zinc-700 rounded">
+                {selectedHero !== '' ? (
+                  <SelectValue />
+                ) : (
+                  <span className="text-muted-foreground">Choose Hero</span>
+                )}
+              </SelectTrigger>
+              <SelectContent>
+                {heroData.map((hero) => (
+                  <SelectItem key={hero.heroes} value={hero.heroes}>
+                    {hero.heroes}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-          {/* Dropdown Required Widget */}
-          <select
-            value={selectedRequired}
-            onChange={(e) => setSelectedRequired(e.target.value)}
-            className="w-full bg-zinc-800 bg-special-input text-white px-3 py-2 border border-zinc-700 rounded"
-          >
-            <option value="">Choose Required Widget</option>
-            {levelData.map((item) => (
-              <option key={item.required} value={item.required}>
-                Level {item.level} - Required {item.required}
-              </option>
-            ))}
-          </select>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* FROM LEVEL */}
+            <div>
+              <Label className="text-zinc-400">From</Label>
+              <Select
+                value={fromLevel}
+                onValueChange={(value) => {
+                  setFromLevel(value)
+                  setToLevel('')
+                }}
+              >
+                <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
+                  {fromLevel !== '' ? (
+                    <SelectValue />
+                  ) : (
+                    <span className="text-muted-foreground px-3">
+                      -- Select Level --
+                    </span>
+                  )}
+                </SelectTrigger>
+                <SelectContent>
+                  {levelOptions.map((level) => (
+                    <SelectItem key={level} value={String(level)}>
+                      {level}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
+            {/* TO LEVEL */}
+            <div>
+              <Label className="text-zinc-400">To</Label>
+              <Select
+                value={toLevel}
+                onValueChange={(value) => setToLevel(value)}
+              >
+                <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
+                  {toLevel !== '' ? (
+                    <SelectValue />
+                  ) : (
+                    <span className="text-muted-foreground px-3">
+                      -- Select Level --
+                    </span>
+                  )}
+                </SelectTrigger>
+                <SelectContent>
+                  {levelOptions
+                    .filter((level) => Number(level) > Number(fromLevel))
+                    .map((level) => (
+                      <SelectItem key={level} value={String(level)}>
+                        {level}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Submit */}
           <button
             type="submit"
             className="bg-lime-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full sm:w-auto"
@@ -102,6 +180,13 @@ export default function WidgetPage({ onCalculate }) {
               Level {result.level} "<em>{result.skill}</em>"{' '}
               <strong className="text-yellow-400">{result.value}%</strong> for{' '}
               <strong className="text-zinc-200">{result.type}</strong>
+              <br />
+              <span className="text-zinc-200">
+                Total required from level {fromLevel} → {toLevel} :{' '}
+                <strong className="text-lime-400">
+                  {result.totalRequired}
+                </strong>
+              </span>
             </p>
           </div>
         )}
@@ -117,7 +202,6 @@ export default function WidgetPage({ onCalculate }) {
           Note: Exploration skills are designed for exploration battles (
           <em>exploration, arena or intel</em>) and expedition skills are
           exclusively used in expedition battles.
-          <br></br>for require widget needs must be completed each level, cannot be directly. e.g Target level 4: 5 + 10 + 15 + 20 = 50 items needed
         </p>
       </div>
     </div>
