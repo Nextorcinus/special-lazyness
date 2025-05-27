@@ -97,16 +97,19 @@
   {
     "heroes": "GEN 7 Gordon",
     "exploration": "Damage Dealt by",
-    "expedition": "increasing Rally Squads' Lethality by"
+    "expedition": "increasing Rally Squads' Lethality by",
+    "status": "*new"
   },
   {
     "heroes": "GEN 7 Bradley",
     "exploration": "increases Attack Speeds by",
-    "expedition": "increasing Defender Troops' Attack by"
+    "expedition": "increasing Defender Troops' Attack by",
+    "status": "*new"
   },
   {
     "heroes": "GEN 7 Edith",
     "exploration": "restores an amount of Health",
-    "expedition": "increasing Defender Troops' Health by"
+    "expedition": "increasing Defender Troops' Health by",
+    "status": "*new"
   }
 ]

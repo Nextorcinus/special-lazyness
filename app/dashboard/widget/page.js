@@ -53,6 +53,7 @@ export default function WidgetPage({ onCalculate }) {
       setResult({
         name: hero.heroes,
         level: level.level,
+        status: hero.status,
         value: level.value,
         type: level.type,
         skill: hero[level.type],
@@ -97,7 +98,10 @@ export default function WidgetPage({ onCalculate }) {
               <SelectContent>
                 {heroData.map((hero) => (
                   <SelectItem key={hero.heroes} value={hero.heroes}>
-                    {hero.heroes}
+                    {hero.heroes}{' '}
+                    {hero.status && (
+                      <span className="text-red-400 ">({hero.status})</span>
+                    )}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -176,13 +180,13 @@ export default function WidgetPage({ onCalculate }) {
         {result && (
           <div className="mt-6 p-4 bg-zinc-900 rounded text-zinc-400 shadow-md border border-zinc-800">
             <p>
-              <strong className="text-lime-400">{result.name}</strong> Widget
+              <strong className="text-lime-400">{result.name} </strong> 
               Level {result.level} "<em>{result.skill}</em>"{' '}
               <strong className="text-yellow-400">{result.value}%</strong> for{' '}
-              <strong className="text-zinc-200">{result.type}</strong>
+              <strong className="text-yellow-400">{result.type}</strong>
               <br />
-              <span className="text-zinc-200">
-                Total required from level {fromLevel} → {toLevel} :{' '}
+              <span className="text-zinc-200 py-2">
+                Total Widget Required from Level {fromLevel} → {toLevel} :{' '}
                 <strong className="text-lime-400">
                   {result.totalRequired}
                 </strong>
