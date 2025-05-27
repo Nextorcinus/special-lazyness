@@ -1,5 +1,13 @@
 [
   {
+    "version": "c7aabdb",
+    "date": "2025-05-27",
+    "title": "Added Widget Hero",
+    "changes": [
+      "Added Widget Hero"
+    ]
+  },
+  {
     "version": "b0480c7",
     "date": "2025-05-23",
     "title": "fix stable charm useEffect delete charm input",
