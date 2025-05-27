@@ -1,6 +1,7 @@
 ﻿import './globals.css'
 import Sidebar from './components/Sidebar'
 import MobileSidebar from './components/MobileSidebar'
+import WelcomePopup from '@/components/Popup'
 
 import { Component, Router } from 'lucide-react'
 
@@ -12,6 +13,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+ 
+  
     <html lang="en">
       <body className="antialiased font-fustat">
         <div className="min-h-screen bg-zinc-900 grid grid-cols-1 lg:grid-cols-[240px_1fr]">
@@ -26,9 +29,11 @@ export default function RootLayout({ children }) {
             <main className="flex-1 w-full bg-special overflow-y-auto">
               {children}
             </main>
+            <WelcomePopup />
           </div>
         </div>
       </body>
     </html>
+    
   )
 }
