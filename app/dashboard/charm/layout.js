@@ -5,9 +5,12 @@ import PageWrapper from '@/components/PageWrapper'
 import HistoryList from '@/components/CharmHistoryList'
 import { CharmHistoryProvider } from './CharmHistoryContext'
 import { AddAnotherProvider } from './AddAnotherContext'
+import WelcomePopup from '@/components/Popup'
 
 export default function Layout({ children }) {
   return (
+    <>
+    <WelcomePopup />
     <PageWrapper>
       <CharmHistoryProvider>
         <AddAnotherProvider>
@@ -31,5 +34,6 @@ export default function Layout({ children }) {
         </AddAnotherProvider>
       </CharmHistoryProvider>
     </PageWrapper>
+  </>
   )
 }

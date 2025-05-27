@@ -7,6 +7,7 @@ import { GearHistoryProvider } from './GearContext'
 import GearHistoryList from '@/components/GearHistoryList'
 import PageWrapper from '@/components/PageWrapper'
 import { Toaster } from 'sonner'
+import WelcomePopup from '@/components/Popup'
 
 export default function GearLayout({ children }) {
   const [resetFormTrigger, setResetFormTrigger] = useState(0)
@@ -17,6 +18,8 @@ export default function GearLayout({ children }) {
   }
 
   return (
+  <>
+    <WelcomePopup />
     <PageWrapper>
       <GearHistoryProvider>
         <div className="min-h-screen bg-special text-white grid grid-cols-1 lg:grid-cols-[1fr_320px]">
@@ -37,5 +40,6 @@ export default function GearLayout({ children }) {
         </div>
       </GearHistoryProvider>
     </PageWrapper>
+  </>
   )
 }

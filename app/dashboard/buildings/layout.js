@@ -5,9 +5,13 @@ import { AddAnotherProvider } from './AddAnotherContext'
 import HistoryList from '../../components/HistoryList'
 import { Toaster } from 'sonner'
 import PageWrapper from '@/components/PageWrapper'
+import WelcomePopup from '@/components/Popup'
 
 export default function BuildingsLayout({ children }) {
   return (
+    <>
+    <WelcomePopup />
+
     <PageWrapper>
       <HistoryProvider>
         <AddAnotherProvider>
@@ -31,5 +35,6 @@ export default function BuildingsLayout({ children }) {
         </AddAnotherProvider>
       </HistoryProvider>
     </PageWrapper>
+    </>
   )
 }

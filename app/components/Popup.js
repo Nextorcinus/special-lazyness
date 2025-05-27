@@ -22,7 +22,7 @@ export default function WelcomePopup() {
   if (!showPopup) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 ">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 ">
       <div className="bg-zinc-900 p-6 rounded shadow-lg max-w-sm w-full text-white rounded-xl">
         <h2 className="text-lg text-lime-500 mb-2">
           Update App Version.{version}

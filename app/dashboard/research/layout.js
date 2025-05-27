@@ -8,6 +8,7 @@ import { ResearchHistoryProvider } from '../../dashboard/research/ResearchHistor
 import ResearchHistoryList from '../../components/ResearhHistoryList'
 import { AddAnotherProvider } from '../../dashboard/research/AddAnotherContext'
 import PageWrapper from '@/components/PageWrapper'
+import WelcomePopup from '@/components/Popup'
 
 export default function ResearchLayout({ children }) {
   const [resetFormTrigger, setResetFormTrigger] = useState(0)
@@ -18,6 +19,8 @@ export default function ResearchLayout({ children }) {
   }
 
   return (
+    <>
+      <WelcomePopup />  
     <PageWrapper>
     <ResearchHistoryProvider>
       <AddAnotherProvider>
@@ -44,5 +47,6 @@ export default function ResearchLayout({ children }) {
       </AddAnotherProvider>
     </ResearchHistoryProvider>
     </PageWrapper>
+  </>
   )
 }
