@@ -38,6 +38,12 @@ const menu = [
     icon: '/icon/war-academy.png',
     iconHover: '/icon/war-academy-hover.png',
   },
+  {
+    label: 'Widget',
+    href: '/dashboard/widget',
+    icon: '/icon/widget.png',
+    iconHover: '/icon/widget-hover.png',
+  },
 ]
 
 export default function Sidebar() {
