@@ -6,7 +6,7 @@
       "details": ["Big Mammoth feature added"],
       "icons": {
         "names": ["Mammoth"],
-        "images": ["/icon/Mammoth.jpg"]
+        "icon": ["/icon/Mammoth.jpg"]
       }
     },
     {
@@ -14,11 +14,7 @@
       "name": "Gen 7 Heroes",
       "heroes": {
         "names": ["Edith", "Gordon", "Bradley"],
-        "images": [
-          "./images/Edith.jpg",
-          "./images/Gordon.jpg",
-          "./images/Bradley.jpg"
-        ],
+        "icon": ["./icon/Edith.jpg", "./icon/Gordon.jpg", "./icon/Bradley.jpg"],
         "acquisition": [["HOC", "KOI", "SVS"], ["HOH"], ["Lucky_Wheel"]]
       },
       "details": ["3 new heroes released"]
@@ -29,7 +25,7 @@
       "details": ["Fire crystal level 9-10 unlock"],
       "icons": {
         "names": ["Level 9", "Level 10"],
-        "images": ["/icon/lv_9.png", "/icon/lv_10.png"]
+        "icon": ["/icon/lv_9.png", "/icon/lv_10.png"]
       }
     },
     {
@@ -37,11 +33,7 @@
       "name": "Gen 8 Heroes",
       "heroes": {
         "names": ["Gatot", "Sonya", "Hendrik"],
-        "images": [
-          "./images/gatot.jpg",
-          "./images/sonya.jpg",
-          "./images/hendrik.jpg"
-        ],
+        "icon": ["./icon/gatot.jpg", "./icon/sonya.jpg", "./icon/hendrik.jpg"],
         "acquisition": [["Lucky_Wheel"], ["HOC", "KOI", "SVS"], ["HOH"]]
       },
       "details": ["New generation 8 heroes released"]
@@ -51,11 +43,7 @@
       "name": "Gen 9 Heroes",
       "heroes": {
         "names": ["Magnus", "Fred", "Xura"],
-        "images": [
-          "./images/magnus.jpg",
-          "./images/fred.jpg",
-          "./images/xura.jpg"
-        ],
+        "icon": ["./icon/magnus.jpg", "./icon/fred.jpg", "./icon/xura.jpg"],
         "acquisition": [["HOH"], ["Lucky_Wheel"], ["HOC", "KOI", "SVS"]]
       },
       "details": ["New generation 9 heroes released"]
@@ -65,10 +53,10 @@
       "name": "Gen 10 Heroes",
       "heroes": {
         "names": ["Gregory", "Freya", "Blanchette"],
-        "images": [
-          "./images/gregory.jpg",
-          "./images/Freya.jpg",
-          "./images/blanchette.jpg"
+        "icon": [
+          "./icon/gregory.jpg",
+          "./icon/Freya.jpg",
+          "./icon/blanchette.jpg"
         ],
         "acquisition": [["HOC", "KOI", "SVS"], ["HOH"], ["Lucky_Wheel"]]
       },
@@ -79,12 +67,12 @@
       "name": "Gen 11 Heroes",
       "heroes": {
         "names": ["Eleonora", "Lloyd", "Rufus"],
-        "images": [
-          "./images/eleonora_gold.png",
-          "./images/lloyd.png",
-          "./images/rufus.png"
+        "icon": [
+          "./icon/eleonora_gold.png",
+          "./icon/lloyd.png",
+          "./icon/rufus.png"
         ],
-        "acquisition": [["Lucky_Wheel"],  ["HOC", "KOI", "SVS"], ["HOH"]]
+        "acquisition": [["Lucky_Wheel"], ["HOC", "KOI", "SVS"], ["HOH"]]
       },
       "details": ["New generation 11 heroes released"]
     }
