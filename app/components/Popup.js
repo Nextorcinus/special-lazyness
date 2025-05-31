@@ -29,12 +29,14 @@ export default function WelcomePopup() {
         </h2>
         <p className="text-sm text-zinc-300 mb-4">
           <ul className="list-disc list-inside text-sm text-zinc-300 space-y-1">
+            <li>Added Calc Points for SvS, KoI etc </li>
             <li>Added Hero Widget</li>
             <li>Added Foundry Task Page for R4/R5</li>
             <li>Fixed Stable Charm delete bug</li>
+            <li>Fixed button delete history by selected instead all delete</li>
             <li>Improved Chief Charm logic & comparison</li>
             <li>Optimized stability & performance</li>
-            <li>Delete now targets selected entry only</li>
+
           </ul>
         </p>
         <button
