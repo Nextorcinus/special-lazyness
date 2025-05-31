@@ -45,6 +45,12 @@ const menu = [
     icon: '/icon/widget.png',
     iconHover: '/icon/widget-hover.png',
   },
+  {
+    label: 'Calc Points',
+    href: '/dashboard/general',
+    icon: '/icon/general.png',
+    iconHover: '/icon/general-hover.png',
+  },
 ]
 
 export default function Sidebar() {
