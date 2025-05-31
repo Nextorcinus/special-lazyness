@@ -1,5 +1,13 @@
 [
   {
+    "version": "2fb8b4f",
+    "date": "2025-05-31",
+    "title": "Force rename icon files to lowercase for Vercel",
+    "changes": [
+      "Force rename icon files to lowercase for Vercel"
+    ]
+  },
+  {
     "version": "1aaaf64",
     "date": "2025-05-31",
     "title": "update pop up",
