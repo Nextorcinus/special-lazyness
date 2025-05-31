@@ -158,7 +158,7 @@ export default function GeneralPage() {
           </Button>
 
           {timeResult && (
-            <div className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white">
+            <div className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white mt-4">
               {timeResult}
             </div>
           )}
@@ -255,13 +255,16 @@ export default function GeneralPage() {
 
       {/* Kalkulator Gather Resources */}
       <Card className="bg-special-inside border-zinc-800 text-white">
-        <CardContent className="space-y-6 pt-6">
+        <CardContent className=" pt-6">
           <h2 className="text-xl font-bold">Gather Resources</h2>
+           <p className="text-sm text-zinc-500">
+            you can change the gather unit and point per gather for each resource depends the event.
+          </p>
 
           {gatherInputs.map((res, index) => (
             <div
               key={res.label}
-              className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4"
+              className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4"
             >
               <div>
                 <Label className="text-zinc-300">{res.label}</Label>
@@ -308,13 +311,13 @@ export default function GeneralPage() {
 
           <Button
             onClick={handleGatherCalc}
-            className="bg-lime-600 hover:bg-green-700 text-white rounded-sm py-5"
+            className="bg-lime-600 hover:bg-green-700 text-white rounded-sm py-5 mt-4"
           >
             Calculate Points
           </Button>
 
           {gatherResult && (
-            <div className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white">
+            <div className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white mt-4">
               {gatherResult}
             </div>
           )}
