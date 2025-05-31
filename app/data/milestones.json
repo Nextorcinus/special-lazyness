@@ -6,7 +6,7 @@
       "details": ["Big Mammoth feature added"],
       "icons": {
         "names": ["Mammoth"],
-        "icon": ["/icon/Mammoth.jpg"]
+        "icon": ["/icon/mammoth.jpg"]
       }
     },
     {
@@ -14,7 +14,7 @@
       "name": "Gen 7 Heroes",
       "heroes": {
         "names": ["Edith", "Gordon", "Bradley"],
-        "icon": ["./icon/Edith.jpg", "./icon/Gordon.jpg", "./icon/Bradley.jpg"],
+        "icon": ["/icon/edith.jpg", "/icon/gordon.jpg", "/icon/bradley.jpg"],
         "acquisition": [["HOC", "KOI", "SVS"], ["HOH"], ["Lucky_Wheel"]]
       },
       "details": ["3 new heroes released"]
@@ -33,7 +33,7 @@
       "name": "Gen 8 Heroes",
       "heroes": {
         "names": ["Gatot", "Sonya", "Hendrik"],
-        "icon": ["./icon/gatot.jpg", "./icon/sonya.jpg", "./icon/hendrik.jpg"],
+        "icon": ["/icon/gatot.jpg", "/icon/sonya.jpg", "/icon/hendrik.jpg"],
         "acquisition": [["Lucky_Wheel"], ["HOC", "KOI", "SVS"], ["HOH"]]
       },
       "details": ["New generation 8 heroes released"]
@@ -43,7 +43,7 @@
       "name": "Gen 9 Heroes",
       "heroes": {
         "names": ["Magnus", "Fred", "Xura"],
-        "icon": ["./icon/magnus.jpg", "./icon/fred.jpg", "./icon/xura.jpg"],
+        "icon": ["/icon/magnus.jpg", "/icon/fred.jpg", "/icon/xura.jpg"],
         "acquisition": [["HOH"], ["Lucky_Wheel"], ["HOC", "KOI", "SVS"]]
       },
       "details": ["New generation 9 heroes released"]
@@ -54,9 +54,9 @@
       "heroes": {
         "names": ["Gregory", "Freya", "Blanchette"],
         "icon": [
-          "./icon/gregory.jpg",
-          "./icon/Freya.jpg",
-          "./icon/blanchette.jpg"
+          "/icon/gregory.jpg",
+          "/icon/freya.jpg",
+          "/icon/blanchette.jpg"
         ],
         "acquisition": [["HOC", "KOI", "SVS"], ["HOH"], ["Lucky_Wheel"]]
       },
@@ -68,9 +68,9 @@
       "heroes": {
         "names": ["Eleonora", "Lloyd", "Rufus"],
         "icon": [
-          "./icon/eleonora_gold.png",
-          "./icon/lloyd.png",
-          "./icon/rufus.png"
+          "/icon/eleonora_gold.png",
+          "/icon/lloyd.png",
+          "/icon/rufus.png"
         ],
         "acquisition": [["Lucky_Wheel"], ["HOC", "KOI", "SVS"], ["HOH"]]
       },

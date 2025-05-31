@@ -3,13 +3,18 @@ import milestoneData from '@/data/milestones.json'
 export default async function StatePage({ params }) {
   const { id } = params
 
-  const res = await fetch(
-    `https://wosland.com/free-tools/stateage/api.php?state_id=${id}`
-  )
-  const data = await res.json()
+  let data = null
+  try {
+    const res = await fetch(
+      `https://wosland.com/free-tools/stateage/api.php?state_id=${id}`
+    )
+    data = await res.json()
+  } catch (err) {
+    return <p className="text-red-500 p-6">Failed to load data.</p>
+  }
 
-  if (!data?.timestamp) {
-    return <p className="text-red-500 p-6">State not found.</p>
+  if (!Array.isArray(milestoneData?.milestones)) {
+    return <p className="text-red-500 p-6">Milestone data error.</p>
   }
 
   const createdAt = new Date(data.timestamp * 1000)
@@ -70,7 +75,7 @@ export default async function StatePage({ params }) {
                 {m.heroes.names.map((hero, i) => (
                   <div key={hero} className="text-center">
                     <img
-                      src={m.heroes.images[i].replace('./images/', '/icon/')}
+                      src={m.heroes.icon[i]}
                       alt={hero}
                       className="w-14 h-14 sm:w-[130px] sm:h-[130px] mx-auto rounded-md object-contain shadow-sm"
                     />
@@ -99,7 +104,7 @@ export default async function StatePage({ params }) {
                 {m.icons.names.map((icon, i) => (
                   <div key={icon} className="text-center">
                     <img
-                      src={m.icons.images[i].replace('./images/', '/icon/')}
+                      src={m.icons.icon[i]}
                       alt={icon}
                       className="w-14 h-14 sm:w-[150px] sm:h-[150px] mx-auto rounded-md object-contain shadow-sm"
                     />
@@ -144,10 +149,7 @@ export default async function StatePage({ params }) {
                       {m.heroes.names.map((hero, i) => (
                         <div key={hero} className="text-center">
                           <img
-                            src={m.heroes.images[i].replace(
-                              './images/',
-                              '/icon/'
-                            )}
+                            src={m.icons.icon[i]}
                             alt={hero}
                             className="w-14 h-14 sm:w-[130px] sm:h-[130px] mx-auto rounded-md object-contain shadow-sm"
                           />
@@ -178,10 +180,7 @@ export default async function StatePage({ params }) {
                       {m.icons.names.map((icon, i) => (
                         <div key={icon} className="text-center">
                           <img
-                            src={m.icons.images[i].replace(
-                              './images/',
-                              '/icon/'
-                            )}
+                            src={m.icons.icon[i]}
                             alt={icon}
                             className="w-14 h-14 sm:w-[150px] sm:h-[150px] mx-auto rounded-md object-contain shadow-sm"
                           />
