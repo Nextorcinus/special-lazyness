@@ -36,7 +36,6 @@ export default function WelcomePopup() {
             <li>Fixed button delete history by selected instead all delete</li>
             <li>Improved Chief Charm logic & comparison</li>
             <li>Optimized stability & performance</li>
-
           </ul>
         </p>
         <button
