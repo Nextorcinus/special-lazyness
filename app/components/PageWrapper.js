@@ -19,7 +19,7 @@ export default function PageTransitionWrapper({ children }) {
     const enterTimeout = setTimeout(() => {
       setIsTransitioning(false)
       setShowContent(true)
-    }, 900)
+    }, 500)
 
     return () => {
       clearTimeout(enterTimeout)

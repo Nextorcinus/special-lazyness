@@ -1,0 +1,92 @@
+{
+  "milestones": [
+    {
+      "days": 370,
+      "name": "Mammoth Update",
+      "details": ["Big Mammoth feature added"],
+      "icons": {
+        "names": ["Mammoth"],
+        "images": ["/icon/Mammoth.jpg"]
+      }
+    },
+    {
+      "days": 440,
+      "name": "Gen 7 Heroes",
+      "heroes": {
+        "names": ["Edith", "Gordon", "Bradley"],
+        "images": [
+          "./images/Edith.jpg",
+          "./images/Gordon.jpg",
+          "./images/Bradley.jpg"
+        ],
+        "acquisition": [["HOC", "KOI", "SVS"], ["HOH"], ["Lucky_Wheel"]]
+      },
+      "details": ["3 new heroes released"]
+    },
+    {
+      "days": 500,
+      "name": "Crystal Mastery",
+      "details": ["Fire crystal level 9-10 unlock"],
+      "icons": {
+        "names": ["Level 9", "Level 10"],
+        "images": ["/icon/lv_9.png", "/icon/lv_10.png"]
+      }
+    },
+    {
+      "days": 520,
+      "name": "Gen 8 Heroes",
+      "heroes": {
+        "names": ["Gatot", "Sonya", "Hendrik"],
+        "images": [
+          "./images/gatot.jpg",
+          "./images/sonya.jpg",
+          "./images/hendrik.jpg"
+        ],
+        "acquisition": [["Lucky_Wheel"], ["HOC", "KOI", "SVS"], ["HOH"]]
+      },
+      "details": ["New generation 8 heroes released"]
+    },
+    {
+      "days": 600,
+      "name": "Gen 9 Heroes",
+      "heroes": {
+        "names": ["Magnus", "Fred", "Xura"],
+        "images": [
+          "./images/magnus.jpg",
+          "./images/fred.jpg",
+          "./images/xura.jpg"
+        ],
+        "acquisition": [["HOH"], ["Lucky_Wheel"], ["HOC", "KOI", "SVS"]]
+      },
+      "details": ["New generation 9 heroes released"]
+    },
+    {
+      "days": 700,
+      "name": "Gen 10 Heroes",
+      "heroes": {
+        "names": ["Gregory", "Freya", "Blanchette"],
+        "images": [
+          "./images/gregory.jpg",
+          "./images/Freya.jpg",
+          "./images/blanchette.jpg"
+        ],
+        "acquisition": [["HOC", "KOI", "SVS"], ["HOH"], ["Lucky_Wheel"]]
+      },
+      "details": ["New generation 10 heroes released"]
+    },
+    {
+      "days": 800,
+      "name": "Gen 11 Heroes",
+      "heroes": {
+        "names": ["Eleonora", "Lloyd", "Rufus"],
+        "images": [
+          "./images/eleonora_gold.png",
+          "./images/lloyd.png",
+          "./images/rufus.png"
+        ],
+        "acquisition": [["Lucky_Wheel"],  ["HOC", "KOI", "SVS"], ["HOH"]]
+      },
+      "details": ["New generation 11 heroes released"]
+    }
+  ]
+}

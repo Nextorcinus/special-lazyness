@@ -51,6 +51,12 @@ const menu = [
     icon: '/icon/general.png',
     iconHover: '/icon/general-hover.png',
   },
+  {
+    label: 'State Age',
+    href: '/dashboard/state',
+    icon: '/icon/state.png',
+    iconHover: '/icon/state-hover.png',
+  },
 ]
 
 export default function Sidebar() {
@@ -58,7 +64,6 @@ export default function Sidebar() {
   const [hovered, setHovered] = useState(null)
   const version = useGitVersion()
 
- 
   return (
     <aside className="flex flex-col justify-between w-full h-full lg:w-64 bg-[#1F1F1F] text-white">
       <div>
@@ -130,7 +135,6 @@ export default function Sidebar() {
           Version: {version}
         </p>
       </div>
-      
     </aside>
   )
 }
