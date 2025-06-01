@@ -10,19 +10,19 @@ import FormattedNumberInput from '@/utils/FormattedNumbernInput'
 
 export default function GeneralPage() {
   // Kalkulator Points from Time
-  const [pointPerMinute, setPointPerMinute] = useState(30)
-  const [days, setDays] = useState(0)
-  const [hours, setHours] = useState(0)
+  const [pointPerMinute, setPointPerMinute] = useState('')
+  const [days, setDays] = useState('')
+  const [hours, setHours] = useState('')
   const [timeResult, setTimeResult] = useState(null)
 
   // Kalkulator Fire Crystal
-  const [itemCount, setItemCount] = useState(0)
-  const [pointPerItem, setPointPerItem] = useState(0)
+  const [itemCount, setItemCount] = useState('')
+  const [pointPerItem, setPointPerItem] = useState('')
   const [fcResult, setFcResult] = useState(null)
 
   // Kalkulator Shard
-  const [shardCount, setShardCount] = useState(0)
-  const [pointPerShard, setPointPerShard] = useState(0)
+  const [shardCount, setShardCount] = useState('')
+  const [pointPerShard, setPointPerShard] = useState('')
   const [shardResult, setShardResult] = useState(null)
 
   // Kalkulator Gather Resources (4 jenis)
@@ -63,7 +63,7 @@ export default function GeneralPage() {
 
   // Kalkulator Gear Essence Stone
   const [stoneCount, setStoneCount] = useState(0)
-  const [pointPerStone, setPointPerStone] = useState(6000)
+  const [pointPerStone, setPointPerStone] = useState(0)
   const [stoneResult, setStoneResult] = useState(null)
 
   const handleStoneCalc = () => {
@@ -89,6 +89,32 @@ export default function GeneralPage() {
 
     setTimeResult(
       `\uD83D\uDCC8 Estimated total points: ${totalPoints.toLocaleString()} pts`
+    )
+    toast.success('Calculation complete!')
+  }
+
+  // Data Essence Stone per level
+  const essenceStoneLevels = [
+    0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160,
+    170, 180, 190, 200,
+  ]
+
+  const [fromLevel, setFromLevel] = useState(0)
+  const [toLevel, setToLevel] = useState(1)
+  const [essenceResult, setEssenceResult] = useState(null)
+
+  const handleEssenceCalc = () => {
+    if (toLevel <= fromLevel) {
+      toast.error('Target level must be greater than current level.')
+      return
+    }
+
+    const total = essenceStoneLevels
+      .slice(fromLevel + 1, toLevel + 1)
+      .reduce((acc, cur) => acc + cur, 0)
+
+    setEssenceResult(
+      `\uD83E\uDDF1 Total Stones needed from Lv.${fromLevel} → Lv.${toLevel}: ${total.toLocaleString()} stones`
     )
     toast.success('Calculation complete!')
   }
@@ -139,7 +165,7 @@ export default function GeneralPage() {
                 value={pointPerMinute}
                 onChange={(e) => setPointPerMinute(Number(e.target.value))}
                 className="bg-special-input text-white"
-                min={0}
+                placeHolder="Point per Minute (e.g. 30)"
               />
             </div>
 
@@ -151,6 +177,7 @@ export default function GeneralPage() {
                 onChange={(e) => setDays(Number(e.target.value))}
                 className="bg-special-input text-white"
                 min={0}
+                placeHolder="Enter number day speed up"
               />
             </div>
 
@@ -163,6 +190,7 @@ export default function GeneralPage() {
                 className="bg-special-input text-white"
                 min={0}
                 max={23}
+                placeHolder="Enter number hour speed up"
               />
             </div>
           </div>
@@ -196,6 +224,7 @@ export default function GeneralPage() {
                 onChange={(e) => setItemCount(Number(e.target.value))}
                 className="bg-special-input text-white"
                 min={0}
+                placeHolder="Enter Number FC e.g 200"
               />
             </div>
 
@@ -207,6 +236,7 @@ export default function GeneralPage() {
                 onChange={(e) => setPointPerItem(Number(e.target.value))}
                 className="bg-special-input text-white"
                 min={0}
+                placeHolder="Enter Point per FC e.g 30"
               />
             </div>
           </div>
@@ -240,6 +270,7 @@ export default function GeneralPage() {
                 onChange={(e) => setShardCount(Number(e.target.value))}
                 className="bg-special-input text-white"
                 min={0}
+                placeHolder="Enter number Shard (e.g. 40)"
               />
             </div>
 
@@ -250,6 +281,7 @@ export default function GeneralPage() {
                 value={pointPerShard}
                 onChange={(e) => setPointPerShard(Number(e.target.value))}
                 className="bg-special-input text-white"
+                placeHolder="Point per Shard (e.g. 1000)"
                 min={0}
               />
             </div>
@@ -271,10 +303,73 @@ export default function GeneralPage() {
       </Card>
 
       <div className="space-y-10 mt-6">
+        {/* Kalkulator Essence Stone Upgrade Level */}
+        <Card className="bg-special-inside border-zinc-800 text-white">
+          <CardContent className="space-y-6 pt-6">
+            <h2 className="text-xl font-bold">
+              Upgrade Level with Essence Stones
+            </h2>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div>
+                <Label className="text-zinc-400">From Level</Label>
+                <select
+                  value={fromLevel}
+                  onChange={(e) => {
+                    const val = Number(e.target.value)
+                    setFromLevel(val)
+                    if (toLevel <= val) setToLevel(val + 1)
+                  }}
+                  className="bg-special-input text-white w-full px-3 py-2 rounded"
+                >
+                  {essenceStoneLevels.map((_, i) => (
+                    <option key={i} value={i}>
+                      Lv. {i}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <Label className="text-zinc-400">To Level</Label>
+                <select
+                  value={toLevel}
+                  onChange={(e) => setToLevel(Number(e.target.value))}
+                  className="bg-special-input text-white w-full px-3 py-2 rounded"
+                >
+                  {essenceStoneLevels.map(
+                    (_, i) =>
+                      i > fromLevel && (
+                        <option key={i} value={i}>
+                          Lv. {i}
+                        </option>
+                      )
+                  )}
+                </select>
+              </div>
+            </div>
+
+            <Button
+              onClick={handleEssenceCalc}
+              className="bg-lime-600 hover:bg-green-700 text-white rounded-sm py-5"
+            >
+              Calculate Stone Needed
+            </Button>
+
+            {essenceResult && (
+              <div className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white">
+                {essenceResult}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="space-y-10 mt-6">
         {/* Kalkulator Gear Essence Stone */}
         <Card className="bg-special-inside border-zinc-800 text-white">
           <CardContent className="space-y-6 pt-6">
-            <h2 className="text-xl font-bold">Gear Essence Stone Calculator</h2>
+            <h2 className="text-xl font-bold">Point Essence Stone </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -282,6 +377,7 @@ export default function GeneralPage() {
                 <FormattedNumberInput
                   value={stoneCount}
                   onChange={setStoneCount}
+                  placeHolder="Enter number of stones"
                   className="bg-special-input text-white"
                 />
               </div>
@@ -291,6 +387,7 @@ export default function GeneralPage() {
                   value={pointPerStone}
                   onChange={setPointPerStone}
                   className="bg-special-input text-white"
+                  placeHolder="Point per stone (e.g. 6000)"
                 />
               </div>
             </div>
@@ -363,6 +460,7 @@ export default function GeneralPage() {
                     handleGatherInputChange(index, 'totalGathered', val)
                   }
                   className="bg-special-input text-white"
+                  placeHolder="total gather (e.g. 14,000,000)"
                 />
               </div>
             </div>
