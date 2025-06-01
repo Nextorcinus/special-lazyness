@@ -61,6 +61,23 @@ export default function GeneralPage() {
     toast.success('Calculation complete!')
   }
 
+  // Kalkulator Gear Essence Stone
+  const [stoneCount, setStoneCount] = useState(0)
+  const [pointPerStone, setPointPerStone] = useState(6000)
+  const [stoneResult, setStoneResult] = useState(null)
+
+  const handleStoneCalc = () => {
+    const total = stoneCount * pointPerStone
+    if (stoneCount <= 0 || pointPerStone <= 0) {
+      toast.error('Please input valid stone and point per stone.')
+      return
+    }
+    setStoneResult(
+      `\u2692\uFE0F Total Points from Stones: ${total.toLocaleString()} pts`
+    )
+    toast.success('Calculation complete!')
+  }
+
   const handleTimeCalc = () => {
     const totalMinutes = (days * 24 + hours) * 60
     const totalPoints = totalMinutes * pointPerMinute
@@ -253,12 +270,54 @@ export default function GeneralPage() {
         </CardContent>
       </Card>
 
+      <div className="space-y-10 mt-6">
+        {/* Kalkulator Gear Essence Stone */}
+        <Card className="bg-special-inside border-zinc-800 text-white">
+          <CardContent className="space-y-6 pt-6">
+            <h2 className="text-xl font-bold">Gear Essence Stone Calculator</h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <Label className="text-zinc-400">Number of Stones</Label>
+                <FormattedNumberInput
+                  value={stoneCount}
+                  onChange={setStoneCount}
+                  className="bg-special-input text-white"
+                />
+              </div>
+              <div>
+                <Label className="text-zinc-400">Points per Stone</Label>
+                <FormattedNumberInput
+                  value={pointPerStone}
+                  onChange={setPointPerStone}
+                  className="bg-special-input text-white"
+                />
+              </div>
+            </div>
+
+            <Button
+              onClick={handleStoneCalc}
+              className="bg-lime-600 hover:bg-green-700 text-white rounded-sm py-5"
+            >
+              Calculate Points
+            </Button>
+
+            {stoneResult && (
+              <div className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white">
+                {stoneResult}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Kalkulator Gather Resources */}
       <Card className="bg-special-inside border-zinc-800 text-white">
         <CardContent className=" pt-6">
           <h2 className="text-xl font-bold">Gather Resources</h2>
-           <p className="text-sm text-zinc-500">
-            you can change the gather unit and point per gather for each resource depends the event.
+          <p className="text-sm text-zinc-500">
+            you can change the gather unit and point per gather for each
+            resource depends the event.
           </p>
 
           {gatherInputs.map((res, index) => (
