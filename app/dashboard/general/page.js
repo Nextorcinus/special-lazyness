@@ -5,6 +5,13 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from '@/components/ui/select'
 import { toast } from 'sonner'
 import FormattedNumberInput from '@/utils/FormattedNumbernInput'
 
@@ -303,7 +310,6 @@ export default function GeneralPage() {
       </Card>
 
       <div className="space-y-10 mt-6">
-        {/* Kalkulator Essence Stone Upgrade Level */}
         <Card className="bg-special-inside border-zinc-800 text-white">
           <CardContent className="space-y-6 pt-6">
             <h2 className="text-xl font-bold">
@@ -311,41 +317,51 @@ export default function GeneralPage() {
             </h2>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {/* From Level */}
               <div>
                 <Label className="text-zinc-400">From Level</Label>
-                <select
-                  value={fromLevel}
-                  onChange={(e) => {
-                    const val = Number(e.target.value)
-                    setFromLevel(val)
-                    if (toLevel <= val) setToLevel(val + 1)
+                <Select
+                  value={fromLevel.toString()}
+                  onValueChange={(val) => {
+                    const valNum = Number(val)
+                    setFromLevel(valNum)
+                    if (toLevel <= valNum) setToLevel(valNum + 1)
                   }}
-                  className="bg-special-input text-white w-full px-3 py-2 rounded"
                 >
-                  {essenceStoneLevels.map((_, i) => (
-                    <option key={i} value={i}>
-                      Lv. {i}
-                    </option>
-                  ))}
-                </select>
+                  <SelectTrigger className="bg-special-input text-white">
+                    <SelectValue placeholder="Select From Level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {essenceStoneLevels.map((_, i) => (
+                      <SelectItem key={i} value={i.toString()}>
+                        Lv. {i}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
+              {/* To Level */}
               <div>
                 <Label className="text-zinc-400">To Level</Label>
-                <select
-                  value={toLevel}
-                  onChange={(e) => setToLevel(Number(e.target.value))}
-                  className="bg-special-input text-white w-full px-3 py-2 rounded"
+                <Select
+                  value={toLevel.toString()}
+                  onValueChange={(val) => setToLevel(Number(val))}
                 >
-                  {essenceStoneLevels.map(
-                    (_, i) =>
-                      i > fromLevel && (
-                        <option key={i} value={i}>
-                          Lv. {i}
-                        </option>
-                      )
-                  )}
-                </select>
+                  <SelectTrigger className="bg-special-input text-white">
+                    <SelectValue placeholder="Select To Level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {essenceStoneLevels.map(
+                      (_, i) =>
+                        i > fromLevel && (
+                          <SelectItem key={i} value={i.toString()}>
+                            Lv. {i}
+                          </SelectItem>
+                        )
+                    )}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 

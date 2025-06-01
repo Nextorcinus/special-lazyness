@@ -72,7 +72,7 @@ export default async function StatePage({ params }) {
   )
 }
 
-// ✅ Optional: komponen reusable agar lebih bersih
+
 function MilestoneCard({ milestone: m, isUpcoming = false }) {
   return (
     <div
