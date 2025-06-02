@@ -8,9 +8,11 @@ export default function WelcomePopup() {
   const version = useGitVersion()
 
   useEffect(() => {
-    const hasClosed = localStorage.getItem('welcomePopupClosed')
-    if (!hasClosed) {
-      setShowPopup(true)
+    if (typeof window !== 'undefined') {
+      const hasClosed = localStorage.getItem('welcomePopupClosed')
+      if (!hasClosed) {
+        setShowPopup(true)
+      }
     }
   }, [])
 
@@ -27,7 +29,7 @@ export default function WelcomePopup() {
         <h2 className="text-lg text-lime-500 mb-2">
           Update App Version.{version}
         </h2>
-        <p className="text-sm text-zinc-300 mb-4">
+        <div className="text-sm text-zinc-300 mb-4">
           <ul className="list-disc list-inside text-sm text-zinc-300 space-y-1">
             <li>Added Calc Points for SvS, KoI etc </li>
             <li>Added State Age </li>
@@ -38,7 +40,7 @@ export default function WelcomePopup() {
             <li>Improved Chief Charm logic & comparison</li>
             <li>Optimized stability & performance</li>
           </ul>
-        </p>
+        </div>
         <button
           onClick={handleClose}
           className="bg-lime-600 hover:bg-lime-700 px-4 py-2 text-white rounded"
