@@ -250,7 +250,7 @@ export default function GeneralPage() {
                 onChange={(e) => setItemCount(Number(e.target.value))}
                 className="bg-special-input text-white"
                 min={0}
-                placeHolder="Enter Number FC e.g 200"
+                placeHolder="Enter Number FC e.g 20"
               />
             </div>
 
@@ -262,7 +262,7 @@ export default function GeneralPage() {
                 onChange={(e) => setPointPerItem(Number(e.target.value))}
                 className="bg-special-input text-white"
                 min={0}
-                placeHolder="Enter Point per FC e.g 30"
+                placeHolder="Enter Point per FC e.g 2000"
               />
             </div>
           </div>
@@ -334,7 +334,7 @@ export default function GeneralPage() {
         <Card className="bg-special-inside border-zinc-800 text-white">
           <CardContent className="space-y-6 pt-6">
             <h2 className="text-xl font-bold">
-              Upgrade Level with Essence Stones
+              Upgrade Level Gear with Essence Stones
             </h2>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
