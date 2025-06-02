@@ -11,7 +11,7 @@ export default function StateLayout({ children }) {
   
   return (
   <>
-    <WelcomePopup />
+    
     <PageWrapper>
 
         <div className="min-h-screen bg-special text-white grid grid-cols-1 lg:grid-cols-[1fr_320px]">

@@ -1,18 +1,25 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useGitVersion } from 'lib/getGitVersion'
 
 export default function WelcomePopup() {
   const [showPopup, setShowPopup] = useState(false)
+  const [hasMounted, setHasMounted] = useState(false)
   const version = useGitVersion()
 
+  const hasRun = useRef(false)
+
   useEffect(() => {
+    if (hasRun.current) return
+    hasRun.current = true
+
     if (typeof window !== 'undefined') {
       const hasClosed = localStorage.getItem('welcomePopupClosed')
-      if (!hasClosed) {
+      if (hasClosed !== 'true') {
         setShowPopup(true)
       }
+      setHasMounted(true)
     }
   }, [])
 
@@ -21,7 +28,7 @@ export default function WelcomePopup() {
     localStorage.setItem('welcomePopupClosed', 'true')
   }
 
-  if (!showPopup) return null
+  if (!hasMounted || !showPopup) return null
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-6">
@@ -30,9 +37,9 @@ export default function WelcomePopup() {
           Update App Version.{version}
         </h2>
         <div className="text-sm text-zinc-300 mb-4">
-          <ul className="list-disc list-inside text-sm text-zinc-300 space-y-1">
-            <li>Added Calc Points for SvS, KoI etc </li>
-            <li>Added State Age </li>
+          <ul className="list-disc list-inside space-y-1">
+            <li>Added Calc Points for SvS, KoI etc</li>
+            <li>Added State Age</li>
             <li>Added Hero Widget</li>
             <li>Added Foundry Task Page for R4/R5</li>
             <li>Fixed Stable Charm delete bug</li>

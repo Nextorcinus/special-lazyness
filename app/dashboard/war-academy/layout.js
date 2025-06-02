@@ -17,7 +17,7 @@ export default function HeliosLayout({ children }) {
 
   return (
     <>
-      <WelcomePopup />
+    
       <PageWrapper>
         <HeliosHistoryProvider>
           <AddAnotherProvider>

@@ -13,10 +13,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
- 
-  
     <html lang="en">
       <body className="antialiased font-fustat">
+        <WelcomePopup />
         <div className="min-h-screen bg-zinc-900 grid grid-cols-1 lg:grid-cols-[240px_1fr]">
           {/* Sidebar untuk Desktop */}
           <div className="hidden lg:block bg-black">
@@ -29,11 +28,9 @@ export default function RootLayout({ children }) {
             <main className="flex-1 w-full bg-special overflow-y-auto">
               {children}
             </main>
-            <WelcomePopup />
           </div>
         </div>
       </body>
     </html>
-    
   )
 }

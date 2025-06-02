@@ -190,7 +190,7 @@ export default function GeneralPage() {
                 value={pointPerMinute}
                 onChange={(e) => setPointPerMinute(Number(e.target.value))}
                 className="bg-special-input text-white"
-                placeHolder="Point per Minute (e.g. 30)"
+                placeholder="Point per Minute (e.g. 30)"
               />
             </div>
 
@@ -202,7 +202,7 @@ export default function GeneralPage() {
                 onChange={(e) => setDays(Number(e.target.value))}
                 className="bg-special-input text-white"
                 min={0}
-                placeHolder="Enter number day speed up"
+                placeholder="Enter number day speed up"
               />
             </div>
 
@@ -215,7 +215,7 @@ export default function GeneralPage() {
                 className="bg-special-input text-white"
                 min={0}
                 max={23}
-                placeHolder="Enter number hour speed up"
+                placeholder="Enter number hour speed up"
               />
             </div>
           </div>
@@ -250,7 +250,7 @@ export default function GeneralPage() {
                 onChange={(e) => setItemCount(Number(e.target.value))}
                 className="bg-special-input text-white"
                 min={0}
-                placeHolder="Enter Number FC e.g 20"
+                placeholder="Enter Number FC e.g 20"
               />
             </div>
 
@@ -262,7 +262,7 @@ export default function GeneralPage() {
                 onChange={(e) => setPointPerItem(Number(e.target.value))}
                 className="bg-special-input text-white"
                 min={0}
-                placeHolder="Enter Point per FC e.g 2000"
+                placeholder="Enter Point per FC e.g 2000"
               />
             </div>
           </div>
@@ -297,7 +297,7 @@ export default function GeneralPage() {
                 onChange={(e) => setShardCount(Number(e.target.value))}
                 className="bg-special-input text-white"
                 min={0}
-                placeHolder="Enter number Shard (e.g. 40)"
+                placeholder="Enter number Shard (e.g. 40)"
               />
             </div>
 
@@ -308,7 +308,7 @@ export default function GeneralPage() {
                 value={pointPerShard}
                 onChange={(e) => setPointPerShard(Number(e.target.value))}
                 className="bg-special-input text-white"
-                placeHolder="Point per Shard (e.g. 1000)"
+                placeholder="Point per Shard (e.g. 1000)"
                 min={0}
               />
             </div>
@@ -415,7 +415,7 @@ export default function GeneralPage() {
                 <FormattedNumberInput
                   value={stoneCount}
                   onChange={setStoneCount}
-                  placeHolder="Enter number of stones"
+                  placeholder="Enter number of stones"
                   className="bg-special-input text-white"
                 />
               </div>
@@ -425,7 +425,7 @@ export default function GeneralPage() {
                   value={pointPerStone}
                   onChange={setPointPerStone}
                   className="bg-special-input text-white"
-                  placeHolder="Point per stone (e.g. 6000)"
+                  placeholder="Point per stone (e.g. 6000)"
                 />
               </div>
             </div>
@@ -499,7 +499,7 @@ export default function GeneralPage() {
                     handleGatherInputChange(index, 'totalGathered', val)
                   }
                   className="bg-special-input text-white"
-                  placeHolder="total gather (e.g. 14,000,000)"
+                  placeholder="total gather (e.g. 14,000,000)"
                 />
               </div>
             </div>
