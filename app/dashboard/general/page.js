@@ -80,7 +80,7 @@ export default function GeneralPage() {
       return
     }
     setStoneResult(
-      `\u2692\uFE0F Total Points from Stones: ${total.toLocaleString()} pts`
+      `\u2692\uFE0F Total Points from Stones:  <span class="text-lime-400">${total.toLocaleString()} pts</span>`
     )
     toast.success('Calculation complete!')
   }
@@ -95,7 +95,7 @@ export default function GeneralPage() {
     }
 
     setTimeResult(
-      `\uD83D\uDCC8 Estimated total points: ${totalPoints.toLocaleString()} pts`
+      `\uD83D\uDCC8 Estimated total points: <span class="text-lime-400">${totalPoints.toLocaleString()} pts</span>`
     )
     toast.success('Calculation complete!')
   }
@@ -121,7 +121,25 @@ export default function GeneralPage() {
       .reduce((acc, cur) => acc + cur, 0)
 
     setEssenceResult(
-      `\uD83E\uDDF1 Total Stones needed from Lv.${fromLevel} → Lv.${toLevel}: ${total.toLocaleString()} stones`
+      `\uD83E\uDDF1 Total Stones needed from Lv.${fromLevel} → Lv.${toLevel}:<span class="text-lime-400"> ${total.toLocaleString()} stones</span>`
+    )
+    toast.success('Calculation complete!')
+  }
+
+  // Kalkulator Troops Training
+  const [troopCount, setTroopCount] = useState('')
+  const [pointPerTroop, setPointPerTroop] = useState('')
+  const [troopResult, setTroopResult] = useState(null)
+
+  const handleTroopCalc = () => {
+    const total = troopCount * pointPerTroop
+    if (troopCount <= 0 || pointPerTroop <= 0) {
+      toast.error('Please input valid troop count and point per troop.')
+      return
+    }
+
+    setTroopResult(
+      `⚔️ Total Points from Troops Trained: <span class="text-lime-400">${total.toLocaleString()} pts</span>`
     )
     toast.success('Calculation complete!')
   }
@@ -135,7 +153,7 @@ export default function GeneralPage() {
     }
 
     setFcResult(
-      `\uD83D\uDD25 Total Points from Fire Crystals: ${total.toLocaleString()} pts`
+      `\uD83D\uDD25 Total Points from Fire Crystals:<span class="text-lime-400"> ${total.toLocaleString()} pts</span>`
     )
     toast.success('Calculation complete!')
   }
@@ -149,7 +167,7 @@ export default function GeneralPage() {
     }
 
     setShardResult(
-      `\uD83D\uDD39 Total Points from Shards: ${total.toLocaleString()} pts`
+      `\uD83D\uDD39 Total Points from Shards: <span class="text-lime-400">${total.toLocaleString()} pts</span>`
     )
     toast.success('Calculation complete!')
   }
@@ -210,9 +228,10 @@ export default function GeneralPage() {
           </Button>
 
           {timeResult && (
-            <div className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white mt-4">
-              {timeResult}
-            </div>
+            <div
+              className="border border-zinc-700 mt-4 p-4 rounded bg-zinc-800 text-white"
+              dangerouslySetInnerHTML={{ __html: timeResult }}
+            />
           )}
         </CardContent>
       </Card>
@@ -256,9 +275,10 @@ export default function GeneralPage() {
           </Button>
 
           {fcResult && (
-            <div className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white">
-              {fcResult}
-            </div>
+            <div
+              className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white"
+              dangerouslySetInnerHTML={{ __html: fcResult }}
+            />
           )}
         </CardContent>
       </Card>
@@ -302,9 +322,10 @@ export default function GeneralPage() {
           </Button>
 
           {shardResult && (
-            <div className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white">
-              {shardResult}
-            </div>
+            <div
+              className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white"
+              dangerouslySetInnerHTML={{ __html: shardResult }}
+            />
           )}
         </CardContent>
       </Card>
@@ -373,9 +394,10 @@ export default function GeneralPage() {
             </Button>
 
             {essenceResult && (
-              <div className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white">
-                {essenceResult}
-              </div>
+              <div
+                className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white"
+                dangerouslySetInnerHTML={{ __html: essenceResult }}
+              />
             )}
           </CardContent>
         </Card>
@@ -416,9 +438,10 @@ export default function GeneralPage() {
             </Button>
 
             {stoneResult && (
-              <div className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white">
-                {stoneResult}
-              </div>
+              <div
+                className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white"
+                dangerouslySetInnerHTML={{ __html: stoneResult }}
+              />
             )}
           </CardContent>
         </Card>
@@ -490,9 +513,53 @@ export default function GeneralPage() {
           </Button>
 
           {gatherResult && (
-            <div className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white mt-4">
-              {gatherResult}
+            <div
+              className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white mt-4"
+              dangerouslySetInnerHTML={{ __html: gatherResult }}
+            />
+          )}
+        </CardContent>
+      </Card>
+      {/* Kalkulator Troops Training */}
+      <Card className="bg-special-inside border-zinc-800 text-white">
+        <CardContent className="space-y-6 pt-6">
+          <h2 className="text-xl font-bold">Troops Training</h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <Label className="text-zinc-400">Number of Troops</Label>
+              <Input
+                type="number"
+                value={troopCount}
+                onChange={(e) => setTroopCount(Number(e.target.value))}
+                className="bg-special-input text-white"
+                placeholder="Enter number of troops"
+              />
             </div>
+            <div>
+              <Label className="text-zinc-400">Points per Troop</Label>
+              <Input
+                type="number"
+                value={pointPerTroop}
+                onChange={(e) => setPointPerTroop(Number(e.target.value))}
+                className="bg-special-input text-white"
+                placeholder="Point per troop (e.g. 5)"
+              />
+            </div>
+          </div>
+
+          <Button
+            onClick={handleTroopCalc}
+            className="bg-lime-600 hover:bg-green-700 text-white rounded-sm py-5"
+          >
+            Calculate Points
+          </Button>
+
+          {troopResult && (
+            <div
+              className="border border-zinc-700 p-4 rounded bg-zinc-800 text-white"
+              dangerouslySetInnerHTML={{ __html: troopResult }}
+            />
           )}
         </CardContent>
       </Card>
