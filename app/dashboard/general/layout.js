@@ -8,7 +8,7 @@ import WelcomePopup from '@/components/Popup'
 export default function General({ children }) {
   return (
     <>
-      <WelcomePopup />
+     
       <PageWrapper>
         <div className="min-h-screen bg-special text-white grid grid-cols-1 lg:grid-cols-[1fr_320px]">
           <main className="flex flex-col w-full min-w-0">

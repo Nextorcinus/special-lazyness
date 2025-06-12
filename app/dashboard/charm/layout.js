@@ -10,7 +10,7 @@ import WelcomePopup from '@/components/Popup'
 export default function Layout({ children }) {
   return (
     <>
-    <WelcomePopup />
+    
     <PageWrapper>
       <CharmHistoryProvider>
         <AddAnotherProvider>

@@ -1,16 +1,25 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useGitVersion } from 'lib/getGitVersion'
 
 export default function WelcomePopup() {
   const [showPopup, setShowPopup] = useState(false)
+  const [hasMounted, setHasMounted] = useState(false)
   const version = useGitVersion()
 
+  const hasRun = useRef(false)
+
   useEffect(() => {
-    const hasClosed = localStorage.getItem('welcomePopupClosed')
-    if (!hasClosed) {
-      setShowPopup(true)
+    if (hasRun.current) return
+    hasRun.current = true
+
+    if (typeof window !== 'undefined') {
+      const hasClosed = localStorage.getItem('welcomePopupClosed')
+      if (hasClosed !== 'true') {
+        setShowPopup(true)
+      }
+      setHasMounted(true)
     }
   }, [])
 
@@ -19,7 +28,7 @@ export default function WelcomePopup() {
     localStorage.setItem('welcomePopupClosed', 'true')
   }
 
-  if (!showPopup) return null
+  if (!hasMounted || !showPopup) return null
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-6">
@@ -27,10 +36,10 @@ export default function WelcomePopup() {
         <h2 className="text-lg text-lime-500 mb-2">
           Update App Version.{version}
         </h2>
-        <p className="text-sm text-zinc-300 mb-4">
-          <ul className="list-disc list-inside text-sm text-zinc-300 space-y-1">
-            <li>Added Calc Points for SvS, KoI etc </li>
-            <li>Added State Age </li>
+        <div className="text-sm text-zinc-300 mb-4">
+          <ul className="list-disc list-inside space-y-1">
+            <li>Added Calc Points for SvS, KoI etc</li>
+            <li>Added State Age</li>
             <li>Added Hero Widget</li>
             <li>Added Foundry Task Page for R4/R5</li>
             <li>Fixed Stable Charm delete bug</li>
@@ -38,7 +47,7 @@ export default function WelcomePopup() {
             <li>Improved Chief Charm logic & comparison</li>
             <li>Optimized stability & performance</li>
           </ul>
-        </p>
+        </div>
         <button
           onClick={handleClose}
           className="bg-lime-600 hover:bg-lime-700 px-4 py-2 text-white rounded"

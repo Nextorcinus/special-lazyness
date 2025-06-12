@@ -10,7 +10,7 @@ import WelcomePopup from '@/components/Popup'
 export default function BuildingsLayout({ children }) {
   return (
     <>
-    <WelcomePopup />
+ 
 
     <PageWrapper>
       <HistoryProvider>

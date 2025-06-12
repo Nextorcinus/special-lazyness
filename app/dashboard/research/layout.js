@@ -20,7 +20,7 @@ export default function ResearchLayout({ children }) {
 
   return (
     <>
-      <WelcomePopup />  
+     
     <PageWrapper>
     <ResearchHistoryProvider>
       <AddAnotherProvider>
