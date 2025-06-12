@@ -27,7 +27,7 @@ export default async function StatePage({ params }) {
     .filter((m) => m.days <= ageInDays)
     .map((m) => ({ ...m, daysAgo: ageInDays - m.days }))
 
-  const achieved = allAchieved.filter((m) => m.daysAgo >= 20)
+  const achieved = allAchieved.filter((m) => m.daysAgo >= 5)
 
   const upcoming = milestones
     .filter((m) => m.days > ageInDays)
@@ -71,7 +71,6 @@ export default async function StatePage({ params }) {
     </div>
   )
 }
-
 
 function MilestoneCard({ milestone: m, isUpcoming = false }) {
   return (
