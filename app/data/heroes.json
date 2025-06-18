@@ -1,0 +1,462 @@
+{
+  "heroes": [
+    {
+      "hero-name": "Sergey",
+      "hero-class": "infantry",
+      "rarity": "legendary",
+      "generation": 1,
+      "widget": {
+        "has-widget": true,
+        "stat-type": "defense",
+        "applied-on": "allies"
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Iron Wall",
+            "trigger-type": "passive",
+            "effects": {
+              "1": {
+                "effect-name": "Defense Boost",
+                "applied-on": ["infantry"],
+                "stats": [15, 20, 25, 30, 35]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Jessie",
+      "hero-class": "lancer",
+      "rarity": "rare",
+      "generation": 1,
+      "widget": {
+        "has-widget": false
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Precision Strike",
+            "trigger-type": "active",
+            "effects": {
+              "1": {
+                "effect-name": "Critical Hit Chance",
+                "applied-on": ["lancer"],
+                "stats": [10, 15, 20, 25, 30]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Patrick",
+      "hero-class": "marksman",
+      "rarity": "epic",
+      "generation": 2,
+      "widget": {
+        "has-widget": true,
+        "stat-type": "accuracy",
+        "applied-on": "self"
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Snipe",
+            "trigger-type": "active",
+            "effects": {
+              "1": {
+                "effect-name": "Ignore Defense",
+                "applied-on": ["marksman"],
+                "stats": [20, 25, 30, 35, 40]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Lumak Bokan",
+      "hero-class": "infantry",
+      "rarity": "legendary",
+      "generation": 3,
+      "widget": {
+        "has-widget": true,
+        "stat-type": "health",
+        "applied-on": "self"
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Unyielding",
+            "trigger-type": "passive",
+            "effects": {
+              "1": {
+                "effect-name": "Damage Reduction",
+                "applied-on": ["infantry"],
+                "stats": [20, 25, 30, 35, 40]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Ling Xue",
+      "hero-class": "marksman",
+      "rarity": "mythic",
+      "generation": 5,
+      "widget": {
+        "has-widget": true,
+        "stat-type": "attack",
+        "applied-on": "all"
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Frost Arrows",
+            "trigger-type": "periodic",
+            "trigger-one-per-rounds": 3,
+            "effects": {
+              "1": {
+                "effect-name": "Damage Over Time",
+                "applied-on": ["all"],
+                "stats": [5, 10, 15, 20, 25]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Gina",
+      "hero-class": "lancer",
+      "rarity": "epic",
+      "generation": 4,
+      "widget": {
+        "has-widget": false
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Charge",
+            "trigger-type": "active",
+            "effects": {
+              "1": {
+                "effect-name": "First Strike",
+                "applied-on": ["lancer"],
+                "stats": [15, 20, 25, 30, 35]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Bahiti",
+      "hero-class": "infantry",
+      "rarity": "mythic",
+      "generation": 4,
+      "widget": {
+        "has-widget": true,
+        "stat-type": "health",
+        "applied-on": "defense"
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Viper Formation",
+            "trigger-type": "periodic",
+            "trigger-one-per-rounds": 4,
+            "effects": {
+              "1": {
+                "effect-name": "Damage Taken Down",
+                "applied-on": ["marksman", "lancer"],
+                "stats": [10, 15, 20, 25, 30]
+              },
+              "2": {
+                "effect-name": "Damage Taken Down",
+                "applied-on": ["infantry"],
+                "stats": [10, 25, 40, 55, 70]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Jasser",
+      "hero-class": "lancer",
+      "rarity": "rare",
+      "generation": 2,
+      "widget": {
+        "has-widget": false
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Quick Thrust",
+            "trigger-type": "active",
+            "effects": {
+              "1": {
+                "effect-name": "Attack Speed",
+                "applied-on": ["lancer"],
+                "stats": [8, 12, 16, 20, 24]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Seo-yoon",
+      "hero-class": "marksman",
+      "rarity": "legendary",
+      "generation": 6,
+      "widget": {
+        "has-widget": true,
+        "stat-type": "critical",
+        "applied-on": "self"
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Death Mark",
+            "trigger-type": "active",
+            "effects": {
+              "1": {
+                "effect-name": "Critical Damage",
+                "applied-on": ["marksman"],
+                "stats": [25, 30, 35, 40, 45]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Natalia",
+      "hero-class": "marksman",
+      "rarity": "legendary",
+      "generation": 5,
+      "widget": {
+        "has-widget": true,
+        "stat-type": "accuracy",
+        "applied-on": "self"
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Snipe",
+            "trigger-type": "active",
+            "effects": {
+              "1": {
+                "effect-name": "Ignore Defense",
+                "applied-on": ["marksman"],
+                "stats": [20, 25, 30, 35, 40]
+              }
+            }
+          },
+          "2": {
+            "skill-name": "Weak Spot",
+            "trigger-type": "passive",
+            "effects": {
+              "1": {
+                "effect-name": "Critical Chance",
+                "applied-on": ["self"],
+                "stats": [15, 18, 21, 24, 30]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Jeronimo",
+      "hero-class": "infantry",
+      "rarity": "epic",
+      "generation": 3,
+      "widget": {
+        "has-widget": true,
+        "stat-type": "health_regen",
+        "applied-on": "allies"
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Field Medic",
+            "trigger-type": "periodic",
+            "trigger-one-per-rounds": 3,
+            "effects": {
+              "1": {
+                "effect-name": "Heal Over Time",
+                "applied-on": ["infantry", "marksman"],
+                "stats": [10, 15, 20, 25, 30]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Molly",
+      "hero-class": "lancer",
+      "rarity": "rare",
+      "generation": 2,
+      "widget": {
+        "has-widget": false
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Quick Assault",
+            "trigger-type": "active",
+            "effects": {
+              "1": {
+                "effect-name": "Attack Speed",
+                "applied-on": ["lancer"],
+                "stats": [12, 15, 18, 21, 25]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Zinman",
+      "hero-class": "infantry",
+      "rarity": "legendary",
+      "generation": 12,
+      "widget": {
+        "has-widget": true,
+        "stat-type": "health",
+        "applied-on": "self"
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Unyielding",
+            "trigger-type": "passive",
+            "effects": {
+              "1": {
+                "effect-name": "Damage Reduction",
+                "applied-on": ["infantry"],
+                "stats": [20, 25, 30, 35, 40]
+              }
+            }
+          },
+          "2": {
+            "skill-name": "Last Stand",
+            "trigger-type": "active",
+            "effects": {
+              "1": {
+                "effect-name": "Attack Boost",
+                "applied-on": ["self"],
+                "stats": [30, 35, 40, 45, 50]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Flink",
+      "hero-class": "marksman",
+      "rarity": "epic",
+      "generation": 3,
+      "widget": {
+        "has-widget": true,
+        "stat-type": "critical_damage",
+        "applied-on": "self"
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Precision Shot",
+            "trigger-type": "active",
+            "effects": {
+              "1": {
+                "effect-name": "Critical Damage Boost",
+                "applied-on": ["marksman"],
+                "stats": [25, 30, 35, 40, 45]
+              }
+            }
+          },
+          "2": {
+            "skill-name": "Keen Eye",
+            "trigger-type": "passive",
+            "effects": {
+              "1": {
+                "effect-name": "Accuracy Increase",
+                "applied-on": ["self"],
+                "stats": [15, 20, 25, 30, 35]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Philly",
+      "hero-class": "infantry",
+      "rarity": "rare",
+      "generation": 2,
+      "widget": {
+        "has-widget": false
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Shield Bash",
+            "trigger-type": "active",
+            "effects": {
+              "1": {
+                "effect-name": "Stun Chance",
+                "applied-on": ["enemy"],
+                "stats": [10, 15, 20, 25, 30]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "hero-name": "Alonso",
+      "hero-class": "lancer",
+      "rarity": "legendary",
+      "generation": 6,
+      "widget": {
+        "has-widget": true,
+        "stat-type": "attack_speed",
+        "applied-on": "allies"
+      },
+      "skills": {
+        "expedition": {
+          "1": {
+            "skill-name": "Whirlwind Strike",
+            "trigger-type": "active",
+            "effects": {
+              "1": {
+                "effect-name": "AoE Damage",
+                "applied-on": ["all"],
+                "stats": [20, 25, 30, 35, 40]
+              }
+            }
+          },
+          "2": {
+            "skill-name": "Battle Rhythm",
+            "trigger-type": "passive",
+            "effects": {
+              "1": {
+                "effect-name": "Attack Speed",
+                "applied-on": ["lancer"],
+                "stats": [10, 15, 20, 25, 30]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
