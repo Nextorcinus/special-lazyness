@@ -23,11 +23,9 @@ export default async function StatePage({ params }) {
 
   const milestones = milestoneData.milestones
 
-  const allAchieved = milestones
+  const achieved = milestones
     .filter((m) => m.days <= ageInDays)
     .map((m) => ({ ...m, daysAgo: ageInDays - m.days }))
-
-  const achieved = allAchieved.filter((m) => m.daysAgo >= 5)
 
   const upcoming = milestones
     .filter((m) => m.days > ageInDays)
