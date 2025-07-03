@@ -39,12 +39,8 @@ export default function WelcomePopup() {
         <div className="text-sm text-zinc-300 mb-4">
           <ul className="list-disc list-inside space-y-1">
             <li>Added Calc Points for SvS, KoI etc</li>
-            <li>Added State Age</li>
+            <li>Renew data from state 1000-1099 State Age</li>
             <li>Added Hero Widget</li>
-            <li>Added Foundry Task Page for R4/R5</li>
-            <li>Fixed Stable Charm delete bug</li>
-            <li>Fixed delete by selected instead all</li>
-            <li>Improved Chief Charm logic & comparison</li>
             <li>Optimized stability & performance</li>
           </ul>
         </div>

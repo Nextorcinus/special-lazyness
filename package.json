@@ -25,6 +25,7 @@
     "framer-motion": "^12.12.1",
     "lucide-react": "^0.270.0",
     "next": "^13.5.11",
+    "node-fetch": "^3.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sonner": "^2.0.3",
