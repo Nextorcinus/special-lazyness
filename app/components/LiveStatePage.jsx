@@ -1,14 +1,22 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import milestoneData from '@/data/milestones.json'
 import MilestoneCard from './MilestoneCard'
 
 export default function LiveStatePage({ stateId }) {
   const [ageInDays, setAgeInDays] = useState(null)
   const [createdAt, setCreatedAt] = useState(null)
+  const esRef = useRef(null) // 👉 simpan koneksi SSE di sini
 
   useEffect(() => {
+    // 🔒 Tutup koneksi lama jika ada
+    if (esRef.current) {
+      esRef.current.close()
+    }
+
     const es = new EventSource('/api/stateage/sse')
+    esRef.current = es
+
     es.onmessage = (e) => {
       const data = JSON.parse(e.data)
       const ts = data[stateId]
@@ -19,7 +27,15 @@ export default function LiveStatePage({ stateId }) {
         setCreatedAt(created)
       }
     }
-    return () => es.close()
+
+    es.onerror = (e) => {
+      console.error('SSE error', e)
+      es.close()
+    }
+
+    return () => {
+      es.close()
+    }
   }, [stateId])
 
   if (!ageInDays) return <p className="text-white p-4">Loading state data...</p>
