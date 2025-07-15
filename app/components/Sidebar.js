@@ -101,6 +101,7 @@ export default function Sidebar() {
                     alt={item.label}
                     width={20}
                     height={20}
+                    unoptimized
                   />
                   <span>{item.label}</span>
                 </div>
