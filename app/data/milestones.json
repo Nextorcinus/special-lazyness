@@ -73,7 +73,7 @@
           "/icon/philly_thumb.jpg",
           "/icon/alonso_thumb.jpg"
         ],
-        "acquisition": [["Lucky_Wheel"], ["HOC","KOI","SVS"], ["HOH"]]
+        "acquisition": [["Lucky_Wheel"], ["HOC", "KOI", "SVS"], ["HOH"]]
       }
     },
     {
@@ -83,9 +83,9 @@
       "icons": {
         "names": ["Musk Ox", "Artic Wolf", "Cave Hyena"],
         "icon": [
-          "/icon/crystal1.png",
-          "/icon/crystal2.png",
-          "/icon/crystal3.png"
+          "/icon/musk_ox.jpg",
+          "/icon/artic_wolf.jpg",
+          "/icon/cave_hyena.jpg"
         ]
       }
     },
@@ -96,9 +96,9 @@
       "icons": {
         "names": ["Crystal 1", "Crystal 2", "Crystal 3"],
         "icon": [
-          "/icon/crystal.jpg",
-          "/icon/artic_wolf.jpg",
-          "/icon/cave_hyena.jpg"
+          "/icon/crystal1.png",
+          "/icon/crystal2.png",
+          "/icon/crystal3.png"
         ]
       }
     },
@@ -131,7 +131,7 @@
           "/icon/mia_thumb.jpg",
           "/icon/greg_thumb.jpg"
         ],
-        "acquisition": [["HOH"], ["Lucky_Wheel"], ["HOC","KOI","SVS"]]
+        "acquisition": [["HOH"], ["Lucky_Wheel"], ["HOC", "KOI", "SVS"]]
       }
     },
     {
@@ -156,12 +156,19 @@
         ]
       }
     },
-        {
+    {
       "days": 180,
       "name": "Legendary Equipment",
       "details": ["Legendary chief gear unlock"],
       "icons": {
-        "names": ["Belt Legendary", "Cap Legendary", "Coat Legendary","Pants Legendary", "Watch Legendary", "Weapon Legendary"],
+        "names": [
+          "Belt Legendary",
+          "Cap Legendary",
+          "Coat Legendary",
+          "Pants Legendary",
+          "Watch Legendary",
+          "Weapon Legendary"
+        ],
         "icon": [
           "/icon/T3_3star_belt.png",
           "/icon/T3_3star_cap.png",
@@ -172,7 +179,7 @@
         ]
       }
     },
-        {
+    {
       "days": 195,
       "name": "Gen 4 Heroes",
       "details": ["3 Added Gen 4 Heroes"],
@@ -183,10 +190,10 @@
           "/icon/reina_thumb.jpg",
           "/icon/lynn_thumb.jpg"
         ],
-        "acquisition": [["HOC","KOI","SVS"], ["HOH"], ["Lucky_Wheel"]]
+        "acquisition": [["HOC", "KOI", "SVS"], ["HOH"], ["Lucky_Wheel"]]
       }
     },
-        {
+    {
       "days": 200,
       "name": "4th Pets Update",
       "details": ["2 Pets Update"],
@@ -195,16 +202,32 @@
         "icon": ["/icon/snow_ape.jpg", "/icon/cave_lion.jpg"]
       }
     },
-            {
+    {
       "days": 220,
       "name": "War Academy Update",
-      "details": ["War academy unlock", "Fire crystal tech unlock", "T11 troops unlock"],
+      "details": [
+        "War academy unlock",
+        "Fire crystal tech unlock",
+        "T11 troops unlock"
+      ],
       "icons": {
-        "names": ["Academy", "Fire Crystal Shard", "infantry_T11", "lancer_T11", "marksman_T11"],
-        "icon": ["/icon/snow_ape.jpg", "/icon/cave_lion.jpg"]
+        "names": [
+          "Academy",
+          "Fire Crystal Shard",
+          "infantry_T11",
+          "lancer_T11",
+          "marksman_T11"
+        ],
+        "icon": [
+          "/icon/war-academy.png",
+          "/icon/fire_crystal_shard.png",
+          "/icon/infantry_T11.png",
+          "/icon/lancer_T11.png",
+          "/icon/marksman_T11.png"
+        ]
       }
     },
-            {
+    {
       "days": 270,
       "name": "Gen 5 Heroes",
       "details": ["3 Added Gen 5 Heroes"],
@@ -215,10 +238,10 @@
           "/icon/norah_thumb.jpg",
           "/icon/gwen_thumb.jpg"
         ],
-        "acquisition": [["Lucky_Wheel"], ["HOC","KOI","SVS"], ["HOH"]]
+        "acquisition": [["Lucky_Wheel"], ["HOC", "KOI", "SVS"], ["HOH"]]
       }
     },
-           {
+    {
       "days": 280,
       "name": "5th Pets Update",
       "details": ["2 Pets Update"],
@@ -227,10 +250,13 @@
         "icon": ["/icon/iron_rhino.jpg", "/icon/saber-tooth_tiger.jpg"]
       }
     },
-        {
+    {
       "days": 315,
       "name": "Advanced Crystal Update",
-      "details": ["Fire crystal building level 6-8", "Refined fire crystal unlock"],
+      "details": [
+        "Fire crystal building level 6-8",
+        "Refined fire crystal unlock"
+      ],
       "icons": {
         "names": ["Crytal 6", "Crytal 7", "Crystal 8", "Refined Fire Crystal"],
         "icon": [
@@ -241,7 +267,7 @@
         ]
       }
     },
-          {
+    {
       "days": 360,
       "name": "Gen 6 Heroes",
       "details": ["3 Added Gen 6 Heroes"],
@@ -252,7 +278,7 @@
           "/icon/renee_thumb.jpg",
           "/icon/wayne_thumb.jpg"
         ],
-        "acquisition": [["HOH"], ["Lucky_Wheel"], ["HOC","KOI","SVS"]]
+        "acquisition": [["HOH"], ["Lucky_Wheel"], ["HOC", "KOI", "SVS"]]
       }
     },
     {
