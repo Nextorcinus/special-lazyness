@@ -2,11 +2,10 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { cn } from '../lib/utils'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useGitVersion } from 'lib/getGitVersion'
-import WelcomePopup from '@/components/Popup'
 
 const menu = [
   {
@@ -61,11 +60,13 @@ const menu = [
 
 export default function Sidebar() {
   const pathname = usePathname()
+  const router = useRouter()
   const [hovered, setHovered] = useState(null)
   const version = useGitVersion()
 
   return (
     <aside className="flex flex-col justify-between w-full h-full lg:w-64 bg-[#1F1F1F] text-white">
+      {/* Logo */}
       <div>
         <div className="flex justify-center p-4">
           <Link href="/" passHref>
@@ -80,11 +81,52 @@ export default function Sidebar() {
           </Link>
         </div>
 
+        {/* Navigation Menu */}
         <nav className="flex flex-col gap-2 px-4">
           {menu.map((item) => {
             const isActive = pathname === item.href
             const isHover = hovered === item.label
 
+            const iconSrc = isHover || isActive ? item.iconHover : item.icon
+
+            // 👉 Special: For "State Age", force reroute manually
+            if (item.label === 'State Age') {
+              return isActive ? (
+                <div
+                  key={item.label}
+                  className="flex items-center gap-3 px-4 py-2 rounded-md bg-zinc-800 text-green-500 cursor-default"
+                >
+                  <Image
+                    src={item.iconHover}
+                    alt={item.label}
+                    width={20}
+                    height={20}
+                  />
+                  <span>{item.label}</span>
+                </div>
+              ) : (
+                <button
+                  key={item.label}
+                  onClick={() => router.push(item.href)}
+                  onMouseEnter={() => setHovered(item.label)}
+                  onMouseLeave={() => setHovered(null)}
+                  className={cn(
+                    'flex items-center gap-3 px-4 py-2 rounded-md transition-colors w-full text-left',
+                    'hover:bg-zinc-800 text-zinc-300'
+                  )}
+                >
+                  <Image
+                    src={iconSrc}
+                    alt={item.label}
+                    width={20}
+                    height={20}
+                  />
+                  <span>{item.label}</span>
+                </button>
+              )
+            }
+
+            // Default nav item
             return isActive ? (
               <div
                 key={item.label}
@@ -109,12 +151,7 @@ export default function Sidebar() {
                   'hover:bg-zinc-800 text-zinc-300'
                 )}
               >
-                <Image
-                  src={isHover ? item.iconHover : item.icon}
-                  alt={item.label}
-                  width={20}
-                  height={20}
-                />
+                <Image src={iconSrc} alt={item.label} width={20} height={20} />
                 <span>{item.label}</span>
               </Link>
             )
