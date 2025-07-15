@@ -1,6 +1,77 @@
 {
   "milestones": [
     {
+      "days": 0,
+      "name": "Initial Heroes Access",
+      "details": [],
+      "heroGroups": [
+        {
+          "groupName": "SSR Heroes",
+          "heroes": {
+            "names": ["Natalia", "Jeronimo", "Zinman", "Molly"],
+            "images": [
+              "/icon/natalia_thumb.png",
+              "/icon/jeronimo_thumb.png",
+              "/icon/zinman_thumb.png",
+              "/icon/molly_thumb.png"
+            ],
+            "acquisition": [["VIP"], ["HOC", "VIP"], ["lucky"], []]
+          }
+        },
+        {
+          "groupName": "SR Heroes",
+          "heroGrids": [
+            {
+              "names": [
+                "Sergey",
+                "Jessie",
+                "Patrick",
+                "Walis Bokan",
+                "Ling Xue"
+              ],
+              "images": [
+                "/icon/sergey_thumb.png",
+                "/icon/jessie_thumb.png",
+                "/icon/patrick_thumb.png",
+                "/icon/walis_bokan_thumb.png",
+                "/icon/ling_xue_thumb.png"
+              ]
+            },
+            {
+              "names": ["Gina", "Bahiti", "Jasser", "Seo-yoon"],
+              "images": [
+                "/icon/gina_thumb.png",
+                "/icon/bahiti_thumb.png",
+                "/icon/jasser_thumb.png",
+                "/icon/seo-yoon_thumb.png"
+              ]
+            }
+          ]
+        },
+        {
+          "groupName": "R Heroes",
+          "heroes": {
+            "names": ["Smith", "Eugene", "Charlie", "Cloris"],
+            "images": [
+              "/icon/smith_thumb.png",
+              "/icon/eugene_thumb.png",
+              "/icon/charlie_thumb.png",
+              "/icon/cloris_thumb.png"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "days": 370,
+      "name": "Mammoth Update",
+      "details": ["Big Mammoth feature added"],
+      "icons": {
+        "names": ["Mammoth"],
+        "icon": ["/icon/mammoth.jpg"]
+      }
+    },
+    {
       "days": 370,
       "name": "Mammoth Update",
       "details": ["Big Mammoth feature added"],
