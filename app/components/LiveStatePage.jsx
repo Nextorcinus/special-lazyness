@@ -23,8 +23,14 @@ export default function LiveStatePage({ stateId }) {
       if (ts) {
         const created = new Date(ts * 1000)
         const age = Math.floor((Date.now() - created.getTime()) / 86400000)
-        setAgeInDays(age)
-        setCreatedAt(created)
+        setAgeInDays((prev) => {
+          if (prev !== age) return age
+          return prev
+        })
+        setCreatedAt((prev) => {
+          if (!prev || prev.getTime() !== created.getTime()) return created
+          return prev
+        })
       }
     }
 
