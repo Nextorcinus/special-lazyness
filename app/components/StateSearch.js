@@ -10,8 +10,8 @@ const StateSearch = () => {
     const id = Number(e.target.stateId.value)
 
     // Validasi manual
-    if (isNaN(id) || id < 500 || id > 3500) {
-      toast.error('State ID must be between 500 and 3100')
+    if (isNaN(id) || id < 500 || id > 3148) {
+      toast.error('State ID must be between 500 and 3148')
       return
     }
 
@@ -24,7 +24,7 @@ const StateSearch = () => {
         type="number"
         name="stateId"
         min={500}
-        max={3500}
+        max={3148}
         placeholder="Enter State ID (max 3100)"
         className="bg-zinc-800 px-4 py-2 rounded w-64"
       />
