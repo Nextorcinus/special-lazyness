@@ -6,7 +6,7 @@ export default function LiveStateAge({ stateId }) {
   const [ageInDays, setAgeInDays] = useState(null)
 
   useEffect(() => {
-    const es = new EventSource('/api/stateage/sse') // atau URL eksternal kamu
+    const es = new EventSource('/api/stateage/sse') 
     es.onmessage = (e) => {
       const data = JSON.parse(e.data)
       const ts = data[stateId]
