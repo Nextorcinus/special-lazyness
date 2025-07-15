@@ -85,7 +85,20 @@ export default function Sidebar() {
             const isActive = pathname === item.href
             const isHover = hovered === item.label
 
-            return (
+            return isActive ? (
+              <div
+                key={item.label}
+                className="flex items-center gap-3 px-4 py-2 rounded-md bg-zinc-800 text-green-500 cursor-default"
+              >
+                <Image
+                  src={item.iconHover}
+                  alt={item.label}
+                  width={20}
+                  height={20}
+                />
+                <span>{item.label}</span>
+              </div>
+            ) : (
               <Link
                 key={item.label}
                 href={item.href}
@@ -93,13 +106,11 @@ export default function Sidebar() {
                 onMouseLeave={() => setHovered(null)}
                 className={cn(
                   'flex items-center gap-3 px-4 py-2 rounded-md transition-colors',
-                  isActive
-                    ? 'bg-zinc-800 text-green-500'
-                    : 'hover:bg-zinc-800 text-zinc-300'
+                  'hover:bg-zinc-800 text-zinc-300'
                 )}
               >
                 <Image
-                  src={isHover || isActive ? item.iconHover : item.icon}
+                  src={isHover ? item.iconHover : item.icon}
                   alt={item.label}
                   width={20}
                   height={20}
@@ -113,13 +124,12 @@ export default function Sidebar() {
 
       {/* Footer */}
       <div className="mt-auto p-10 text-center text-xs text-zinc-400">
-        {/* Discord Button */}
         <div className="mb-4">
           <a
             href="https://discordapp.com/users/380668333948928000"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2  hover:bg-indigo-700 text-white text-sm px-4 py-2 rounded-md transition"
+            className="inline-flex items-center justify-center gap-2 hover:bg-indigo-700 text-white text-sm px-4 py-2 rounded-md transition"
           >
             <Image
               src="/icon/discord.png"

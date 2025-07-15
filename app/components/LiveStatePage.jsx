@@ -6,7 +6,7 @@ import MilestoneCard from './MilestoneCard'
 export default function LiveStatePage({ stateId }) {
   const [ageInDays, setAgeInDays] = useState(null)
   const [createdAt, setCreatedAt] = useState(null)
-  const esRef = useRef(null) // 👉 simpan koneksi SSE di sini
+  const esRef = useRef(null) //  koneksi SSE di sini
 
   useEffect(() => {
     // 🔒 Tutup koneksi lama jika ada
