@@ -9,10 +9,12 @@ const StateSearch = () => {
     e.preventDefault()
     const id = Number(e.target.stateId.value)
 
-    if (!id || id < 3 || id > 3100) {
+    // Validasi manual
+    if (isNaN(id) || id < 880 || id > 3100) {
       toast.error('State ID must be between 880 and 3100')
       return
     }
+
     router.push(`/dashboard/state/${id}`)
   }
 
