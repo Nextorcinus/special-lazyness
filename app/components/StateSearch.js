@@ -8,8 +8,9 @@ const StateSearch = () => {
   const handleSearch = (e) => {
     e.preventDefault()
     const id = Number(e.target.stateId.value)
-    if (!id || id < 880) {
-      toast.error('State ID must be 880 or higher')
+
+    if (!id || id < 3 || id > 3100) {
+      toast.error('State ID must be between 880 and 3100')
       return
     }
     router.push(`/dashboard/state/${id}`)
@@ -20,9 +21,9 @@ const StateSearch = () => {
       <input
         type="number"
         name="stateId"
-        min={880}
+        min={3}
         max={3100}
-        placeholder="Enter State ID (min 900)"
+        placeholder="Enter State ID (max 3100)"
         className="bg-zinc-800 px-4 py-2 rounded"
       />
       <button
