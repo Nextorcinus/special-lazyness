@@ -10,6 +10,7 @@ export default function LiveStatePage({ stateId }) {
   const esRef = useRef(null)
 
   useEffect(() => {
+    // Tutup koneksi SSE sebelumnya
     if (esRef.current) {
       esRef.current.close()
     }
@@ -45,11 +46,15 @@ export default function LiveStatePage({ stateId }) {
     }
   }, [stateId])
 
-  if (!ageInDays) return <p className="text-white p-4">Loading state data...</p>
+  if (!ageInDays) {
+    return <p className="text-white p-4">Loading state data...</p>
+  }
 
+  // Siapkan milestone dan sesuaikan jika merger state
   let milestones = milestoneData.milestones
+  const isMerged = Number(stateId) >= 1000 && Number(stateId) <= 1099
 
-  if (Number(stateId) >= 1000 && Number(stateId) <= 1099) {
+  if (isMerged) {
     milestones = milestones.map((m) =>
       m.days === 440 ? { ...m, days: 470 } : m
     )
@@ -65,6 +70,7 @@ export default function LiveStatePage({ stateId }) {
 
   return (
     <div className="p-4 md:p-6 text-white w-full">
+      {/* Header Info */}
       <div className="relative bg-special-inside border border-zinc-800 rounded-2xl p-6 shadow-md space-y-2 mb-6">
         <h1 className="text-2xl font-bold mb-2">State {stateId}</h1>
         <p className="text-sm text-zinc-400">
@@ -73,22 +79,27 @@ export default function LiveStatePage({ stateId }) {
         <p className="text-lime-400 mb-6">Age: {ageInDays} days</p>
       </div>
 
+      {/* Upcoming Updates */}
       <h2 className="text-xl mb-4 px-2 text-zinc-400">Upcoming Updates</h2>
       <div className="space-y-6">
         {upcoming.map((m) => (
-          <MilestoneCard key={m.name} milestone={m} isUpcoming />
+          <MilestoneCard key={`${m.name}-${m.days}`} milestone={m} isUpcoming />
         ))}
       </div>
 
+      {/* Achieved Updates */}
       {achieved.length > 0 && (
         <>
           <h2 className="text-xl mt-12 mb-4 px-2 text-zinc-400">
             Previous Updates
           </h2>
           <div className="space-y-6">
-            {achieved.reverse().map((m) => (
-              <MilestoneCard key={m.name} milestone={m} />
-            ))}
+            {achieved
+              .slice()
+              .reverse()
+              .map((m) => (
+                <MilestoneCard key={`${m.name}-${m.days}`} milestone={m} />
+              ))}
           </div>
         </>
       )}

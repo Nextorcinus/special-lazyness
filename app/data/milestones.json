@@ -33,8 +33,8 @@
                 "/icon/sergey_thumb.png",
                 "/icon/jessie_thumb.png",
                 "/icon/patrick_thumb.png",
-                "/icon/walis_bokan_thumb.png",
-                "/icon/ling_xue_thumb.png"
+                "/icon/lumak_bokan_thumb.jpg",
+                "/icon/ling_xue_thumb.jpg"
               ]
             },
             {
@@ -42,8 +42,8 @@
               "images": [
                 "/icon/gina_thumb.png",
                 "/icon/bahiti_thumb.png",
-                "/icon/jasser_thumb.png",
-                "/icon/seo-yoon_thumb.png"
+                "/icon/jasser_thumb.jpg",
+                "/icon/seo_yoon_thumb.jpg"
               ]
             }
           ]
@@ -53,23 +53,14 @@
           "heroes": {
             "names": ["Smith", "Eugene", "Charlie", "Cloris"],
             "images": [
-              "/icon/smith_thumb.png",
-              "/icon/eugene_thumb.png",
+              "/icon/smith-thumb.png",
+              "/icon/eugene-thumb.png",
               "/icon/charlie_thumb.png",
               "/icon/cloris_thumb.png"
             ]
           }
         }
       ]
-    },
-    {
-      "days": 370,
-      "name": "Mammoth Update",
-      "details": ["Big Mammoth feature added"],
-      "icons": {
-        "names": ["Mammoth"],
-        "icon": ["/icon/mammoth.jpg"]
-      }
     },
     {
       "days": 370,
