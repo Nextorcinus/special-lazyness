@@ -14,7 +14,7 @@ export default function LiveStatePage({ stateId }) {
       esRef.current.close()
     }
 
-    const es = new EventSource('/api/stateage/sse')
+    const es = new EventSource('https://sse-server.up.railway.app/sse')
     esRef.current = es
 
     es.onmessage = (e) => {
