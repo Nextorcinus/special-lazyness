@@ -66,7 +66,7 @@
       "days": 40,
       "name": "Gen 2 Heroes",
       "details": ["3 Added Gen 2 Heroes"],
-      "icons": {
+      "heroes": {
         "names": ["Flint", "Philly", "Alonso"],
         "icon": [
           "/icon/flint_thumb.jpg",
@@ -124,7 +124,7 @@
       "days": 120,
       "name": "Gen 3 Heroes",
       "details": ["3 Added Gen 3 Heroes"],
-      "icons": {
+      "heroes": {
         "names": ["Logan", "Mia", "Greg"],
         "icon": [
           "/icon/logan_thumb.jpg",
@@ -183,7 +183,7 @@
       "days": 195,
       "name": "Gen 4 Heroes",
       "details": ["3 Added Gen 4 Heroes"],
-      "icons": {
+      "heroes": {
         "names": ["Ahmose", "Reina", "Lynn"],
         "icon": [
           "/icon/ahmose_thumb.jpg",
@@ -231,7 +231,7 @@
       "days": 270,
       "name": "Gen 5 Heroes",
       "details": ["3 Added Gen 5 Heroes"],
-      "icons": {
+      "heroes": {
         "names": ["Hector", "Norah", "Gwen"],
         "icon": [
           "/icon/hector_thumb.jpg",
@@ -270,7 +270,7 @@
     {
       "days": 360,
       "name": "Gen 6 Heroes",
-      "icons": {
+      "heroes": {
         "names": ["Wuming", "Renee", "Wayne"],
         "icon": ["/icon/wuming_thumb.jpg", "/icon/renee_thumb.jpg", "/icon/wayne_thumb.jpg"],
         "acquisition": [["HOH"], ["Lucky_Wheel"], ["HOC", "KOI", "SVS"]]
