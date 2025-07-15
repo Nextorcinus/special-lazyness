@@ -1,20 +1,19 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'   
+import { toast } from 'sonner'
 
 const StateSearch = () => {
   const router = useRouter()
 
- const handleSearch = (e) => {
-  e.preventDefault()
-  const id = Number(e.target.stateId.value)
-  if (!id || id < 880) {
-    toast.error('State ID must be 880 or higher')
-    return
+  const handleSearch = (e) => {
+    e.preventDefault()
+    const id = Number(e.target.stateId.value)
+    if (!id || id < 880) {
+      toast.error('State ID must be 880 or higher')
+      return
+    }
+    router.push(`/dashboard/state/${id}`)
   }
-  router.push(`/dashboard/state/${id}`)
-}
-
 
   return (
     <form onSubmit={handleSearch} className="flex gap-2">
@@ -22,6 +21,7 @@ const StateSearch = () => {
         type="number"
         name="stateId"
         min={880}
+        max={3100}
         placeholder="Enter State ID (min 900)"
         className="bg-zinc-800 px-4 py-2 rounded"
       />
