@@ -63,6 +63,114 @@
       ]
     },
     {
+      "days": 40,
+      "name": "Gen 2 Heroes",
+      "details": ["3 Added Gen 2 Heroes"],
+      "icons": {
+        "names": ["Flint", "Philly", "Alonso"],
+        "icon": [
+          "/icon/flint_thumb.jpg",
+          "/icon/philly_thumb.jpg",
+          "/icon/alonso_thumb.jpg"
+        ]
+      }
+    },
+    {
+      "days": 53,
+      "name": "First Pets Update",
+      "details": ["3 first pets updates"],
+      "icons": {
+        "names": ["Musk Ox", "Artic Wolf", "Cave Hyena"],
+        "icon": [
+          "/icon/crystal1.png",
+          "/icon/crystal2.png",
+          "/icon/crystal3.png"
+        ]
+      }
+    },
+    {
+      "days": 60,
+      "name": "Fire Crystal Era",
+      "details": ["Fire Crystal 1-3"],
+      "icons": {
+        "names": ["Crystal 1", "Crystal 2", "Crystal 3"],
+        "icon": [
+          "/icon/crystal.jpg",
+          "/icon/artic_wolf.jpg",
+          "/icon/cave_hyena.jpg"
+        ]
+      }
+    },
+    {
+      "days": 85,
+      "name": "PvP Update",
+      "details": ["SvS & KOI"],
+      "icons": {
+        "names": ["SvS", "KOI"],
+        "icon": ["/icon/SVS.png", "/icon/KOI.png"]
+      }
+    },
+    {
+      "days": 91,
+      "name": "2nd Pets Update",
+      "details": ["second pets update"],
+      "icons": {
+        "names": ["Titan Roc", "Giant Tapir"],
+        "icon": ["/icon/titan_roc.jpg", "/icon/giant_tapir.jpg"]
+      }
+    },
+    {
+      "days": 120,
+      "name": "Gen 3 Heroes",
+      "details": ["3 Added Gen 3 Heroes"],
+      "icons": {
+        "names": ["Logan", "Mia", "Greg"],
+        "icon": [
+          "/icon/logan_thumb.jpg",
+          "/icon/mia_thumb.jpg",
+          "/icon/greg_thumb.jpg"
+        ]
+      }
+    },
+    {
+      "days": 143,
+      "name": "3rd Pets Update",
+      "details": ["2 Pets Update"],
+      "icons": {
+        "names": ["Giant Elk", "Snow Leopard"],
+        "icon": ["/icon/giant_elk.jpg", "/icon/snow_leopard.jpg"]
+      }
+    },
+    {
+      "days": 150,
+      "name": "Crystal Fire  & Infrastructure",
+      "details": ["Fire Crystal 4-5", "Crystal laboratory unlock"],
+      "icons": {
+        "names": ["Crytal 4", "Crytal 4", "Crystal Lab"],
+        "icon": [
+          "/icon/crystal4.png",
+          "/icon/crystal5.png",
+          "/icon/crystal-laboratory.png"
+        ]
+      }
+    },
+        {
+      "days": 180,
+      "name": "Legendary Equipment",
+      "details": ["Legendary chief gear unlock"],
+      "icons": {
+        "names": ["Belt Legendary", "Cap Legendary", "Coat Legendary","Pants Legendary", "Watch Legendary", "Weapon Legendary"],
+        "icon": [
+          "/icon/T3_3star_belt.png",
+          "/icon/T3_3star_cap.png",
+          "/icon/T3_3star_coat.png",
+          "/icon/T3_3star_pants.png",
+          "/icon/T3_3star_watch.png",
+          "/icon/T3_3star_weapon.png"
+        ]
+      }
+    },
+    {
       "days": 370,
       "name": "Mammoth Update",
       "details": ["Big Mammoth feature added"],
