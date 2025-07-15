@@ -1,4 +1,5 @@
 'use client'
+
 import { useEffect, useRef, useState } from 'react'
 import milestoneData from '@/data/milestones.json'
 import MilestoneCard from './MilestoneCard'
@@ -6,10 +7,9 @@ import MilestoneCard from './MilestoneCard'
 export default function LiveStatePage({ stateId }) {
   const [ageInDays, setAgeInDays] = useState(null)
   const [createdAt, setCreatedAt] = useState(null)
-  const esRef = useRef(null) //  koneksi SSE di sini
+  const esRef = useRef(null)
 
   useEffect(() => {
-    // 🔒 Tutup koneksi lama jika ada
     if (esRef.current) {
       esRef.current.close()
     }
@@ -18,24 +18,25 @@ export default function LiveStatePage({ stateId }) {
     esRef.current = es
 
     es.onmessage = (e) => {
-      const data = JSON.parse(e.data)
-      const ts = data[stateId]
-      if (ts) {
+      try {
+        const data = JSON.parse(e.data)
+        const ts = data[stateId]
+        if (!ts) return
+
         const created = new Date(ts * 1000)
         const age = Math.floor((Date.now() - created.getTime()) / 86400000)
-        setAgeInDays((prev) => {
-          if (prev !== age) return age
-          return prev
-        })
-        setCreatedAt((prev) => {
-          if (!prev || prev.getTime() !== created.getTime()) return created
-          return prev
-        })
+
+        setAgeInDays((prev) => (prev !== age ? age : prev))
+        setCreatedAt((prev) =>
+          !prev || prev.getTime() !== created.getTime() ? created : prev
+        )
+      } catch (err) {
+        console.error('Failed to parse SSE data', err)
       }
     }
 
     es.onerror = (e) => {
-      console.error('SSE error', e)
+      console.error('SSE error:', e)
       es.close()
     }
 
@@ -48,15 +49,10 @@ export default function LiveStatePage({ stateId }) {
 
   let milestones = milestoneData.milestones
 
-  //  ID state berada di range 1000–1099 because merger state
   if (Number(stateId) >= 1000 && Number(stateId) <= 1099) {
-    milestones = milestones.map((m) => {
-      // Ubah milestone 440 menjadi 460
-      if (m.days === 440) {
-        return { ...m, days: 470 }
-      }
-      return m
-    })
+    milestones = milestones.map((m) =>
+      m.days === 440 ? { ...m, days: 470 } : m
+    )
   }
 
   const achieved = milestones
