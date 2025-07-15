@@ -270,16 +270,12 @@
     {
       "days": 360,
       "name": "Gen 6 Heroes",
-      "details": ["3 Added Gen 6 Heroes"],
       "icons": {
         "names": ["Wuming", "Renee", "Wayne"],
-        "icon": [
-          "/icon/wuming_thumb.jpg",
-          "/icon/renee_thumb.jpg",
-          "/icon/wayne_thumb.jpg"
-        ],
+        "icon": ["/icon/wuming_thumb.jpg", "/icon/renee_thumb.jpg", "/icon/wayne_thumb.jpg"],
         "acquisition": [["HOH"], ["Lucky_Wheel"], ["HOC", "KOI", "SVS"]]
-      }
+      },
+      "details": ["3 Added Gen 6 Heroes"]
     },
     {
       "days": 370,
