@@ -61,12 +61,16 @@ export default function LiveStatePage({ stateId }) {
   }
 
   const achieved = milestones
-    .filter((m) => m.days <= ageInDays)
+    .filter((m) => ageInDays - m.days > 7) // sudah lebih dari 7 hari yang lalu
     .map((m) => ({ ...m, daysAgo: ageInDays - m.days }))
 
   const upcoming = milestones
-    .filter((m) => m.days > ageInDays)
-    .map((m) => ({ ...m, daysLeft: m.days - ageInDays }))
+    .filter((m) => ageInDays - m.days <= 7) // tayang dalam 7 hari terakhir atau yang akan datang
+    .map((m) => ({
+      ...m,
+      daysLeft: m.days > ageInDays ? m.days - ageInDays : 0,
+      daysAgo: m.days <= ageInDays ? ageInDays - m.days : 0,
+    }))
 
   return (
     <div className="p-4 md:p-6 text-white w-full">
@@ -77,6 +81,10 @@ export default function LiveStatePage({ stateId }) {
           Created At: {createdAt.toUTCString()}
         </p>
         <p className="text-lime-400 mb-6">Age: {ageInDays} days</p>
+      </div>
+
+      <div className="relative bg-black-900 border border-orange-800 rounded-2xl p-6 shadow-md space-y-2 mb-6">
+        <p className=" text-md text-orange-600">note : Release times may vary between servers depending on their progress, activity levels, and several system related factors. The time difference is not exact and typically falls within an approximate range of <span className="font-bold">±7 to 21 days</span>. all this just helps predict new features when it will arrive on your server. reference time by wos wiki official </p>
       </div>
 
       {/* Upcoming Updates */}
