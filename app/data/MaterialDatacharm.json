@@ -130,5 +130,60 @@
     "stat_diff": 5.0,
     "svs_point": 1120000,
     "jewel_cost": 0
+  },
+   {
+    "level": 12,
+    "guide_cost": 580,
+    "design_cost": 450,
+    "power_total": 0,
+    "stat_total": 55.0,
+    "power_diff": 124000,
+    "stat_diff": 5.0,
+    "svs_point": 1120000,
+    "jewel_cost": 15
+   },
+   {
+    "level": 13,
+    "guide_cost": 580,
+    "design_cost": 450,
+    "power_total": 0,
+    "stat_total": 60.0,
+    "power_diff": 124000,
+    "stat_diff": 5.0,
+    "svs_point": 1120000,
+    "jewel_cost": 30
+  },
+{
+    "level": 14,
+    "guide_cost": 600,
+    "design_cost": 500,
+    "power_total": 0,
+    "stat_total": 60.0,
+    "power_diff": 124000,
+    "stat_diff": 5.0,
+    "svs_point": 1120000,
+    "jewel_cost": 45
+  },
+  {
+    "level": 15,
+    "guide_cost": 600,
+    "design_cost": 500,
+    "power_total": 0,
+    "stat_total": 65.0,
+    "power_diff": 124000,
+    "stat_diff": 5.0,
+    "svs_point": 1120000,
+    "jewel_cost": 70
+  },
+  {
+    "level": 16,
+    "guide_cost": 650,
+    "design_cost": 550,
+    "power_total": 0,
+    "stat_total": 65.0,
+    "power_diff": 124000,
+    "stat_diff": 5.0,
+    "svs_point": 1120000,
+    "jewel_cost": 100
   }
 ]
