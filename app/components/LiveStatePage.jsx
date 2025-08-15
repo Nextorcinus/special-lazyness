@@ -13,7 +13,7 @@ export default function LiveStatePage({ stateId }) {
 
     const fetchData = async () => {
       try {
-        const res = await fetch('/api/stateage') // API route Vercel
+        const res = await fetch('/api/stateage') 
         if (!res.ok) throw new Error('Failed to fetch')
         const data = await res.json()
 
