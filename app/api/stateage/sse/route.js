@@ -1,4 +1,4 @@
-import stateAges from '@/data/state_age.json'
+import stateAges from '../app/data/stateAges.json'
 
 export async function GET() {
   return new Response(JSON.stringify(stateAges), {
