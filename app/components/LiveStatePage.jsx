@@ -13,7 +13,7 @@ export default function LiveStatePage({ stateId }) {
 
     const fetchData = async () => {
       try {
-        const res = await fetch('/api/stateage') 
+        const res = await fetch('/api/stateage/sse')
         if (!res.ok) throw new Error('Failed to fetch')
         const data = await res.json()
 
