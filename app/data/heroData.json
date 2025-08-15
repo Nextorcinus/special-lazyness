@@ -97,19 +97,37 @@
   {
     "heroes": "GEN 7 Gordon",
     "exploration": "Damage Dealt by",
-    "expedition": "increasing Rally Squads' Lethality by",
-    "status": "*new"
+    "expedition": "increasing Rally Squads' Lethality by"
+  
   },
   {
     "heroes": "GEN 7 Bradley",
     "exploration": "increases Attack Speeds by",
-    "expedition": "increasing Defender Troops' Attack by",
-    "status": "*new"
+    "expedition": "increasing Defender Troops' Attack by"
+    
   },
   {
     "heroes": "GEN 7 Edith",
     "exploration": "restores an amount of Health",
-    "expedition": "increasing Defender Troops' Health by",
+    "expedition": "increasing Defender Troops' Health by"
+    
+  },
+  {
+    "heroes": "GEN 8 Gatot",
+    "exploration": "Reflecting 30% enemy attack and protection 95%",
+    "expedition": "increasing Defender Troops' Defense by",
+    "status": "*new"
+  },
+  {
+    "heroes": "GEN 8 Sonya",
+    "exploration": "increases Attack by",
+    "expedition": "increasing Defender Troops' Lethality by",
+    "status": "*new"
+  },
+  {
+    "heroes": "GEN 8 Hendrik",
+    "exploration": "Initial Health ",
+    "expedition": "increasing Rally Troops' Attack by",
     "status": "*new"
   }
 ]
