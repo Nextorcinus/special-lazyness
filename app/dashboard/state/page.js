@@ -1,5 +1,5 @@
 'use client'
-import StateSearch from '@/components/StateSearch'
+import StateSearch from '../../components/StateSearch'
 import { Toast } from 'sonner'
 
 export default function StateIndexPage() {

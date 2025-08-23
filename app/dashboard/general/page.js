@@ -1,19 +1,19 @@
 'use client'
 
 import { useState } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '../../components/ui/card'
+import { Label } from '../../components/ui/label'
+import { Input } from '../../components/ui/input'
+import { Button } from '../../components/ui/button'
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from '@/components/ui/select'
+} from '../../components/ui/select'
 import { toast } from 'sonner'
-import FormattedNumberInput from '@/utils/FormattedNumbernInput'
+import FormattedNumberInput from '../../utils/FormattedNumbernInput'
 
 export default function GeneralPage() {
   // Kalkulator Points from Time

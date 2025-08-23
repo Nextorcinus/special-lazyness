@@ -56,6 +56,12 @@ const menu = [
     icon: '/icon/state.png',
     iconHover: '/icon/state-hover.png',
   },
+   {
+    label: 'Experts',
+    href: '/dashboard/heroesDawn',
+    icon: '/icon/dawn.png',
+    iconHover: '/icon/dawn-hover.png',
+  },
 ]
 
 export default function Sidebar() {

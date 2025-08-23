@@ -7,8 +7,8 @@ import { Toaster } from 'sonner'
 import { ResearchHistoryProvider } from '../../dashboard/research/ResearchHistoryContext'
 import ResearchHistoryList from '../../components/ResearhHistoryList'
 import { AddAnotherProvider } from '../../dashboard/research/AddAnotherContext'
-import PageWrapper from '@/components/PageWrapper'
-import WelcomePopup from '@/components/Popup'
+import PageWrapper from '../../components/PageWrapper'
+import WelcomePopup from '../../components/Popup'
 
 export default function ResearchLayout({ children }) {
   const [resetFormTrigger, setResetFormTrigger] = useState(0)

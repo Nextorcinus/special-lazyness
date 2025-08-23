@@ -1,13 +1,13 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import GearForm from '@/components/GearForm'
-import GearTable from '@/components/GearTable'
-import GearProgress from '@/components/GearProgress'
-import CompareFormGear from '@/components/CompareFormGear'
-import { levels as levelsOrder } from '@/data/levels'
-import rawMaterialData from '@/data/MaterialDataGear.json'
-import { parseMaterialNumber } from '@/utils/parseMaterialNumber'
+import GearForm from '../../components/GearForm'
+import GearTable from '../../components/GearTable'
+import GearProgress from '../../components/GearProgress'
+import CompareFormGear from '../../components/CompareFormGear'
+import { levels as levelsOrder } from '../../data/levels'
+import rawMaterialData from '../../data/MaterialDataGear.json'
+import { parseMaterialNumber } from '../../utils/parseMaterialNumber'
 import { useGearHistory } from './GearContext'
 
 const materialData = rawMaterialData.data || []

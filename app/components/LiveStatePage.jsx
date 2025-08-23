@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import milestoneData from '@/data/milestones.json'
+import milestoneData from '../data/milestones.json'
 import MilestoneCard from './MilestoneCard'
 
 export default function LiveStatePage({ stateId }) {

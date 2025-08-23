@@ -1,0 +1,148 @@
+{
+  "dawn": [
+    {
+      "id": "01",
+      "name": "Cyrille",
+      "description": "She’s a Bear Huntress, which means she gives bonuses related to Bear Hunt—like increasing Bear Hunt Rally capacity, giving Enhancement XP as rewards, boosting the number of Essence Stones you earn, and raising the troop deployment limit for Bear Hunts.",
+      "talent": {
+        "name": "Hunter's Heart",
+        "description": "Cyrille is a repository of bear-hunting skills and knowledge, increasing Bear Hunt Damage Points by 30% (effective for self only).",
+        "upgrade-preview": "hunters-heart.png"
+      },
+      "expedition": "Troops attack : +15%",
+      "expedition-preview": "",
+      "summarize": "Focus: Bear Hunt (PvE event)\n\nAdvantages:\nDeals high damage, provides extra Rally Capacity, and grants gear XP bonuses.\nIdeal for farming Bear Hunt and strengthening heroes/gear.\n\nF2P Effectiveness: Very high\nAll skills can be utilized without purchasing premium items.\n\nSpender Effectiveness: Medium\n\nSpenders can unlock skills faster, but F2P players can remain effective as well.\n\npriority skill F2P: 1.hunter's Heart, 2. Ursa's Bane, 3. Entrapment, 4. Scavenging, 5. Weapon Master",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Entrapment",
+          "description": "Increased Rally Capacity on Bear Hunt by 300,000, making it easier to gather troops."
+        },
+        {
+          "number": 2,
+          "name": "Scavenging",
+          "description": "Each Bear Hunt grants 5×100 Enhancement XP Components—effective for strengthening hero gear."
+        },
+        {
+          "number": 3,
+          "name": "Weapon Master",
+          "description": "Add 5 Essence Stones as a bonus per Bear Hunt—useful for upgrading gear."
+        },
+        {
+          "number": 4,
+          "name": "Ursa’s Bane",
+          "description": "Increases Troop Deployment Capacity during Bear Hunt by 30,000, helping to gather larger armies."
+        }
+      ],
+      "image-hero": "cyrille.png"
+    },
+    {
+      "id": "02",
+      "name": "Agnes",
+      "description": "She’s an “Elite Politician” and provides city-related buffs—like giving Seeker Chests when gathering, adding extra Intel missions, increasing stamina from the Storehouse, skipping a few hours of construction when starting an upgrade, and granting extra Mystery Badges from Daily Missions.",
+      "talent": {
+        "name": "Earthbreaker",
+        "description": "Agnes’s advanced drill machine can even indentify useful items buried near gathered resources. Gives 5 Seeker Chests every 120 gathering minutes (upto 30 chests daily, refreshing at 0:00 UTC)",
+        "upgrade-preview": "earthbraker.png"
+      },
+      "expedition": "Troops defense : +15%",
+      "expedition-preview": "",
+      "summarize": "Focus: Economy & resources (gathering & daily missions)\n\nAdvantages:\nSupports stamina regeneration, Intel Missions, chest gathering, and Mystery Badges.\nReduces building construction and upgrade times.\n\nF2P Effectiveness: Medium-High\n\nF2P players can gradually benefit economically, especially if they log in daily.\n\nSpender Effectiveness: High\n\nP2P players can maximize daily bonuses and drastically reduce construction times, allowing resources to develop faster.\n\npriority skill F2P: 1.Earthbreaker, 2. Efficient Recon, 3. Optimization, 4. Project Management, 5. Covert Knowledge",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Efficient Recon",
+          "description": "Provides 8 additional Intel Missions per day, increasing the potential reward upgrade."
+        },
+        {
+          "number": 2,
+          "name": "Optimization",
+          "description": "Increasing the stamina regeneration of Patrick's cans by 40 points means an additional 80 stamina per day."
+        },
+        {
+          "number": 3,
+          "name": "Project Management",
+          "description": "Reduce new construction time by 8 hours per project—meaning up to 40 hours on a 5-stage building."
+        },
+        {
+          "number": 4,
+          "name": "Covert Knowledge",
+          "description": "Gives +120 Mystery Badges when completing daily missions and 4 free refreshes per day at the Mystery Merchant."
+        }
+      ],
+      "image-hero": "agnes.png"
+    },
+    {
+      "id": "03",
+      "name": "Romulus",
+      "description": "Romulus is a military-type Expert who provides extra troop capacity, strengthens rallies, and gives daily Loyalty Tags bonuses.",
+      "talent": {
+        "name": "Commander Crest",
+        "description": "Commander Romulus is an expert at large deployments, increasing heroes expedition army size limit by 10.000.",
+        "upgrade-preview": "commander-crest.png"
+      },
+      "expedition": ["Troops lethality : +15%", "Troops health : +15%"],
+      "expedition-preview": "",
+      "summarize": "Focus: PvP & War Events (SVS, Rally, Expedition)\n\nAdvantages:\nIncreases Troop Capacity, Rally Capacity, and daily Loyalty Tags.\n\nF2P Effectiveness: Low-Medium\nF2P players find it difficult to maximize benefits due to limited troops and the difficulty of achieving large rallies.\n\nEffectiveness for Spenders: Very High\nP2P players can immediately utilize Troop & Rally Cap for PvP events, providing a significant strategic advantage.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Call of War",
+          "description": "Provides 600 free high-level troops from the camp per day and 10 Loyalty Tags per day—potentially equivalent to 10,000 Gems of strategic value."
+        },
+        {
+          "number": 2,
+          "name": "Last Line",
+          "description": "Increases troop attack and defense by 10%, strengthening military power."
+        },
+        {
+          "number": 3,
+          "name": "Spirit of Aeetes",
+          "description": "Increases the lethality and health of all troops by 10%, strengthening the entire army."
+        },
+        {
+          "number": 4,
+          "name": "One Heart",
+          "description": "Increasing Rally Capacity by 100,000, supporting large rallies, especially for rally leaders."
+        }
+      ],
+      "image-hero": "romulus.png"
+    },
+    {
+      "id": "04",
+      "name": "Holger",
+      "description": "Holger is an Arena expert with exceptional abilities in supporting performance in the arena.",
+      "talent": {
+        "name": "Blade Dancing",
+        "description": "Holger know the best rewards in the Arena are often won from the crowd. Holger's winsome techniques give 100% chance of audience reward: 3 Arena Star Chest's",
+        "upgrade-preview": "blade-dancing.png"
+      },
+      "expedition": ["Troops attack : +15%", "Troops defense : +15%"],
+      "expedition-preview": "",
+      "summarize": "Focus: Arena (PvP tokens & hero stats)\n\nAdvantages:\nProvides hero stat boosts, 50% more Arena Tokens, and Arena Shop discounts.\n\nF2P Effectiveness: Medium\nToken farming is limited by the number of tokens that can be collected for free.\nF2P players can utilize stat boosts, but the benefits of the shop and tokens will be felt slowly.\n\nEffectiveness for Spenders: High\nSpenders can purchase additional tokens, utilize shop discounts, and maximize hero upgrades in the arena.",
+      "skills": [
+        {
+          "number": 1,
+          "name": "Arena Elite",
+          "description": "Increases heroes' Attack and Health in the arena by 20%, strengthening their performance in duels."
+        },
+        {
+          "number": 2,
+          "name": "Crowd Pleaser",
+          "description": "A boost provided by a showman that increases daily and weekly arena token earnings by 50%."
+        },
+        {
+          "number": 3,
+          "name": "Arena Star",
+          "description": "strengthens arena shop rewards by offering three more items and a 50% discount."
+        },
+        {
+          "number": 4,
+          "name": "Legacy",
+          "description": "Includes the next generation of heroes with +20% Attack and Health, strengthening long-term power in the arena."
+        }
+      ],
+      "image-hero": "holger.png"
+    }
+  ]
+}

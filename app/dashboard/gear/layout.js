@@ -4,10 +4,10 @@
 import React from 'react'
 import { useState } from 'react'
 import { GearHistoryProvider } from './GearContext'
-import GearHistoryList from '@/components/GearHistoryList'
-import PageWrapper from '@/components/PageWrapper'
+import GearHistoryList from '../../components/GearHistoryList'
+import PageWrapper from '../../components/PageWrapper'
 import { Toaster } from 'sonner'
-import WelcomePopup from '@/components/Popup'
+import WelcomePopup from '../../components/Popup'
 
 export default function GearLayout({ children }) {
   const [resetFormTrigger, setResetFormTrigger] = useState(0)

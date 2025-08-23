@@ -1,7 +1,7 @@
 'use client'
 
-import { useCharmHistory } from '@/dashboard/charm/CharmHistoryContext'
-import { Button } from '@/components/ui/button'
+import { useCharmHistory } from '../dashboard/charm/CharmHistoryContext'
+import { Button } from '../components/ui/button'
 import { toast } from 'sonner'
 
 export default function CharmHistoryList() {

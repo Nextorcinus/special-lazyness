@@ -1,11 +1,11 @@
 'use client'
 
 import { Toaster } from 'sonner'
-import PageWrapper from '@/components/PageWrapper'
-import HistoryList from '@/components/CharmHistoryList'
+import PageWrapper from '../../components/PageWrapper'
+import HistoryList from '../../components/CharmHistoryList'
 import { CharmHistoryProvider } from './CharmHistoryContext'
 import { AddAnotherProvider } from './AddAnotherContext'
-import WelcomePopup from '@/components/Popup'
+import WelcomePopup from '../../components/Popup'
 
 export default function Layout({ children }) {
   return (

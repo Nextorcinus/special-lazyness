@@ -1,11 +1,11 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import CharmForm from '@/components/CharmForm'
-import CharmTable from '@/components/CharmTable'
-import CharmProgress from '@/components/CharmProgress'
-import CompareFormCharm from '@/components/CharmFormCompare'
-import charmDataRaw from '@/data/MaterialDatacharm.json'
+import CharmForm from '../../components/CharmForm'
+import CharmTable from '../../components/CharmTable'
+import CharmProgress from '../../components/CharmProgress'
+import CompareFormCharm from '../../components/CharmFormCompare'
+import charmDataRaw from '../../data/MaterialDatacharm.json'
 import { useCharmHistory } from './CharmHistoryContext'
 import { useAddAnother } from './AddAnotherContext'
 

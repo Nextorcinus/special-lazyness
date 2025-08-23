@@ -1,7 +1,7 @@
 ﻿import './globals.css'
 import Sidebar from './components/Sidebar'
 import MobileSidebar from './components/MobileSidebar'
-import WelcomePopup from '@/components/Popup'
+import WelcomePopup from './components/Popup'
 
 import { Component, Router } from 'lucide-react'
 

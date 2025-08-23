@@ -3,9 +3,9 @@
 
 import React from 'react'
 import { useState } from 'react'
-import PageWrapper from '@/components/PageWrapper'
+import PageWrapper from '../../components/PageWrapper'
 import { Toaster } from 'sonner'
-import WelcomePopup from '@/components/Popup'
+import WelcomePopup from '../../components/Popup'
 
 export default function StateLayout({ children }) {
   

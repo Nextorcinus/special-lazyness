@@ -23,7 +23,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip'
+} from './ui/tooltip'
 import { Info } from 'lucide-react'
 
 const buildingAliasMap = {

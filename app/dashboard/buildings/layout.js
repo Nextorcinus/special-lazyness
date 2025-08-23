@@ -4,8 +4,8 @@ import { HistoryProvider } from './HistoryContext'
 import { AddAnotherProvider } from './AddAnotherContext'
 import HistoryList from '../../components/HistoryList'
 import { Toaster } from 'sonner'
-import PageWrapper from '@/components/PageWrapper'
-import WelcomePopup from '@/components/Popup'
+import PageWrapper from '../../components/PageWrapper'
+import WelcomePopup from '../../components/Popup'
 
 export default function BuildingsLayout({ children }) {
   return (

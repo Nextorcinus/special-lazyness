@@ -9,9 +9,9 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
-} from '@/components/ui/select'
+} from '../../components/ui/select'
 
-import { Label } from '@/components/ui/label'
+import { Label } from '../../components/ui/label'
 
 export default function WidgetPage({ onCalculate }) {
   let levelData = [

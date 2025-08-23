@@ -2,15 +2,15 @@
 
 import { useEffect, useState } from 'react'
 import { levels } from '../data/levels'
-import { Label } from '@/components/ui/label'
+import { Label } from '../components/ui/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Button } from '@/components/ui/button'
+} from '../components/ui/select'
+import { Button } from '../components/ui/button'
 import { toast } from 'sonner'
 import { useGearHistory } from '../dashboard/gear/GearContext'
 

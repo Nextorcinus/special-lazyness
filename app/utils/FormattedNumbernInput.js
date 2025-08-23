@@ -1,6 +1,6 @@
 'use client'
 
-import { Input } from '@/components/ui/input'
+import { Input } from '../components/ui/input'
 
 export default function FormattedNumberInput({ value, onChange, ...props }) {
   return (

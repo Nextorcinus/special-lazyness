@@ -3,7 +3,7 @@ import { useFoundry } from '../dashboard/foundry/FoundryContext'
 import { useState } from 'react'
 import { Trash2, X } from 'lucide-react'
 import { toast } from 'sonner'
-import ConfirmDialog from '@/components/ConfirmDialog'
+import ConfirmDialog from '../components/ConfirmDialog'
 
 export default function TaskList() {
   const { tasks, setTasks } = useFoundry()
