@@ -1,5 +1,5 @@
 'use client'
-import TaskBoard from '@/components/TaskBoard' // ✅ Bukan dari ui
+import TaskBoard from '../components/TaskBoard' 
 
 export default function FoundryPage() {
   return (
