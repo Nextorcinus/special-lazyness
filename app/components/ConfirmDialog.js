@@ -10,7 +10,7 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
+} from '../components/ui/alert-dialog'
 
 export default function ConfirmDialog({
   children,

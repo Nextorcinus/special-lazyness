@@ -1,5 +1,5 @@
 'use client'
-import { useFoundry } from '@/dashboard/foundry/FoundryContext'
+import { useFoundry } from '../dashboard/foundry/FoundryContext'
 import { useState } from 'react'
 
 export default function MemberList() {

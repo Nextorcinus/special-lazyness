@@ -6,7 +6,7 @@ import {
   FoundryProvider,
   useFoundry,
 } from '../dashboard/foundry/FoundryContext'
-import list from '@/data/listNameMember.json'
+import list from '../data/listNameMember.json'
 
 function InnerBoard() {
   const { setMembers } = useFoundry()
