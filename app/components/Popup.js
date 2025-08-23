@@ -39,9 +39,9 @@ export default function WelcomePopup() {
         <div className="text-sm text-zinc-300 mb-4">
           <ul className="list-disc list-inside space-y-1">
             <li>Added Calc Points for SvS, KoI etc</li>
-            <li>Renew data from state 1000-1099 State Age</li>
-            <li>Added Hero Widget</li>
-            <li>Optimized stability & performance</li>
+            <li>Renew data from state 1000-3148 State Age</li>
+            <li>Added New Hero Widget Gen 8</li>
+            <li>Update Academy Dawn (Experts)</li>
           </ul>
         </div>
         <button
