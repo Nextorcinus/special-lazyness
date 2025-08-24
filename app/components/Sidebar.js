@@ -58,7 +58,7 @@ const menu = [
   },
    {
     label: 'Experts',
-    href: '/dashboard/heroesDawn',
+    href: '/dashboard/dawn',
     icon: '/icon/dawn.png',
     iconHover: '/icon/dawn-hover.png',
   },

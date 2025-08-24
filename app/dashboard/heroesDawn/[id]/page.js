@@ -161,22 +161,40 @@ export default function HeroDetail({ params }) {
         </div>
       )}
 
-      {/* Skills */}
+      {/* Skills dengan hover effects */}
       <div className="mb-6 p-4 bg-special-inside rounded-lg">
         <h2 className="text-xl font-semibold mb-4">Skills</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {hero.skills.map((skill) => (
-            <div
-              key={skill.number}
-              className="border border-gray-700 rounded-lg p-4"
-            >
-              <p className="text-sm text-lime-400 mb-2">
-                Skills {skill.number}
-              </p>
-              <h3 className="text-lg font-semibold mb-2">{skill.name}</h3>
-              <p className="text-gray-400">{skill.description}</p>
-            </div>
-          ))}
+          {hero.skills.map((skill) => {
+            const skillImagePath = skill['skill-img']
+              ? `/icon/${skill['skill-img']}`
+              : '/icon/default-skill.webp'
+
+            return (
+              <div
+                key={skill.number}
+                className="border border-gray-700 rounded-lg p-4 flex flex-col items-center text-center hover:bg-gray-800 transition-colors duration-200"
+              >
+                {/* Gambar Skill dengan frame */}
+                <div className="w-32 h-32 mb-3 flex items-center justify-center  rounded-lg p-2">
+                  <img
+                    src={skillImagePath}
+                    alt={skill.name}
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      e.target.src = '/icon/skills/default-skill.webp'
+                    }}
+                  />
+                </div>
+
+                <span className="text-xs text-lime-400 bg-gray-800 px-2 py-1 rounded mb-2">
+                  SKILL {skill.number}
+                </span>
+                <h3 className="text-lg font-semibold mb-2">{skill.name}</h3>
+                <p className="text-gray-400 text-sm">{skill.description}</p>
+              </div>
+            )
+          })}
         </div>
       </div>
 

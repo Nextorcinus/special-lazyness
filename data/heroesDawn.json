@@ -11,27 +11,31 @@
       },
       "expedition": "Troops attack : +15%",
       "expedition-preview": "",
-      "summarize": "Focus: Bear Hunt (PvE event)\n\nAdvantages:\nDeals high damage, provides extra Rally Capacity, and grants gear XP bonuses.\nIdeal for farming Bear Hunt and strengthening heroes/gear.\n\nF2P Effectiveness: Very high\nAll skills can be utilized without purchasing premium items.\n\nSpender Effectiveness: Medium\n\nSpenders can unlock skills faster, but F2P players can remain effective as well.\n\npriority skill F2P: 1.hunter's Heart, 2. Ursa's Bane, 3. Entrapment, 4. Scavenging, 5. Weapon Master",
+      "summarize": "Focus: Bear Hunt (PvE event)\n\nAdvantages:\nDeals high damage, provides extra Rally Capacity, and grants gear XP bonuses.\nIdeal for farming Bear Hunt and strengthening heroes/gear.\n\nF2P Effectiveness: Very high\nAll skills can be utilized without purchasing premium items.\n\nSpender Effectiveness: Medium\n\nSpenders can unlock skills faster, but F2P players can remain effective as well.\n\npriority skill F2P: 1.hunter's Heart, 2. Ursa's Bane, 3. Entrapment, 4. Weapon Master, 5. Scavenging",
       "skills": [
         {
           "number": 1,
           "name": "Entrapment",
-          "description": "Increased Rally Capacity on Bear Hunt by 300,000, making it easier to gather troops."
+          "description": "Increased Rally Capacity on Bear Hunt by 300,000, making it easier to gather troops.",
+          "skill-img": "entrapment.webp"
         },
         {
           "number": 2,
           "name": "Scavenging",
-          "description": "Each Bear Hunt grants 5×100 Enhancement XP Components—effective for strengthening hero gear."
+          "description": "Each Bear Hunt grants 5×100 Enhancement XP Components—effective for strengthening hero gear.",
+          "skill-img": "scavenging.webp"
         },
         {
           "number": 3,
           "name": "Weapon Master",
-          "description": "Add 5 Essence Stones as a bonus per Bear Hunt—useful for upgrading gear."
+          "description": "Add 5 Essence Stones as a bonus per Bear Hunt—useful for upgrading gear.",
+          "skill-img": "weapon-master.webp"
         },
         {
           "number": 4,
           "name": "Ursa’s Bane",
-          "description": "Increases Troop Deployment Capacity during Bear Hunt by 30,000, helping to gather larger armies."
+          "description": "Increases Troop Deployment Capacity during Bear Hunt by 30,000, helping to gather larger armies.",
+          "skill-img": "ursas-bane.webp"
         }
       ],
       "image-hero": "cyrille.png"
@@ -52,22 +56,26 @@
         {
           "number": 1,
           "name": "Efficient Recon",
-          "description": "Provides 8 additional Intel Missions per day, increasing the potential reward upgrade."
+          "description": "Provides 8 additional Intel Missions per day, increasing the potential reward upgrade.",
+          "skill-img": "efficient-recon.webp"
         },
         {
           "number": 2,
           "name": "Optimization",
-          "description": "Increasing the stamina regeneration of Patrick's cans by 40 points means an additional 80 stamina per day."
+          "description": "Increasing the stamina regeneration of Patrick's cans by 40 points means an additional 80 stamina per day.",
+          "skill-img": "optimization.webp"
         },
         {
           "number": 3,
           "name": "Project Management",
-          "description": "Reduce new construction time by 8 hours per project—meaning up to 40 hours on a 5-stage building."
+          "description": "Reduce new construction time by 8 hours per project—meaning up to 40 hours on a 5-stage building.",
+          "skill-img": "project-management.webp"
         },
         {
           "number": 4,
           "name": "Covert Knowledge",
-          "description": "Gives +120 Mystery Badges when completing daily missions and 4 free refreshes per day at the Mystery Merchant."
+          "description": "Gives +120 Mystery Badges when completing daily missions and 4 free refreshes per day at the Mystery Merchant.",
+          "skill-img": "covert-knowledge.webp"
         }
       ],
       "image-hero": "agnes.png"
@@ -88,22 +96,26 @@
         {
           "number": 1,
           "name": "Call of War",
-          "description": "Provides 600 free high-level troops from the camp per day and 10 Loyalty Tags per day—potentially equivalent to 10,000 Gems of strategic value."
+          "description": "Provides 600 free high-level troops from the camp per day and 10 Loyalty Tags per day—potentially equivalent to 10,000 Gems of strategic value.",
+          "skill-img": "call-of-war.png"
         },
         {
           "number": 2,
           "name": "Last Line",
-          "description": "Increases troop attack and defense by 10%, strengthening military power."
+          "description": "Increases troop attack and defense by 10%, strengthening military power.",
+          "skill-img": "last-line.png"
         },
         {
           "number": 3,
           "name": "Spirit of Aeetes",
-          "description": "Increases the lethality and health of all troops by 10%, strengthening the entire army."
+          "description": "Increases the lethality and health of all troops by 10%, strengthening the entire army.",
+          "skill-img": "spirit-of-aeetes.png"
         },
         {
           "number": 4,
           "name": "One Heart",
-          "description": "Increasing Rally Capacity by 100,000, supporting large rallies, especially for rally leaders."
+          "description": "Increasing Rally Capacity by 100,000, supporting large rallies, especially for rally leaders.",
+          "skill-img": "one-heart.png"
         }
       ],
       "image-hero": "romulus.png"
@@ -124,22 +136,26 @@
         {
           "number": 1,
           "name": "Arena Elite",
-          "description": "Increases heroes' Attack and Health in the arena by 20%, strengthening their performance in duels."
+          "description": "Increases heroes' Attack and Health in the arena by 20%, strengthening their performance in duels.",
+          "skill-img": "arena-elite.png"
         },
         {
           "number": 2,
           "name": "Crowd Pleaser",
-          "description": "A boost provided by a showman that increases daily and weekly arena token earnings by 50%."
+          "description": "A boost provided by a showman that increases daily and weekly arena token earnings by 50%.",
+          "skill-img": "crowd-pleaser.png"
         },
         {
           "number": 3,
           "name": "Arena Star",
-          "description": "strengthens arena shop rewards by offering three more items and a 50% discount."
+          "description": "strengthens arena shop rewards by offering three more items and a 50% discount.",
+          "skill-img": "arena-star.png"
         },
         {
           "number": 4,
           "name": "Legacy",
-          "description": "Includes the next generation of heroes with +20% Attack and Health, strengthening long-term power in the arena."
+          "description": "Includes the next generation of heroes with +20% Attack and Health, strengthening long-term power in the arena.",
+          "skill-img": "legacy.png"
         }
       ],
       "image-hero": "holger.png"
