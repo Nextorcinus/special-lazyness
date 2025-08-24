@@ -70,7 +70,7 @@ export default function HeroDetail({ params }) {
       <div className="p-6 text-red-500">
         <div className="mb-4">Error: {error}</div>
         <Link
-          href="/dashboard/heroesDawn"
+          href="/dashboard/dawn"
           className="text-blue-400 hover:text-blue-300"
         >
           &larr; Back to Heroes List
@@ -98,7 +98,7 @@ export default function HeroDetail({ params }) {
     <div className="p-6 max-w-4xl mx-auto text-white">
       {/* Back Button */}
       <Link
-        href="/dashboard/heroesDawn"
+        href="/dashboard/dawn"
         className="inline-block mb-6 text-lime-400 hover:text-blue-300"
       >
         &larr; Back to Heroes List
