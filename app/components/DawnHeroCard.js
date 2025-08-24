@@ -9,7 +9,7 @@ export default function DawnHeroCard({ hero }) {
     : '/icon/default-hero.png'
 
   return (
-    <Link href={`/dashboard/heroesDawn/${hero.id}`}>
+    <Link href={`/dashboard/dawn/${hero.id}`}>
      <div className="border shadow bg-special-inside border-zinc-800 rounded-xl p-4 hover:bg-gray-800 transition cursor-pointer h-full flex flex-col items-center text-center">
   {/* Gambar Hero */}
   <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden flex justify-center">
