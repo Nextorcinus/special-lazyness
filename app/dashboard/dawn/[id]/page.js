@@ -85,7 +85,7 @@ export default function HeroDetail({ params }) {
         <div className="mb-4">Hero not found</div>
         <div className="mb-4">ID: {params.id}</div>
         <Link
-          href="/dashboard/heroesDawn"
+          href="/dashboard/dawn"
           className="text-blue-400 hover:text-blue-300"
         >
           &larr; Back to Heroes List
