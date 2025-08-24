@@ -200,7 +200,7 @@ export default function HeroDetail({ params }) {
 
       {hero.summarize && (
         <div className="mb-6 p-4 bg-special-inside rounded-lg">
-          <h2 className="text-xl font-semibold mb-4">Summary & Strategy</h2>
+          <h2 className="text-xl font-semibold mb-4">Summary</h2>
           <div className="text-gray-400 whitespace-pre-line">
             {hero.summarize}
           </div>
