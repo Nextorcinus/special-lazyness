@@ -56,7 +56,7 @@ const menu = [
     icon: '/icon/state.png',
     iconHover: '/icon/state-hover.png',
   },
-   {
+  {
     label: 'Experts',
     href: '/dashboard/dawn',
     icon: '/icon/dawn.png',
@@ -184,7 +184,7 @@ export default function Sidebar() {
             Contact Me
           </a>
         </div>
-        © Special Lazyness. <br /> app created by special one #998
+        © Special Lazyness. <br /> app created by special one #991
         <p className="mt-2 text-xs text-zinc-600 font-mono">
           Version: {version}
         </p>
