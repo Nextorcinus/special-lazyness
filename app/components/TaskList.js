@@ -66,7 +66,7 @@ export default function TaskList() {
       </div>
       <p className="text-zinc-300 text-sm italic mb-3">
         Building Task: Boiler Room, Prototype I, Repair Stations I & II, Repair
-        Stations III & IV, Prototype II, Transit Station, Imperial Building
+        Stations III & IV, Prototype II, Transit Station, Munition, Merchenary Imperial Building
       </p>
 
       {/* Tools */}
