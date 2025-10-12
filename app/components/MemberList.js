@@ -8,9 +8,11 @@ export default function MemberList() {
   const [sortBy, setSortBy] = useState('name')
   const [search, setSearch] = useState('')
 
-  const getAssignedNames = () => {
-    return tasks.flatMap((task) => task.assigned)
-  }
+const getAssignedNames = () => {
+  return tasks.flatMap((task) =>
+    task.assigned.map((name) => name.replace(/\s*\(c\)$/, '').trim())
+  )
+}
 
   // Filtered + sorted
   const assignedNames = getAssignedNames()
@@ -102,7 +104,7 @@ const sortedMembers = [...filtered].sort((a, b) => {
           <div className="bg-zinc-900 p-6 rounded w-80">
             <h3 className="text-lg mb-2">Assign to Task</h3>
             {tasks.length === 0 ? (
-              <p className="text-sm text-zinc-400">No tasks available.</p>
+              <p className="text-sm text-zinc-400">No tasks available. please add the tasks first</p>
             ) : (
               <ul className="space-y-2">
                 {tasks.map((task, i) => (
@@ -119,9 +121,9 @@ const sortedMembers = [...filtered].sort((a, b) => {
             )}
             <button
               onClick={() => setSelectedMember(null)}
-              className="mt-4 text-sm text-zinc-400 hover:text-white"
+              className="mt-4 text-sm text-red-400 hover:text-white"
             >
-              Cancel
+              Close
             </button>
           </div>
         </div>

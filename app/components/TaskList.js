@@ -6,30 +6,39 @@ import { toast } from 'sonner'
 import ConfirmDialog from '../components/ConfirmDialog'
 
 export default function TaskList() {
-  const { tasks, setTasks } = useFoundry()
+  const { tasks, setTasks, handleUnassign } = useFoundry()
   const [newTask, setNewTask] = useState('')
+  const [selectedTemplate, setSelectedTemplate] = useState('')
+
+  const templates = [
+    'Boiler Room',
+    'Prototype I',
+    'Prototype II',
+    'Repair Station I',
+    'Repair Station II',
+    'Repair Station III',
+    'Repair Station IV',
+    'Transit Station',
+    'Munition',
+    'Mercenary Imperial Building',
+  ]
 
   const handleAdd = () => {
-    if (newTask.trim()) {
-      setTasks([...tasks, { name: newTask, assigned: [] }])
+    const taskName = newTask.trim()
+    if (taskName) {
+      setTasks([...tasks, { name: taskName, assigned: [] }])
       setNewTask('')
-      toast.success(`Tasks "${newTask}" added.`)
+      setSelectedTemplate('')
+      toast.success(`Task "${taskName}" added.`)
     }
   }
 
-  const handleUnassign = (taskName, memberName) => {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.name === taskName
-          ? {
-              ...task,
-              assigned: task.assigned.filter((m) => m !== memberName),
-            }
-          : task
-      )
-    )
-    toast.info(`"${memberName}" removed from "${taskName}"`)
+  const handleTemplateSelect = (value) => {
+    setSelectedTemplate(value)
+    setNewTask(value)
   }
+
+ 
 
   const handleCopy = () => {
     const output = tasks
@@ -42,31 +51,44 @@ export default function TaskList() {
       .join('\n\n')
 
     navigator.clipboard.writeText(output)
-    toast.success('The task result is successfully copied to the clipboard.')
+    toast.success('The task result has been copied to the clipboard.')
   }
 
   return (
     <div className="bg-zinc-800 p-4 rounded">
       <h2 className="text-xl mb-2">Tasks</h2>
 
-      {/* Tambah Tugas */}
-      <div className="flex gap-2 mb-4">
+      {/* cek form disini yeee */}
+      <div className="flex flex-col sm:flex-row gap-2 mb-4">
+        <select
+          value={selectedTemplate}
+          onChange={(e) => handleTemplateSelect(e.target.value)}
+          className="bg-zinc-700 text-sm rounded px-2 py-2 text-white w-full sm:w-1/3"
+        >
+          <option value="">Select Building...</option>
+          {templates.map((t, i) => (
+            <option key={i} value={t}>
+              {t}
+            </option>
+          ))}
+        </select>
+
         <input
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
-          className="flex-grow bg-zinc-700 p-2 rounded"
-          placeholder="Enter building task name"
+          className="flex-grow bg-zinc-700 p-2 rounded text-sm text-white placeholder:text-zinc-400"
+          placeholder="or type here for custom"
         />
         <button
           onClick={handleAdd}
-          className="bg-green-600 px-4 py-2 rounded text-sm"
+          className="bg-green-600 px-4 py-2 rounded text-sm hover:bg-green-500 transition"
         >
           Add
         </button>
       </div>
+
       <p className="text-zinc-300 text-sm italic mb-3">
-        Building Task: Boiler Room, Prototype I, Repair Stations I & II, Repair
-        Stations III & IV, Prototype II, Transit Station, Munition, Merchenary Imperial Building
+        You can select a building or type your own custom task name.
       </p>
 
       {/* Tools */}
@@ -80,10 +102,10 @@ export default function TaskList() {
 
         <ConfirmDialog
           title="Reset all tasks?"
-          description="This will delete the entire task list and all assigned members."
+          description="This will delete all tasks and assignments."
           onConfirm={() => {
             setTasks([])
-            toast.success('All tasks were successfully reset.')
+            toast.success('All tasks have been reset.')
           }}
         >
           <button className="bg-red-700 px-3 py-1 rounded text-sm">
@@ -92,18 +114,19 @@ export default function TaskList() {
         </ConfirmDialog>
       </div>
 
-      {/* Daftar Tugas */}
+      {/* Task List */}
       <ul className="space-y-2">
         {tasks.map((task, idx) => (
           <li key={idx} className="bg-zinc-700 p-3 rounded">
             <div className="flex justify-between items-center mb-1">
               <p className="text-base text-lime-400">{task.name}</p>
+
               <ConfirmDialog
                 title={`Delete task "${task.name}"?`}
-                description="This task will be deleted along with all its assignments."
+                description="This will delete this task and its assigned members."
                 onConfirm={() => {
                   setTasks((prev) => prev.filter((_, i) => i !== idx))
-                  toast.success(`Tasks "${task.name}" successfully deleted.`)
+                  toast.success(`Task "${task.name}" deleted.`)
                 }}
               >
                 <button
@@ -132,7 +155,6 @@ export default function TaskList() {
           </li>
         ))}
       </ul>
-      
     </div>
   )
 }
