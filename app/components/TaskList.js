@@ -55,7 +55,7 @@ export default function TaskList() {
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
           className="flex-grow bg-zinc-700 p-2 rounded"
-          placeholder="Enter task name"
+          placeholder="Enter building task name"
         />
         <button
           onClick={handleAdd}
@@ -64,6 +64,10 @@ export default function TaskList() {
           Add
         </button>
       </div>
+      <p className="text-zinc-300 text-sm italic mb-3">
+        Building Task: Boiler Room, Prototype I, Repair Stations I & II, Repair
+        Stations III & IV, Prototype II, Transit Station, Imperial Building
+      </p>
 
       {/* Tools */}
       <div className="flex gap-2 mb-4">
@@ -71,7 +75,7 @@ export default function TaskList() {
           onClick={handleCopy}
           className="bg-zinc-400 px-3 py-1 rounded text-sm"
         >
-          Copy
+          Copy all text
         </button>
 
         <ConfirmDialog
@@ -128,10 +132,7 @@ export default function TaskList() {
           </li>
         ))}
       </ul>
-      <p className="text-zinc-300 text-sm italic">
-        Building Task: Boiler Room, Prototype I, Repair Stations I & II, Repair
-        Stations III & IV, Prototype II and Transit Station, Imperial Building
-      </p>
+      
     </div>
   )
 }
