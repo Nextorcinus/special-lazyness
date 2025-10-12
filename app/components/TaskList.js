@@ -83,7 +83,7 @@ export default function TaskList() {
           }}
         >
           <button className="bg-red-700 px-3 py-1 rounded text-sm">
-          Reset
+            Reset
           </button>
         </ConfirmDialog>
       </div>
@@ -128,6 +128,10 @@ export default function TaskList() {
           </li>
         ))}
       </ul>
+      <p className="text-zinc-300 text-sm italic">
+        Building Task: Boiler Room, Prototype I, Repair Stations I & II, Repair
+        Stations III & IV, Prototype II and Transit Station, Imperial Building
+      </p>
     </div>
   )
 }

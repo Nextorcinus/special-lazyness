@@ -1,497 +1,88 @@
 [
+  { "Name": "Stella S", "Power": "1B", "Furnace Level": 10 },
+  { "Name": "黑咖啡", "Power": "571.8M", "Furnace Level": 9 },
+  { "Name": "JoeLin", "Power": "566.7M", "Furnace Level": 8 },
+  { "Name": "請支援收銀", "Power": "552.8M", "Furnace Level": 9 },
   {
-    "Name": "BalaBala",
-    "Power": "255.7M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "OSWALDO AS50",
-    "Power": "244M",
-    "Furnace Level": 4
-  },
-  {
-    "Name": "zxcasd4793",
-    "Power": "221.6M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "Rusty the Great",
-    "Power": "210M",
-    "Furnace Level": 4
-  },
-  {
-    "Name": "Roquense",
-    "Power": "207M",
-    "Furnace Level": 4
-  },
-  {
-    "Name": "Wilisteri",
-    "Power": "182.2M",
-    "Furnace Level": 4
-  },
-  {
-    "Name": "Devil",
-    "Power": "180.6M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "Maaayk",
-    "Power": "179.8M",
-    "Furnace Level": 3
-  },
-  {
-    "Name": "ThaiBR",
-    "Power": "175.7M",
-    "Furnace Level": 4
-  },
-  {
-    "Name": "Zelda",
-    "Power": "167.8M",
-    "Furnace Level": 4
-  },
-  {
-    "Name": "Sansa Stark",
-    "Power": "167.7M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "#Celaena",
-    "Power": "164.8M",
-    "Furnace Level": 4
-  },
-  {
-    "Name": "DanS",
-    "Power": "157.9M",
-    "Furnace Level": 4
-  },
-  {
-    "Name": "HexeLeela",
-    "Power": "157.7M",
-    "Furnace Level": 4
-  },
-  {
-    "Name": "Lилith",
-    "Power": "155.9M",
-    "Furnace Level": 3
-  },
-  {
-    "Name": "Rastaotus",
-    "Power": "152.4M",
-    "Furnace Level": 4
-  },
-  {
-    "Name": "biloağa",
-    "Power": "152.3M",
-    "Furnace Level": 4
-  },
-  {
-    "Name": "seko kralligi57",
-    "Power": "147.2M",
-    "Furnace Level": 4
-  },
-  {
-    "Name": "Supraaa",
-    "Power": "138M",
-    "Furnace Level": 3
-  },
-  {
-    "Name": "MORALE",
-    "Power": "117.1M",
-    "Furnace Level": 3
-  },
-  {
-    "Name": "MajaBW",
-    "Power": "98.6M",
-    "Furnace Level": 2
-  },
-  {
-    "Name": "Troupeur",
-    "Power": "95.5M",
-    "Furnace Level": 3
-  },
-  {
-    "Name": "Iceman",
-    "Power": "91.4M",
-    "Furnace Level": 3
-  },
-  {
-    "Name": "Myfriendislazy",
-    "Power": "75.4M",
-    "Furnace Level": 2
-  },
-  {
-    "Name": "Fairvol",
-    "Power": "75.4M",
-    "Furnace Level": 2
-  },
-  {
-    "Name": "Pochacco",
-    "Power": "51.1M",
-    "Furnace Level": 27
-  },
-  {
-    "Name": "Anthracis75",
-    "Power": "370.3M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Deftutu",
-    "Power": "288.6M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Pat 59",
-    "Power": "259.1M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Special One",
-    "Power": "230.3M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Adamo",
-    "Power": "218.1M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "chuu u",
-    "Power": "443M",
+    "Name": "ʕ•ᴥ•ʔMaxi賣炭老鄰妹妹子狗ʕ•ᴥ•ʔ",
+    "Power": "511.2M",
     "Furnace Level": 8
   },
-  {
-    "Name": "Buyaz",
-    "Power": "394.6M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "aktiv",
-    "Power": "371.8M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Ken Adams",
-    "Power": "356.4M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Dominika",
-    "Power": "340.5M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Bela Talbot",
-    "Power": "317.7M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Aitor",
-    "Power": "317.2M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "NOObers",
-    "Power": "313M",
-    "Furnace Level": 8
-  },
-  {
-    "Name": "Glass 11",
-    "Power": "312.7M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Leito",
-    "Power": "306.6M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "MAESTRO",
-    "Power": "305.6M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "JoeBlack",
-    "Power": "302.7M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "BraveHeart",
-    "Power": "299.1M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "MSC",
-    "Power": "289.9M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Raqodem",
-    "Power": "287.4M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "OVERLORD",
-    "Power": "281M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Moldo",
-    "Power": "277.8M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "cep 1234",
-    "Power": "275.8M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "sadDetective",
-    "Power": "274.6M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "DreaDFuLSpartaN",
-    "Power": "269.4M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "HayroBat",
-    "Power": "266.1M",
-    "Furnace Level": 8
-  },
-  {
-    "Name": "#Aelin",
-    "Power": "265.4M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Mrial",
-    "Power": "265.1M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Bhre Wijaya",
-    "Power": "260.3M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "chief haiteke",
-    "Power": "259M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Magiko",
-    "Power": "250.5M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Luci Morningstar",
-    "Power": "249.7M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "el pepino hiph0p",
-    "Power": "248.9M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Tanishq",
-    "Power": "248.8M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "Di@goßß",
-    "Power": "247.9M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "History_",
-    "Power": "243.3M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "E1iss",
-    "Power": "245.8M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "LMP1104",
-    "Power": "242.5M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Super Tancho",
-    "Power": "241.9M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "MiyA",
-    "Power": "240.6M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "サルモラロ",
-    "Power": "240.4M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "Kaizer SÖZE",
-    "Power": "234.3M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "Jhon",
-    "Power": "233.6M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "SLY",
-    "Power": "232.2M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Tae Tae",
-    "Power": "231.9M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Pat 59",
-    "Power": "231.9M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Adamo",
-    "Power": "218.1M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Remazann",
-    "Power": "216.6M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "theKING",
-    "Power": "224.3M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "MaXorKa",
-    "Power": "216.2M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Popeye",
-    "Power": "209.5M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "Gundam_00",
-    "Power": "202.2M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "Becky",
-    "Power": "199.7M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Krishna",
-    "Power": "193.3M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Emanuelsan",
-    "Power": "190.8M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Lady Kae",
-    "Power": "190.6M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "GodSASUKE",
-    "Power": "190.4M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "daGON's vessel",
-    "Power": "188.6M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "Tinkaton",
-    "Power": "188.1M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "Сармат",
-    "Power": "174.8M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "ELODIE",
-    "Power": "154.4M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "Scottie No 1",
-    "Power": "140.7M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "HoedownHoney",
-    "Power": "514.2M",
-    "Furnace Level": 8
-  },
-  {
-    "Name": "Abeyle",
-    "Power": "453.4M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "ROWENA",
-    "Power": "340.3M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Lorcan",
-    "Power": "305.1M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Bones",
-    "Power": "301.8M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Crowley",
-    "Power": "279.9M",
-    "Furnace Level": 7
-  },
-  {
-    "Name": "Banana",
-    "Power": "260.8M",
-    "Furnace Level": 5
-  },
-  {
-    "Name": "EVEᴄᴀɴfloat",
-    "Power": "239.3M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "ahiru",
-    "Power": "238.5M",
-    "Furnace Level": 6
-  },
-  {
-    "Name": "Castiel stef",
-    "Power": "236.0M",
-    "Furnace Level": "6"
-  },
-  {
-    "Name": "°ΛLCHΞΤA°",
-    "Power": "186.4M",
-    "Furnace Level": 5
-  }
+  { "Name": "火雞養殖場", "Power": "389.9M", "Furnace Level": 7 },
+  { "Name": "我的滷肉在哪", "Power": "688.4M", "Furnace Level": 10 },
+  { "Name": "實踐小辣椒", "Power": "588.3M", "Furnace Level": 9 },
+  { "Name": "一夢千一", "Power": "556.5M", "Furnace Level": 9 },
+  { "Name": "Kelly豆沙鍋餅", "Power": "534.9M", "Furnace Level": 8 },
+  { "Name": "Stones 石頭", "Power": "507.4M", "Furnace Level": 8 },
+
+  { "Name": "Pikachu", "Power": "698.6M", "Furnace Level": 9 },
+  { "Name": "空白鍵", "Power": "691.4M", "Furnace Level": 10 },
+  { "Name": "知其不可奈何而安之若命", "Power": "579.8M", "Furnace Level": 8 },
+  { "Name": "ShaSha", "Power": "547M", "Furnace Level": 8 },
+  { "Name": "Antok", "Power": "516.2M", "Furnace Level": 7 },
+  { "Name": "水豚君 卡皮巴拉", "Power": "503.3M", "Furnace Level": 8 },
+  { "Name": "White Tiger", "Power": "500.4M", "Furnace Level": 8 },
+  { "Name": "Kayness", "Power": "474.8M", "Furnace Level": 8 },
+  { "Name": "ʙʀᴏᴋᴇɴ ᴍᴀɴ", "Power": "434.4M", "Furnace Level": 8 },
+  { "Name": "香菜烏醋肉羹麵", "Power": "410.9M", "Furnace Level": 8 },
+  { "Name": "Special One", "Power": "388M", "Furnace Level": 8 },
+  { "Name": "Plg", "Power": "387.4M", "Furnace Level": 8 },
+
+  { "Name": "물 범", "Power": "374.4M", "Furnace Level": 8 },
+  { "Name": "西門吹水", "Power": "372M", "Furnace Level": 8 },
+  { "Name": "甲鬼甲怪", "Power": "365.6M", "Furnace Level": 8 },
+  { "Name": "天外有天 人外有人", "Power": "346.6M", "Furnace Level": 8 },
+  { "Name": "funny goose", "Power": "333M", "Furnace Level": 6 },
+  { "Name": "提拉米蘇", "Power": "300.1M", "Furnace Level": 7 },
+  { "Name": "皮卡老油條", "Power": "192.5M", "Furnace Level": 6 },
+  { "Name": "皮卡老司機", "Power": "175M", "Furnace Level": 6 },
+  { "Name": "我是小存", "Power": "659.6M", "Furnace Level": 9 },
+  { "Name": "我的喵罐罐在哪", "Power": "599.4M", "Furnace Level": 9 },
+  { "Name": "~Ru~", "Power": "580.5M", "Furnace Level": 9 },
+
+  { "Name": "Ada", "Power": "546.8M", "Furnace Level": 7 },
+  { "Name": "oOLuBiOo", "Power": "543.8M", "Furnace Level": 8 },
+  { "Name": "Jojo承太郎", "Power": "533.5M", "Furnace Level": 7 },
+  { "Name": "hark", "Power": "528.1M", "Furnace Level": 8 },
+  { "Name": "Roronoa Zoro!", "Power": "526.4M", "Furnace Level": 9 },
+  { "Name": "蘿茜 蘿茜", "Power": "520M", "Furnace Level": 9 },
+  { "Name": "Webber 韋伯", "Power": "483M", "Furnace Level": 8 },
+  { "Name": "Aitor", "Power": "467M", "Furnace Level": 9 },
+  { "Name": "도룡농의포스", "Power": "457.4M", "Furnace Level": 9 },
+  { "Name": "Juno。", "Power": "453.8M", "Furnace Level": 8 },
+  { "Name": "~姬~", "Power": "453.3M", "Furnace Level": 8 },
+  { "Name": "Beer", "Power": "452.5M", "Furnace Level": 8 },
+  { "Name": "琉璃7", "Power": "445.8M", "Furnace Level": 8 },
+  { "Name": "⚔WHITE_ʀᴀsᴇ⚔", "Power": "437.3M", "Furnace Level": 7 },
+  { "Name": "星星星", "Power": "410.5M", "Furnace Level": 8 },
+  { "Name": "淡水子瑜", "Power": "399.9M", "Furnace Level": 7 },
+  { "Name": "LOVE ໓໓", "Power": "372.1M", "Furnace Level": 7 },
+  { "Name": "전 차", "Power": "370.1M", "Furnace Level": 7 },
+  { "Name": "我家也有柴 Daphne", "Power": "368.9M", "Furnace Level": 8 },
+  { "Name": "Jung", "Power": "360.5M", "Furnace Level": 8 },
+  { "Name": "FDM IN ITALIA", "Power": "360.1M", "Furnace Level": 8 },
+  { "Name": "chocolateJ", "Power": "358.6M", "Furnace Level": 8 },
+  { "Name": "愛吃瓜的瓜農", "Power": "356M", "Furnace Level": 7 },
+  { "Name": "騎雞撞到鴨", "Power": "355.2M", "Furnace Level": 9 },
+  { "Name": "花花愛打熊Hana", "Power": "334.6M", "Furnace Level": 9 },
+  { "Name": "추석잘보내세요~", "Power": "331.6M", "Furnace Level": 8 },
+  { "Name": "Formosa", "Power": "328.7M", "Furnace Level": 6 },
+  { "Name": "고려대장군", "Power": "327.8M", "Furnace Level": 7 },
+  { "Name": "愛 熊熊", "Power": "326.1M", "Furnace Level": 8 },
+  { "Name": "種子種子", "Power": "319.4M", "Furnace Level": 8 },
+  { "Name": "Han0014", "Power": "318.6M", "Furnace Level": 6 },
+  { "Name": "Galaxy", "Power": "315.9M", "Furnace Level": 7 },
+  { "Name": "Jodo", "Power": "313.4M", "Furnace Level": 6 },
+  { "Name": "迦羅七七", "Power": "309.9M", "Furnace Level": 7 },
+  { "Name": "0211", "Power": "309.3M", "Furnace Level": 8 },
+  { "Name": "QOO 2425", "Power": "306.4M", "Furnace Level": 8 },
+  { "Name": "我沒花錢 不要hack我", "Power": "306.8M", "Furnace Level": 7 },
+  { "Name": "只有的一個", "Power": "300.1M", "Furnace Level": 7 },
+  { "Name": "吃不飽的魚", "Power": "293.2M", "Furnace Level": 9 },
+  { "Name": "onepiece93", "Power": "250.3M", "Furnace Level": 7 },
+  { "Name": "3ez", "Power": "202.8M", "Furnace Level": 8 },
+  { "Name": "雲遊夢僧", "Power": "198.1M", "Furnace Level": 7 },
+  { "Name": "MeiMei", "Power": "177.1M", "Furnace Level": 6 },
+  { "Name": "逍遙散仙", "Power": "174.8M", "Furnace Level": 7 },
+  { "Name": "忍者菇菇", "Power": "161.2M", "Furnace Level": 6 }
 ]
