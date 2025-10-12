@@ -15,7 +15,7 @@ export default function MemberList() {
   // Filtered + sorted
   const assignedNames = getAssignedNames()
   const filtered = members
-    .filter((m) => !assignedNames.includes(m.Name)) // 👈 filter keluar yang sudah di-assign
+    .filter((m) => !assignedNames.includes(m.Name)) // filter keluar yang sudah di-assign
     .filter((m) => {
       const query = search.toLowerCase()
       const fcText = `fc ${m['Furnace Level'] || ''}`.toLowerCase()
@@ -26,16 +26,29 @@ export default function MemberList() {
       )
     })
 
-  const sortedMembers = [...filtered].sort((a, b) => {
-    if (sortBy === 'name') return a.Name.localeCompare(b.Name)
-    if (sortBy === 'power') {
-      const p = (v) => parseFloat(v.replace(/[^\d.]/g, ''))
-      return p(b.Power) - p(a.Power)
-    }
-    if (sortBy === 'furnace')
-      return (b['Furnace Level'] || 0) - (a['Furnace Level'] || 0)
-    return 0
-  })
+const sortedMembers = [...filtered].sort((a, b) => {
+  if (sortBy === 'name') return a.Name.localeCompare(b.Name)
+
+  const parsePower = (value) => {
+    if (!value) return 0
+    const num = parseFloat(value)
+    if (isNaN(num)) return 0
+    const suffix = value.trim().slice(-1).toUpperCase()
+    if (suffix === 'K') return num * 1e3
+    if (suffix === 'M') return num * 1e6
+    if (suffix === 'B') return num * 1e9
+    return num
+  }
+
+  if (sortBy === 'power') {
+    return parsePower(b.Power) - parsePower(a.Power)
+  }
+
+  if (sortBy === 'furnace')
+    return (b['Furnace Level'] || 0) - (a['Furnace Level'] || 0)
+    
+  return 0
+})
 
   const handleAssign = (taskName) => {
     assignMemberToTask(selectedMember, taskName)
