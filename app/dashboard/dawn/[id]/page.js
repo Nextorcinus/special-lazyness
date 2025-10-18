@@ -59,7 +59,7 @@ export default function HeroDetail({ params }) {
       <div className="p-6 text-white">
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-          <span className="ml-4">Loading hero data...</span>
+          <span className="ml-4">Loading hero data List...</span>
         </div>
       </div>
     )
