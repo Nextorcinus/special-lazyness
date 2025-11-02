@@ -28,7 +28,11 @@ function sumDurations(durationStrs) {
   return `${days}d ${hours}h ${minutes}m ${seconds}s`
 }
 
-export default function TotalResult({ results, comparedData = null }) {
+export default function TotalResult({ results = [], comparedData = null }) {
+  if (!Array.isArray(results) || results.length === 0) {
+    return null
+  }
+
   const total = results.reduce(
     (acc, curr) => {
       const res = curr.resources || {}
@@ -56,25 +60,25 @@ export default function TotalResult({ results, comparedData = null }) {
         diff > 0
           ? 'text-green-400'
           : diff < 0
-          ? 'text-red-400'
-          : 'text-zinc-400',
+          ? 'text-red-200'
+          : 'text-zinc-100',
       label: diff > 0 ? 'Extra +' : diff < 0 ? 'Need -' : 'Match',
     }
   })
 
   return (
-    <div className="bg-[#0a0a0a] border border-zinc-900 p-4 rounded-xl mt-6 space-y-4">
-      <h3 className="text-lg lg:text-xl mb-2 text-lime-400">
+    <div className="bg-special-inside-green border border-zinc-900 p-4 rounded-xl mt-6 space-y-4 py-6">
+      <h3 className="text-lg lg:text-xl mb-2 text-[#d1e635]">
         Total Result Required
       </h3>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-md">
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-8 gap-4 text-md">
         {resourceOrder.map((key) => (
           <div
             key={key}
-            className="flex flex-col items-center bg-black/10 p-2 rounded-xl border border-zinc-900"
+            className="flex flex-col items-center special-glass p-2 rounded-xl border "
           >
-            <div className="flex items-center gap-1 text-lime-400 text-sm md:text-sm lg:text-base">
+            <div className="flex items-center gap-1 text-[#d1e635] text-sm md:text-sm lg:text-base mb-1">
               <ResourceIcon type={key} />
               <span>{formatToShortNumber(total[key])}</span>
             </div>
@@ -90,17 +94,17 @@ export default function TotalResult({ results, comparedData = null }) {
         ))}
       </div>
 
-      <div className="text-sm text-zinc-400 mt-4 space-y-1">
+      <div className="text-sm md:text-base text-zinc-400 mt-4 space-y-1">
         <div>
-          <span className="text-zinc-400">Total Original Time: </span>
-          <span className="text-red-400">{totalOriginalTime}</span>
+          <span className="text-zinc-300">Total Original Time: </span>
+          <span className="text-yellow-100">{totalOriginalTime}</span>
         </div>
         <div>
-          <span className="text-zinc-400">Total Reduced Time: </span>
+          <span className="text-zinc-300">Total Reduced Time: </span>
           <span className="text-lime-400">{totalReducedTime}</span>
         </div>
         <div>
-          <span className="text-zinc-400">Total SvS Points: </span>
+          <span className="text-zinc-300">Total SvS Points: </span>
           <span className="text-yellow-400">
             {formatToShortNumber(totalSvSPoints)}
           </span>

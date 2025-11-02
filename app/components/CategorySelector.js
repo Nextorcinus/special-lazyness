@@ -1,21 +1,37 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image' // ✅ import dari next/image
 import { cn } from '../lib/utils'
 
 export default function CategorySelector({ selected, onChange }) {
+  const categories = [
+    { name: 'Basic', icon: '/icon/basic.png' },
+    { name: 'Fire Crystal', icon: '/icon/fire_crystal.png' },
+  ]
+
   return (
-    <div className="relative sm:absolute sm:right-6 sm:top-6 mt-4 sm:mt-0 flex gap-4 text-sm font-medium text-zinc-400">
-      {['Basic', 'Fire Crystal'].map((cat) => (
+    <div className="relative  mt-2 flex gap-4 text-sm font-medium text-white">
+      {categories.map((cat) => (
         <button
-          key={cat}
-          onClick={() => onChange(cat)}
+          key={cat.name}
+          onClick={() => onChange(cat.name)}
           className={cn(
-            'transition-colors',
-            selected === cat && 'text-lime-500 '
+            'buttonGlass flex items-center gap-2 transition-all duration-300',
+            selected === cat.name && 'active text-lime-400'
           )}
         >
-          {cat}
+          <Image
+            src={cat.icon}
+            alt={cat.name}
+            width={25}
+            height={25}
+            className={cn(
+              ' transition-all duration-300',
+              selected === cat.name && ' scale-110'
+            )}
+          />
+          {cat.name}
         </button>
       ))}
     </div>

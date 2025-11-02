@@ -74,21 +74,21 @@ export default function WidgetPage({ onCalculate }) {
 
   return (
     <div className="p-4 md:p-6 text-white w-full">
-      <div className="relative bg-special-inside border border-zinc-800 rounded-2xl p-6 shadow-md">
+      <div className="relative bg-special-inside  rounded-2xl p-6">
         <h2 className="text-2xl text-white">Widget Hero</h2>
       </div>
-      <div className="bg-special-inside w-full border border-zinc-800 text-white mt-6 px-4 py-6 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl">
-        <h1 className="text-xl mb-4 text-zinc-400">Widget Calculate</h1>
+      <div className="bg-special-inside w-full  text-white mt-6 px-4 py-6 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl">
+        <h1 className="text-xl mb-4 ">Widget Calculate</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Dropdown Hero */}
           <div className="w-full">
-            <Label className="text-zinc-400 mb-1 block">Hero</Label>
+            <Label className="py-1 px-2 mb-1 block">Hero</Label>
             <Select
               value={selectedHero}
               onValueChange={(value) => setSelectedHero(value)}
             >
-              <SelectTrigger className="w-full bg-zinc-800 text-white px-3 py-2 border border-zinc-700 rounded">
+              <SelectTrigger className="w-full bg-special-input text-white px-3 py-2  rounded">
                 {selectedHero !== '' ? (
                   <SelectValue />
                 ) : (
@@ -100,7 +100,7 @@ export default function WidgetPage({ onCalculate }) {
                   <SelectItem key={hero.heroes} value={hero.heroes}>
                     {hero.heroes}{' '}
                     {hero.status && (
-                      <span className="text-red-400 ">({hero.status})</span>
+                      <span className="text-yellow-400 ">({hero.status})</span>
                     )}
                   </SelectItem>
                 ))}
@@ -111,7 +111,7 @@ export default function WidgetPage({ onCalculate }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* FROM LEVEL */}
             <div>
-              <Label className="text-zinc-400">From</Label>
+              <Label className="py-1 px-2 text-white">From</Label>
               <Select
                 value={fromLevel}
                 onValueChange={(value) => {
@@ -140,7 +140,7 @@ export default function WidgetPage({ onCalculate }) {
 
             {/* TO LEVEL */}
             <div>
-              <Label className="text-zinc-400">To</Label>
+              <Label className="text-white py-1 px-2">To</Label>
               <Select
                 value={toLevel}
                 onValueChange={(value) => setToLevel(value)}
@@ -170,7 +170,7 @@ export default function WidgetPage({ onCalculate }) {
           {/* Submit */}
           <button
             type="submit"
-            className="bg-lime-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full sm:w-auto"
+            className="bg-lime-600 hover:bg-green-700 text-white px-4 py-2 rounded w-full sm:w-auto"
           >
             Analyze
           </button>
@@ -178,9 +178,9 @@ export default function WidgetPage({ onCalculate }) {
 
         {/* Hasil */}
         {result && (
-          <div className="mt-6 p-4 bg-zinc-900 rounded text-zinc-400 shadow-md border border-zinc-800">
+          <div className="mt-6 p-4 special-glass rounded  shadow-md border ">
             <p>
-              <strong className="text-lime-400">{result.name} </strong> 
+              <strong className="text-lime-400">{result.name} </strong>
               Level {result.level} "<em>{result.skill}</em>"{' '}
               <strong className="text-yellow-400">{result.value}%</strong> for{' '}
               <strong className="text-yellow-400">{result.type}</strong>
@@ -201,7 +201,7 @@ export default function WidgetPage({ onCalculate }) {
           </p>
         )}
       </div>
-      <div className="max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto mt-6 text-zinc-400">
+      <div className="max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto mt-6 text-white">
         <p className="text-sm">
           Note: Exploration skills are designed for exploration battles (
           <em>exploration, arena or intel</em>) and expedition skills are

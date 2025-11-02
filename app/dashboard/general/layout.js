@@ -22,7 +22,7 @@ export default function General({ children }) {
           </main>
 
           {/* Desktop History */}
-          <aside className="hidden lg:block border-l bg-[#1F1F1F] border-zinc-800 p-3"></aside>
+          <aside className="hidden lg:block  p-3"></aside>
         </div>
       </PageWrapper>
     </>

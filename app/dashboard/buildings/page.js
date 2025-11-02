@@ -4,48 +4,43 @@ import { useState, useMemo, useEffect } from 'react'
 import SubcategoryScroll from '../../components/SubcategoryScroll'
 import BuildingForm from '../../components/BuildingForm'
 import CompareForm from '../../components/CompareForm'
-import TotalResult from '../../components/TotalResult'
 import CategorySelector from '../../components/CategorySelector'
-import ResourceIcon from '../../components/ResourceIcon'
-import { formatToShortNumber } from '../../utils/formatToShortNumber'
 import { v4 as uuidv4 } from 'uuid'
 import { useHistory } from './HistoryContext'
 import '../../globals.css'
 import { useAddAnother } from './AddAnotherContext'
 import { toast } from 'sonner'
 
+import TabSwitcher from '../../components/tabSwitcher'
 
-//  TERIMA PROPS addAnotherTrigger
+
 export default function Home({ addAnotherTrigger }) {
   const [category, setCategory] = useState('Basic')
   const [selectedSub, setSelectedSub] = useState('')
   const [results, setResults] = useState([])
   const [compares, setCompares] = useState([])
+  const [showCompareForm, setShowCompareForm] = useState(false)
 
   const { history, addHistory, deleteHistory, resetHistory } = useHistory()
-  useEffect(() => {
-    setResults(history)
-    setCompares(history.map(() => null))
-  }, [history])
-
-  //  RESET saat trigger berubah
-  useEffect(() => {
-    setCategory('Basic')
-    setSelectedSub('')
-  }, [addAnotherTrigger])
-
-  // fallback untuk proteksi kesalahan sub kategori belum terpilih
-  useEffect(() => {
-    setSelectedSub('')
-  }, [category])
-
   const { trigger } = useAddAnother()
 
   useEffect(() => {
-    // Saat trigger berubah, reset ke default
+    setResults(history)
+    setCompares((prev) => {
+      const updated = [...prev]
+      while (updated.length < history.length) updated.push(null)
+      return updated.slice(0, history.length)
+    })
+  }, [history])
+
+  useEffect(() => {
     setCategory('Basic')
     setSelectedSub('')
-  }, [trigger])
+  }, [addAnotherTrigger, trigger])
+
+  useEffect(() => {
+    setSelectedSub('')
+  }, [category])
 
   const basicBuildings = [
     'Furnace',
@@ -81,23 +76,24 @@ export default function Home({ addAnotherTrigger }) {
     }, 100)
   }
 
-  const handleCompare = (data, index = null) => {
+  const handleCompareSubmit = (compareData) => {
+    if (!compareData) return
     setCompares((prev) => {
       const updated = [...prev]
-      if (index === null) {
-        return prev.map(() => data)
-      } else {
-        updated[index] = data
-        return updated
+      for (let i = 0; i < results.length; i++) {
+        updated[i] = compareData
       }
+      return updated
     })
+    setShowCompareForm(false)
+    toast.success('Comparison applied to all results!')
   }
 
   const handleDeleteHistory = (id) => {
     deleteHistory(id)
     const updated = history.filter((item) => item.id !== id)
     setResults(updated)
-    setCompares(updated.map(() => null))
+    setCompares((prev) => prev.filter((_, i) => i < updated.length))
   }
 
   const handleResetHistory = () => {
@@ -106,21 +102,6 @@ export default function Home({ addAnotherTrigger }) {
     setCompares([])
     toast.success('History has been reset.')
   }
-
-  const handleAddAnother = () => {
-    setSelectedSub('')
-    setCategory('Basic')
-    // Jika perlu juga reset hasil sebelumnya
-    // setResults([])
-    // setCompares([])
-  }
-
-  // Listener untuk event dari layout
-  useEffect(() => {
-    const handler = () => handleAddAnother()
-    window.addEventListener('add-another-building', handler)
-    return () => window.removeEventListener('add-another-building', handler)
-  }, [])
 
   const defaultResources = useMemo(
     () => ({
@@ -136,10 +117,12 @@ export default function Home({ addAnotherTrigger }) {
 
   return (
     <main className="p-1 md:p-6 text-white w-full">
-      <div className="relative bg-special-inside border border-zinc-800 rounded-2xl p-6 shadow-md">
-        <h2 className="text-2xl text-white">Buildings Upgrade </h2>
-
-        <CategorySelector selected={category} onChange={setCategory} />
+      {/* === Header === */}
+      <div className="relative w-full md:p-6 ">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 ">
+          <h2 className="text-2xl text-white ">Buildings Upgrade</h2>
+          <CategorySelector selected={category} onChange={setCategory} />
+        </div>
         <SubcategoryScroll
           items={buildings}
           selected={selectedSub}
@@ -147,110 +130,61 @@ export default function Home({ addAnotherTrigger }) {
         />
       </div>
 
+      {/* === Building Form + Compare Button === */}
       {selectedSub && (
-        <div className="flex flex-col lg:flex-row gap-6 mt-6 w-full">
-          <div className="w-full lg:w-8/12">
+        <div className="flex flex-col md:p-6 lg:flex-row gap-6 mt-6 w-full">
+          <div className="w-full">
             <BuildingForm
               category={category}
               selectedSub={selectedSub}
               onCalculate={handleCalculate}
             />
+
+            {/* Tombol Compare selalu tampil */}
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={() => setShowCompareForm(true)}
+                className="buttonGlass text-sm md:text-base "
+              >
+                Compare Resources
+              </button>
+            </div>
           </div>
-          <div className="w-full lg:w-4/12">
+        </div>
+      )}
+
+      {/* === POPUP Compare Form === */}
+      {showCompareForm && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-[#1a1a1a95] bg-blur p-6 rounded-xl border border-[#ffffff1c] w-[90%] max-w-lg relative">
+            <button
+              onClick={() => setShowCompareForm(false)}
+              className="absolute top-2 right-2 text-xl text-red-400 hover:text-white"
+            >
+              ✕
+            </button>
+            
             <CompareForm
-              requiredResources={defaultResources}
-              onCompare={handleCompare}
+              comparedData={compares[0] || {}}
+              onCompare={handleCompareSubmit}
+              onCancel={() => setShowCompareForm(false)}
             />
           </div>
         </div>
       )}
 
-      {results.length > 0 && (
-        <div className="mt-8 space-y-6">
-          <h2 className="text-xl px-6">Upgrade Results</h2>
 
-          {results.map((res, idx) => (
-            <div
-              key={res.id}
-              className="bg-special-inside p-6 rounded-xl shadow-2xl space-y-2 border border-zinc-800 text-yellow-400"
-            >
-              <div className="text-base lg:text-xl text-zinc-300 border-b border-zinc-700 pb-2 mb-2">
-                {res.building}
-              </div>
-              <div>
-                <span className="text-zinc-400">From</span> {res.fromLevel} →{' '}
-                <span>{res.toLevel}</span>
-              </div>
-              <div>
-                <span className="text-zinc-400 text-base">
-                  Original Time :{' '}
-                </span>
-                <span className="text-red-400 text-base">
-                  {res.timeOriginal}
-                </span>
-                <span className="text-zinc-500">
-                  {' '}
-                  <br></br>{' '}
-                </span>
-                <span className="text-zinc-400">Reduce Time : </span>
-                <span className="text-lime-500">{res.timeReduced}</span>
-              </div>
-
-              <div className="mt-1 text-zinc-400">
-                SvS Points:{' '}
-                <span className="text-base">
-                  {formatToShortNumber(res.svsPoints || 0)}
-                </span>
-              </div>
-              <div>
-                <span className="text-zinc-400 mb-5">Resources: </span>
-                <div className="flex flex-wrap gap-x-4 gap-y-2 text-base">
-                  {Object.entries(res.resources || {}).map(([key, value]) => {
-                    const need = res.rawResources?.[key] || 0
-                    const hasCompare = compares[idx] && key in compares[idx]
-                    const have = hasCompare ? compares[idx][key] : null
-
-                    const diff = have - need
-                    const isMatch = diff === 0
-                    const color =
-                      diff > 0
-                        ? 'text-green-300 bg-green-700 px-2 py-1'
-                        : diff < 0
-                        ? 'text-red-300 bg-red-500/20 px-2 py-1'
-                        : 'text-gray-200 bg-gray-700 px-2 py-1'
-                    const label =
-                      diff > 0 ? 'Extra +' : diff < 0 ? 'Need -' : 'Match'
-
-                    return (
-                      <div
-                        key={key}
-                        className="flex flex-col items-end  px-0 py-1 rounded-xl mt-1"
-                      >
-                        <div className="flex items-center justify-between gap-1 text-lime-400 text-sm md:text-base w-full">
-                          <ResourceIcon type={key} />
-                          {formatToShortNumber(value)}
-                        </div>
-                        {hasCompare && (
-                          <div
-                            className={`text-xs md:text-sm rounded-md mt-1 ${color}`}
-                          >
-                            {label}
-                            {!isMatch && (
-                              <> {formatToShortNumber(Math.abs(diff))}</>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            </div>
-          ))}
-
-          <TotalResult results={results} comparedData={compares[0]} />
-        </div>
-      )}
+    {/* === Results Section === */}
+{results.length > 0 && (
+  <div className="md:p-6 mt-8 space-y-6 w-full">
+    <TabSwitcher
+      results={results}
+      compares={compares}
+      onDeleteHistory={handleDeleteHistory}
+      onResetHistory={handleResetHistory}
+    />
+  </div>
+)}
     </main>
   )
 }

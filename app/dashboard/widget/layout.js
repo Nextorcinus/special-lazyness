@@ -5,9 +5,11 @@ import { Toaster } from 'sonner'
 import PageWrapper from '../../components/PageWrapper'
 import WelcomePopup from '../../components/Popup'
 
+
 export default function Widget({ children }) {
   return (
     <>
+      <backgroundLiquid />
       <WelcomePopup />
       <PageWrapper>
         <div className="min-h-screen bg-special text-white grid grid-cols-1 lg:grid-cols-[1fr_320px]">
@@ -22,7 +24,7 @@ export default function Widget({ children }) {
           </main>
 
           {/* Desktop History */}
-          <aside className="hidden lg:block border-l bg-[#1F1F1F] border-zinc-800 p-3"></aside>
+          <aside className="hidden lg:block  p-3"></aside>
         </div>
       </PageWrapper>
     </>

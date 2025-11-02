@@ -113,7 +113,7 @@ export default function CharmPage() {
 
   return (
     <div className="p-4 md:p-6 text-white w-full">
-      <div className="relative bg-special-inside border border-zinc-800 rounded-2xl p-6 shadow-md">
+      <div className="relative bg-special-inside rounded-2xl p-6">
         <h2 className="text-2xl text-white">Chief Charm Upgrade</h2>
       </div>
 

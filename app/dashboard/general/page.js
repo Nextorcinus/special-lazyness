@@ -175,7 +175,7 @@ export default function GeneralPage() {
   return (
     <div className="space-y-10 mt-6">
       {/* Kalkulator Waktu ke Poin */}
-      <Card className="bg-special-inside border-zinc-800 text-white">
+      <Card className="bg-special-inside border-0 text-white">
         <CardContent className="pt-6">
           <h2 className="text-xl font-bold">Calc Use Speedup</h2>
           <p className="text-sm text-zinc-400">
@@ -237,7 +237,7 @@ export default function GeneralPage() {
       </Card>
 
       {/* Kalkulator Fire Crystal */}
-      <Card className="bg-special-inside border-zinc-800 text-white">
+      <Card className="bg-special-inside border-0 text-white">
         <CardContent className="space-y-6 pt-6">
           <h2 className="text-xl font-bold">Fire Crystal</h2>
 
@@ -284,7 +284,7 @@ export default function GeneralPage() {
       </Card>
 
       {/* Kalkulator Shard */}
-      <Card className="bg-special-inside border-zinc-800 text-white">
+      <Card className="bg-special-inside border-0 text-white">
         <CardContent className="space-y-6 pt-6">
           <h2 className="text-xl font-bold">Shards Epic/Mythic</h2>
 
@@ -331,7 +331,7 @@ export default function GeneralPage() {
       </Card>
 
       <div className="space-y-10 mt-6">
-        <Card className="bg-special-inside border-zinc-800 text-white">
+        <Card className="bg-special-inside border-0 text-white">
           <CardContent className="space-y-6 pt-6">
             <h2 className="text-xl font-bold">
               Upgrade Level Gear with Essence Stones
@@ -448,7 +448,7 @@ export default function GeneralPage() {
       </div>
 
       {/* Kalkulator Gather Resources */}
-      <Card className="bg-special-inside border-zinc-800 text-white">
+      <Card className="bg-special-inside border-0 text-white">
         <CardContent className=" pt-6">
           <h2 className="text-xl font-bold">Gather Resources</h2>
           <p className="text-sm text-zinc-500">
@@ -521,7 +521,7 @@ export default function GeneralPage() {
         </CardContent>
       </Card>
       {/* Kalkulator Troops Training */}
-      <Card className="bg-special-inside border-zinc-800 text-white">
+      <Card className="bg-special-inside border-0 text-white">
         <CardContent className="space-y-6 pt-6">
           <h2 className="text-xl font-bold">Troops Training</h2>
 

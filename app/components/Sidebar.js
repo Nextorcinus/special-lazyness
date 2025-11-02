@@ -11,56 +11,56 @@ const menu = [
   {
     label: 'Chief Gear',
     href: '/dashboard/gear',
-    icon: '/icon/gear.png',
-    iconHover: '/icon/gear-hover.png',
+    icon: '/icon-menu/chief-gear.png',
+    iconHover: '/icon-menu/chief-gear-hover.png',
   },
   {
     label: 'Chief Charm',
     href: '/dashboard/charm',
-    icon: '/icon/charm.png',
-    iconHover: '/icon/charm-hover.png',
+    icon: '/icon-menu/charm.png',
+    iconHover: '/icon-menu/charm-hover.png',
   },
   {
     label: 'Research',
     href: '/dashboard/research',
-    icon: '/icon/research.png',
-    iconHover: '/icon/research-hover.png',
+    icon: '/icon-menu/research.png',
+    iconHover: '/icon-menu/research-hover.png',
   },
   {
     label: 'Buildings Upgrade',
     href: '/dashboard/buildings',
-    icon: '/icon/buildings.png',
-    iconHover: '/icon/buildings-hover.png',
+    icon: '/icon-menu/building.png',
+    iconHover: '/icon-menu/building-hover.png',
   },
   {
     label: 'War Academy',
     href: '/dashboard/war-academy',
-    icon: '/icon/war-academy.png',
-    iconHover: '/icon/war-academy-hover.png',
+    icon: '/icon-menu/war-academy.png',
+    iconHover: '/icon-menu/war-academy-hover.png',
   },
   {
     label: 'Widget',
     href: '/dashboard/widget',
-    icon: '/icon/widget.png',
-    iconHover: '/icon/widget-hover.png',
+    icon: '/icon-menu/widget.png',
+    iconHover: '/icon-menu/widget-hover.png',
   },
   {
     label: 'Calc Points',
     href: '/dashboard/general',
-    icon: '/icon/general.png',
-    iconHover: '/icon/general-hover.png',
+    icon: '/icon-menu/calc.png',
+    iconHover: '/icon-menu/calc-hover.png',
   },
   {
     label: 'State Age',
     href: '/dashboard/state',
-    icon: '/icon/state.png',
-    iconHover: '/icon/state-hover.png',
+    icon: '/icon-menu/state.png',
+    iconHover: '/icon-menu/state-hover.png',
   },
   {
     label: 'Experts',
     href: '/dashboard/dawn',
-    icon: '/icon/dawn.png',
-    iconHover: '/icon/dawn-hover.png',
+    icon: '/icon-menu/dawn.png',
+    iconHover: '/icon-menu/dawn-hover.png',
   },
 ]
 
@@ -71,45 +71,68 @@ export default function Sidebar() {
   const version = useGitVersion()
 
   return (
-    <aside className="flex flex-col justify-between w-full h-full lg:w-64 bg-[#1F1F1F] text-white">
-      {/* Logo */}
-      <div>
+    <aside
+      className={cn(
+        'group fixed left-0 top-1/2 -translate-y-1/2 z-[9999] bg-special-inside text-white flex flex-col justify-between items-center transition-all duration-300',
+        'w-20 hover:w-64 rounded-2xl overflow-hidden shadow-lg'
+      )}
+      style={{ height: '80vh', left: '1%' }}
+    >
+      <div className="w-full">
         <div className="flex justify-center p-4">
           <Link href="/" passHref>
             <Image
-              src="/icon/speciallazynesslogo.png"
+              src="/icon/logo-speecial-small-.png"
               alt="Special Lazyness Logo"
-              width={179}
-              height={43}
-              style={{ height: 'auto' }}
+              width={49}
+              height={49}
               priority
+              className="hidden group-hover:block transition-all duration-300 rounded-[50%]"
+            />
+
+            <Image
+              src="/icon/logo-sepecial-small-.png"
+              alt="Special Lazyness Logo"
+              width={49}
+              height={49}
+              className="block group-hover:hidden transition-all duration-300 rounded-[50%]"
             />
           </Link>
         </div>
 
-        {/* Navigation Menu */}
-        <nav className="flex flex-col gap-2 px-4">
+        <nav className="flex flex-col gap-2 px-2 mt-2">
           {menu.map((item) => {
             const isActive = pathname === item.href
             const isHover = hovered === item.label
-
             const iconSrc = isHover || isActive ? item.iconHover : item.icon
 
-            // 👉 Special: For "State Age", force reroute manually
+            const linkClasses = cn(
+              'flex items-center gap-3 px-3  rounded-md transition-all duration-200',
+              isActive ? ' text-[#B3F35F]' : 'hover: text-zinc-300'
+            )
+
+            const content = (
+              <>
+                <Image src={iconSrc} alt={item.label} width={49} height={49} />
+                <span
+                  className={cn(
+                    'whitespace-nowrap overflow-hidden transition-all duration-300',
+                    'opacity-0 group-hover:opacity-100 group-hover:translate-x-0',
+                    'translate-x-[-10px]'
+                  )}
+                >
+                  {item.label}
+                </span>
+              </>
+            )
+
             if (item.label === 'State Age') {
               return isActive ? (
                 <div
                   key={item.label}
-                  className="flex items-center gap-3 px-4 py-2 rounded-md bg-zinc-800 text-green-500 cursor-default"
+                  className={`${linkClasses} cursor-default`}
                 >
-                  <Image
-                    src={item.iconHover}
-                    alt={item.label}
-                    width={20}
-                    height={20}
-                    unoptimized
-                  />
-                  <span>{item.label}</span>
+                  {content}
                 </div>
               ) : (
                 <button
@@ -117,49 +140,22 @@ export default function Sidebar() {
                   onClick={() => router.push(item.href)}
                   onMouseEnter={() => setHovered(item.label)}
                   onMouseLeave={() => setHovered(null)}
-                  className={cn(
-                    'flex items-center gap-3 px-4 py-2 rounded-md transition-colors w-full text-left',
-                    'hover:bg-zinc-800 text-zinc-300'
-                  )}
+                  className={linkClasses}
                 >
-                  <Image
-                    src={iconSrc}
-                    alt={item.label}
-                    width={20}
-                    height={20}
-                  />
-                  <span>{item.label}</span>
+                  {content}
                 </button>
               )
             }
 
-            // Default nav item
-            return isActive ? (
-              <div
-                key={item.label}
-                className="flex items-center gap-3 px-4 py-2 rounded-md bg-zinc-800 text-green-500 cursor-default"
-              >
-                <Image
-                  src={item.iconHover}
-                  alt={item.label}
-                  width={20}
-                  height={20}
-                />
-                <span>{item.label}</span>
-              </div>
-            ) : (
+            return (
               <Link
                 key={item.label}
                 href={item.href}
                 onMouseEnter={() => setHovered(item.label)}
                 onMouseLeave={() => setHovered(null)}
-                className={cn(
-                  'flex items-center gap-3 px-4 py-2 rounded-md transition-colors',
-                  'hover:bg-zinc-800 text-zinc-300'
-                )}
+                className={linkClasses}
               >
-                <Image src={iconSrc} alt={item.label} width={20} height={20} />
-                <span>{item.label}</span>
+                {content}
               </Link>
             )
           })}
@@ -167,13 +163,13 @@ export default function Sidebar() {
       </div>
 
       {/* Footer */}
-      <div className="mt-auto p-10 text-center text-xs text-zinc-400">
-        <div className="mb-4">
+      <div className="p-4 text-center text-xs text-zinc-400 w-full">
+        <div className="flex flex-col items-center gap-2">
           <a
             href="https://discordapp.com/users/380668333948928000"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 hover:bg-indigo-700 text-white text-sm px-4 py-2 rounded-md transition"
+            className="flex items-center gap-2 hover:bg-indigo-700 text-white text-sm px-2 py-2 rounded-md transition"
           >
             <Image
               src="/icon/discord.png"
@@ -181,13 +177,19 @@ export default function Sidebar() {
               width={16}
               height={16}
             />
-            Contact Me
+            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              Contact Me
+            </span>
           </a>
+
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center">
+            © Special Lazyness
+            <br /> app created by special one #991
+            <p className="mt-1 text-xs text-zinc-600 font-mono">
+              Version: {version}
+            </p>
+          </div>
         </div>
-        © Special Lazyness. <br /> app created by special one #991
-        <p className="mt-2 text-xs text-zinc-600 font-mono">
-          Version: {version}
-        </p>
       </div>
     </aside>
   )

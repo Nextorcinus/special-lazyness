@@ -17,11 +17,11 @@ export default function HistoryList() {
   }
 
   return (
-    <Card className="bg-special-inside text-white mt-10 border border-neutral-700">
-      <CardHeader className="flex flex-row items-center justify-between px-4 py-2">
+    <Card className="bg-special-inside py-2 text-white mt-10 border border-neutral-700">
+      <CardHeader className="flex flex-row items-center justify-between pt-2 pb-0">
         <h3 className="text-lg">History Building</h3>
         <Button
-          className="bg-slate-500 hover:bg-red-500  text-white px-2 py-0 rounded"
+          className="buttonGlass hover:bg-red-500  text-white px-2 py-0 rounded"
           onClick={handleReset}
         >
           Reset
@@ -30,17 +30,17 @@ export default function HistoryList() {
 
       <CardContent className="space-y-2 px-4 pb-4">
         {history.length === 0 ? (
-          <p className="text-sm text-gray-400">No history yet.</p>
+          <p className="text-sm text-white">No history yet.</p>
         ) : (
           <>
             {history.map((entry) => (
               <div
                 key={entry.id}
-                className="flex justify-between items-center bg-zinc-800 rounded px-4 py-3"
+                className="flex justify-between items-center special-glass rounded px-4 py-3"
               >
                 <div>
-                  <div className="text-sm">{entry.building}</div>
-                  <div className="text-xs text-zinc-400 p-0 mt-2">
+                  <div className="text-base">{entry.building}</div>
+                  <div className="text-sm text-white p-0 mt-2">
                     {entry.fromLevel} → {entry.toLevel}
                   </div>
                 </div>
@@ -59,7 +59,7 @@ export default function HistoryList() {
             <div className="pt-2 text-center">
               <Button
                 onClick={addAnother}
-                className="w-max bg-zinc-700 hover:bg-green-700 text-white px-4  rounded"
+                className="w-max button button--glass text-white px-4  rounded"
               >
                 + Add Another Building
               </Button>

@@ -39,7 +39,7 @@ export default function CompareFormGear({ onCompare }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-special-inside-green p-6 rounded-xl border border-zinc-800 shadow space-y-4"
+      className="bg-special-inside-green p-6 rounded-xl space-y-4"
     >
       <h2 className="text-xl text-white ">Own Resources</h2>
 

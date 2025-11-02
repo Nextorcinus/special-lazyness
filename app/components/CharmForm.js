@@ -114,13 +114,13 @@ export default function CharmForm({ onSubmit, onReset, dataLoaded }) {
   return (
     <form
       onSubmit={handleCalculate}
-      className="p-6 bg-special-inside rounded-xl shadow-2xl border border-zinc-800 space-y-6"
+      className="p-6 bg-special-inside rounded-xl  space-y-6"
     >
       <h2 className="text-xl">Select Level</h2>
 
       {Object.entries(charmParts).map(([category, parts]) => (
         <div key={category} className="space-y-2">
-          <Label className="text-white text-md font-bold block mt-4">
+          <Label className="text-[#868E83] text-md font-bold block mt-4">
             {category}
           </Label>
           {parts.map((part) => (
@@ -128,7 +128,7 @@ export default function CharmForm({ onSubmit, onReset, dataLoaded }) {
               key={part}
               className="flex flex-col gap-2 items-start flex-wrap"
             >
-              <Label className="w-20 text-sm text-zinc-400 pt-1 sm:pt-0">
+              <Label className="w-20 text-sm text-[#868E83] pt-1 sm:pt-0">
                 {part}
               </Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
@@ -145,7 +145,7 @@ export default function CharmForm({ onSubmit, onReset, dataLoaded }) {
                           handleChange(part, idx, 'from', val)
                         }
                       >
-                        <SelectTrigger className="w-full bg-zinc-800 text-white border border-zinc-600">
+                        <SelectTrigger className="w-full bg-special-input text-white ">
                           <SelectValue placeholder="From" />
                         </SelectTrigger>
                         <SelectContent>
@@ -164,7 +164,7 @@ export default function CharmForm({ onSubmit, onReset, dataLoaded }) {
                         }
                         disabled={!pair.from}
                       >
-                        <SelectTrigger className="w-full bg-zinc-800 text-white border border-zinc-600">
+                        <SelectTrigger className="w-full bg-special-input text-white ">
                           <SelectValue placeholder="To" />
                         </SelectTrigger>
                         <SelectContent>
@@ -188,7 +188,7 @@ export default function CharmForm({ onSubmit, onReset, dataLoaded }) {
         <Button
           type="submit"
           disabled={!dataLoaded}
-          className="bg-lime-600 text-white text-base hover:bg-green-700 rounded-sm py-5"
+          className="bg-[B3F35F] text-white text-base hover:bg-green-700 rounded-sm py-5"
         >
           Calculate
         </Button>

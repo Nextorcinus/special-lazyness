@@ -35,7 +35,7 @@ export default function HeliosLayout({ children }) {
               </main>
 
               {/* Desktop History */}
-              <aside className="hidden lg:block border-l bg-[#1F1F1F] border-zinc-800 p-3">
+              <aside className="hidden lg:block  p-3">
                 <HeliosHistoryList />
               </aside>
             </div>

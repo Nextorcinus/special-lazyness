@@ -54,7 +54,7 @@ export default function HeliosSubcategoryScroll({ items, selected, onSelect }) {
   return (
     <div
       ref={scrollRef}
-      className="bg-special-cat p-1 w-full overflow-x-auto no-scrollbar mt-4 rounded-xl"
+      className="special-glass-cat p-1 w-full overflow-x-auto no-scrollbar mt-4 rounded-xl"
     >
       <div className="flex gap-1 cursor-grab select-none w-max">
         {items.map((item) => (
@@ -64,8 +64,8 @@ export default function HeliosSubcategoryScroll({ items, selected, onSelect }) {
             className={cn(
               'px-4 py-2 rounded-xl text-sm transition whitespace-nowrap',
               selected === item
-                ? 'bg-lime-600 text-white shadow'
-                : 'text-zinc-400 hover:text-white'
+                ? 'button button--glass text-white shadow'
+                : 'text-white hover:text-white'
             )}
           >
             {item}
