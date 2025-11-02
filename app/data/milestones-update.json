@@ -367,7 +367,7 @@
       }
     },
     {
-      "days": 700,
+      "days": 680,
       "name": "Gen 10 Heroes",
       "details": [],
       "heroes": {
@@ -390,6 +390,34 @@
           "/free-tools/rss/images/Heroes/Gen11/Eleonora/Eleonora_Gold.png",
           "/free-tools/rss/images/Heroes/Gen11/Lloyd/Lloyd.png",
           "/free-tools/rss/images/Heroes/Gen11/Rufus/Rufus.png"
+        ],
+        "acquisition": [["lucky"], ["HOC", "KOI", "SVS"], ["HOH"]]
+      }
+    },
+    {
+      "days": 880,
+      "name": "Gen 12 Heroes",
+      "details": [],
+      "heroes": {
+        "names": ["Ligeia", "Hervor", "Karol"],
+        "images": [
+          "/free-tools/rss/images/Heroes/Gen12/ligeia/ligeia.png",
+          "/free-tools/rss/images/Heroes/Gen12/hervor/hervor.png",
+          "/free-tools/rss/images/Heroes/Gen12/Rufus/Rufus.png"
+        ],
+        "acquisition": [["HOC", "KOI", "SVS"], ["HOH"], ["lucky"]]
+      }
+    },
+    {
+      "days": 960,
+      "name": "Gen 13 Heroes",
+      "details": [],
+      "heroes": {
+        "names": ["Vulcanus", "Gisela", "Flora"],
+        "images": [
+          "/free-tools/rss/images/Heroes/Gen13/vulcanus/vulcanus.png",
+          "/free-tools/rss/images/Heroes/Gen13/gisela/gisela.png",
+          "/free-tools/rss/images/Heroes/Gen13/flora/flora.png"
         ],
         "acquisition": [["lucky"], ["HOC", "KOI", "SVS"], ["HOH"]]
       }
