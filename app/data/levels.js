@@ -41,4 +41,8 @@ export const levels = [
   'Pink T3 1 Star',
   'Pink T3 2 Star',
   'Pink T3 3 Star',
+  'Pink T4',
+  'Pink T4 1 Star',
+  'Pink T4 2 Star',
+  'Pink T4 3 Star',
 ]

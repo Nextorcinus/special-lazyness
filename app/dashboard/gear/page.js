@@ -6,7 +6,7 @@ import GearTable from '../../components/GearTable'
 import GearProgress from '../../components/GearProgress'
 import CompareFormGear from '../../components/CompareFormGear'
 import { levels as levelsOrder } from '../../data/levels'
-import rawMaterialData from '../../data/MaterialDataGear.json'
+import rawMaterialData from '../../data/MaterialDataGear'
 import { parseMaterialNumber } from '../../utils/parseMaterialNumber'
 import { useGearHistory } from './GearContext'
 
