@@ -11,15 +11,18 @@ export function GearHistoryProvider({ children }) {
   // ✅ Untuk reset sebagian form (per gear)
   const [resetGearParts, setResetGearParts] = useState([])
 
-  const addToHistory = (entry) => {
-    setHistory((prev) => {
-      const exists = prev.some(
-        (item) =>
-          item.gear === entry.gear &&
-          item.from === entry.from &&
-          item.to === entry.to
-      )
-      if (exists) return prev
+const addToHistory = (entry) => {
+  setHistory((prev) => {
+    
+    const exists = prev.some(
+      (item) =>
+        item.type === entry.type &&
+        item.from === entry.from &&
+        item.to === entry.to
+    )
+
+    
+    if (exists) return prev
 
       return [
         ...prev,
@@ -33,7 +36,7 @@ export function GearHistoryProvider({ children }) {
       const filtered = prev.filter((item) => item.gear !== entry.gear)
       return [
         ...filtered,
-        { ...entry, id: `${entry.gear}-${entry.from}->${entry.to}` },
+         { ...entry, id: `${entry.type}-${entry.from}->${entry.to}` },
       ]
     })
   }

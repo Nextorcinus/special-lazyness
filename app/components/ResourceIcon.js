@@ -11,6 +11,11 @@ const iconMap = {
   RFC: "rfc.png",
   Steel: "steel.png",
   "FC Shards": "fc-shards.png",
+   plans: "meat.png",
+    polish: "meat.png",
+    alloy: "meat.png",
+    amber: "meat.png",
+    svs: "meat.png",
 };
 
 export default function ResourceIcon({ type, size = 32 }) {

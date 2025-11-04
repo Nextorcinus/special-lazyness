@@ -26,8 +26,13 @@ export default function GearPage() {
     })
   }, [history])
 
-  // Hitung hasil gear upgrade dari GearForm
+  // === 1️⃣ Calculate Gear ===
   const handleCalculate = (data) => {
+    if (!data || !data.type || !data.from || !data.to) {
+      toast.warning('Lengkapi semua pilihan sebelum menghitung.')
+      return
+    }
+
     const resultWithId = { ...data, id: uuidv4() }
     setResults((prev) => [...prev, resultWithId])
     setCompares((prev) => [...prev, null])
@@ -36,32 +41,36 @@ export default function GearPage() {
     toast.success('Gear upgrade calculated!')
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
-    }, 100)
+    }, 200)
   }
 
-  // Submit perbandingan resource
+  // === 2️⃣ Compare Data ===
   const handleCompareSubmit = (compareData) => {
     if (!compareData) return
-    setCompares((prev) => {
-      const updated = [...prev]
-      for (let i = 0; i < results.length; i++) {
-        updated[i] = compareData
-      }
-      return updated
-    })
+
+    // Terapkan compareData ke semua result
+    const newCompares = results.map(() => ({
+      plans: Number(compareData.plans || 0),
+      polish: Number(compareData.polish || 0),
+      alloy: Number(compareData.alloy || 0),
+      amber: Number(compareData.amber || 0),
+      svs: Number(compareData.svs || 0),
+    }))
+
+    setCompares(newCompares)
     setShowCompareForm(false)
     toast.success('Comparison applied to all results!')
   }
 
-  // Hapus 1 riwayat gear
+  // === 3️⃣ Delete satu riwayat ===
   const handleDeleteHistory = (id) => {
     deleteHistory(id)
-    const updated = history.filter((item) => item.id !== id)
+    const updated = results.filter((item) => item.id !== id)
     setResults(updated)
     setCompares((prev) => prev.filter((_, i) => i < updated.length))
   }
 
-  // Reset semua history
+  // === 4️⃣ Reset semua ===
   const handleResetHistory = () => {
     resetHistory()
     setResults([])
@@ -69,13 +78,14 @@ export default function GearPage() {
     toast.success('Gear history has been reset.')
   }
 
-  // Nilai default untuk CompareFormGear
+  // Default Compare Kosong
   const defaultResources = useMemo(
     () => ({
       plans: 0,
       polish: 0,
       alloy: 0,
       amber: 0,
+      svs: 0,
     }),
     []
   )
@@ -89,12 +99,11 @@ export default function GearPage() {
         </div>
       </div>
 
-      {/* === Gear Form + Compare Button === */}
+      {/* === Gear Form === */}
       <div className="flex flex-col md:p-6 lg:flex-row gap-6 mt-6 w-full">
         <div className="w-full">
-          <GearForm onSubmit={handleCalculate} />
+          <GearForm onSubmit={handleCalculate} materialDataLoaded={true} />
 
-          {/* Tombol Compare selalu tampil */}
           <div className="flex justify-end mt-4">
             <button
               onClick={() => setShowCompareForm(true)}
@@ -120,10 +129,10 @@ export default function GearPage() {
         </div>
       </div>
 
-      {/* === POPUP Compare Form === */}
+      {/* === Popup Compare Form === */}
       {showCompareForm && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-          <div className="bg-[#ffffff35] bg-blur p-6 rounded-xl border border-white/20 w-[90%] max-w-lg relative">
+          <div className="bg-[#ffffff35] backdrop-blur p-6 rounded-xl border border-white/20 w-[90%] max-w-lg relative">
             <button
               onClick={() => setShowCompareForm(false)}
               className="absolute top-2 right-2 text-xl text-red-400 hover:text-white"
@@ -141,7 +150,7 @@ export default function GearPage() {
       )}
 
       {/* === Results Section === */}
-      {results.length > 0 && (
+      {Array.isArray(results) && results.length > 0 && (
         <div className="md:p-6 mt-8 space-y-6 w-full">
           <TabSwitcherGear
             results={results}

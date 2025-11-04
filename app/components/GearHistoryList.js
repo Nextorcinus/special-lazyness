@@ -1,4 +1,3 @@
-// GearHistoryList.js
 'use client'
 
 import React from 'react'
@@ -11,9 +10,9 @@ export default function GearHistoryList({ onResetGlobal }) {
   const { history, deleteHistory, resetHistory } = useGearHistory()
 
   const handleReset = () => {
-    // console.log('[GEAR HISTORY] 🧹 Tombol reset diklik')
     resetHistory()
     toast.success('All history has been reset.')
+    if (onResetGlobal) onResetGlobal()
   }
 
   return (
@@ -38,7 +37,8 @@ export default function GearHistoryList({ onResetGlobal }) {
               className="flex justify-between items-center bg-zinc-800 rounded px-4 py-3"
             >
               <div>
-                <div className="text-sm font-semibold">{entry.gear}</div>
+                {/* Gunakan `type` bukan `gear` */}
+                <div className="text-sm font-semibold">{entry.type}</div>
                 <div className="text-xs text-zinc-400 mt-1">
                   {entry.from} → {entry.to}
                 </div>
@@ -47,9 +47,9 @@ export default function GearHistoryList({ onResetGlobal }) {
                 className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded"
                 onClick={() => {
                   deleteHistory(entry.id)
-                  toast.success(`History ${entry.gear} has been deleted.`)
+                  toast.success(`History ${entry.type} has been deleted.`)
 
-                  // Trigger reset jika hanya satu entry yang tersisa
+                  // Jika terakhir, trigger event untuk reset form
                   if (history.length === 1 && typeof window !== 'undefined') {
                     window.dispatchEvent(new CustomEvent('gear:forceReset'))
                   }
