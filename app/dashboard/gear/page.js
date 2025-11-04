@@ -1,144 +1,156 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import GearForm from '../../components/GearForm'
-import GearTable from '../../components/GearTable'
-import GearProgress from '../../components/GearProgress'
 import CompareFormGear from '../../components/CompareFormGear'
-import { levels as levelsOrder } from '../../data/levels'
-import rawMaterialData from '../../data/MaterialDataGear'
-import { parseMaterialNumber } from '../../utils/parseMaterialNumber'
+import TabSwitcherGear from '../../components/tabSwitcherGear'
+import { v4 as uuidv4 } from 'uuid'
 import { useGearHistory } from './GearContext'
-
-const materialData = rawMaterialData.data || []
+import { toast } from 'sonner'
+import '../../globals.css'
 
 export default function GearPage() {
-  const { resetFormTrigger } = useGearHistory()
+  const [results, setResults] = useState([])
+  const [compares, setCompares] = useState([])
+  const [showCompareForm, setShowCompareForm] = useState(false)
 
-  const [selectedGears, setSelectedGears] = useState([])
-  const [ownResources, setOwnResources] = useState(null)
+  const { history, addToHistory, deleteHistory, resetHistory } = useGearHistory()
 
-  const resultRef = useRef()
-  const compareRef = useRef()
-
-  const { updateHistory } = useGearHistory()
-
-  const { history } = useGearHistory()
-
+  // Sinkronisasi hasil dengan history
   useEffect(() => {
-    if (!history || history.length === 0) {
-      setSelectedGears([])
-      return
-    }
-
-    const activeGears = history.map((entry) => entry.gear)
-    setSelectedGears((prev) =>
-      prev.filter((item) => activeGears.includes(item.gear))
-    )
+    setResults(history)
+    setCompares((prev) => {
+      const updated = [...prev]
+      while (updated.length < history.length) updated.push(null)
+      return updated.slice(0, history.length)
+    })
   }, [history])
 
-  const handleFormSubmit = (selections) => {
-    if (!materialData.length)
-      return console.error('Material data belum dimuat!')
+  // Hitung hasil gear upgrade dari GearForm
+  const handleCalculate = (data) => {
+    const resultWithId = { ...data, id: uuidv4() }
+    setResults((prev) => [...prev, resultWithId])
+    setCompares((prev) => [...prev, null])
+    addToHistory(resultWithId)
 
-    const gearResults = []
+    toast.success('Gear upgrade calculated!')
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+    }, 100)
+  }
 
-    Object.entries(selections).forEach(([gearPart, { from, to }]) => {
-      if (!from || !to) return
-
-      const fromIndex = levelsOrder.indexOf(from)
-      const toIndex = levelsOrder.indexOf(to)
-
-      if (fromIndex === -1 || toIndex === -1 || fromIndex >= toIndex) return
-
-      for (let i = fromIndex; i < toIndex; i++) {
-        const currentLevel = levelsOrder[i]
-        const nextLevel = levelsOrder[i + 1]
-
-        const upgradeData = materialData.find(
-          (item) =>
-            item.Type.toLowerCase() === gearPart.toLowerCase() &&
-            item.Level.toLowerCase() === nextLevel.toLowerCase()
-        )
-
-        if (!upgradeData) return
-
-        gearResults.push({
-          gear: gearPart,
-          from: currentLevel,
-          to: nextLevel,
-          plans: parseMaterialNumber(upgradeData.Plans),
-          polish: parseMaterialNumber(upgradeData.Polish),
-          alloy: parseMaterialNumber(upgradeData.Alloy),
-          amber: parseMaterialNumber(upgradeData.Amber),
-          svs: parseMaterialNumber(upgradeData['SvS Points']),
-        })
+  // Submit perbandingan resource
+  const handleCompareSubmit = (compareData) => {
+    if (!compareData) return
+    setCompares((prev) => {
+      const updated = [...prev]
+      for (let i = 0; i < results.length; i++) {
+        updated[i] = compareData
       }
-
-      if (from !== to) {
-        updateHistory({ gear: gearPart, from, to })
-      }
+      return updated
     })
-
-    setSelectedGears(gearResults)
-    resultRef.current?.scrollIntoView({ behavior: 'smooth' })
+    setShowCompareForm(false)
+    toast.success('Comparison applied to all results!')
   }
 
-  const handleCompare = (resources) => {
-    setOwnResources(resources)
-    compareRef.current?.scrollIntoView({ behavior: 'smooth' })
+  // Hapus 1 riwayat gear
+  const handleDeleteHistory = (id) => {
+    deleteHistory(id)
+    const updated = history.filter((item) => item.id !== id)
+    setResults(updated)
+    setCompares((prev) => prev.filter((_, i) => i < updated.length))
   }
 
-  // Reset total saat global trigger diaktifkan
-  useEffect(() => {
-    if (resetFormTrigger) {
-      setSelectedGears([])
-      setOwnResources(null)
-    }
-  }, [resetFormTrigger])
+  // Reset semua history
+  const handleResetHistory = () => {
+    resetHistory()
+    setResults([])
+    setCompares([])
+    toast.success('Gear history has been reset.')
+  }
 
-  const totalMaterial = selectedGears.reduce(
-    (acc, item) => ({
-      plans: acc.plans + item.plans,
-      polish: acc.polish + item.polish,
-      alloy: acc.alloy + item.alloy,
-      amber: acc.amber + item.amber,
-      svs: acc.svs + item.svs,
+  // Nilai default untuk CompareFormGear
+  const defaultResources = useMemo(
+    () => ({
+      plans: 0,
+      polish: 0,
+      alloy: 0,
+      amber: 0,
     }),
-    { plans: 0, polish: 0, alloy: 0, amber: 0, svs: 0 }
+    []
   )
 
   return (
-    <div className="p-4 md:p-6 text-white w-full">
-      <div className="relative bg-special-inside rounded-2xl p-6 ">
-        <h2 className="text-2xl text-white">Chief Gear Upgrade</h2>
+    <main className="text-white w-full">
+      {/* === Header === */}
+      <div className="relative w-full md:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
+          <h2 className="text-2xl text-white">Chief Gear Upgrade</h2>
+        </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 mt-6 w-full">
-        <div className="w-full lg:w-8/12">
-          <GearForm
-            key={resetFormTrigger}
-            onSubmit={handleFormSubmit}
-            materialDataLoaded={materialData.length > 0}
-            resetTrigger={resetFormTrigger}
+      {/* === Gear Form + Compare Button === */}
+      <div className="flex flex-col md:p-6 lg:flex-row gap-6 mt-6 w-full">
+        <div className="w-full">
+          <GearForm onSubmit={handleCalculate} />
+
+          {/* Tombol Compare selalu tampil */}
+          <div className="flex justify-end mt-4">
+            <button
+              onClick={() => setShowCompareForm(true)}
+              className="buttonGlass flex gap-2 text-sm md:text-base"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 md:h-5 md:w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 4v16m8-8H4"
+                />
+              </svg>
+              Compare Resources
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* === POPUP Compare Form === */}
+      {showCompareForm && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-[#ffffff35] bg-blur p-6 rounded-xl border border-white/20 w-[90%] max-w-lg relative">
+            <button
+              onClick={() => setShowCompareForm(false)}
+              className="absolute top-2 right-2 text-xl text-red-400 hover:text-white"
+            >
+              ✕
+            </button>
+
+            <CompareFormGear
+              onCompare={handleCompareSubmit}
+              comparedData={compares[0] || defaultResources}
+              onCancel={() => setShowCompareForm(false)}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* === Results Section === */}
+      {results.length > 0 && (
+        <div className="md:p-6 mt-8 space-y-6 w-full">
+          <TabSwitcherGear
+            results={results}
+            compares={compares}
+            onDeleteHistory={handleDeleteHistory}
+            onResetHistory={handleResetHistory}
           />
         </div>
-
-        <div className="w-full lg:w-4/12">
-          <CompareFormGear onCompare={handleCompare} />
-        </div>
-      </div>
-
-      <div ref={resultRef} className="lg:flex-row gap-6 mt-6 w-full">
-        <div ref={compareRef}>
-          {selectedGears.length > 0 && (
-            <>
-              <GearTable data={selectedGears} compare={ownResources} />
-              <GearProgress total={totalMaterial} compare={ownResources} />
-            </>
-          )}
-        </div>
-      </div>
-    </div>
+      )}
+    </main>
   )
 }
