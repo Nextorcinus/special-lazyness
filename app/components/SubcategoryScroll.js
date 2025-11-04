@@ -56,15 +56,15 @@ export default function SubcategoryScroll({ items, selected, onSelect }) {
       ref={scrollRef}
       className="glass-new p-1 w-full overflow-x-auto no-scrollbar mt-4 "
     >
-      <div className=" flex gap-1 cursor-grab select-none w-max ">
+      <div className=" flex gap-5 cursor-grab select-none w-max ">
         {items.map((item) => (
           <button
             key={item}
             onClick={() => onSelect(item)}
             className={cn(
-              "px-4 py-2 rounded-xl text-sm transition whitespace-nowrap",
+              " rounded-xl text-base px-4 py-2 whitespace-nowrap",
               selected === item
-                ? "button button--glass text-white shadow"
+                ? "button--glass text-white shadow"
                 : "text-white hover:text-white",
             )}
           >

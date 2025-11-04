@@ -133,7 +133,7 @@ function BuildingForm({
         <TooltipProvider>
           <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-2 md:grid-cols-4 xl:grid-col-4 2xl:grid-cols-8 gap-4 ">
             <div>
-              <Label className="text-white text-shadow-sm">From</Label>
+              <Label className="text-white text-shadow-lg/20">From</Label>
 
               <Select
                 value={fromLevel}
@@ -257,7 +257,7 @@ function BuildingForm({
           
         <Button
           onClick={handleSubmit}
-          className="bg-orange-600 text-white hover:bg-green-700 rounded-sm py-5"
+          className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white  rounded-lg py-6 md:py-10"
         >
           Calculate
         </Button>

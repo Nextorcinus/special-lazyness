@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="antialiased" >
+      <body className="" >
         <WelcomePopup />
       
       <GoldenBackground />
@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
         <div className="min-h-screen flex flex-col">
           <MobileSidebar />
 
-          <main className="flex-1 lg:pl-20 w-full bg-special overflow-y-auto">
+          <main className="flex-1 w-full bg-special overflow-y-auto">
             {children}
           </main>
         </div>

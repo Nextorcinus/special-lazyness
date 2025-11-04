@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
-import { HistoryProvider } from "./HistoryContext";
-import { AddAnotherProvider } from "./AddAnotherContext";
+import { HistoryProvider } from './HistoryContext'
+import { AddAnotherProvider } from './AddAnotherContext'
 
-import { Toaster } from "sonner";
-import PageWrapper from "../../components/PageWrapper";
-import WelcomePopup from "../../components/Popup";
+import { Toaster } from 'sonner'
+import PageWrapper from '../../components/PageWrapper'
+import WelcomePopup from '../../components/Popup'
 
 export default function BuildingsLayout({ children }) {
   return (
@@ -13,21 +13,18 @@ export default function BuildingsLayout({ children }) {
       <PageWrapper>
         <HistoryProvider>
           <AddAnotherProvider>
-            <div className="min-h-screen bg-special text-white grid grid-cols-1 lg:grid-cols-[1fr_320px]">
-              <main className="flex flex-col w-full min-w-0">
-                <div className="p-4">{children}</div>
-
-
+            <div className="min-h-screen bg-special text-white">
+              <main className="flex flex-col items-center w-full">
+                <div className="w-full max-w-[1200px] px-4 md:px-6 lg:px-8">
+                  <div className="p-4">{children}</div>
+                </div>
 
                 <Toaster richColors position="bottom-right" />
               </main>
-
-        
-              
             </div>
           </AddAnotherProvider>
         </HistoryProvider>
       </PageWrapper>
     </>
-  );
+  )
 }

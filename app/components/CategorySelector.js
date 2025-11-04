@@ -11,13 +11,13 @@ export default function CategorySelector({ selected, onChange }) {
   ]
 
   return (
-    <div className="relative  mt-2 flex gap-4 text-sm font-medium text-white">
+    <div className="relative  flex gap-4 text-sm font-medium text-white">
       {categories.map((cat) => (
         <button
           key={cat.name}
           onClick={() => onChange(cat.name)}
           className={cn(
-            'buttonGlass flex items-center gap-2 transition-all duration-300',
+            'buttonGlass flex items-center gap-4 transition-all duration-300',
             selected === cat.name && 'active text-lime-400'
           )}
         >
@@ -28,7 +28,7 @@ export default function CategorySelector({ selected, onChange }) {
             height={25}
             className={cn(
               ' transition-all duration-300',
-              selected === cat.name && ' scale-110'
+              selected === cat.name && ' scale-100'
             )}
           />
           {cat.name}

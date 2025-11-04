@@ -23,9 +23,22 @@ function CompareForm({
     let hasValue = false;
 
     resources.forEach((key) => {
-      const value = parseFloat(formData.get(key)) || 0;
+      const inputValue = formData.get(key) || "";
+      
+      // Cek dulu apakah input benar-benar kosong atau hanya whitespace
+      if (inputValue.trim() === "") {
+        data[key] = 0;
+        return;
+      }
+      
+      // Gunakan parseNumber yang sudah ada
+      const value = parseNumber(inputValue);
       data[key] = value;
-      if (value > 0) hasValue = true;
+      
+      // Cek jika value adalah angka valid dan lebih dari 0
+      if (!isNaN(value) && value > 0) {
+        hasValue = true;
+      }
     });
 
     if (!hasValue) {
@@ -37,10 +50,15 @@ function CompareForm({
     onCompare?.(data);
   };
 
-   
+  // Format default value untuk display (jika ada)
+  const getDefaultValue = (key) => {
+    const value = comparedData?.[key];
+    if (!value || value === 0) return "";
+    return formatToShortNumber(value);
+  };
 
   return (
-    <div className=" p-6 py-8 bg-special-inside-green text-white shadow">
+    <div className=" p-6 py-8 glass-new text-white shadow">
       {!readonly && <h3 className="text-xl mb-2">Own Resources</h3>}
       {readonly ? (
         <div>
@@ -77,19 +95,19 @@ function CompareForm({
                   {key}
                 </label>
                 <input
-                  type="number"
-                  step="any"
+                  type="text"
                   name={key}
                   id={key}
-                  defaultValue={comparedData?.[key] || ""}
-                  className="w-full bg-special-input-green p-2 rounded text-zinc-400"
+                  defaultValue={getDefaultValue(key)}
+                  placeholder="e.g., 35 M, 1.5 K"
+                  className="w-full bg-special-input p-2 rounded special-input-dark text-zinc-400"
                 />
               </div>
             ))}
           </div>
           <button
             type="submit"
-            className="mt-6 px-4 py-2 bg-lime-600 hover:bg-green-700 rounded text-white"
+            className="mt-6 px-4 py-2 bg-orange-500 hover:bg-orange-400 rounded text-white"
           >
             Compare
           </button>
