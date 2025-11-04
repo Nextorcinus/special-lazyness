@@ -58,11 +58,11 @@ export default function TotalResult({ results = [], comparedData = null }) {
       diff,
       color:
         diff > 0
-          ? 'text-green-400'
+          ? 'text-xs text-green-400 rounded-md border border-green-800 bg-green-700/10 px-2 py-1'
           : diff < 0
-          ? 'text-red-200'
-          : 'text-zinc-100',
-      label: diff > 0 ? 'Extra +' : diff < 0 ? 'Need -' : 'Match',
+          ? 'text-xs text-red-200 rounded-md border border-red-400 bg-red-500/10 px-2 py-1'
+          : 'text-xs text-zinc-100 rounded-md border border-zinc-300 bg-white/10 px-2 py-1',
+      label: diff > 0 ? '+' : diff < 0 ? '-' : 'Match',
     }
   })
 
@@ -72,7 +72,7 @@ export default function TotalResult({ results = [], comparedData = null }) {
         Total Result Required
       </h3>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-8 gap-4 text-md">
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-6 gap-4 text-md">
         {resourceOrder.map((key) => (
           <div
             key={key}

@@ -7,6 +7,8 @@ import ResourceIcon from './ResourceIcon'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
 import { useHistory } from '../dashboard/buildings/HistoryContext'
 import { toast } from 'sonner'
+import { Button } from './ui/button'
+import { useAddAnother } from '../dashboard/buildings/AddAnotherContext'
 
 export default function TabSwitcher({
   results,
@@ -16,6 +18,7 @@ export default function TabSwitcher({
 }) {
   const [tab, setTab] = useState('overview')
   const { history, deleteHistory, resetHistory } = useHistory()
+  const { addAnother } = useAddAnother()
 
   return (
     <div className="">
@@ -59,9 +62,7 @@ export default function TabSwitcher({
                   <button
                     onClick={() => {
                       deleteHistory(res.id)
-                      toast.success(
-                        `History ${res.building} has been deleted.`
-                      )
+                      toast.success(`History ${res.building} has been deleted.`)
                     }}
                     className="buttonGlass absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:scale-105 transition-transform duration-200"
                     aria-label="Delete history"
@@ -75,7 +76,7 @@ export default function TabSwitcher({
                 </div>
                 {/* Resources */}
                 <div>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-7 gap-4  w-full">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-6 gap-4  w-full">
                     {Object.entries(res.resources || {}).map(([key, value]) => {
                       const need = res.rawResources?.[key] || 0
                       const hasCompare = compare && key in compare
@@ -85,12 +86,12 @@ export default function TabSwitcher({
                       const isMatch = diff === 0
                       const color =
                         diff > 0
-                          ? 'text-xs text-green-200 bg-green-700/60 px-2 py-1'
+                          ? 'text-xs text-green-400 rounded-md border border-green-800 bg-green-700/10 px-2 py-1'
                           : diff < 0
-                          ? 'text-xs text-red-100 bg-red-500/20 px-2 py-1'
+                          ? 'text-xs text-red-200 border border-red-400 bg-red-500/10 px-2 py-1'
                           : 'text-xs text-gray-200 bg-white/20 px-2 py-1'
                       const label =
-                        diff > 0 ? 'Extra +' : diff < 0 ? 'Need -' : 'Match'
+                        diff > 0 ? '+' : diff < 0 ? '-' : 'Match'
 
                       return (
                         <div
@@ -178,6 +179,18 @@ export default function TabSwitcher({
               </div>
             )
           })}
+
+          <div className="bg-special-inside-dotted flex justify-center p-6 rounded-xl ">
+            <Button
+              onClick={() => {
+                addAnother()
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+              className="w-max buttonGlass text-white px-4 rounded"
+            >
+              + Add Another Building
+            </Button>
+          </div>
 
           {/* 2. Total Result */}
           <TotalResult results={results} comparedData={compares?.[0]} />

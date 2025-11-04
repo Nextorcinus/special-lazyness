@@ -108,6 +108,15 @@
     0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+.bg-special-inside-dotted {
+  background: rgba(255, 255, 255, 0.11);
+  border-radius: 20px;
+  border: 2px dashed rgba(255, 255, 255, 0.3) ;
+  /* box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.1),
+    0px 0px 10px */
+}
+
+
 @font-face {
   font-family: 'Fustat';
   src: url('/fonts/fustat-regular.woff2') format('woff2');
@@ -311,16 +320,16 @@ body {
 }
 
 .special-input-dark::placeholder {
-  color: #9CA3AF; 
+  color: #a1a1a1; 
   opacity: 1;
 }
 
 .special-input-dark::-webkit-input-placeholder {
-  color: #9CA3AF;
+  color: #a1a1a1;
 }
 
 .special-input-dark::-moz-placeholder { 
-  color: #9CA3AF;
+  color: #a1a1a1;
   opacity: 1;
 }
 

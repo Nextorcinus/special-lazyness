@@ -56,14 +56,7 @@ export default function HistoryList() {
               </div>
             ))}
 
-            <div className="pt-2 text-center">
-              <Button
-                onClick={addAnother}
-                className="w-max button button--glass text-white px-4  rounded"
-              >
-                + Add Another Building
-              </Button>
-            </div>
+            
           </>
         )}
       </CardContent>

@@ -7,16 +7,31 @@ const HistoryContext = createContext()
 export function HistoryProvider({ children }) {
   const [history, setHistory] = useState([])
 
+  
   useEffect(() => {
-    const saved = localStorage.getItem('buildingHistory')
-    if (saved) {
-      setHistory(JSON.parse(saved))
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('buildingHistory')
+      if (saved) {
+        try {
+          setHistory(JSON.parse(saved))
+        } catch (err) {
+          console.error('Error parsing history:', err)
+          localStorage.removeItem('buildingHistory')
+        }
+      }
     }
   }, [])
 
-  useEffect(() => {
-    localStorage.setItem('buildingHistory', JSON.stringify(history))
-  }, [history])
+  // Simpan data ke localStorage 
+ useEffect(() => {
+  if (typeof window !== 'undefined') {
+    if (history.length > 0) {
+      localStorage.setItem('buildingHistory', JSON.stringify(history))
+    } else {
+      localStorage.removeItem('buildingHistory')
+    }
+  }
+}, [history])
 
   const addHistory = (entry) => {
     setHistory((prev) => [...prev, entry])
@@ -28,7 +43,9 @@ export function HistoryProvider({ children }) {
 
   const resetHistory = () => {
     setHistory([])
-    localStorage.removeItem('buildingHistory')
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('buildingHistory')
+    }
   }
 
   return (
