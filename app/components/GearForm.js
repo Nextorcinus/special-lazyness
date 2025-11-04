@@ -66,8 +66,6 @@ export default function GearForm({
 
   if (!materialDataLoaded) {
     toast.warning('Data belum dimuat sepenuhnya.')
-    // tetap lanjutkan jika kamu mau tes kliknya
-    // return // ← hapus baris ini kalau mau klik tetap bisa
   }
 
   toast.success('Upgrade calculated successfully!')
@@ -90,8 +88,9 @@ export default function GearForm({
     <div className="p-6 bg-special-inside rounded-xl space-y-6">
       <h2 className="text-xl">Select Gear Upgrade</h2>
 
-      {/* === Gear Type === */}
-      <div className="space-y-2">
+    <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-4 md:grid-cols-4 xl:grid-col-4 2xl:grid-cols-4 gap-4 ">
+
+      <div>
         <Label className="text-[#868E83]">Gear Type</Label>
         <Select
           value={selection.type}
@@ -110,15 +109,14 @@ export default function GearForm({
         </Select>
       </div>
 
-      {/* === Level From / To === */}
-      <div className="space-y-2">
-        <Label className="text-[#868E83]">Upgrade Level</Label>
-        <div className="flex gap-4">
+      <div>
+        <Label className="text-[#868E83]">From</Label>
+        
           <Select
             value={selection.from}
             onValueChange={(val) => handleChange('from', val)}
           >
-            <SelectTrigger className="bg-special-input w-1/2 text-white">
+            <SelectTrigger className="bg-special-input text-white">
               <SelectValue placeholder="From" />
             </SelectTrigger>
             <SelectContent>
@@ -129,13 +127,15 @@ export default function GearForm({
               ))}
             </SelectContent>
           </Select>
-
-          <Select
+      </div>
+      <div>
+        <Label className="text-[#868E83]">From</Label>
+        <Select
             value={selection.to}
             onValueChange={(val) => handleChange('to', val)}
             disabled={!selection.from}
           >
-            <SelectTrigger className="bg-special-input w-1/2 text-white">
+            <SelectTrigger className="bg-special-input text-white">
               <SelectValue placeholder="To" />
             </SelectTrigger>
             <SelectContent>
@@ -146,10 +146,10 @@ export default function GearForm({
               ))}
             </SelectContent>
           </Select>
-        </div>
       </div>
+    
 
-      {/* === Tombol Action === */}
+   
       <div className="flex gap-4">
         <Button
   type="button"
@@ -158,14 +158,8 @@ export default function GearForm({
 >
   Calculate
 </Button>
-
-        <Button
-          type="button"
-          onClick={handleLocalReset}
-          className="bg-slate-600 hover:bg-red-600 text-white text-base rounded-sm py-5"
-        >
-          Reset
-        </Button>
+</div>
+        
       </div>
     </div>
   )
