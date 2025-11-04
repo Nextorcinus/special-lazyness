@@ -164,15 +164,6 @@ export default function TabSwitcherGear({
             )
           })}
 
-          {/* Reset All */}
-          <div className="bg-special-inside-dotted flex justify-center p-6 rounded-xl">
-            <Button
-              onClick={onResetHistory}
-              className="w-max buttonGlass text-white px-4 rounded"
-            >
-              Reset All
-            </Button>
-          </div>
         </div>
       )}
 
