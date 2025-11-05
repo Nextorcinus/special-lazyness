@@ -13,8 +13,9 @@ export default function ResearchCategorySelector({ selected, onChange }) {
           key={cat}
           onClick={() => onChange(cat)}
           className={cn(
-            'transition-colors',
-            selected === cat && 'text-lime-500'
+            'buttonGlass flex items-center gap-4 transition-all duration-300',
+            selected === cat.name && 'active text-lime-400'
+            
           )}
         >
           {cat}

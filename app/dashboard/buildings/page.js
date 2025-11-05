@@ -116,8 +116,7 @@ export default function Home({ addAnotherTrigger }) {
   )
 
   return (
-    <main className=" text-white w-full">
-      {/* === Header === */}
+    <main className=" text-white w-full">  
       <div className="relative w-full md:p-6 ">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
           <h2 className="text-2xl text-white ">Buildings Upgrade</h2>

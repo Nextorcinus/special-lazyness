@@ -299,6 +299,7 @@ body {
   font-size: 14px;
   letter-spacing: 1px;
   color: #fff;
+  backdrop-filter: blur(10px);
   border-radius: 10px;
   /*box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);*/
 }
@@ -313,7 +314,7 @@ body {
   font-size: 14px;
   letter-spacing: 1px;
   color: #fff;
-  border-radius: 60px;
+ 
   box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 0.2);
   /* box-shadow: inset 0px 12px 9.1px rgba(48, 59, 43, 0.3),
     0px 4px 8px rgba(78, 78, 78, 0.3) inset; */
@@ -365,13 +366,16 @@ body {
   padding: 14px;
   background: rgba(255, 254, 254, 0.38);
   box-shadow: 0px 64px 64px -32px rgba(102, 36.72, 0, 0.56);
-  overflow: hidden;
+
   border-radius: 16px;
-  outline: 0.5px rgba(245, 239, 235, 0.55) solid;
+  outline:none;
   outline-offset: -0.5px;
   backdrop-filter: blur(10px);
   justify-content: flex-start;
   align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+
 }
 
 .bg-title-result {

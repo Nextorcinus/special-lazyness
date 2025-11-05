@@ -61,7 +61,7 @@ export default function ResearchPage() {
 
   return (
     <main className="p-1 md:p-6 text-white w-full">
-      <div className="relative bg-special-inside  rounded-2xl p-6">
+      <div className="relative w-full md:p-6 ">
         <h2 className="text-2xl">Research Upgrade</h2>
         <ResearchCategorySelector selected={category} onChange={setCategory} />
         <ResearchSubcategoryScroll
@@ -72,7 +72,7 @@ export default function ResearchPage() {
       </div>
 
       {selectedSub && (
-        <div className="mt-6 w-full md:w-3/4">
+        <div className="flex flex-col md:px-6 lg:flex-row gap-6 mt-2 w-full">
           <ResearchForm
             category={category}
             researchName={selectedSub}

@@ -2,8 +2,9 @@
 
 import { useState, useMemo, useEffect } from 'react'
 import researchData from '../data/MaterialBasicResearch'
-import { Input } from './ui/input'
+import { Card, CardContent } from './ui/card'
 import { Label } from './ui/label'
+import { Input } from './ui/input'
 import {
   Select,
   SelectItem,
@@ -13,6 +14,13 @@ import {
 } from './ui/select'
 import { Button } from './ui/button'
 import { toast } from 'sonner'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './ui/tooltip'
+import { Info } from 'lucide-react'
 
 export default function ResearchForm({ category, researchName, onCalculate }) {
   const [tier, setTier] = useState('')
@@ -21,43 +29,38 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
   const [researchSpeed, setResearchSpeed] = useState('0')
   const [vpBonus, setVpBonus] = useState('0')
 
-  // Tier options
+  // === Tier Options ===
   const tierOptions = useMemo(
     () => Object.keys(researchData[category]?.[researchName]?.tiers || {}),
     [category, researchName]
   )
 
-  // Available levels for selected tier
+  // === Level Options based on Tier ===
   const levelOptions = useMemo(() => {
-    if (
-      !tier ||
-      !Array.isArray(researchData[category]?.[researchName]?.tiers?.[tier])
-    )
-      return []
-    return researchData[category][researchName].tiers[tier].map(
-      (item) => item.level
+    if (!tier) return []
+    return (
+      researchData[category]?.[researchName]?.tiers?.[tier]?.map(
+        (i) => i.level
+      ) || []
     )
   }, [category, researchName, tier])
 
-  // Set default fromLevel to '0' if only one level in data, else reset
+  // === Reset Levels when Tier Changes ===
   useEffect(() => {
     if (tier) {
-      if (levelOptions.length <= 1) {
-        setFromLevel('0')
-      } else {
-        setFromLevel('')
-      }
+      setFromLevel(levelOptions.length <= 1 ? '0' : '')
       setToLevel('')
     }
   }, [tier, levelOptions])
 
-  // Filter to levels greater than fromLevel
+  // === Filter To Levels (only greater than From) ===
   const toLevelOptions = useMemo(() => {
     const from = parseInt(fromLevel)
     if (!Array.isArray(levelOptions)) return []
     return levelOptions.filter((lvl) => lvl > from)
   }, [levelOptions, fromLevel])
 
+  // === Handle Calculation ===
   const handleCalculate = () => {
     const from = parseInt(fromLevel)
     const to = parseInt(toLevel)
@@ -82,8 +85,8 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
     const totalResources = { Meat: 0, Wood: 0, Coal: 0, Iron: 0, Steel: 0 }
     entries.forEach((item) => {
       if (item.resources) {
-        Object.keys(totalResources).forEach((resource) => {
-          totalResources[resource] += parseInt(item.resources[resource] || 0)
+        Object.keys(totalResources).forEach((res) => {
+          totalResources[res] += parseInt(item.resources[res] || 0)
         })
       }
     })
@@ -102,91 +105,122 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
   }
 
   return (
-    <div
-      id="research-form"
-      className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-6 bg-special-inside rounded-xl shadow-2xl border border-zinc-800"
-    >
-      <div className="col-span-full">
-        <Label className="text-zinc-400">Tier</Label>
-        <Select value={tier} onValueChange={setTier}>
-          <SelectTrigger className="bg-special-input text-white">
-            <SelectValue placeholder="Choose Tier" />
-          </SelectTrigger>
-          <SelectContent>
-            {tierOptions.map((t) => (
-              <SelectItem key={t} value={t}>
-                {t}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+    <Card className="bg-glass-background1 text-white mt-6">
+      <CardContent className="space-y-6 pt-6">
+        <h2 className="text-xl text-white">{researchName}</h2>
 
-      <div>
-        <Label className="text-zinc-400">From</Label>
-        <Select value={fromLevel} onValueChange={setFromLevel}>
-          <SelectTrigger className="bg-special-input text-white">
-            <SelectValue placeholder="select level" />
-          </SelectTrigger>
-          <SelectContent>
-            {/* Default level 0 option */}
-            <SelectItem value="0">0</SelectItem>
-            {levelOptions.map((lvl) => (
-              <SelectItem key={lvl} value={String(lvl)}>
-                {lvl}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+        <TooltipProvider>
+          <div className="bg-glass-background2 p-4 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-4">
+            {/* === Tier Select === */}
+            <div>
+              <Label className="text-white text-shadow-md">Tier</Label>
+              <Select value={tier} onValueChange={setTier}>
+                <SelectTrigger className="bg-special-input text-white">
+                  <SelectValue placeholder="Select Tier" />
+                </SelectTrigger>
+                <SelectContent>
+                  {tierOptions.map((t) => (
+                    <SelectItem key={t} value={t}>
+                      {t}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-      <div>
-        <Label className="text-zinc-400">To</Label>
-        <Select value={toLevel} onValueChange={setToLevel}>
-          <SelectTrigger className="bg-special-input text-white">
-            <SelectValue placeholder="select level" />
-          </SelectTrigger>
-          <SelectContent>
-            {toLevelOptions.map((lvl) => (
-              <SelectItem key={lvl} value={String(lvl)}>
-                {lvl}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+            {/* === From Level === */}
+            <div>
+              <Label className="text-white text-shadow-md">From</Label>
+              <Select value={fromLevel} onValueChange={setFromLevel}>
+                <SelectTrigger className="bg-special-input text-white">
+                  <SelectValue placeholder="-- Select --" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="0">0</SelectItem>
+                  {levelOptions.map((lvl) => (
+                    <SelectItem key={lvl} value={String(lvl)}>
+                      {lvl}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-      <div>
-        <Label className="text-zinc-400">Research Speed (%)</Label>
-        <Input
-          type="number"
-          value={researchSpeed}
-          onChange={(e) => setResearchSpeed(e.target.value)}
-          placeholder="Contoh: 30"
-          className="bg-special-input text-white"
-        />
-      </div>
+            {/* === To Level === */}
+            <div>
+              <Label className="text-white text-shadow-md">To</Label>
+              <Select value={toLevel} onValueChange={setToLevel}>
+                <SelectTrigger className="bg-special-input text-white">
+                  <SelectValue placeholder="-- Select --" />
+                </SelectTrigger>
+                <SelectContent>
+                  {toLevelOptions.map((lvl) => (
+                    <SelectItem key={lvl} value={String(lvl)}>
+                      {lvl}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-      <div>
-        <Label className="text-zinc-400">VP Bonus</Label>
-        <Select value={vpBonus} onValueChange={setVpBonus}>
-          <SelectTrigger className="bg-special-input text-white">
-            <SelectValue placeholder="Choose VP Bonus" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="0">Off</SelectItem>
-            <SelectItem value="10">10%</SelectItem>
-            <SelectItem value="20">20%</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+            {/* === Research Speed === */}
+            <div>
+              <Label className="text-white text-shadow-md">
+                Research Speed (%)
+              </Label>
+              <Input
+                type="number"
+                value={researchSpeed}
+                onChange={(e) => setResearchSpeed(e.target.value)}
+                placeholder="e.g. 30"
+                className="bg-special-input text-white"
+              />
+            </div>
 
-      <Button
-        onClick={handleCalculate}
-        className="bg-lime-600 mt-2 text-white hover:bg-green-700 rounded-sm py-5 col-span-full"
-      >
-        Calculate Research
-      </Button>
-    </div>
+            {/* === VP Bonus === */}
+            <div>
+              <div className="flex items-center gap-1 mb-2">
+                <Label className="text-white text-shadow-md">VP Bonus</Label>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      onClick={(e) => e.preventDefault()}
+                      onTouchStart={(e) => e.preventDefault()}
+                    >
+                      <Info className="w-4 h-4 text-muted-foreground" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="top">
+                    <p>
+                      Buff from Vice President +10%, or +20% if President
+                      activates speed buff (for SvS / KOI)
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <Select value={vpBonus} onValueChange={setVpBonus}>
+                <SelectTrigger className="bg-special-input text-white">
+                  <SelectValue placeholder="Choose Bonus" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="0">Off</SelectItem>
+                  <SelectItem value="10">10%</SelectItem>
+                  <SelectItem value="20">20%</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* === Button === */}
+            <Button
+              onClick={handleCalculate}
+              className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white rounded-lg py-6 md:py-10 col-span-2 md:col-span-1"
+            >
+              Calculate Research
+            </Button>
+          </div>
+        </TooltipProvider>
+      </CardContent>
+    </Card>
   )
 }
