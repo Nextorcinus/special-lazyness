@@ -55,7 +55,7 @@ export default function CompareFormGear({ onCompare, comparedData = {} }) {
           <div key={key}>
             <label
               htmlFor={key}
-              className="text-sm text-zinc-400 block sm:mt-1 sm:mb-1 lg:mt-3"
+              className="text-sm text-white block sm:mt-1 sm:mb-1 lg:mt-3"
             >
               {label}
             </label>

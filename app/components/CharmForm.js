@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import charmData from '../data/MaterialDatacharm.json'
 import { Label } from '../components/ui/label'
 import {
@@ -12,187 +12,165 @@ import {
 } from '../components/ui/select'
 import { Button } from '../components/ui/button'
 import { toast } from 'sonner'
-import { useCharmHistory } from '../dashboard/charm/CharmHistoryContext'
 
-const maxLevel = Math.max(...charmData.map((item) => item.level))
-const charmLevels = Array.from({ length: maxLevel + 1 }, (_, i) => `${i}`)
+const charmTypes = ['Cap', 'Watch', 'Coat', 'Pants', 'Belt', 'Weapon']
+const charmLevels = charmData.map((item) => item.level.toString())
 
-const charmParts = {
-  Lancer: ['Cap', 'Watch'],
-  Infantry: ['Coat', 'Pants'],
-  Marksman: ['Belt', 'Weapon'],
-}
-
-export default function CharmForm({ onSubmit, onReset, dataLoaded }) {
-  const initialState = Object.values(charmParts)
-    .flat()
-    .reduce((acc, part) => {
-      acc[part] = Array.from({ length: 3 }, () => ({ from: '', to: '' }))
-      return acc
-    }, {})
-
-  const [selections, setSelections] = useState(initialState)
-
-  const { resetGearPairs, consumeResetGearPair, history } = useCharmHistory()
-
-  // ✅ Reset hanya input yang dihapus (tanpa trigger render error)
-  useEffect(() => {
-    if (!Array.isArray(resetGearPairs) || resetGearPairs.length === 0) return
-
-    const updated = { ...selections }
-    let changed = false
-
-    resetGearPairs.forEach(({ part, index }) => {
-      const stillExists = history.some(
-        (entry) => entry.gear === part && entry.index === index
-      )
-      if (stillExists) return
-
-      if (updated[part] && updated[part][index]) {
-        updated[part][index] = { from: '', to: '' }
-        changed = true
-      }
-    })
-
-    if (changed) {
-      setSelections(updated)
-    }
-  }, [resetGearPairs, history])
-
-  // ✅ Konsumsi resetGearPairs setelah perubahan
-  useEffect(() => {
-    if (!Array.isArray(resetGearPairs) || resetGearPairs.length === 0) return
-
-    resetGearPairs.forEach(({ part, index }) => {
-      const stillExists = history.some(
-        (entry) => entry.gear === part && entry.index === index
-      )
-      if (!stillExists) {
-        consumeResetGearPair(part, index)
-      }
-    })
-  }, [resetGearPairs, history])
+export default function CharmForm({ onSubmit, onReset }) {
+  const initialState = { type: '', from: '', to: '' }
+  const [selection, setSelection] = useState(initialState)
 
   const getLevelIndex = (level) => charmLevels.indexOf(level)
 
-  const handleChange = (part, index, type, value) => {
-    setSelections((prev) => {
-      const updatedPart = [...prev[part]]
-      updatedPart[index] = {
-        ...updatedPart[index],
-        [type]: value,
-      }
+  const handleChange = (field, value) => {
+    setSelection((prev) => {
+      const updated = { ...prev, [field]: value }
 
+      // Pastikan "to" selalu lebih tinggi dari "from"
       if (
-        type === 'from' &&
-        updatedPart[index].to &&
-        getLevelIndex(updatedPart[index].to) <= getLevelIndex(value)
+        field === 'from' &&
+        updated.to &&
+        getLevelIndex(updated.to) <= getLevelIndex(value)
       ) {
-        updatedPart[index].to = ''
+        updated.to = ''
       }
 
-      return { ...prev, [part]: updatedPart }
+      return updated
     })
   }
 
+  // === Hitung ===
   const handleCalculate = (e) => {
     e.preventDefault()
-    if (dataLoaded) {
-      toast.success('Charm upgrade calculated!')
-      onSubmit(selections)
-    } else {
-      toast.warning('Data not fully loaded yet.')
+
+    const { type, from, to } = selection
+    if (!type || !from || !to) {
+      toast.warning('Please select type, from, and to level.')
+      return
     }
+
+    const fromIndex = charmData.findIndex((item) => item.level === parseInt(from))
+    const toIndex = charmData.findIndex((item) => item.level === parseInt(to))
+    if (fromIndex === -1 || toIndex === -1 || fromIndex >= toIndex) {
+      toast.error('Invalid level range selected.')
+      return
+    }
+
+    // Hitung total bahan
+    const total = { guide: 0, design: 0, jewel: 0, svs: 0 }
+    for (let i = fromIndex + 1; i <= toIndex; i++) {
+      const data = charmData[i]
+      if (!data) continue
+      total.guide += data.guide_cost || 0
+      total.design += data.design_cost || 0
+      total.jewel += data.jewel_cost || 0
+      total.svs += data.svs_point || 0
+    }
+
+    const result = {
+      type,
+      from,
+      to,
+      total,
+    }
+
+    // ✅ Kirim ke parent (page.js) — parent yang akan menambahkan ke history
+    onSubmit?.(result)
+    toast.success(`Charm upgrade calculated: ${type} ${from} → ${to}`)
   }
 
   const handleLocalReset = () => {
-    setSelections(initialState)
+    setSelection(initialState)
     onReset?.()
-    toast.info('Form reset.')
+    toast.info('Charm form has been reset.')
   }
+
+  const availableToLevels = selection.from
+    ? charmLevels.filter((lvl) => parseInt(lvl) > parseInt(selection.from))
+    : charmLevels
 
   return (
     <form
       onSubmit={handleCalculate}
-      className="p-6 bg-special-inside rounded-xl  space-y-6"
+      className="p-6 bg-special-inside rounded-xl space-y-6"
     >
-      <h2 className="text-xl">Select Level</h2>
+      <h2 className="text-xl font-semibold text-white">Select Charm Upgrade</h2>
 
-      {Object.entries(charmParts).map(([category, parts]) => (
-        <div key={category} className="space-y-2">
-          <Label className="text-[#868E83] text-md font-bold block mt-4">
-            {category}
-          </Label>
-          {parts.map((part) => (
-            <div
-              key={part}
-              className="flex flex-col gap-2 items-start flex-wrap"
-            >
-              <Label className="w-20 text-sm text-[#868E83] pt-1 sm:pt-0">
-                {part}
-              </Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-                {selections[part].map((pair, idx) => {
-                  const availableTo = pair.from
-                    ? charmLevels.slice(getLevelIndex(pair.from) + 1)
-                    : charmLevels
-
-                  return (
-                    <div key={idx} className="grid grid-cols-2 gap-2">
-                      <Select
-                        value={pair.from}
-                        onValueChange={(val) =>
-                          handleChange(part, idx, 'from', val)
-                        }
-                      >
-                        <SelectTrigger className="w-full bg-special-input text-white ">
-                          <SelectValue placeholder="From" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {charmLevels.map((lvl) => (
-                            <SelectItem key={lvl} value={lvl}>
-                              {lvl}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-
-                      <Select
-                        value={pair.to}
-                        onValueChange={(val) =>
-                          handleChange(part, idx, 'to', val)
-                        }
-                        disabled={!pair.from}
-                      >
-                        <SelectTrigger className="w-full bg-special-input text-white ">
-                          <SelectValue placeholder="To" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {availableTo.map((lvl) => (
-                            <SelectItem key={lvl} value={lvl}>
-                              {lvl}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          ))}
+      {/* === Input Area === */}
+      <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-3 xl:grid-col-4 2xl:grid-cols-4 gap-4">
+        {/* Type */}
+        <div>
+          <Label className="text-white">Charm Type</Label>
+          <Select
+            value={selection.type}
+            onValueChange={(val) => handleChange('type', val)}
+          >
+            <SelectTrigger className="bg-special-input text-white w-full">
+              <SelectValue placeholder="Select Charm Type" />
+            </SelectTrigger>
+            <SelectContent>
+              {charmTypes.map((type) => (
+                <SelectItem key={type} value={type}>
+                  {type}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
-      ))}
 
-      <div className="flex gap-4 mt-4">
-        <Button
-          type="submit"
-          disabled={!dataLoaded}
-          className="bg-[B3F35F] text-white text-base hover:bg-green-700 rounded-sm py-5"
-        >
-          Calculate
-        </Button>
+        {/* From */}
+        <div>
+          <Label className="text-white">From</Label>
+          <Select
+            value={selection.from}
+            onValueChange={(val) => handleChange('from', val)}
+          >
+            <SelectTrigger className="bg-special-input text-white w-full">
+              <SelectValue placeholder="From" />
+            </SelectTrigger>
+            <SelectContent>
+              {charmLevels.map((lvl) => (
+                <SelectItem key={lvl} value={lvl}>
+                  Level {lvl}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* To */}
+        <div>
+          <Label className="text-white">To</Label>
+          <Select
+            value={selection.to}
+            onValueChange={(val) => handleChange('to', val)}
+            disabled={!selection.from}
+          >
+            <SelectTrigger className="bg-special-input text-white w-full">
+              <SelectValue placeholder="To" />
+            </SelectTrigger>
+            <SelectContent>
+              {availableToLevels.map((lvl) => (
+                <SelectItem key={lvl} value={lvl}>
+                  Level {lvl}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Calculate */}
+        <div className="flex">
+          <Button
+            type="submit"
+            className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white rounded-lg py-6 md:py-6 w-full"
+          >
+            Calculate
+          </Button>
+        </div>
       </div>
+
+     
     </form>
   )
 }

@@ -74,7 +74,7 @@ export default function WidgetPage({ onCalculate }) {
 
   return (
     <div className="p-4 md:p-6 text-white w-full">
-      <div className="relative bg-special-inside  rounded-2xl p-6">
+      <div className="relative bg-special-inside   mt-6 px-4 py-6 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
         <h2 className="text-2xl text-white">Widget Hero</h2>
       </div>
       <div className="bg-special-inside w-full  text-white mt-6 px-4 py-6 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl">
@@ -170,7 +170,7 @@ export default function WidgetPage({ onCalculate }) {
           {/* Submit */}
           <button
             type="submit"
-            className="bg-lime-600 hover:bg-green-700 text-white px-4 py-2 rounded w-full sm:w-auto"
+            className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white rounded-lg py-4 md:py-4 w-full rounded w-full sm:w-auto"
           >
             Analyze
           </button>

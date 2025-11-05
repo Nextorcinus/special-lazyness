@@ -91,7 +91,7 @@ export default function GearForm({
     <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-2 xl:grid-col-4 2xl:grid-cols-4 gap-4 ">
 
       <div>
-        <Label className="text-[#868E83]">Gear Type</Label>
+        <Label className="text-white">Gear Type</Label>
         <Select
           value={selection.type}
           onValueChange={(val) => handleChange('type', val)}
@@ -110,7 +110,7 @@ export default function GearForm({
       </div>
 
       <div>
-        <Label className="text-[#868E83]">From</Label>
+        <Label className="text-white">From</Label>
         
           <Select
             value={selection.from}
@@ -129,7 +129,7 @@ export default function GearForm({
           </Select>
       </div>
       <div>
-        <Label className="text-[#868E83]">From</Label>
+        <Label className="text-white">To</Label>
         <Select
             value={selection.to}
             onValueChange={(val) => handleChange('to', val)}
@@ -150,11 +150,11 @@ export default function GearForm({
     
 
    
-      <div className="flex gap-4">
+      <div className="flex ">
         <Button
   type="button"
   onClick={handleCalculate}
-  className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white  rounded-lg py-6 md:py-10"
+  className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white  rounded-lg py-6 md:py-8"
 >
   Calculate
 </Button>

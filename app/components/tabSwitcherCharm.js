@@ -5,13 +5,11 @@ import { toast } from 'sonner'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
 import { Button } from './ui/button'
 import ResourceIcon from './ResourceIcon'
-import GearHistoryList from './GearHistoryList'
-import materialDataRaw from '../data/MaterialDataGear.json'
-import TotalResultGear from './TotalResultGear'
+import CharmHistoryList from './CharmHistoryList'
+import charmData from '../data/MaterialDatacharm.json'
+import TotalResultCharm from './TotalResultCharm'
 
-const materialData = materialDataRaw.data || []
-
-export default function TabSwitcherGear({
+export default function TabSwitcherCharm({
   results,
   compares,
   onDeleteHistory,
@@ -19,32 +17,21 @@ export default function TabSwitcherGear({
 }) {
   const [tab, setTab] = useState('overview')
 
-  // Hitung total bahan dari level "from" ke "to"
-  const calculateMaterials = (gear, from, to) => {
-    const levels = materialData
-      .filter((item) => item.Type.toLowerCase() === gear.toLowerCase())
-      .map((item) => item.Level)
-    const fromIndex = levels.indexOf(from)
-    const toIndex = levels.indexOf(to)
+  // === Hitung total bahan berdasarkan level from → to ===
+  const calculateMaterials = (from, to) => {
+    const fromIndex = charmData.findIndex((i) => i.level === parseInt(from))
+    const toIndex = charmData.findIndex((i) => i.level === parseInt(to))
     if (fromIndex === -1 || toIndex === -1 || fromIndex >= toIndex) return null
 
-    const total = { plans: 0, polish: 0, alloy: 0, amber: 0, svs: 0 }
-
+    const total = { guide: 0, design: 0, jewel: 0, svs: 0 }
     for (let i = fromIndex + 1; i <= toIndex; i++) {
-      const data = materialData.find(
-        (d) =>
-          d.Type.toLowerCase() === gear.toLowerCase() &&
-          d.Level.toLowerCase() === levels[i].toLowerCase()
-      )
-      if (data) {
-        total.plans += parseInt(data.Plans) || 0
-        total.polish += parseInt(data.Polish) || 0
-        total.alloy += parseInt(data.Alloy) || 0
-        total.amber += parseInt(data.Amber) || 0
-        total.svs += parseInt(data['SvS Points']) || 0
-      }
+      const data = charmData[i]
+      if (!data) continue
+      total.guide += data.guide_cost || 0
+      total.design += data.design_cost || 0
+      total.jewel += data.jewel_cost || 0
+      total.svs += data.svs_point || 0
     }
-
     return total
   }
 
@@ -66,21 +53,20 @@ export default function TabSwitcherGear({
         </button>
       </div>
 
-      {/* === Overview Tab === */}
+      {/* === Overview === */}
       {tab === 'overview' && (
         <div className="space-y-6">
           {results.map((res, idx) => {
-            const total = calculateMaterials(res.type, res.from, res.to)
+            const total = calculateMaterials(res.from, res.to)
             if (!total) return null
 
             const compare = compares?.[idx] || {}
 
-            // 💡 hanya bahan ini yang dibandingkan
+            // 💡 daftar resource untuk dibandingkan
             const resourcesToCompare = [
-              { key: 'plans', label: 'Design Plans' },
-              { key: 'polish', label: 'Polish' },
-              { key: 'alloy', label: 'Alloy' },
-              { key: 'amber', label: 'Amber' },
+              { key: 'guide', label: 'Guides' },
+              { key: 'design', label: 'Designs' },
+              { key: 'jewel', label: 'Secrets' },
             ]
 
             return (
@@ -88,16 +74,17 @@ export default function TabSwitcherGear({
                 key={res.id}
                 className="bg-special-inside p-6 rounded-xl space-y-4 relative"
               >
-                {/* Header */}
+                {/* === Header === */}
                 <div className="relative flex justify-between items-center bg-title-result mb-4 pr-12">
                   <div>
-                  <div className="text-lg lg:text-xl text-shadow-lg text-white  mb-1">{res.type}
+                    <div className="text-lg lg:text-xl text-shadow-lg text-white mb-1">
+                      {res.type}
+                    </div>
+                    <span className="text-white text-sm">Level</span>{' '}
+                    <span className="text-white text-sm">
+                      : {res.from} → {res.to}
+                    </span>
                   </div>
-                  <span className="text-white text-sm">Level</span>{' '}
-                  <span className="text-white text-sm">
-                        : {res.from} → {res.to}
-                   </span>
-                   </div>
                   <button
                     onClick={() => {
                       onDeleteHistory(res.id)
@@ -113,7 +100,7 @@ export default function TabSwitcherGear({
                   </button>
                 </div>
 
-                {/* === Resources === */}
+                {/* === Resources Grid === */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-center">
                   {resourcesToCompare.map(({ key, label }) => {
                     const need = total[key]
@@ -142,13 +129,13 @@ export default function TabSwitcherGear({
                         className="special-glass p-3 rounded-xl flex flex-col items-center"
                       >
                         <ResourceIcon type={key} />
-                        <p className="text-sm text-white mt-1">{label}</p>
-                        <p className="text-lg font-semibold text-white">
+                        <p className="text-sm text-white mt-1 mb-1">{label}</p>
+                        <p className="text-lg text-sm text-white mt-1">
                           {formatToShortNumber(need)}
                         </p>
                         {have !== null && (
                           <span
-                            className={`text-xs mt-1 px-2 py-1 rounded-md ${color}`}
+                            className={`text-xs mt-2 px-2 py-1 rounded-md ${color}`}
                           >
                             {diffText}
                           </span>
@@ -157,28 +144,27 @@ export default function TabSwitcherGear({
                     )
                   })}
 
-                  {/* === SvS Points hanya tampil totalnya === */}
+                  {/* === SvS Points === */}
                   <div className="special-glass bg-[#9797974A] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1">
-                                      <span className="block text-white text-base mb-1">
-                                        SvS Points:
-                                      </span>
-                                      <span className="block text-white text-base mb-1">
-                                        {formatToShortNumber(total.svs)}
-                                      </span>
-                                    </div>
-                  
+                    <span className="block text-white text-base mb-1">
+                      SvS Points:
+                    </span>
+                    <span className="block text-white text-sm mb-1">
+                      {formatToShortNumber(total.svs)}
+                    </span>
+                  </div>
                 </div>
               </div>
             )
           })}
-
+          <TotalResultCharm results={results} />
         </div>
       )}
 
-      <TotalResultGear results={results} />
 
+      
       {/* === History Tab === */}
-      {tab === 'history' && <GearHistoryList onResetGlobal={onResetHistory} />}
+      {tab === 'history' && <CharmHistoryList onResetGlobal={onResetHistory} />}
     </div>
   )
 }

@@ -1,58 +1,68 @@
 'use client'
 
+import React from 'react'
+import { Card, CardHeader, CardContent } from './ui/card'
+import { Button } from './ui/button'
 import { useCharmHistory } from '../dashboard/charm/CharmHistoryContext'
-import { Button } from '../components/ui/button'
 import { toast } from 'sonner'
 
-export default function CharmHistoryList() {
+export default function CharmHistoryList({ onResetGlobal }) {
   const { history, deleteHistory, resetHistory } = useCharmHistory()
 
-  return (
-    <div className="space-y-2 text-white">
-      <div className="flex justify-between items-center mb-2">
-        <h4 className="font-bold text-lg">Charm Upgrade History</h4>
-        {history.length > 0 && (
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={() => {
-              resetHistory()
-              toast.success('History reset.')
-            }}
-          >
-            Reset
-          </Button>
-        )}
-      </div>
+  const handleReset = () => {
+    resetHistory()
+    toast.success('All charm history has been reset.')
+    if (onResetGlobal) onResetGlobal()
+  }
 
-      <div className="space-y-2">
-        {history.map(({ gear, from, to, index, id }) => (
-          <div
-            key={id}
-            className="flex justify-between items-center bg-zinc-800 border border-zinc-700 px-3 py-2 rounded shadow-sm"
-          >
-            <div>
-              <p className="text-sm font-medium">{gear}</p>
-              <p className="text-xs text-zinc-400">
-                {from} → {to}
-              </p>
-            </div>
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={() => {
-                deleteHistory(id)
-                toast.success(`History ${gear} ${from}→${to} deleted.`)
-              }}
+  return (
+    <Card className="bg-special-inside text-white mt-10 border border-neutral-700">
+      {/* === Header === */}
+      <CardHeader className="flex flex-row items-center justify-between px-4 py-2">
+        <h3 className="text-lg">Charm Upgrade History</h3>
+        <Button
+          className="buttonGlass hover:bg-red-500 text-white px-2 py-0 rounded"
+          onClick={handleReset}
+        >
+          Reset
+        </Button>
+      </CardHeader>
+
+      {/* === Content === */}
+      <CardContent className="space-y-2 px-4 pb-4">
+        {history.length === 0 ? (
+          <p className="text-sm text-gray-400">No history yet.</p>
+        ) : (
+          history.map((entry) => (
+            <div
+              key={entry.id}
+              className="flex justify-between items-center special-glass rounded px-4 py-3"
             >
-              Delete
-            </Button>
-          </div>
-        ))}
-        {history.length === 0 && (
-          <p className="text-sm text-zinc-400">No history yet.</p>
+              <div>
+                <div className="text-sm font-semibold">{entry.type}</div>
+                <div className="text-xs text-white mt-1">
+                  {entry.from} → {entry.to}
+                </div>
+              </div>
+
+              <Button
+                className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded"
+                onClick={() => {
+                  deleteHistory(entry.id)
+                  toast.success(`History ${entry.type} has been deleted.`)
+
+                  // Optional: trigger global reset event
+                  if (history.length === 1 && typeof window !== 'undefined') {
+                    window.dispatchEvent(new CustomEvent('charm:forceReset'))
+                  }
+                }}
+              >
+                Delete
+              </Button>
+            </div>
+          ))
         )}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

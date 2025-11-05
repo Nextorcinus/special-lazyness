@@ -93,14 +93,14 @@ export default function GearPage() {
   return (
     <main className="text-white w-full">
       {/* === Header === */}
-      <div className="relative w-full md:p-6">
+      <div className="relative w-full md:px-6 py-0 mt-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
           <h2 className="text-2xl text-white">Chief Gear Upgrade</h2>
         </div>
       </div>
 
       {/* === Gear Form === */}
-      <div className="flex flex-col md:p-6 lg:flex-row gap-6 mt-6 w-full">
+      <div className="flex flex-col md:p-6 lg:flex-row gap-6 w-full">
         <div className="w-full">
           <GearForm onSubmit={handleCalculate} materialDataLoaded={true} />
 
@@ -151,7 +151,7 @@ export default function GearPage() {
 
       {/* === Results Section === */}
       {Array.isArray(results) && results.length > 0 && (
-        <div className="md:p-6 mt-8 space-y-6 w-full">
+        <div className="md:p-6 mt-2 space-y-6 w-full">
           <TabSwitcherGear
             results={results}
             compares={compares}

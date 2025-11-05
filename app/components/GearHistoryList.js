@@ -20,7 +20,7 @@ export default function GearHistoryList({ onResetGlobal }) {
       <CardHeader className="flex flex-row items-center justify-between px-4 py-2">
         <h3 className="text-lg">Gear Upgrade History</h3>
         <Button
-          className="bg-slate-500 hover:bg-red-500 text-white px-2 py-0 rounded"
+          className="buttonGlass hover:bg-red-500  text-white px-2 py-0 rounded"
           onClick={handleReset}
         >
           Reset
@@ -34,12 +34,12 @@ export default function GearHistoryList({ onResetGlobal }) {
           history.map((entry) => (
             <div
               key={entry.id}
-              className="flex justify-between items-center bg-zinc-800 rounded px-4 py-3"
+              className="flex justify-between items-center special-glass rounded px-4 py-3"
             >
               <div>
-                {/* Gunakan `type` bukan `gear` */}
+                
                 <div className="text-sm font-semibold">{entry.type}</div>
-                <div className="text-xs text-zinc-400 mt-1">
+                <div className="text-xs text-white mt-1">
                   {entry.from} → {entry.to}
                 </div>
               </div>
@@ -49,7 +49,7 @@ export default function GearHistoryList({ onResetGlobal }) {
                   deleteHistory(entry.id)
                   toast.success(`History ${entry.type} has been deleted.`)
 
-                  // Jika terakhir, trigger event untuk reset form
+                 
                   if (history.length === 1 && typeof window !== 'undefined') {
                     window.dispatchEvent(new CustomEvent('gear:forceReset'))
                   }

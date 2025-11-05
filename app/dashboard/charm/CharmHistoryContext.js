@@ -1,73 +1,60 @@
 'use client'
 
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 const CharmHistoryContext = createContext()
 
-export const CharmHistoryProvider = ({ children }) => {
+export function CharmHistoryProvider({ children }) {
   const [history, setHistory] = useState([])
-  const [resetFormTrigger, setResetFormTrigger] = useState(0)
-  const [resetGearPairs, setResetGearPairs] = useState([])
 
-  const updateHistory = (entry) => {
-    setHistory((prev) => {
-      const filtered = prev.filter(
-        (item) => !(item.gear === entry.gear && item.index === entry.index)
-      )
-      return [...filtered, { ...entry, id: `${entry.gear}-${entry.index}` }]
-    })
+  // 🔁 Load dari localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('charmHistory')
+      if (saved) {
+        try {
+          setHistory(JSON.parse(saved))
+        } catch (err) {
+          console.error('Error parsing charm history:', err)
+          localStorage.removeItem('charmHistory')
+        }
+      }
+    }
+  }, [])
+
+  // 💾 Simpan ke localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (history.length > 0) {
+        localStorage.setItem('charmHistory', JSON.stringify(history))
+      } else {
+        localStorage.removeItem('charmHistory')
+      }
+    }
+  }, [history])
+
+  const addHistory = (entry) => {
+    setHistory((prev) => [...prev, entry])
   }
 
   const deleteHistory = (id) => {
-    setHistory((prev) => {
-      const updated = prev.filter((item) => item.id !== id)
-      const deleted = prev.find((item) => item.id === id)
-
-      if (deleted) {
-        setResetGearPairs((prevReset) => [
-          ...prevReset,
-          { part: deleted.gear, index: deleted.index },
-        ])
-      }
-
-      return updated
-    })
-
-    // Do not trigger resetFormTrigger anymore here
+    setHistory((prev) => prev.filter((item) => item.id !== id))
   }
 
   const resetHistory = () => {
     setHistory([])
-    setResetFormTrigger((prev) => prev + 1)
-  }
-
-  const consumeResetGearPair = (part, index) => {
-    setResetGearPairs((prev) =>
-      prev.filter((item) => !(item.part === part && item.index === index))
-    )
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('charmHistory')
+    }
   }
 
   return (
     <CharmHistoryContext.Provider
-      value={{
-        history,
-        updateHistory,
-        deleteHistory,
-        resetHistory,
-        resetFormTrigger,
-        resetGearPairs,
-        consumeResetGearPair,
-      }}
+      value={{ history, addHistory, deleteHistory, resetHistory }}
     >
       {children}
     </CharmHistoryContext.Provider>
   )
 }
 
-export const useCharmHistory = () => {
-  const context = useContext(CharmHistoryContext)
-  if (!context) {
-    throw new Error('useCharmHistory must be used within CharmHistoryProvider')
-  }
-  return context
-}
+export const useCharmHistory = () => useContext(CharmHistoryContext)

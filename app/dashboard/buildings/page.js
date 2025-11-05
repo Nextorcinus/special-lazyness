@@ -132,7 +132,7 @@ export default function Home({ addAnotherTrigger }) {
 
       {/* === Building Form + Compare Button === */}
       {selectedSub && (
-        <div className="flex flex-col md:p-6 lg:flex-row gap-6 mt-6 w-full">
+        <div className="flex flex-col md:px-6 lg:flex-row gap-6 mt-2 w-full">
           <div className="w-full">
             <BuildingForm
               category={category}

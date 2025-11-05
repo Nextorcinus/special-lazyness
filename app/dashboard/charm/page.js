@@ -1,151 +1,161 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import CharmForm from '../../components/CharmForm'
-import CharmTable from '../../components/CharmTable'
-import CharmProgress from '../../components/CharmProgress'
 import CompareFormCharm from '../../components/CharmFormCompare'
-import charmDataRaw from '../../data/MaterialDatacharm.json'
+import TabSwitcherCharm from '../../components/tabSwitcherCharm'
+import { v4 as uuidv4 } from 'uuid'
 import { useCharmHistory } from './CharmHistoryContext'
-import { useAddAnother } from './AddAnotherContext'
+import { toast } from 'sonner'
+import '../../globals.css'
 
 export default function CharmPage() {
   const [results, setResults] = useState([])
-  const [compare, setCompare] = useState(null)
-  const resultRef = useRef()
-  const compareRef = useRef()
+  const [compares, setCompares] = useState([])
+  const [showCompareForm, setShowCompareForm] = useState(false)
 
-  const { history, updateHistory, resetFormTrigger, resetHistory } =
-    useCharmHistory()
-  const { addAnother } = useAddAnother()
+  const { history, addHistory, deleteHistory, resetHistory } = useCharmHistory()
 
-  const handleFormSubmit = (selections) => {
-    const upgrades = []
-    const classMap = {
-      Cap: 'Lancer',
-      Watch: 'Lancer',
-      Coat: 'Infantry',
-      Pants: 'Infantry',
-      Belt: 'Marksman',
-      Weapon: 'Marksman',
-    }
-
-    for (const [part, pairs] of Object.entries(selections)) {
-      const charmClass = classMap[part] || 'Unknown'
-      pairs.forEach(({ from, to }, index) => {
-        const fromLevel = parseInt(from)
-        const toLevel = parseInt(to)
-        if (!from || !to || fromLevel >= toLevel) return
-
-        for (let i = fromLevel + 1; i <= toLevel; i++) {
-          const levelData = charmDataRaw.find((item) => item.level === i)
-          if (!levelData) return
-
-          upgrades.push({
-            part,
-            class: charmClass,
-            from: `${i - 1}`,
-            to: `${i}`,
-            guide: levelData.guide_cost,
-            design: levelData.design_cost,
-            jewel: levelData.jewel_cost || 0,
-            power: levelData.power_diff,
-            stat_total: levelData.stat_diff,
-            svs: levelData.svs_point || 0,
-            index,
-          })
-        }
-
-        updateHistory({ gear: part, from, to, index }) // keep this for compatibility
-      })
-    }
-
-    setResults((prev) => (addAnother ? [...prev, ...upgrades] : upgrades))
-    resultRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const handleCompare = (resources) => {
-    setCompare(resources)
-    compareRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  // Reset all when trigger fired
+  // Sinkronkan hasil dengan history
   useEffect(() => {
-    if (resetFormTrigger) {
-      setResults([])
-      setCompare(null)
-    }
-  }, [resetFormTrigger])
-
-  // Filter only remaining result data
-  useEffect(() => {
-    const activeSet = new Set(
-      history.flatMap(({ gear, from, to, index }) => {
-        const start = parseInt(from)
-        const end = parseInt(to)
-        const part = gear
-        const list = []
-        for (let i = start; i < end; i++) {
-          list.push(`${part}-${i}-${index}`)
-        }
-        return list
-      })
-    )
-
-    setResults((prev) =>
-      prev.filter((item) =>
-        activeSet.has(`${item.part}-${item.from}-${item.index}`)
-      )
-    )
+    setResults(history)
+    setCompares((prev) => {
+      const updated = [...prev]
+      while (updated.length < history.length) updated.push(null)
+      return updated.slice(0, history.length)
+    })
   }, [history])
 
-  const total = results.reduce(
-    (acc, item) => ({
-      guide: acc.guide + item.guide,
-      design: acc.design + item.design,
-      jewel: acc.jewel + (item.jewel || 0),
-      power: acc.power + item.power,
-      stat_total: acc.stat_total + item.stat_total,
-      svs: acc.svs + item.svs,
+  // === 1️⃣ Hitung Charm ===
+  const handleCalculate = (data) => {
+    if (!data || !data.type || !data.from || !data.to) {
+      toast.warning('Please fill all required fields.')
+      return
+    }
+
+    const resultWithId = { ...data, id: uuidv4() }
+    setResults((prev) => [...prev, resultWithId])
+    setCompares((prev) => [...prev, null])
+    addHistory(resultWithId)
+
+    toast.success('Charm upgrade calculated!')
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+    }, 200)
+  }
+
+  // === 2️⃣ Compare ===
+  const handleCompareSubmit = (compareData) => {
+    if (!compareData) return
+
+    const newCompares = results.map(() => ({
+      guide: Number(compareData.guide || 0),
+      design: Number(compareData.design || 0),
+      jewel: Number(compareData.jewel || 0),
+      svs: Number(compareData.svs || 0),
+    }))
+
+    setCompares(newCompares)
+    setShowCompareForm(false)
+    toast.success('Comparison applied to all results!')
+  }
+
+  // === 3️⃣ Delete satu history ===
+  const handleDeleteHistory = (id) => {
+    deleteHistory(id)
+    const updated = results.filter((item) => item.id !== id)
+    setResults(updated)
+    setCompares((prev) => prev.filter((_, i) => i < updated.length))
+  }
+
+  // === 4️⃣ Reset semua ===
+  const handleResetHistory = () => {
+    resetHistory()
+    setResults([])
+    setCompares([])
+    toast.success('Charm history has been reset.')
+  }
+
+  const defaultResources = useMemo(
+    () => ({
+      guide: 0,
+      design: 0,
+      jewel: 0,
+      svs: 0,
     }),
-    { guide: 0, design: 0, jewel: 0, power: 0, stat_total: 0, svs: 0 }
+    []
   )
 
   return (
-    <div className="p-4 md:p-6 text-white w-full">
-      <div className="relative bg-special-inside rounded-2xl p-6">
-        <h2 className="text-2xl text-white">Chief Charm Upgrade</h2>
+    <main className="text-white w-full">
+      {/* === Header === */}
+      <div className="relative w-full md:px-6 py-0 mt-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
+          <h2 className="text-2xl text-white">Chief Charm Upgrade</h2>
+        </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 mt-6 w-full">
-        <div className="w-full lg:w-8/12">
-          <CharmForm
-            key={resetFormTrigger}
-            onSubmit={handleFormSubmit}
-            onReset={() => {
-              setResults([])
-              setCompare(null)
-              resetHistory()
-            }}
-            dataLoaded={!!charmDataRaw?.length}
+      {/* === Charm Form === */}
+      <div className="flex flex-col md:p-6 lg:flex-row gap-6 w-full">
+        <div className="w-full">
+          <CharmForm onSubmit={handleCalculate} />
+
+          <div className="flex justify-end mt-4">
+            <button
+              onClick={() => setShowCompareForm(true)}
+              className="buttonGlass flex gap-2 text-sm md:text-base"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 md:h-5 md:w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 4v16m8-8H4"
+                />
+              </svg>
+              Compare Resources
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* === Compare Popup === */}
+      {showCompareForm && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-[#ffffff35] backdrop-blur p-6 rounded-xl border border-white/20 w-[90%] max-w-lg relative">
+            <button
+              onClick={() => setShowCompareForm(false)}
+              className="absolute top-2 right-2 text-xl text-red-400 hover:text-white"
+            >
+              ✕
+            </button>
+
+            <CompareFormCharm
+              onCompare={handleCompareSubmit}
+              comparedData={compares[0] || defaultResources}
+              onCancel={() => setShowCompareForm(false)}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* === Results Section === */}
+      {Array.isArray(results) && results.length > 0 && (
+        <div className="md:p-6 mt-8 space-y-6 w-full">
+          <TabSwitcherCharm
+            results={results}
+            compares={compares}
+            onDeleteHistory={handleDeleteHistory}
+            onResetHistory={handleResetHistory}
           />
         </div>
-
-        <div className="w-full lg:w-4/12">
-          <CompareFormCharm onCompare={handleCompare} />
-        </div>
-      </div>
-
-      <div ref={resultRef} className="lg:flex-row gap-6 mt-6 w-full">
-        {results.length > 0 && (
-          <>
-            <CharmTable data={results} />
-            <div ref={compareRef}>
-              <CharmProgress total={total} compare={compare} />
-            </div>
-          </>
-        )}
-      </div>
-    </div>
+      )}
+    </main>
   )
 }
