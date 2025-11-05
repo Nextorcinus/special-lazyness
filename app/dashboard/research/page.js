@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 import ResearchCategorySelector from '../../components/ResearchCategorySelector'
 import ResearchSubcategoryScroll from '../../components/ResearchSubcategoryScroll'
 import ResearchForm from '../../components/ResearchForm'
-import TabSwitcherResearch from '../../components/TabSwitcherResearch'
+import TabSwitcherResearch from '../../components/tabSwitcherResearch'
 
 import researchData from '../../data/MaterialBasicResearch'
 import { useResearchHistory } from './ResearchHistoryContext'
