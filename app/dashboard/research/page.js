@@ -6,27 +6,28 @@ import { v4 as uuidv4 } from 'uuid'
 import ResearchCategorySelector from '../../components/ResearchCategorySelector'
 import ResearchSubcategoryScroll from '../../components/ResearchSubcategoryScroll'
 import ResearchForm from '../../components/ResearchForm'
-import ResearchTotalResult from '../../components/ResearchTotalResult'
-import ResourceIcon from '../../components/ResourceIcon'
+import TabSwitcherResearch from '../../components/TabSwitcherResearch'
 
 import researchData from '../../data/MaterialBasicResearch'
-import { useResearchHistory } from '../../dashboard/research/ResearchHistoryContext'
-import { useAddAnother } from '../../dashboard/research/AddAnotherContext'
+import { useResearchHistory } from './ResearchHistoryContext'
+import { useAddAnother } from './AddAnotherContext'
 
 export default function ResearchPage() {
-  const { history, addToHistory } = useResearchHistory()
+  const { history, addToHistory, deleteHistory, resetHistory } = useResearchHistory()
   const { trigger } = useAddAnother()
 
   const [category, setCategory] = useState('Growth')
   const [selectedSub, setSelectedSub] = useState('')
+  const [results, setResults] = useState([])
+  const [compares, setCompares] = useState([])
 
-  // reset form saat +Add Another ditekan
+  // Reset form saat tekan +Add Another
   useEffect(() => {
     setCategory('Growth')
     setSelectedSub('')
   }, [trigger])
 
-  // reset subkategori saat ganti kategori
+  // Reset subcategory saat ganti kategori
   useEffect(() => {
     setSelectedSub('')
   }, [category])
@@ -36,34 +37,26 @@ export default function ResearchPage() {
     [category]
   )
 
+  // Tambah hasil ke history dan tab Overview
   const handleCalculate = (data) => {
     const resultWithId = { ...data, id: uuidv4() }
     addToHistory(resultWithId)
+    setResults((prev) => [...prev, resultWithId])
 
-    // scroll ke bawah
+    // Scroll smooth ke bawah setelah hitung
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
-    }, 100)
-  }
-
-  const formatTime = (seconds) => {
-    const d = Math.floor(seconds / 86400)
-    const h = Math.floor((seconds % 86400) / 3600)
-    const m = Math.floor((seconds % 3600) / 60)
-    const s = Math.floor(seconds % 60)
-    const parts = []
-    if (d) parts.push(`${d}d`)
-    if (h) parts.push(`${h}h`)
-    if (m) parts.push(`${m}m`)
-    if (s || parts.length === 0) parts.push(`${s}s`)
-    return parts.join(' ')
+    }, 200)
   }
 
   return (
     <main className="p-1 md:p-6 text-white w-full">
-      <div className="relative w-full md:p-6 ">
-        <h2 className="text-2xl">Research Upgrade</h2>
+      {/* === Header & Category Selector === */}
+      <div className="relative w-full md:p-6">
+        <h2 className="text-2xl font-semibold mb-2">Research Upgrade</h2>
+
         <ResearchCategorySelector selected={category} onChange={setCategory} />
+
         <ResearchSubcategoryScroll
           items={subcategories}
           selected={selectedSub}
@@ -71,60 +64,28 @@ export default function ResearchPage() {
         />
       </div>
 
+      {/* === Form Input === */}
       {selectedSub && (
         <div className="flex flex-col md:px-6 lg:flex-row gap-6 mt-2 w-full">
-          <ResearchForm
-            category={category}
-            researchName={selectedSub}
-            onCalculate={handleCalculate}
-          />
+          <div className="w-full">
+            <ResearchForm
+              category={category}
+              researchName={selectedSub}
+              onCalculate={handleCalculate}
+            />
+          </div>
         </div>
       )}
 
+      {/* === Tab Switcher (Overview + History) === */}
       {history.length > 0 && (
-        <div className="mt-8 space-y-6">
-          <h2 className="text-xl px-6">Research Results</h2>
-
-          {history.map((res) => (
-            <div
-              key={res.id}
-              className="bg-special-inside p-6 rounded-xl shadow-2xl space-y-2 border border-zinc-800 text-yellow-400"
-            >
-              <div className="text-base lg:text-xl text-zinc-300 border-b border-zinc-700 pb-2 mb-2">
-                {res.building}
-              </div>
-
-              <div>
-                <span className="text-zinc-400">From</span> {res.fromLevel} →{' '}
-                <span>{res.toLevel}</span>
-              </div>
-
-              <div>
-                <span className="text-zinc-400">Original Time:</span>{' '}
-                <span className="text-red-400">
-                  {formatTime(res.timeOriginal)}
-                </span>
-              </div>
-
-              <div>
-                <span className="text-zinc-400">Reduced Time:</span>{' '}
-                <span className="text-lime-400">
-                  {formatTime(res.timeReduced)}
-                </span>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2 text-white mt-2">
-                {Object.entries(res.resources || {}).map(([key, val]) => (
-                  <div key={key} className="flex items-center gap-1">
-                    <ResourceIcon type={key} />
-                    <span>{val.toLocaleString()}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-
-          <ResearchTotalResult results={history} />
+        <div className="mt-10 md:px-6">
+          <TabSwitcherResearch
+            results={results}
+            compares={compares}
+            onDeleteHistory={deleteHistory}
+            onResetHistory={resetHistory}
+          />
         </div>
       )}
     </main>
