@@ -174,45 +174,45 @@ export default function GeneralPage() {
 
   return (
     <div className="space-y-10 mt-6">
-      {/* Kalkulator Waktu ke Poin */}
+      
       <Card className="bg-special-inside border-0 text-white">
         <CardContent className="pt-6">
           <h2 className="text-xl font-bold">Calc Use Speedup</h2>
-          <p className="text-sm text-zinc-400">
+          <p className="text-sm text-zinc-100 py-1">
             construction / research / training / promotion
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
             <div>
-              <Label className="text-zinc-400">Points per minute</Label>
+              <Label className="text-zinc-200">Points per minute</Label>
               <Input
                 type="number"
                 value={pointPerMinute}
                 onChange={(e) => setPointPerMinute(Number(e.target.value))}
-                className="bg-special-input text-white"
+                className="bg-special-input text-zinc-400 w-full"
                 placeholder="Point per Minute (e.g. 30)"
               />
             </div>
 
             <div>
-              <Label className="text-zinc-400">Days</Label>
+              <Label className="text-zinc-200">Days</Label>
               <Input
                 type="number"
                 value={days}
                 onChange={(e) => setDays(Number(e.target.value))}
-                className="bg-special-input text-white"
+                className="bg-special-input text-white w-full"
                 min={0}
                 placeholder="Enter number day speed up"
               />
             </div>
 
             <div>
-              <Label className="text-zinc-400">Hours</Label>
+              <Label className="text-zinc-200">Hours</Label>
               <Input
                 type="number"
                 value={hours}
                 onChange={(e) => setHours(Number(e.target.value))}
-                className="bg-special-input text-white"
+                className="bg-special-input text-white w-full"
                 min={0}
                 max={23}
                 placeholder="Enter number hour speed up"
@@ -243,24 +243,24 @@ export default function GeneralPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <Label className="text-zinc-400">Fire Crystal</Label>
+              <Label className="text-zinc-200">Fire Crystal</Label>
               <Input
                 type="number"
                 value={itemCount}
                 onChange={(e) => setItemCount(Number(e.target.value))}
-                className="bg-special-input text-white"
+                className="bg-special-input text-white w-full"
                 min={0}
                 placeholder="Enter Number FC e.g 20"
               />
             </div>
 
             <div>
-              <Label className="text-zinc-400">Points per Item</Label>
+              <Label className="text-zinc-200">Points per Item</Label>
               <Input
                 type="number"
                 value={pointPerItem}
                 onChange={(e) => setPointPerItem(Number(e.target.value))}
-                className="bg-special-input text-white"
+                className="bg-special-input text-white w-full"
                 min={0}
                 placeholder="Enter Point per FC e.g 2000"
               />
@@ -290,24 +290,24 @@ export default function GeneralPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <Label className="text-zinc-400">Shards</Label>
+              <Label className="text-zinc-200">Shards</Label>
               <Input
                 type="number"
                 value={shardCount}
                 onChange={(e) => setShardCount(Number(e.target.value))}
-                className="bg-special-input text-white"
+                className="bg-special-input text-white w-full"
                 min={0}
                 placeholder="Enter number Shard (e.g. 40)"
               />
             </div>
 
             <div>
-              <Label className="text-zinc-400">Points per Shard</Label>
+              <Label className="text-zinc-200">Points per Shard</Label>
               <Input
                 type="number"
                 value={pointPerShard}
                 onChange={(e) => setPointPerShard(Number(e.target.value))}
-                className="bg-special-input text-white"
+                className="bg-special-input text-white w-full"
                 placeholder="Point per Shard (e.g. 1000)"
                 min={0}
               />
@@ -337,10 +337,10 @@ export default function GeneralPage() {
               Upgrade Level Gear with Essence Stones
             </h2>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
               {/* From Level */}
               <div>
-                <Label className="text-zinc-400">From Level</Label>
+                <Label className="text-zinc-200">From Level</Label>
                 <Select
                   value={fromLevel.toString()}
                   onValueChange={(val) => {
@@ -349,7 +349,7 @@ export default function GeneralPage() {
                     if (toLevel <= valNum) setToLevel(valNum + 1)
                   }}
                 >
-                  <SelectTrigger className="bg-special-input text-white">
+                  <SelectTrigger className="bg-special-input text-white w-full">
                     <SelectValue placeholder="Select From Level" />
                   </SelectTrigger>
                   <SelectContent>
@@ -364,12 +364,12 @@ export default function GeneralPage() {
 
               {/* To Level */}
               <div>
-                <Label className="text-zinc-400">To Level</Label>
+                <Label className="text-zinc-200">To Level</Label>
                 <Select
                   value={toLevel.toString()}
                   onValueChange={(val) => setToLevel(Number(val))}
                 >
-                  <SelectTrigger className="bg-special-input text-white">
+                  <SelectTrigger className="bg-special-input text-white w-full">
                     <SelectValue placeholder="Select To Level" />
                   </SelectTrigger>
                   <SelectContent>
@@ -411,20 +411,20 @@ export default function GeneralPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <Label className="text-zinc-400">Number of Stones</Label>
+                <Label className="text-zinc-200">Number of Stones</Label>
                 <FormattedNumberInput
                   value={stoneCount}
                   onChange={setStoneCount}
-                  placeholder="Enter number of stones"
-                  className="bg-special-input text-white"
+                  placeholder="Enter number of stones "
+                  className="bg-special-input text-white w-full"
                 />
               </div>
               <div>
-                <Label className="text-zinc-400">Points per Stone</Label>
+                <Label className="text-zinc-200">Points per Stone</Label>
                 <FormattedNumberInput
                   value={pointPerStone}
                   onChange={setPointPerStone}
-                  className="bg-special-input text-white"
+                  className="bg-special-input text-white w-full"
                   placeholder="Point per stone (e.g. 6000)"
                 />
               </div>
@@ -451,7 +451,7 @@ export default function GeneralPage() {
       <Card className="bg-special-inside border-0 text-white">
         <CardContent className=" pt-6">
           <h2 className="text-xl font-bold">Gather Resources</h2>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-200">
             you can change the gather unit and point per gather for each
             resource depends the event.
           </p>
@@ -459,7 +459,7 @@ export default function GeneralPage() {
           {gatherInputs.map((res, index) => (
             <div
               key={res.label}
-              className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4"
+              className="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-4 mt-4"
             >
               <div>
                 <Label className="text-zinc-300">{res.label}</Label>
@@ -469,7 +469,7 @@ export default function GeneralPage() {
                   onChange={(e) =>
                     handleGatherInputChange(index, 'gatherUnit', e.target.value)
                   }
-                  className="bg-special-input text-white"
+                  className="bg-special-input text-white w-full"
                   min={1}
                 />
               </div>
@@ -485,7 +485,7 @@ export default function GeneralPage() {
                       e.target.value
                     )
                   }
-                  className="bg-special-input text-white"
+                  className="bg-special-input text-white w-full"
                   min={0}
                 />
               </div>
@@ -498,7 +498,7 @@ export default function GeneralPage() {
                   onChange={(val) =>
                     handleGatherInputChange(index, 'totalGathered', val)
                   }
-                  className="bg-special-input text-white"
+                  className="bg-special-input text-white w-full"
                   placeholder="total gather (e.g. 14,000,000)"
                 />
               </div>
@@ -532,7 +532,7 @@ export default function GeneralPage() {
                 type="number"
                 value={troopCount}
                 onChange={(e) => setTroopCount(Number(e.target.value))}
-                className="bg-special-input text-white"
+                className="bg-special-input text-white w-full"
                 placeholder="Enter number of troops"
               />
             </div>

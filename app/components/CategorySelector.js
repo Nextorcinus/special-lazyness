@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import Image from 'next/image' // ✅ import dari next/image
+import Image from 'next/image' 
 import { cn } from '../lib/utils'
 
 export default function CategorySelector({ selected, onChange }) {

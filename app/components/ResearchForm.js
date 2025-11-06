@@ -21,6 +21,7 @@ import {
   TooltipTrigger,
 } from './ui/tooltip'
 import { Info } from 'lucide-react'
+import { calculateResearchUpgrade } from '../utils/calculateResearch'
 
 export default function ResearchForm({ category, researchName, onCalculate }) {
   const [tier, setTier] = useState('')
@@ -35,7 +36,7 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
     [category, researchName]
   )
 
-  // === Level Options based on Tier ===
+  // === Level Options ===
   const levelOptions = useMemo(() => {
     if (!tier) return []
     return (
@@ -45,7 +46,7 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
     )
   }, [category, researchName, tier])
 
-  // === Reset Levels when Tier Changes ===
+  // === Reset ketika Tier berubah ===
   useEffect(() => {
     if (tier) {
       setFromLevel(levelOptions.length <= 1 ? '0' : '')
@@ -53,51 +54,37 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
     }
   }, [tier, levelOptions])
 
-  // === Filter To Levels (only greater than From) ===
+  // === Filter level tujuan ===
   const toLevelOptions = useMemo(() => {
     const from = parseInt(fromLevel)
     if (!Array.isArray(levelOptions)) return []
     return levelOptions.filter((lvl) => lvl > from)
   }, [levelOptions, fromLevel])
 
-  // === Handle Calculation ===
+  // === Hitung hasil research ===
   const handleCalculate = () => {
     const from = parseInt(fromLevel)
     const to = parseInt(toLevel)
 
     if (isNaN(from) || isNaN(to) || to <= from || !tier) {
-      toast.error('Make sure all levels and tiers are selected correctly.')
+      toast.error('Please select valid Tier and Levels.')
       return
     }
 
-    const entries = researchData[category][researchName].tiers[tier].filter(
-      (item) => item.level > from && item.level <= to
-    )
-
-    const totalRawTime = entries.reduce(
-      (sum, item) => sum + (item.raw_time_seconds || 0),
-      0
-    )
-    const totalBonus =
-      (parseFloat(researchSpeed) || 0) + (parseFloat(vpBonus) || 0)
-    const finalTime = totalRawTime / (1 + totalBonus / 100)
-
-    const totalResources = { Meat: 0, Wood: 0, Coal: 0, Iron: 0, Steel: 0 }
-    entries.forEach((item) => {
-      if (item.resources) {
-        Object.keys(totalResources).forEach((res) => {
-          totalResources[res] += parseInt(item.resources[res] || 0)
-        })
-      }
+    const result = calculateResearchUpgrade({
+      category,
+      researchName,
+      tier,
+      fromLevel: from,
+      toLevel: to,
+      researchSpeed,
+      vpBonus,
+      data: researchData,
     })
 
-    const result = {
-      building: `${researchName} ${tier}`,
-      fromLevel,
-      toLevel,
-      timeOriginal: totalRawTime,
-      timeReduced: finalTime,
-      resources: totalResources,
+    if (!result) {
+      toast.error('Calculation failed.')
+      return
     }
 
     onCalculate?.(result)
@@ -110,8 +97,8 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
         <h2 className="text-xl text-white">{researchName}</h2>
 
         <TooltipProvider>
-          <div className="bg-glass-background2 p-4 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-4">
-            {/* === Tier Select === */}
+          <div className="bg-glass-background2 p-4 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 2xl:grid-cols-6 gap-4">
+            {/* === Tier === */}
             <div>
               <Label className="text-white text-shadow-md">Tier</Label>
               <Select value={tier} onValueChange={setTier}>
@@ -183,19 +170,12 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
                 <Label className="text-white text-shadow-md">VP Bonus</Label>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button
-                      type="button"
-                      onClick={(e) => e.preventDefault()}
-                      onTouchStart={(e) => e.preventDefault()}
-                    >
+                    <button type="button">
                       <Info className="w-4 h-4 text-muted-foreground" />
                     </button>
                   </TooltipTrigger>
                   <TooltipContent side="top">
-                    <p>
-                      Buff from Vice President +10%, or +20% if President
-                      activates speed buff (for SvS / KOI)
-                    </p>
+                    <p>+10% VP buff or +20% if President activates buff.</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -216,7 +196,7 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
               onClick={handleCalculate}
               className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white rounded-lg py-6 md:py-10 col-span-2 md:col-span-1"
             >
-              Calculate Research
+              Calculate
             </Button>
           </div>
         </TooltipProvider>

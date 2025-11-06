@@ -14,6 +14,7 @@ import { toast } from 'sonner'
 import TabSwitcher from '../../components/tabSwitcher'
 
 
+
 export default function Home({ addAnotherTrigger }) {
   const [category, setCategory] = useState('Basic')
   const [selectedSub, setSelectedSub] = useState('')

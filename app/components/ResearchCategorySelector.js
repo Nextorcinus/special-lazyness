@@ -7,7 +7,7 @@ export default function ResearchCategorySelector({ selected, onChange }) {
   const categories = ['Growth', 'Economy', 'Battle']
 
   return (
-    <div className="relative sm:absolute sm:right-6 sm:top-6 mt-4 sm:mt-0 flex gap-4 text-sm font-medium text-zinc-400">
+    <div className="relative  flex gap-4 text-sm font-medium text-white">
       {categories.map((cat) => (
         <button
           key={cat}
