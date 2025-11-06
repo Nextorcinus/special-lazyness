@@ -348,7 +348,7 @@ body {
   cursor: pointer;
   overflow: hidden;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.9) !important;
-  transform: translateZ(0);
+  
 }
 
 .button--glass:active,
@@ -372,7 +372,7 @@ body {
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
-  transform: translateZ(0);
+ 
 }
 
 /* OPTIMIZED: Reduced blur */
@@ -383,7 +383,7 @@ body {
   backdrop-filter: blur(3px); /* Reduced from 5px */
   -webkit-backdrop-filter: blur(3px);
   padding: 18px 24px;
-  transform: translateZ(0);
+  
 }
 
 .buttonGlass {
@@ -396,7 +396,7 @@ body {
   -webkit-backdrop-filter: blur(1px);
   color: white;
   font-family: 'Fustat', sans-serif;
-  transform: translateZ(0);
+ 
 }
 
 .buttonGlass:hover,
@@ -415,7 +415,7 @@ body {
   border: 1px rgba(255, 255, 255, 0.2) solid;
   backdrop-filter: blur(8px); /* Reduced from 11.55px */
   -webkit-backdrop-filter: blur(8px);
-  transform: translateZ(0);
+ 
 }
 
 /* OPTIMIZED: Reduced blur */
@@ -431,7 +431,7 @@ body {
   border: 1px rgba(255, 255, 255, 0.25) solid;
   backdrop-filter: blur(3px); /* Reduced from 5px */
   -webkit-backdrop-filter: blur(3px);
-  transform: translateZ(0);
+ transform: translateZ(0);
 }
 
 .tab-button {
@@ -444,7 +444,7 @@ body {
   -webkit-backdrop-filter: blur(1px);
   color: white;
   font-family: 'Fustat', sans-serif;
-  transform: translateZ(0);
+ 
 }
 
 .tab-button.active {

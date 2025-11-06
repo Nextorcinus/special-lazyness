@@ -19,13 +19,11 @@ export default function ResearchLayout({ children }) {
   }
 
   return (
-    <>
-     
+    <>   
     <PageWrapper>
     <ResearchHistoryProvider>
       <AddAnotherProvider>
-        {' '}
-       
+        {' '}    
         <div className="min-h-screen bg-special text-white">
           <main className="flex flex-col items-center w-full">
             <div className="w-full max-w-[1200px] px-4 md:px-6 lg:px-8">
@@ -34,11 +32,7 @@ export default function ResearchLayout({ children }) {
               </div>
               <Toaster richColors position="bottom-right" />
             </div>
-
-          
-          </main>
-
-         
+          </main>        
         </div>
       </AddAnotherProvider>
     </ResearchHistoryProvider>
