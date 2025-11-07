@@ -3,6 +3,7 @@ import Sidebar from "./components/Sidebar";
 import MobileSidebar from "./components/MobileSidebar";
 import WelcomePopup from "./components/Popup";
 import GoldenBackground from "./components/GoldenBackground";
+import NeatBackground from "./components/NeatBackground"
 
 
 export const metadata = {
@@ -15,10 +16,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="" >
+        <NeatBackground />
         <WelcomePopup />
       
-      <GoldenBackground />
-        {/* <Sidebar /> */}
+ 
+       
 
         <div className="min-h-screen flex flex-col">
           <MobileSidebar />

@@ -12,6 +12,7 @@
     "update:changelog": "node ./scripts/updateChangelog.js"
   },
   "dependencies": {
+    "@firecms/neat": "^0.4.0",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-checkbox": "^1.3.1",
     "@radix-ui/react-dialog": "^1.1.4",
@@ -34,6 +35,7 @@
     "sonner": "^2.0.3",
     "tailwind-merge": "^1.14.0",
     "tailwind-variants": "^0.1.0",
+    "three": "^0.169.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
