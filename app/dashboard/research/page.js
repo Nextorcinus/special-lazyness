@@ -14,50 +14,81 @@ import { toast } from 'sonner'
 export default function ResearchPage() {
   const { history, addToHistory, deleteHistory, resetHistory } = useResearchHistory()
   const { trigger, addAnother } = useAddAnother()
+
   const [category, setCategory] = useState('Growth')
   const [selectedSub, setSelectedSub] = useState('')
+  const [results, setResults] = useState([]) // ✅ TAMBAHKAN STATE RESULTS
+  const [compares, setCompares] = useState([])
   const [formKey, setFormKey] = useState(0)
+
+  console.log('🎯 [page.js] Render state:', {
+    category,
+    selectedSub,
+    formKey,
+    trigger,
+    historyLength: history.length,
+    resultsLength: results.length
+  })
+
+  // Reset form saat Add Another ditekan - SEDERHANA seperti Building
+  useEffect(() => {
+    console.log('🔍 [page.js] useEffect trigger check:', { trigger })
+    
+    if (trigger > 0) {
+      console.log('🔄 [page.js] ADD ANOTHER TRIGGERED - Resetting form...')
+      
+      setCategory('Growth')
+      setSelectedSub('')
+      setFormKey(prev => prev + 1)
+      
+      console.log('✅ [page.js] Form reset completed')
+    }
+  }, [trigger])
+
+  // Reset subcategory saat ganti kategori
+  useEffect(() => {
+    console.log('🔄 [page.js] Category changed, resetting subcategory:', category)
+    setSelectedSub('')
+  }, [category])
 
   const subcategories = useMemo(
     () => Object.keys(researchData[category] || {}),
     [category]
   )
 
-  // Reset form dan selection ketika trigger addAnother
-  useEffect(() => {
-    if (trigger > 0) {
-      setCategory('Growth')
-      setSelectedSub('')
-      setFormKey(prev => prev + 1)
-      
-      // Scroll ke atas
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }, [trigger])
-
-  // Auto-select subcategory pertama
+  // Auto-select first subcategory ketika category berubah
   useEffect(() => {
     if (subcategories.length > 0 && !selectedSub) {
       setSelectedSub(subcategories[0])
     }
   }, [subcategories, selectedSub])
 
-  const handleCalculate = (data) => {
-    const resultWithId = { 
-      ...data, 
-      id: uuidv4(),
-      name: data.research || data.name,
-      timestamp: Date.now() // Tambahkan timestamp untuk sorting
-    }
+ const handleCalculate = (data) => {
+  console.log('📥 [page.js] handleCalculate received data:', data)
 
-    addToHistory(resultWithId)
-    toast.success('Added to Research History!')
+  const resultWithId = { 
+    ...data, 
+    id: uuidv4(), // selalu id unik
+    name: data.research || data.name || selectedSub, // fallback
+    timestamp: Date.now()
   }
 
+  console.log('🆔 [page.js] Final resultWithId:', resultWithId)
+
+  // 💾 Simpan langsung ke history lebih dulu agar pasti tersimpan
+  addToHistory(resultWithId)
+
+  // 🔁 Update state untuk tampilan langsung
+  setResults(prev => [...prev, resultWithId])
+
+  toast.success('Added to Research History!')
+}
+
+
   return (
-    <main className="text-white w-full">
+    <main className="p-1 md:p-6 text-white w-full">
       <div className="relative w-full md:p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2"> 
           <h2 className="text-2xl font-semibold mb-2">Research Upgrade</h2>
           <ResearchCategorySelector selected={category} onChange={setCategory} />
         </div>
@@ -84,9 +115,11 @@ export default function ResearchPage() {
         </div>
       )}
 
+      {/* ✅ PASS RESULTS KE TabSwitcherResearch (seperti di building) */}
       <div className="mt-10 md:px-6">
         <TabSwitcherResearch
-          compares={[]}
+          results={results} // ✅ INI YANG PENTING!
+          compares={compares}
           onDeleteHistory={deleteHistory}
           onResetHistory={resetHistory}
         />

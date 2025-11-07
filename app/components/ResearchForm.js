@@ -23,12 +23,27 @@ import {
 import { Info } from 'lucide-react'
 import { calculateResearchUpgrade } from '../utils/calculateResearch'
 
-export default function ResearchForm({ category, researchName, onCalculate }) {
+export default function ResearchForm({ 
+  category, 
+  researchName, 
+  defaultValues = {}, 
+  onCalculate 
+}) {
   const [tier, setTier] = useState('')
   const [fromLevel, setFromLevel] = useState('')
   const [toLevel, setToLevel] = useState('')
   const [researchSpeed, setResearchSpeed] = useState('0')
   const [vpBonus, setVpBonus] = useState('0')
+
+  console.log('🔧 [ResearchForm] Render state:', {
+    category,
+    researchName,
+    tier,
+    fromLevel,
+    toLevel,
+    researchSpeed,
+    vpBonus
+  })
 
   // === Tier Options ===
   const tierOptions = useMemo(
@@ -39,37 +54,94 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
   // === Level Options ===
   const levelOptions = useMemo(() => {
     if (!tier) return []
-    return (
-      researchData[category]?.[researchName]?.tiers?.[tier]?.map(
-        (i) => i.level
-      ) || []
-    )
+    const tierData = researchData[category]?.[researchName]?.tiers?.[tier]
+    if (!tierData) return []
+    
+    // Ambil semua level yang tersedia untuk tier ini, urutkan dan filter undefined
+    const levels = tierData.map(item => item.level).filter(level => level !== undefined)
+    return Array.from(new Set(levels)).sort((a, b) => a - b)
   }, [category, researchName, tier])
 
-  // === Reset ketika Tier berubah ===
+  // === Filter level tujuan ===
+  // Jika from level tidak ada, maka to level akan menampilkan semua level yang ada
+  // Jika from level ada, maka to level akan menampilkan level yang lebih besar dari from level
+  const filteredToLevels = useMemo(() => {
+    if (!fromLevel) return levelOptions
+
+    const fromLevelNum = parseInt(fromLevel)
+    return levelOptions.filter(level => level > fromLevelNum)
+  }, [fromLevel, levelOptions])
+
+  // === Reset level ketika Tier berubah ===
   useEffect(() => {
+    console.log('🔄 [ResearchForm] Tier changed:', {
+      tier,
+      levelOptions,
+      resettingLevels: !!tier
+    })
+    
     if (tier) {
-      setFromLevel(levelOptions.length <= 1 ? '0' : '')
+      setFromLevel('')
       setToLevel('')
     }
-  }, [tier, levelOptions])
+  }, [tier])
 
-  // === Filter level tujuan ===
-  const toLevelOptions = useMemo(() => {
-    const from = parseInt(fromLevel)
-    if (!Array.isArray(levelOptions)) return []
-    return levelOptions.filter((lvl) => lvl > from)
-  }, [levelOptions, fromLevel])
+  // === Load default values jika ada ===
+  useEffect(() => {
+    if (!defaultValues || !researchName) return
+
+    console.log('📥 [ResearchForm] Loading default values:', defaultValues)
+    
+    setTier(prev => prev || defaultValues.tier || '')
+    setFromLevel(prev => prev || String(defaultValues.fromLevel || ''))
+    setToLevel(prev => prev || String(defaultValues.toLevel || ''))
+    setResearchSpeed(prev => prev || String(defaultValues.buffs?.researchSpeed || '0'))
+    setVpBonus(prev => prev || String(defaultValues.buffs?.vpBonus || '0'))
+  }, [defaultValues, researchName])
 
   // === Hitung hasil research ===
   const handleCalculate = () => {
+    console.log('🧮 [ResearchForm] Calculate button clicked with state:', {
+      tier,
+      fromLevel,
+      toLevel,
+      researchSpeed,
+      vpBonus
+    })
+
     const from = parseInt(fromLevel)
     const to = parseInt(toLevel)
 
-    if (isNaN(from) || isNaN(to) || to <= from || !tier) {
-      toast.error('Please select valid Tier and Levels.')
+    // Validasi input
+    if (!tier) {
+      toast.error('Please select Tier.')
       return
     }
+
+    if (isNaN(from) || isNaN(to)) {
+      toast.error('Please select valid Levels.')
+      return
+    }
+
+    if (to <= from) {
+      toast.error('"To" level must be greater than "From" level.')
+      return
+    }
+
+    // Validasi level tersedia di data
+    const isValidFrom = levelOptions.includes(from) || from === 0
+    const isValidTo = levelOptions.includes(to)
+    
+    if (!isValidFrom || !isValidTo) {
+      console.log('❌ [ResearchForm] Level validation failed:', {
+        from, to, levelOptions,
+        isValidFrom, isValidTo
+      })
+      toast.error('Selected levels are not available for this tier.')
+      return
+    }
+
+    console.log('✅ [ResearchForm] Validation passed, calculating...')
 
     const result = calculateResearchUpgrade({
       category,
@@ -77,24 +149,44 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
       tier,
       fromLevel: from,
       toLevel: to,
-      researchSpeed,
-      vpBonus,
+      researchSpeed: parseInt(researchSpeed) || 0,
+      vpBonus: parseInt(vpBonus) || 0,
       data: researchData,
     })
 
+    console.log('📊 [ResearchForm] Calculation result:', result)
+
     if (!result) {
-      toast.error('Calculation failed.')
+      console.log('❌ [ResearchForm] Calculation returned null/undefined')
+      toast.error('Calculation failed. Please check your inputs.')
       return
     }
 
+    console.log('🚀 [ResearchForm] Calling onCalculate callback')
     onCalculate?.(result)
     toast.success('Research calculation completed!')
+    
+    // Reset form setelah berhasil (opsional)
+    console.log('🔄 [ResearchForm] Resetting form fields')
+    setFromLevel('')
+    setToLevel('')
+    setResearchSpeed('0')
+    setVpBonus('0')
   }
+
+  // VP Bonus options
+  const vpBonusOptions = ["0", "10", "20"]
 
   return (
     <Card className="bg-glass-background1 text-white mt-6">
       <CardContent className="space-y-6 pt-6">
         <h2 className="text-xl text-white">{researchName}</h2>
+
+        {tierOptions.length === 0 && (
+          <p className="text-red-400 text-sm">
+            ⚠ Data for &quot;{researchName}&quot; not found in {category} category.
+          </p>
+        )}
 
         <TooltipProvider>
           <div className="bg-glass-background2 p-4 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 2xl:grid-cols-6 gap-4">
@@ -118,9 +210,16 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
             {/* === From Level === */}
             <div>
               <Label className="text-white text-shadow-md">From</Label>
-              <Select value={fromLevel} onValueChange={setFromLevel}>
+              <Select 
+                value={fromLevel} 
+                onValueChange={(value) => {
+                  setFromLevel(value)
+                  setToLevel('') // Reset toLevel ketika fromLevel berubah
+                }}
+                disabled={!tier}
+              >
                 <SelectTrigger className="bg-special-input text-white">
-                  <SelectValue placeholder="-- Select --" />
+                  <SelectValue placeholder={tier ? "-- Select --" : "Select Tier first"} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="0">0</SelectItem>
@@ -136,12 +235,16 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
             {/* === To Level === */}
             <div>
               <Label className="text-white text-shadow-md">To</Label>
-              <Select value={toLevel} onValueChange={setToLevel}>
+              <Select 
+                value={toLevel} 
+                onValueChange={setToLevel}
+                disabled={!fromLevel}
+              >
                 <SelectTrigger className="bg-special-input text-white">
-                  <SelectValue placeholder="-- Select --" />
+                  <SelectValue placeholder={fromLevel ? "-- Select --" : "Select From first"} />
                 </SelectTrigger>
                 <SelectContent>
-                  {toLevelOptions.map((lvl) => (
+                  {filteredToLevels.map((lvl) => (
                     <SelectItem key={lvl} value={String(lvl)}>
                       {lvl}
                     </SelectItem>
@@ -161,6 +264,8 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
                 onChange={(e) => setResearchSpeed(e.target.value)}
                 placeholder="e.g. 30"
                 className="bg-special-input text-white"
+                min="0"
+                max="100"
               />
             </div>
 
@@ -184,20 +289,25 @@ export default function ResearchForm({ category, researchName, onCalculate }) {
                   <SelectValue placeholder="Choose Bonus" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="0">Off</SelectItem>
-                  <SelectItem value="10">10%</SelectItem>
-                  <SelectItem value="20">20%</SelectItem>
+                  {vpBonusOptions.map((bonus) => (
+                    <SelectItem key={bonus} value={bonus}>
+                      {bonus === "0" ? "Off" : `${bonus}%`}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
 
             {/* === Button === */}
-            <Button
-              onClick={handleCalculate}
-              className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white rounded-lg py-6 md:py-10 col-span-2 md:col-span-1"
-            >
-              Calculate
-            </Button>
+            <div className="flex items-end">
+              <Button
+                onClick={handleCalculate}
+                disabled={!tier || !fromLevel || !toLevel}
+                className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white rounded-lg py-6 md:py-4 w-full disabled:bg-gray-600 disabled:cursor-not-allowed"
+              >
+                Calculate
+              </Button>
+            </div>
           </div>
         </TooltipProvider>
       </CardContent>

@@ -1,26 +1,20 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 const AddAnotherContext = createContext()
 
 export function AddAnotherProvider({ children }) {
   const [trigger, setTrigger] = useState(0)
 
-  // Load last trigger from localStorage (optional, untuk persistence)
-  useEffect(() => {
-    const savedTrigger = localStorage.getItem('lastAddAnotherTrigger')
-    if (savedTrigger) {
-      setTrigger(Number(savedTrigger))
-    }
-  }, [])
-
   const addAnother = () => {
+    console.log('🔄 [AddAnotherContext] addAnother called')
     const newTrigger = Date.now()
     setTrigger(newTrigger)
-    // Save trigger to localStorage (optional)
-    localStorage.setItem('lastAddAnotherTrigger', newTrigger.toString())
+    console.log('📈 Trigger set to:', newTrigger)
   }
+
+  console.log('🏁 [AddAnotherContext] Provider render, current trigger:', trigger)
 
   return (
     <AddAnotherContext.Provider value={{ trigger, addAnother }}>

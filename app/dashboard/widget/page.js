@@ -170,7 +170,7 @@ export default function WidgetPage({ onCalculate }) {
           {/* Submit */}
           <button
             type="submit"
-            className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white rounded-lg py-4 md:py-4 w-full rounded w-full sm:w-auto"
+            className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white rounded-lg py-4 md:py-4 w-full sm:w-auto"
           >
             Analyze
           </button>
