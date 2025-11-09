@@ -21,23 +21,13 @@ export default function HeliosLayout({ children }) {
       <PageWrapper>
         <HeliosHistoryProvider>
           <AddAnotherProvider>
-            <div className="min-h-screen bg-special text-white grid grid-cols-1 lg:grid-cols-[1fr_320px]">
-              <main className="flex flex-col w-full min-w-0">
-                <div className="p-4">
-                  {children}
-                  <Toaster richColors position="bottom-right" />
-                </div>
-
-                {/* Mobile History */}
-                <div className="lg:hidden px-6 sm:px-4 md:px-10 mt-4 mb-5">
-                  <HeliosHistoryList />
-                </div>
+            <div className="min-h-screen bg-special text-white">
+              <main className="flex flex-col items-center w-full">
+                <div className="w-full max-w-[1200px] px-4 md:px-6 lg:px-8">
+                  <div className="px-2 py-10">{children} </div>
+                  </div>
+                   <Toaster richColors position="bottom-right" />
               </main>
-
-              {/* Desktop History */}
-              <aside className="hidden lg:block  p-3">
-                <HeliosHistoryList />
-              </aside>
             </div>
           </AddAnotherProvider>
         </HeliosHistoryProvider>

@@ -85,10 +85,10 @@ export default function GearForm({
     : levels
 
   return (
-    <div className="p-6 bg-special-inside rounded-xl space-y-6">
+    <div className="py-4 px-4 bg-special-inside rounded-xl space-y-6">
       <h2 className="text-xl">Select Gear Upgrade</h2>
 
-    <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-2 xl:grid-col-4 2xl:grid-cols-4 gap-4 ">
+    <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-4 xl:grid-col-4 2xl:grid-cols-4 gap-4 ">
 
       <div>
         <Label className="text-white">Gear Type</Label>
@@ -154,7 +154,7 @@ export default function GearForm({
         <Button
   type="button"
   onClick={handleCalculate}
-  className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white  rounded-lg py-6 md:py-8"
+  className="button-Form text-sm md:text-base text-white  rounded-lg py-4 md:py-6"
 >
   Calculate
 </Button>

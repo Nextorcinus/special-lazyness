@@ -94,8 +94,8 @@ export default function GearPage() {
     <main className="text-white w-full">
       {/* === Header === */}
       <div className="relative w-full md:px-6 py-0 mt-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
-          <h2 className="text-2xl text-white">Chief Gear Upgrade</h2>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 px-6">
+          <h2 className="text-2xl text-white">Chief Gear</h2>
         </div>
       </div>
 
@@ -151,7 +151,7 @@ export default function GearPage() {
 
       {/* === Results Section === */}
       {Array.isArray(results) && results.length > 0 && (
-        <div className="md:p-6 mt-2 space-y-6 w-full">
+        <div className="md:p-6 py-4 mt-2 space-y-6 w-full">
           <TabSwitcherGear
             results={results}
             compares={compares}

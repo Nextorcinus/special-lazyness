@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { toast } from 'sonner'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
 import { Button } from './ui/button'
@@ -19,7 +19,7 @@ export default function TabSwitcherGear({
 }) {
   const [tab, setTab] = useState('overview')
 
-  // Hitung total bahan dari level "from" ke "to"
+  // === Hitung total bahan dari level "from" ke "to" ===
   const calculateMaterials = (gear, from, to) => {
     const levels = materialData
       .filter((item) => item.Type.toLowerCase() === gear.toLowerCase())
@@ -48,6 +48,18 @@ export default function TabSwitcherGear({
     return total
   }
 
+  // 💡 Tambahkan hasil total ke setiap result agar bisa dijumlahkan global
+  const resultsWithTotal = useMemo(() => {
+    return results
+      .map((res) => ({
+        ...res,
+        total: calculateMaterials(res.type, res.from, res.to),
+      }))
+      .filter((r) => r.total !== null)
+  }, [results])
+
+  const sortedResults = [...resultsWithTotal].reverse()
+
   return (
     <div>
       {/* === Tabs === */}
@@ -69,13 +81,10 @@ export default function TabSwitcherGear({
       {/* === Overview Tab === */}
       {tab === 'overview' && (
         <div className="space-y-6">
-          {results.map((res, idx) => {
-            const total = calculateMaterials(res.type, res.from, res.to)
-            if (!total) return null
-
+          {sortedResults.map((res, idx) => {
+            const total = res.total
             const compare = compares?.[idx] || {}
 
-            // 💡 hanya bahan ini yang dibandingkan
             const resourcesToCompare = [
               { key: 'plans', label: 'Design Plans' },
               { key: 'polish', label: 'Polish' },
@@ -86,18 +95,18 @@ export default function TabSwitcherGear({
             return (
               <div
                 key={res.id}
-                className="bg-special-inside p-6 rounded-xl space-y-4 relative"
+                className="bg-special-inside py-4 px-4 rounded-xl space-y-4 relative"
               >
                 {/* Header */}
                 <div className="relative flex justify-between items-center bg-title-result mb-4 pr-12">
                   <div>
-                  <div className="text-lg lg:text-xl text-shadow-lg text-white  mb-1">{res.type}
+                    <div className="text-lg lg:text-xl text-shadow-lg text-white mb-1">
+                      {res.type}
+                    </div>
+                    <span className="text-white text-sm">
+                      {res.from} → {res.to}
+                    </span>
                   </div>
-                  <span className="text-white text-sm">Level</span>{' '}
-                  <span className="text-white text-sm">
-                        : {res.from} → {res.to}
-                   </span>
-                   </div>
                   <button
                     onClick={() => {
                       onDeleteHistory(res.id)
@@ -114,7 +123,7 @@ export default function TabSwitcherGear({
                 </div>
 
                 {/* === Resources === */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-center">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 gap-y-2 text-center">
                   {resourcesToCompare.map(({ key, label }) => {
                     const need = total[key]
                     const have = compare?.[key] ?? null
@@ -157,25 +166,23 @@ export default function TabSwitcherGear({
                     )
                   })}
 
-                  {/* === SvS Points hanya tampil totalnya === */}
-                  <div className="special-glass bg-[#9797974A] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1">
-                                      <span className="block text-white text-base mb-1">
-                                        SvS Points:
-                                      </span>
-                                      <span className="block text-white text-base mb-1">
-                                        {formatToShortNumber(total.svs)}
-                                      </span>
-                                    </div>
-                  
+                  <div className="special-glass flex flex-col justify-center relative">
+                    <span className="block text-white text-base mb-1">
+                      SvS Points:
+                    </span>
+                    <span className="block text-white text-base mb-1">
+                      {formatToShortNumber(total.svs)}
+                    </span>
+                  </div>
                 </div>
               </div>
             )
           })}
 
+         
+          <TotalResultGear results={resultsWithTotal} comparedData={compares[0]} />
         </div>
       )}
-
-      <TotalResultGear results={results} />
 
       {/* === History Tab === */}
       {tab === 'history' && <GearHistoryList onResetGlobal={onResetHistory} />}

@@ -46,12 +46,12 @@ export default function TabSwitcher({
             return (
               <div
                 key={res.id}
-                className="bg-special-inside p-6 rounded-xl space-y-2 "
+                className="bg-special-inside py-4 px-4 rounded-xl space-y-2 "
               >
                 <div className="relative flex justify-between items-center bg-title-result mb-4 pr-12">
                   {' '}
                   <div>
-                    <div className="text-lg lg:text-xl text-shadow-lg text-white  mb-1">
+                    <div className="text-lg lg:text-2xl text-shadow-lg text-white  mb-1">
                       {res.building}
                     </div>
                     <span className="text-white text-sm">Level</span>{' '}
@@ -64,7 +64,7 @@ export default function TabSwitcher({
                       deleteHistory(res.id)
                       toast.success(`History ${res.building} has been deleted.`)
                     }}
-                    className="buttonGlass absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:scale-105 transition-transform duration-200"
+                    className="special-glass absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:scale-105 transition-transform duration-200"
                     aria-label="Delete history"
                   >
                     <img
@@ -76,7 +76,7 @@ export default function TabSwitcher({
                 </div>
                 {/* Resources */}
                 <div>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-6 gap-4  w-full">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-6 gap-4 gap-y-0 w-full">
                     {Object.entries(res.resources || {}).map(([key, value]) => {
                       const need = res.rawResources?.[key] || 0
                       const hasCompare = compare && key in compare
@@ -98,7 +98,7 @@ export default function TabSwitcher({
                           key={key}
                           className="flex flex-col justify-center special-glass items-center px-2 py-2 rounded-xl"
                         >
-                          <div className="flex items-center justify-between gap-1 text-white text-sm md:text-base w-full">
+                          <div className="flex items-center justify-between gap-1  text-sm md:text-base w-full">
                             <ResourceIcon type={key} />
                             {formatToShortNumber(value)}
                           </div>
@@ -119,24 +119,24 @@ export default function TabSwitcher({
                 </div>
 
                 {/* Time & Points */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-y-0 gap-x-4">
                   <div className="special-glass bg-[#9797974A] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1">
-                    <span className="block text-[#ffeed8] text-base mb-1">
+                    <span className="block text-white text-sm mb-1">
                       Original Time
                     </span>
-                    <span className="block text-[#ffeed8] text-base">
+                    <span className="block text-[#ffeed8] text-sm">
                       {res.timeOriginal}
                     </span>
                   </div>
-                  <div className=" px-4 py-2 rounded-lg">
-                    <span className="block text-white text-base mb-1">
+                  <div className="special-glass px-4 py-2 rounded-lg">
+                    <span className="block text-white text-sm mb-1">
                       Reduce Time
                     </span>
-                    <span className="block text-white text-base">
+                    <span className="block  text-base">
                       {res.timeReduced}
                     </span>
                   </div>
-                  <div className=" px-4 py-2 rounded-lg">
+                  <div className="special-glass px-4 py-2 rounded-lg">
                     <span className="block text-white text-base mb-1">
                       SvS Points:
                     </span>
@@ -148,29 +148,29 @@ export default function TabSwitcher({
 
                 {/* Buffs */}
                 {res.buffs && (
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mt-3 text-sm border-t border-[#ffffff1c] pt-2 text-[#FFDB98]">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mt-3 text-sm border-t border-[#ffffff1c] pt-4 text-[#00ffff]">
                     {res.buffs.petLevel !== 'Off' && (
-                      <div className="bg-[#FFDB9833] border border-[#FFDB984D] px-2 py-1 rounded-md">
+                      <div className="bg-[#03cfbe33] border border-[#35dde94d] px-2 py-1 rounded-md">
                         Pet: {res.buffs.petLevel}
                       </div>
                     )}
                     {res.buffs.vpLevel !== 'Off' && (
-                      <div className="bg-[#FFDB9833] border border-[#FFDB984D] px-2 py-1 rounded-md">
+                      <div className="bg-[#03cfbe33] border border-[#35dde94d] px-2 py-1 rounded-md">
                         VP: {res.buffs.vpLevel}
                       </div>
                     )}
                     {res.buffs.zinmanSkill !== 'Off' && (
-                      <div className="bg-[#FFDB9833] border border-[#FFDB984D] px-2 py-1 rounded-md">
+                      <div className="bg-[#03cfbe33] border border-[#35dde94d] px-2 py-1 rounded-md">
                         Zinman: {res.buffs.zinmanSkill}
                       </div>
                     )}
                     {res.buffs.constructionSpeed > 0 && (
-                      <div className="bg-[#FFDB9833] border border-[#FFDB984D] px-2 py-1 rounded-md">
+                      <div className="bg-[#03cfbe33] border border-[#35dde94d] px-2 py-1 rounded-md">
                         Speed: {res.buffs.constructionSpeed}%
                       </div>
                     )}
                     {res.buffs.doubleTime && (
-                      <div className="bg-[#FFDB9833] border border-[#FFDB984D] px-2 py-1 rounded-md">
+                      <div className="bg-[#03cfbe33] border border-[#35dde94d] px-2 py-1 rounded-md">
                         Double Time
                       </div>
                     )}

@@ -18,7 +18,7 @@ export default function GearHistoryList({ onResetGlobal }) {
   return (
     <Card className="bg-special-inside text-white mt-10 border border-neutral-700">
       <CardHeader className="flex flex-row items-center justify-between px-4 py-2">
-        <h3 className="text-lg">Gear Upgrade History</h3>
+        <h3 className="text-lg px-4 mt-4">Gear Upgrade History</h3>
         <Button
           className="buttonGlass hover:bg-red-500  text-white px-2 py-0 rounded"
           onClick={handleReset}
@@ -38,13 +38,13 @@ export default function GearHistoryList({ onResetGlobal }) {
             >
               <div>
                 
-                <div className="text-sm font-semibold">{entry.type}</div>
-                <div className="text-xs text-white mt-1">
+                <div className="text-base font-semibold">{entry.type}</div>
+                <div className="text-sm text-white mt-1">
                   {entry.from} → {entry.to}
                 </div>
               </div>
               <Button
-                className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded"
+                className="button-Form text-white px-2 py-1 rounded"
                 onClick={() => {
                   deleteHistory(entry.id)
                   toast.success(`History ${entry.type} has been deleted.`)

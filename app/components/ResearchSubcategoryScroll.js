@@ -58,7 +58,7 @@ export default function ResearchSubcategoryScroll({
   return (
     <div
       ref={scrollRef}
-      className="special-glass-cat p-1 w-full overflow-x-auto no-scrollbar mt-4 rounded-xl "
+      className="glass-new p-1 w-full overflow-x-auto no-scrollbar mt-4 rounded-xl "
     >
       <div className=" flex gap-1 cursor-grab select-none w-max ">
         {items.map((item) => (

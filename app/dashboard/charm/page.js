@@ -91,7 +91,7 @@ export default function CharmPage() {
       {/* === Header === */}
       <div className="relative w-full md:px-6 py-0 mt-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
-          <h2 className="text-2xl text-white">Chief Charm Upgrade</h2>
+          <h2 className="text-2xl text-white px-6">Chief Charm</h2>
         </div>
       </div>
 

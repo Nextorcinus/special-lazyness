@@ -133,7 +133,7 @@ function BuildingForm({
         <TooltipProvider>
           <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-2 md:grid-cols-4 xl:grid-col-4 2xl:grid-cols-8 gap-4 ">
             <div>
-              <Label className="text-white text-shadow-lg/20">From</Label>
+              <Label className="text-zinc-800 text-shadow-lg/20">From</Label>
 
               <Select
                 value={fromLevel}
@@ -155,7 +155,7 @@ function BuildingForm({
               </Select>
             </div>
             <div>
-              <Label className="text-white text-shadow-md ">To</Label>
+              <Label className="text-zinc-800  text-shadow-md ">To</Label>
               <Select value={toLevel} onValueChange={setToLevel}>
                 <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
                   <SelectValue placeholder="-- Select Level --" />
@@ -173,7 +173,7 @@ function BuildingForm({
 
           
             <div>
-              <Label className="text-white text-shadow-md">Pet</Label>
+              <Label className="text-zinc-800  text-shadow-md">Pet</Label>
               <Select value={petLevel} onValueChange={setPetLevel}>
                 <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
                   <SelectValue />
@@ -238,7 +238,7 @@ function BuildingForm({
               </Select>
             </div>
             <div>
-              <Label className="text-white text-shadow-md">Const Speed (%)</Label>
+              <Label className="text-zinc-700 text-shadow-md">Const Speed (%)</Label>
               <Input
                 type="number"
                 value={constructionSpeed}
@@ -257,7 +257,7 @@ function BuildingForm({
           
         <Button
           onClick={handleSubmit}
-          className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white  rounded-lg py-6 md:py-10"
+          className="button-Form text-sm md:text-base text-white  rounded-lg py-6 md:py-10"
         >
           Calculate
         </Button>

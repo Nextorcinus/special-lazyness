@@ -90,14 +90,16 @@ export default function HeliosPage({ addAnotherTrigger }) {
   )
 
   return (
-    <main className="p-1 md:p-6 text-white w-full">
-      <div className="relative bg-special-inside  rounded-2xl p-6 ">
-        <h2 className="text-2xl">Helios Research</h2>
-        <HeliosCategorySelector
-          selected={category}
-          onChange={setCategory}
-          categories={['Infantry', 'Marksman', 'Lancer']}
-        />
+    <main className=" text-white w-full">
+      <div className="relative w-full md:p-6 ">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 mt-2">
+          <h2 className="text-2xl">War Academy</h2>
+          <HeliosCategorySelector
+            selected={category}
+            onChange={setCategory}
+            categories={['Infantry', 'Marksman', 'Lancer']}
+          />
+        </div>
         <HeliosSubcategoryScroll
           items={subcategories}
           selected={selectedSub}

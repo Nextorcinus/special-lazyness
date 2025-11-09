@@ -17,7 +17,7 @@ export default function HistoryList() {
   }
 
   return (
-    <Card className="bg-special-inside py-2 text-white mt-10 border border-neutral-700">
+    <Card className="bg-special-inside py-2 text-white mt-6 border border-neutral-700">
       <CardHeader className="flex flex-row items-center justify-between pt-2 pb-0">
         <h3 className="text-lg">History Building</h3>
         <Button
@@ -28,7 +28,7 @@ export default function HistoryList() {
         </Button>
       </CardHeader>
 
-      <CardContent className="space-y-2 px-4 pb-4">
+      <CardContent className="space-y-2 px-4 pb-4 mt-4">
         {history.length === 0 ? (
           <p className="text-sm text-white">No history yet.</p>
         ) : (

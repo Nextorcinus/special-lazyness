@@ -46,7 +46,7 @@ export default function CharmHistoryList({ onResetGlobal }) {
               </div>
 
               <Button
-                className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded"
+                className="button-Form text-white px-2 py-1 rounded"
                 onClick={() => {
                   deleteHistory(entry.id)
                   toast.success(`History ${entry.type} has been deleted.`)

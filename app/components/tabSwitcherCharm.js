@@ -38,6 +38,9 @@ export default function TabSwitcherCharm({
     toast.success(`Deleted ${type} upgrade.`)
   }
 
+  // urutkan terbaru di atas
+  const sortedResults = [...results].reverse()
+
   return (
     <div>
       <div className="flex gap-2 mb-6 border-b border-[#ffffff46]">
@@ -57,25 +60,25 @@ export default function TabSwitcherCharm({
 
       {tab === 'overview' && (
         <div className="space-y-6">
-          {results.length === 0 ? (
+          {sortedResults.length === 0 ? (
             <div className="text-center py-8">
               <p className="text-gray-400">No charm upgrades yet.</p>
             </div>
           ) : (
             <>
-              {results.map((res) => {
+              {sortedResults.map((res, idx) => {
                 const total = calculateMaterials(res.from, res.to)
                 if (!total) return null
 
-                const compare = compares?.find(c => c.id === res.id) || {}
+                const compare = compares?.[idx] || {}
                 const resourcesToCompare = [
                   { key: 'guide', label: 'Guides' },
                   { key: 'design', label: 'Designs' },
-                  { key: 'jewel', label: 'Secrets' },
+                  { key: 'jewel', label: 'Jewels' },
                 ]
-
+                
                 return (
-                  <div key={res.id} className="bg-special-inside p-6 rounded-xl space-y-4 relative">
+                  <div key={res.id} className="bg-special-inside py-4 px-4 rounded-xl space-y-4 relative">
                     <div className="relative flex justify-between items-center bg-title-result mb-4 pr-12">
                       <div>
                         <div className="text-lg lg:text-xl text-shadow-lg text-white mb-1">{res.type}</div>
@@ -90,7 +93,7 @@ export default function TabSwitcherCharm({
                       </button>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-center">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 gap-y-2 text-center">
                       {resourcesToCompare.map(({ key, label }) => {
                         const need = total[key]
                         const have = compare?.[key] ?? null
@@ -115,16 +118,16 @@ export default function TabSwitcherCharm({
                         return (
                           <div key={key} className="special-glass p-3 rounded-xl flex flex-col items-center">
                             <ResourceIcon type={key} />
-                            <p className="text-sm text-white mt-1 mb-1">{label}</p>
-                            <p className="text-sm text-white mt-1">{formatToShortNumber(need)}</p>
+                            <p className="text-sm text-white mt-1">{label}</p>
+                            <p className="text-lg  text-white">{formatToShortNumber(need)}</p>
                             {have !== null && <span className={`text-xs mt-2 px-2 py-1 rounded-md ${color}`}>{diffText}</span>}
                           </div>
                         )
                       })}
 
-                      <div className="special-glass bg-[#9797974A] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1">
+                      <div className="special-glass bg-[#9797974A] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1 flex flex-col justify-center relative">
                         <span className="block text-white text-base mb-1">SvS Points:</span>
-                        <span className="block text-white text-sm mb-1">{formatToShortNumber(total.svs)}</span>
+                        <span className="block text-lg text-white">{formatToShortNumber(total.svs)}</span>
                       </div>
                     </div>
                   </div>

@@ -26,7 +26,7 @@ export default function CharmForm({ onSubmit, onReset }) {
     setSelection((prev) => {
       const updated = { ...prev, [field]: value }
 
-      // Pastikan "to" selalu lebih tinggi dari "from"
+      
       if (
         field === 'from' &&
         updated.to &&
@@ -74,7 +74,7 @@ export default function CharmForm({ onSubmit, onReset }) {
       total,
     }
 
-    // ✅ Kirim ke parent (page.js) — parent yang akan menambahkan ke history
+    
     onSubmit?.(result)
     toast.success(`Charm upgrade calculated: ${type} ${from} → ${to}`)
   }
@@ -92,12 +92,12 @@ export default function CharmForm({ onSubmit, onReset }) {
   return (
     <form
       onSubmit={handleCalculate}
-      className="p-6 bg-special-inside rounded-xl space-y-6"
+      className="py-4 px-4 bg-special-inside rounded-xl space-y-6"
     >
-      <h2 className="text-xl font-semibold text-white">Select Charm Upgrade</h2>
+      <h2 className="text-xl text-white">Select Charm</h2>
 
       {/* === Input Area === */}
-      <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-3 xl:grid-col-4 2xl:grid-cols-4 gap-4">
+      <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-4 xl:grid-col-4 2xl:grid-cols-4 gap-4">
         {/* Type */}
         <div>
           <Label className="text-white">Charm Type</Label>
@@ -163,7 +163,7 @@ export default function CharmForm({ onSubmit, onReset }) {
         <div className="flex">
           <Button
             type="submit"
-            className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white rounded-lg py-6 md:py-6 w-full"
+            className="button-Form text-sm md:text-base text-white rounded-lg py-6 md:py-6 w-full"
           >
             Calculate
           </Button>

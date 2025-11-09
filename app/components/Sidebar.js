@@ -82,7 +82,7 @@ export default function Sidebar() {
         <div className="flex justify-center p-4">
           <Link href="/" passHref>
             <Image
-              src="/icon/logo-speecial-small-.png"
+              src="/icon/logo-special-small.png"
               alt="Special Lazyness Logo"
               width={49}
               height={49}
@@ -91,7 +91,7 @@ export default function Sidebar() {
             />
 
             <Image
-              src="/icon/logo-sepecial-small-.png"
+              src="/icon/logo-special-small.png"
               alt="Special Lazyness Logo"
               width={49}
               height={49}

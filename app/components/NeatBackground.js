@@ -6,47 +6,49 @@ import { NeatGradient } from "@firecms/neat"
 const config = {
     colors: [
         {
-            color: '#005F73',
+            color: '#0b3954',
             enabled: true,
         },
         {
-            color: '#0A9396',
+            color: '#087e8b',
             enabled: true,
         },
         {
-            color: '#94D2BD',
+            color: '#439C9C',
             enabled: true,
         },
         {
-            color: '#E9D8A6',
+            color: '#20397F',
             enabled: true,
         },
         {
-            color: '#EE9B00',
+            color: '#c81d25',
             enabled: false,
         },
     ],
-    speed: 3,
-    horizontalPressure: 3,
-    verticalPressure: 7,
-    waveFrequencyX: 1,
-    waveFrequencyY: 2,
+    speed: 7,
+    horizontalPressure: 4,
+    verticalPressure: 3,
+    waveFrequencyX: 0,
+    waveFrequencyY: 0,
     waveAmplitude: 0,
-    shadows: 10,
-    highlights: 4,
-    colorBrightness: 1.05,
-    colorSaturation: -5,
+    shadows: 2,
+    highlights: 7,
+    colorBrightness: 1,
+    colorSaturation: -1,
     wireframe: false,
-    colorBlending: 10,
-    backgroundColor: '#004E64',
+    colorBlending: 5,
+    backgroundColor: '#FF0000',
     backgroundAlpha: 1,
     grainScale: 3,
-    grainSparsity: 0,
-    grainIntensity: 0.3,
-    grainSpeed: 1,
-    resolution: 2,
-    yOffset: 0,
+    grainSparsity: 0.08,
+    grainIntensity: 0.275,
+    grainSpeed: 1.8,
+    resolution: 0.2,
+    yOffset: 1112,
 }
+
+
 
 export default function NeatBackground() {
   const canvasRef = useRef(null)
@@ -71,7 +73,7 @@ export default function NeatBackground() {
         w-screen h-screen 
         overflow-hidden 
         -z-10
-        pointer-events-none
+        pointer-events-none text-color-transparent
       "
     >
       <canvas
