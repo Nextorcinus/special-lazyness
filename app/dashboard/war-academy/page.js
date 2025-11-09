@@ -8,92 +8,80 @@ import HeliosCategorySelector from '../../components/HeliosCategorySelector'
 import HeliosSubcategoryScroll from '../../components/HeliosSubCategorySelector'
 import HeliosForm from '../../components/HeliosForm'
 import HeliosCompareForm from '../../components/HeliosCompareForm'
-import HeliosTotalResult from '../../components/HeliosTotalResult'
-import ResourceIcon from '../../components/ResourceIcon'
-import { formatToShortNumber } from '../../utils/formatToShortNumber'
+import HeliosTabSwitcher from '../../components/tabSwitcherHelios'
+import { useHeliosHistory } from './HeliosHistoryContext'
+import { useAddAnother } from '../research/AddAnotherContext'
 
 import heliosData from '../../data/HeliosResearch.json'
-import { useHeliosHistory } from './HeliosHistoryContext'
-import { useAddAnother } from '../../dashboard/research/AddAnotherContext'
 
 export default function HeliosPage({ addAnotherTrigger }) {
-  const { history, addToHistory, deleteHistory, resetHistory } =
-    useHeliosHistory()
+  const { history, addToHistory, deleteHistory, resetHistory } = useHeliosHistory()
   const { trigger } = useAddAnother()
 
   const [category, setCategory] = useState('Infantry')
   const [selectedSub, setSelectedSub] = useState('')
   const [results, setResults] = useState([])
   const [compares, setCompares] = useState([])
+  const [showCompareForm, setShowCompareForm] = useState(false)
 
+  // === Subcategories from JSON ===
   const subcategories = useMemo(
     () => Object.keys(heliosData[category] || {}),
     [category]
   )
 
+  // === Sync with history ===
   useEffect(() => {
     setResults(history)
-    setCompares(history.map(() => null))
+    setCompares((prev) => {
+      const updated = [...prev]
+      while (updated.length < history.length) updated.push(null)
+      return updated.slice(0, history.length)
+    })
   }, [history])
 
+  // === Reset when trigger changes ===
   useEffect(() => {
     setCategory('Infantry')
     setSelectedSub('')
-  }, [trigger, addAnotherTrigger])
+  }, [addAnotherTrigger, trigger])
 
   const handleCalculate = (data) => {
     const resultWithId = { ...data, id: uuidv4() }
     setResults((prev) => [...prev, resultWithId])
     setCompares((prev) => [...prev, null])
     addToHistory(resultWithId)
-
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }, 100)
   }
 
-  const handleCompare = (data, index = null) => {
-    setCompares((prev) => {
-      const updated = [...prev]
-      if (index === null) {
-        return prev.map(() => data)
-      } else {
-        updated[index] = data
-        return updated
-      }
-    })
+  const handleCompareSubmit = (compareData) => {
+    if (!compareData) return
+    setCompares((prev) => results.map(() => compareData))
+    setShowCompareForm(false)
+    toast.success('Comparison applied to all results!')
   }
 
-  const formatTime = (seconds) => {
-    const d = Math.floor(seconds / 86400)
-    const h = Math.floor((seconds % 86400) / 3600)
-    const m = Math.floor((seconds % 3600) / 60)
-    const s = Math.floor(seconds % 60)
-    const parts = []
-    if (d) parts.push(`${d}d`)
-    if (h) parts.push(`${h}h`)
-    if (m) parts.push(`${m}m`)
-    if (s || parts.length === 0) parts.push(`${s}s`)
-    return parts.join(' ')
+  const handleDeleteHistory = (id) => {
+    deleteHistory(id)
+    const updated = history.filter((item) => item.id !== id)
+    setResults(updated)
+    setCompares((prev) => prev.filter((_, i) => i < updated.length))
   }
 
-  const defaultResources = useMemo(
-    () => ({
-      Meat: 0,
-      Wood: 0,
-      Coal: 0,
-      Iron: 0,
-      Steel: 0,
-      'FC Shards': 0,
-    }),
-    []
-  )
+  const handleResetHistory = () => {
+    resetHistory()
+    setResults([])
+    setCompares([])
+    toast.success('History has been reset.')
+  }
 
   return (
-    <main className=" text-white w-full">
-      <div className="relative w-full md:p-6 ">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 mt-2">
-          <h2 className="text-2xl">War Academy</h2>
+    <main className="text-white w-full">
+      <div className="relative w-full md:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
+          <h2 className="text-2xl">Helios Research</h2>
           <HeliosCategorySelector
             selected={category}
             onChange={setCategory}
@@ -107,104 +95,72 @@ export default function HeliosPage({ addAnotherTrigger }) {
         />
       </div>
 
+      {/* === FORM AREA === */}
       {selectedSub && (
-        <div className="flex flex-col lg:flex-row gap-6 mt-6 w-full">
-          <div className="w-full lg:w-8/12">
+        <div className="flex flex-col md:px-6 lg:flex-row gap-6 mt-2 w-full">
+          <div className="w-full">
             <HeliosForm
               category={category}
               researchName={selectedSub}
               onCalculate={handleCalculate}
               dataSource={heliosData}
             />
+
+            {/* Compare Button */}
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={() => setShowCompareForm(true)}
+                className="buttonGlass flex gap-2 text-sm md:text-base"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 md:h-5 md:w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+                Compare Resources
+              </button>
+            </div>
           </div>
-          <div className="w-full lg:w-4/12">
+        </div>
+      )}
+
+      {/* === POPUP COMPARE === */}
+      {showCompareForm && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-[#ffffff35] backdrop-blur-md p-6 rounded-xl border border-white/20 w-[90%] max-w-lg relative">
+            <button
+              onClick={() => setShowCompareForm(false)}
+              className="absolute top-2 right-2 text-xl text-red-400 hover:text-white"
+            >
+              ✕
+            </button>
             <HeliosCompareForm
-              requiredResources={defaultResources}
-              onCompare={handleCompare}
+              comparedData={compares[0] || {}}
+              onCompare={handleCompareSubmit}
+              onCancel={() => setShowCompareForm(false)}
             />
           </div>
         </div>
       )}
 
+      {/* === RESULTS === */}
       {results.length > 0 && (
-        <div className="mt-8 space-y-6">
-          <h2 className="text-xl px-6">Helios Results</h2>
-
-          {results.map((res, index) => (
-            <div
-              key={res.id}
-              className="bg-special-inside p-6 rounded-xl shadow-2xl space-y-2 border border-zinc-800 text-yellow-400"
-            >
-              <div className="text-base lg:text-xl text-zinc-300 border-b border-zinc-700 pb-2 mb-2">
-                {res.building}
-              </div>
-
-              <div>
-                <span className="text-zinc-400">From</span> {res.fromLevel} →{' '}
-                <span>{res.toLevel}</span>
-              </div>
-
-              <div>
-                <span className="text-zinc-400">Original Time:</span>{' '}
-                <span className="text-red-400">
-                  {formatTime(res.timeOriginal)}
-                </span>
-              </div>
-
-              <div>
-                <span className="text-zinc-400">Reduced Time:</span>{' '}
-                <span className="text-lime-400">
-                  {formatTime(res.timeReduced)}
-                </span>
-              </div>
-
-              <div>
-                <span className="text-zinc-400 mb-5">Resources:</span>
-                <div className="flex flex-wrap gap-x-4 gap-y-2 text-base">
-                  {Object.entries(res.resources || {}).map(([key, value]) => {
-                    const need = res.resources?.[key] || 0
-                    const hasCompare = compares[0] && key in compares[0]
-                    const have = hasCompare ? compares[0][key] : null
-
-                    const diff = have - need
-                    const isMatch = diff === 0
-                    const color =
-                      diff > 0
-                        ? 'text-green-300 bg-green-700 px-2 py-1'
-                        : diff < 0
-                        ? 'text-red-300 bg-red-500/20 px-2 py-1'
-                        : 'text-gray-200 bg-gray-700 px-2 py-1'
-                    const label =
-                      diff > 0 ? 'Extra +' : diff < 0 ? 'Need -' : 'Match'
-
-                    return (
-                      <div
-                        key={key}
-                        className="flex flex-col items-end px-0 py-1 rounded-xl mt-1"
-                      >
-                        <div className="flex items-center justify-between gap-1 text-lime-400 text-sm md:text-base w-full">
-                          <ResourceIcon type={key} />
-                          {formatToShortNumber(value)}
-                        </div>
-                        {hasCompare && (
-                          <div
-                            className={`text-xs md:text-sm rounded-md mt-1 ${color}`}
-                          >
-                            {label}
-                            {!isMatch && (
-                              <> {formatToShortNumber(Math.abs(diff))}</>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            </div>
-          ))}
-
-          <HeliosTotalResult results={results} comparedData={compares[0]} />
+        <div className="md:p-6 mt-8 space-y-6 w-full">
+          <HeliosTabSwitcher
+            results={results}
+            compares={compares}
+            onDeleteHistory={handleDeleteHistory}
+            onResetHistory={handleResetHistory}
+          />
         </div>
       )}
     </main>
