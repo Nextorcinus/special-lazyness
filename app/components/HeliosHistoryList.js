@@ -21,7 +21,7 @@ export default function HeliosHistoryList() {
       <CardHeader className="flex flex-row items-center justify-between px-4 py-2">
         <h3 className="text-lg">Helios Research History</h3>
         <Button
-          className="bg-slate-500 hover:bg-red-500 text-white px-2 py-0 rounded"
+          className="buttonGlass text-white px-2 py-0 rounded"
           onClick={handleReset}
         >
           Reset
@@ -36,11 +36,11 @@ export default function HeliosHistoryList() {
             {history.map((entry) => (
               <div
                 key={entry.id}
-                className="flex justify-between items-center bg-zinc-800 rounded px-4 py-3"
+                className="flex justify-between items-center special-glass rounded px-4 py-3"
               >
                 <div>
                   <div className="text-sm">{entry.building}</div>
-                  <div className="text-xs text-zinc-400 p-0 mt-2">
+                  <div className="text-xs text-white p-0 mt-2">
                     {entry.fromLevel} → {entry.toLevel}
                   </div>
                 </div>
@@ -59,7 +59,7 @@ export default function HeliosHistoryList() {
             <div className="pt-2 text-center">
               <Button
                 onClick={addAnother}
-                className="w-max bg-zinc-700 hover:bg-green-700 text-white px-4 rounded"
+                className="w-max buttonGlass text-white px-4 rounded"
               >
                 + Add Another Research
               </Button>

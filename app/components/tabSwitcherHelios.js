@@ -10,6 +10,7 @@ import { toast } from 'sonner'
 import { Button } from './ui/button'
 import { useAddAnother } from '../dashboard/research/AddAnotherContext'
 import heliosData from '../data/HeliosResearch.json'
+import { formatDuration } from '../utils/calculateResearch'
 
 export default function TabSwitcherHelios({
   results = [],
@@ -65,7 +66,7 @@ export default function TabSwitcherHelios({
                 <div className="relative flex justify-between items-center bg-title-result mb-4 pr-12">
                   <div>
                     <div className="text-lg lg:text-2xl text-shadow-lg text-white mb-1">
-                      {res.researchName || res.name}
+                      {res.building}
                     </div>
                     <span className="text-white text-sm">Level </span>
                     <span className="text-white text-sm">
@@ -141,24 +142,27 @@ export default function TabSwitcherHelios({
                     <span className="block text-white text-sm mb-1">
                       Original Time
                     </span>
-                    <span className="block text-[#ffeed8] text-sm">
-                      {res.timeOriginal}
-                    </span>
+                   <span className="block text-[#ffeed8] text-sm">
+  {formatDuration(
+    typeof res.timeOriginal === 'number'
+      ? res.timeOriginal
+      : parseFloat(res.timeOriginal) || 0
+  )}
+</span>
                   </div>
                   <div className="special-glass px-4 py-2 rounded-lg">
                     <span className="block text-white text-sm mb-1">
                       Reduce Time
                     </span>
-                    <span className="block text-base">{res.timeReduced}</span>
+                    <span className="block text-base">
+  {formatDuration(
+    typeof res.timeReduced === 'number'
+      ? res.timeReduced
+      : parseFloat(res.timeReduced) || 0
+  )}
+</span>
                   </div>
-                  <div className="special-glass px-4 py-2 rounded-lg">
-                    <span className="block text-white text-base mb-1">
-                      SvS Points:
-                    </span>
-                    <span className="text-base block">
-                      {formatToShortNumber(res.svsPoints || 0)}
-                    </span>
-                  </div>
+      
                 </div>
 
                 {/* === Buffs === */}
