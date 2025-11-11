@@ -17,7 +17,7 @@ export default function ResearchPage() {
 
   const [category, setCategory] = useState('Growth')
   const [selectedSub, setSelectedSub] = useState('')
-  const [results, setResults] = useState([]) // ✅ TAMBAHKAN STATE RESULTS
+  const [results, setResults] = useState([]) 
   const [compares, setCompares] = useState([])
   const [formKey, setFormKey] = useState(0)
 
@@ -30,7 +30,7 @@ export default function ResearchPage() {
     resultsLength: results.length
   })
 
-  // Reset form saat Add Another ditekan - SEDERHANA seperti Building
+  
   useEffect(() => {
     console.log('🔍 [page.js] useEffect trigger check:', { trigger })
     
@@ -45,7 +45,7 @@ export default function ResearchPage() {
     }
   }, [trigger])
 
-  // Reset subcategory saat ganti kategori
+  
   useEffect(() => {
     console.log('🔄 [page.js] Category changed, resetting subcategory:', category)
     setSelectedSub('')
@@ -56,7 +56,6 @@ export default function ResearchPage() {
     [category]
   )
 
-  // Auto-select first subcategory ketika category berubah
   useEffect(() => {
     if (subcategories.length > 0 && !selectedSub) {
       setSelectedSub(subcategories[0])
@@ -68,17 +67,17 @@ export default function ResearchPage() {
 
   const resultWithId = { 
     ...data, 
-    id: uuidv4(), // selalu id unik
-    name: data.research || data.name || selectedSub, // fallback
+    id: uuidv4(), 
+    name: data.research || data.name || selectedSub, 
     timestamp: Date.now()
   }
 
   console.log('🆔 [page.js] Final resultWithId:', resultWithId)
 
-  // 💾 Simpan langsung ke history lebih dulu agar pasti tersimpan
+  
   addToHistory(resultWithId)
 
-  // 🔁 Update state untuk tampilan langsung
+  
   setResults(prev => [...prev, resultWithId])
 
   toast.success('Added to Research History!')
@@ -115,10 +114,10 @@ export default function ResearchPage() {
         </div>
       )}
 
-      {/* ✅ PASS RESULTS KE TabSwitcherResearch (seperti di building) */}
+     
       <div className="mt-10 md:px-6">
         <TabSwitcherResearch
-          results={results} // ✅ INI YANG PENTING!
+          results={results} 
           compares={compares}
           onDeleteHistory={deleteHistory}
           onResetHistory={resetHistory}

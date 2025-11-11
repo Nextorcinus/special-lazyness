@@ -14,7 +14,6 @@ export function AddAnotherProvider({ children }) {
     console.log('📈 Trigger set to:', newTrigger)
   }
 
-  console.log('🏁 [AddAnotherContext] Provider render, current trigger:', trigger)
 
   return (
     <AddAnotherContext.Provider value={{ trigger, addAnother }}>

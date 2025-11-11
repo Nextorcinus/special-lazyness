@@ -83,10 +83,13 @@ export default function HeliosPage({ addAnotherTrigger }) {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
           <h2 className="text-2xl">Helios Research</h2>
           <HeliosCategorySelector
-            selected={category}
-            onChange={setCategory}
-            categories={['Infantry', 'Marksman', 'Lancer']}
-          />
+  selected={category}
+  onChange={(newCat) => {
+    setCategory(newCat)
+    setSelectedSub('') 
+  }}
+  categories={['Infantry', 'Marksman', 'Lancer']}
+/>
         </div>
         <HeliosSubcategoryScroll
           items={subcategories}
