@@ -9,7 +9,6 @@ import { useHeliosHistory } from '../dashboard/war-academy/HeliosHistoryContext'
 import { toast } from 'sonner'
 import { Button } from './ui/button'
 import { useAddAnother } from '../dashboard/research/AddAnotherContext'
-import heliosData from '../data/HeliosResearch.json'
 import { formatDuration } from '../utils/calculateResearch'
 
 export default function TabSwitcherHelios({
@@ -19,22 +18,42 @@ export default function TabSwitcherHelios({
   onResetHistory,
 }) {
   const [tab, setTab] = useState('overview')
-  const { deleteHistory, resetHistory } = useHeliosHistory()
+  const { deleteHistory } = useHeliosHistory()
   const { addAnother } = useAddAnother()
 
   // === TOTAL CALCULATION ===
   const resultsWithTotal = useMemo(() => {
     if (!results.length) return []
+
     const total = results.reduce(
       (acc, res) => {
-        for (const key in res.resources || {}) {
-          acc[key] = (acc[key] || 0) + (res.resources[key] || 0)
+        // === Resource Total ===
+        const baseResources = res.rawResources || res.resources || {}
+        for (const key in baseResources) {
+          const baseVal = baseResources[key] || 0
+          acc.resources[key] = (acc.resources[key] || 0) + baseVal
         }
+
+        // === Time Total ===
+        acc.timeOriginal += res.timeOriginal || 0
+        acc.timeReduced += res.timeReduced || 0
+
         return acc
       },
-      {}
+      { resources: {}, timeOriginal: 0, timeReduced: 0 }
     )
-    return [...results, { id: 'total', researchName: 'Total', resources: total }]
+
+    return [
+      ...results,
+      {
+        id: 'total',
+        researchName: 'Total',
+        building: 'Total',
+        resources: total.resources,
+        timeOriginal: total.timeOriginal,
+        timeReduced: total.timeReduced,
+      },
+    ]
   }, [results])
 
   return (
@@ -57,6 +76,7 @@ export default function TabSwitcherHelios({
         <div className="space-y-6">
           {results.map((res) => {
             const compare = compares[0]
+
             return (
               <div
                 key={res.id}
@@ -95,20 +115,21 @@ export default function TabSwitcherHelios({
                 <div>
                   <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-6 gap-4 gap-y-0 w-full">
                     {Object.entries(res.resources || {}).map(([key, value]) => {
-                      const need = res.rawResources?.[key] || 0
+                      const need = res.rawResources?.[key] || value || 0
                       const compareVal = compare?.resources?.[key] ?? null
-                      const diff =
-                        compareVal !== null ? compareVal - need : null
+                      const diff = compareVal !== null ? need - compareVal : null
                       const isMatch = diff === 0
 
-                      let colorClass = 'text-xs text-gray-200 bg-white/20 px-2 py-1'
+                      let colorClass =
+                        'text-xs text-gray-200 bg-white/20 px-2 py-1'
                       let label = 'Match'
+
                       if (diff > 0)
                         colorClass =
-                          'text-xs text-green-400 border border-green-800 bg-green-700/10 px-2 py-1'
+                          'text-xs text-red-200 border border-red-400 bg-red-500/10 px-2 py-1'
                       else if (diff < 0)
                         colorClass =
-                          'text-xs text-red-200 border border-red-400 bg-red-500/10 px-2 py-1'
+                          'text-xs text-green-400 border border-green-800 bg-green-700/10 px-2 py-1'
 
                       if (diff > 0) label = '+'
                       else if (diff < 0) label = '-'
@@ -142,27 +163,26 @@ export default function TabSwitcherHelios({
                     <span className="block text-white text-sm mb-1">
                       Original Time
                     </span>
-                   <span className="block text-[#ffeed8] text-sm">
-  {formatDuration(
-    typeof res.timeOriginal === 'number'
-      ? res.timeOriginal
-      : parseFloat(res.timeOriginal) || 0
-  )}
-</span>
+                    <span className="block text-[#ffeed8] text-sm">
+                      {formatDuration(
+                        typeof res.timeOriginal === 'number'
+                          ? res.timeOriginal
+                          : parseFloat(res.timeOriginal) || 0
+                      )}
+                    </span>
                   </div>
                   <div className="special-glass px-4 py-2 rounded-lg">
                     <span className="block text-white text-sm mb-1">
                       Reduce Time
                     </span>
                     <span className="block text-base">
-  {formatDuration(
-    typeof res.timeReduced === 'number'
-      ? res.timeReduced
-      : parseFloat(res.timeReduced) || 0
-  )}
-</span>
+                      {formatDuration(
+                        typeof res.timeReduced === 'number'
+                          ? res.timeReduced
+                          : parseFloat(res.timeReduced) || 0
+                      )}
+                    </span>
                   </div>
-      
                 </div>
 
                 {/* === Buffs === */}

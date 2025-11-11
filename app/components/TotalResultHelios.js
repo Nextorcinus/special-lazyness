@@ -1,118 +1,75 @@
 'use client'
 
+import React from 'react'
 import ResourceIcon from './ResourceIcon'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
+import { formatDuration } from '../utils/calculateResearch'
 
-const resourceOrder = ['Meat', 'Wood', 'Coal', 'Iron', 'Crystal', 'RFC']
+export default function TotalResultHelios({ results = [], compares = [] }) {
+  if (!results.length) return null
 
-function sumDurations(durationStrs) {
-  let totalSeconds = 0
+  const total = results.find((r) => r.id === 'total')
+  if (!total) return null
 
-  durationStrs.forEach((str) => {
-    if (!str) return
-    const regex =
-      /(\d+)\s*d(?:ay)?s?|\s*(\d+)\s*h(?:our)?s?|\s*(\d+)\s*m(?:in)?s?|\s*(\d+)\s*s(?:ec)?s?/gi
-    let match
-    while ((match = regex.exec(str)) !== null) {
-      const [_, d, h, m, s] = match.map(Number)
-      if (!isNaN(d)) totalSeconds += d * 86400
-      if (!isNaN(h)) totalSeconds += h * 3600
-      if (!isNaN(m)) totalSeconds += m * 60
-      if (!isNaN(s)) totalSeconds += s
-    }
-  })
-
-  const days = Math.floor(totalSeconds / 86400)
-  const hours = Math.floor((totalSeconds % 86400) / 3600)
-  const minutes = Math.floor((totalSeconds % 3600) / 60)
-  const seconds = totalSeconds % 60
-
-  return `${days}d ${hours}h ${minutes}m ${seconds}s`
-}
-
-export default function TotalResultHelios({ results = [], comparedData = null }) {
-  if (!Array.isArray(results) || results.length === 0) {
-    return null
-  }
-
-  // === Hitung Total Resource ===
-  const total = results.reduce(
-    (acc, curr) => {
-      const res = curr.resources || {}
-      resourceOrder.forEach((key) => {
-        acc[key] += res[key] || 0
-      })
-      return acc
-    },
-    { Meat: 0, Wood: 0, Coal: 0, Iron: 0, Crystal: 0, RFC: 0 }
-  )
-
-  const totalOriginalTime = sumDurations(results.map((r) => r.timeOriginal))
-  const totalReducedTime = sumDurations(results.map((r) => r.timeReduced))
-  const totalSvSPoints = results.reduce((sum, r) => sum + (r.svsPoints || 0), 0)
-
-  // === Perbandingan Compare Data ===
-  const compare = {}
-  resourceOrder.forEach((key) => {
-    const have = comparedData?.[key] || 0
-    const need = total[key]
-    const diff = have - need
-
-    compare[key] = {
-      diff,
-      color:
-        diff > 0
-          ? 'text-xs text-green-400 rounded-md border border-green-800 bg-green-700/10 px-2 py-1'
-          : diff < 0
-          ? 'text-xs text-red-200 rounded-md border border-red-400 bg-red-500/10 px-2 py-1'
-          : 'text-xs text-zinc-100 rounded-md border border-zinc-300 bg-white/10 px-2 py-1',
-      label: diff > 0 ? '+' : diff < 0 ? '-' : 'Match',
-    }
-  })
+  const compare = compares[0] || {}
 
   return (
-    <div className="bg-special-inside-green border border-zinc-900 p-4 rounded-xl mt-6 space-y-4 py-6">
-      <h3 className="text-lg lg:text-xl mb-2 text-[#d1e635]">
-        Total Research Requirement
-      </h3>
-
-      {/* === Total Resource Grid === */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-6 gap-4 text-md">
-        {resourceOrder.map((key) => (
-          <div
-            key={key}
-            className="flex flex-col items-center special-glass p-2 rounded-xl border"
-          >
-            <div className="flex items-center gap-1 text-[#d1e635] text-sm md:text-sm lg:text-base mb-1">
-              <ResourceIcon type={key} />
-              <span>{formatToShortNumber(total[key])}</span>
-            </div>
-            {comparedData && (
-              <div className={`text-xs ${compare[key].color}`}>
-                {compare[key].label}
-                {compare[key].label !== 'Match' && (
-                  <> {formatToShortNumber(Math.abs(compare[key].diff))}</>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
+    <div className="bg-special-inside py-6 px-6 rounded-xl mt-8 space-y-4">
+      <div className="text-xl text-white font-semibold border-b border-[#ffffff33] pb-2 mb-4">
+        Total Summary
       </div>
 
-      {/* === Time & SvS Points === */}
-      <div className="text-sm md:text-base text-zinc-400 mt-4 space-y-1">
-        <div>
-          <span className="text-zinc-300">Total Original Time: </span>
-          <span className="text-yellow-100">{totalOriginalTime}</span>
+      {/* === Resource Total === */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-6 gap-4">
+        {Object.entries(total.resources || {}).map(([key, value]) => {
+          const compareVal = compare.resources?.[key] ?? null
+          const diff = compareVal !== null ? value - compareVal : null
+          const isMatch = diff === 0
+
+          let colorClass = 'text-xs text-gray-200 bg-white/20 px-2 py-1'
+          let label = 'Match'
+          if (diff > 0)
+            colorClass =
+              'text-xs text-red-200 border border-red-400 bg-red-500/10 px-2 py-1'
+          else if (diff < 0)
+            colorClass =
+              'text-xs text-green-400 border border-green-800 bg-green-700/10 px-2 py-1'
+
+          if (diff > 0) label = '+'
+          else if (diff < 0) label = '-'
+
+          return (
+            <div
+              key={key}
+              className="flex flex-col justify-center special-glass items-center px-2 py-2 rounded-xl"
+            >
+              <div className="flex items-center justify-between gap-1 text-sm md:text-base w-full">
+                <ResourceIcon type={key} />
+                {formatToShortNumber(value)}
+              </div>
+              {diff !== null && (
+                <div className={`rounded-md mt-1 ${colorClass}`}>
+                  {label}
+                  {!isMatch && <> {formatToShortNumber(Math.abs(diff))}</>}
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      {/* === TOTAL TIME === */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-y-0 gap-x-4 mt-6">
+        <div className="special-glass bg-[#9797974A] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1">
+          <span className="block text-white text-sm mb-1">Total Original Time</span>
+          <span className="block text-[#ffeed8] text-sm">
+            {formatDuration(total.timeOriginal || 0)}
+          </span>
         </div>
-        <div>
-          <span className="text-zinc-300">Total Reduced Time: </span>
-          <span className="text-lime-400">{totalReducedTime}</span>
-        </div>
-        <div>
-          <span className="text-zinc-300">Total SvS Points: </span>
-          <span className="text-yellow-400">
-            {formatToShortNumber(totalSvSPoints)}
+        <div className="special-glass px-4 py-2 rounded-lg">
+          <span className="block text-white text-sm mb-1">Total Reduced Time</span>
+          <span className="block text-base">
+            {formatDuration(total.timeReduced || 0)}
           </span>
         </div>
       </div>
