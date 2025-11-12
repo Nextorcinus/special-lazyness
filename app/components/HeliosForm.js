@@ -27,6 +27,7 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
   const [toLevel, setToLevel] = useState('')
   const [speed, setSpeed] = useState('0')
   const [vpBonus, setVpBonus] = useState('0')
+  const [doubleTime, setDoubleTime] = useState(false) // ✅ New
 
   const { addToHistory } = useHeliosHistory()
 
@@ -59,7 +60,9 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
       (sum, item) => sum + (item.raw_time_seconds || 0),
       0
     )
-    const reduced = raw / (1 + speedBonus / 100)
+
+    // ✅ Jika double time aktif, waktu berkurang setengah
+    const reduced = (raw / (1 + speedBonus / 100)) * (doubleTime ? 0.5 : 1)
 
     const resources = {
       Meat: 0,
@@ -84,16 +87,16 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
       timeOriginal: raw,
       timeReduced: reduced,
       resources,
+      buffs: {
+        researchSpeed: speedBonus,
+        vpLevel: vpBonus !== '0' ? `${vpBonus}%` : 'Off',
+        doubleTime,
+        petLevel: 'Off',
+        zinmanSkill: 'Off',
+      },
     }
 
-    // 🔹 Pastikan hanya satu kali tersimpan ke history
-    // Kalau parent sudah menambah ke history lewat onCalculate,
-    // maka cukup panggil salah satu, bukan keduanya.
     onCalculate?.(result)
-
-    // ❌ Hindari duplikasi — hanya jalankan ini jika parent tidak menambahkan otomatis
-    // if (!addedFromParent) addToHistory(result)
-
     toast.success('Helios research calculation complete!')
   }
 
@@ -110,7 +113,7 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
         )}
 
         <TooltipProvider>
-          <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-2 md:grid-cols-5 xl:grid-col-5 2xl:grid-cols-5 gap-4">
+          <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-2 md:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5 gap-4">
 
             {/* From */}
             <div>
@@ -154,8 +157,8 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
 
             {/* Research Speed */}
             <div>
-              <Label className="text-zinc-800 text-shadow-md flex items-center gap-1">
-                Research Speed (%)
+              <Label className="text-zinc-800 text-shadow-md flex items-center gap-1 mt-1 mb-1 w-full">
+                Research Spd (%)
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
@@ -176,13 +179,13 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
                 value={speed}
                 onChange={(e) => setSpeed(e.target.value)}
                 placeholder="Example: 25"
-                className="bg-special-input text-white"
+                className="bg-special-input w-full text-white"
               />
             </div>
 
             {/* VP Bonus */}
             <div>
-              <Label className="text-zinc-800 text-shadow-md flex items-center gap-1">
+              <Label className="text-white text-shadow-md flex items-center gap-1 mt-1 mb-1">
                 VP Bonus
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -211,8 +214,27 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
               </Select>
             </div>
 
+            {/* Double Time */}
+            <div className="flex flex-col justify-center">
+              <Label className="text-white text-shadow-md mb-2">
+                Double Time
+              </Label>
+              <div className="flex items-center gap-2">
+                <input
+                  id="doubleTime"
+                  type="checkbox"
+                  checked={doubleTime}
+                  onChange={(e) => setDoubleTime(e.target.checked)}
+                  className="w-5 h-5 accent-[#00ffff] cursor-pointer"
+                />
+                <Label htmlFor="doubleTime" className="cursor-pointer">
+                  Active
+                </Label>
+              </div>
+            </div>
+
             {/* Button */}
-            <div className="col-span-2 md:col-span-1 flex w-full items-center justify-center mt-2">
+            <div className="col-span-2 md:col-span-2 flex w-full items-center justify-start mt-2">
               <Button
                 onClick={handleCalculate}
                 className="button-Form text-sm md:text-base text-white rounded-lg py-6 md:py-6"

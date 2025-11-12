@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
-import { parseNumber } from '../utils/parseNumber'
 import ResourceIcon from './ResourceIcon'
 import { toast } from 'sonner'
 
@@ -34,7 +33,8 @@ function CompareFormHelios({
     }
 
     toast.success('Data successfully sent for comparison!')
-    onCompare?.(data)
+    // ✅ Kirim data resource lengkap agar bisa dipakai di TotalResultHelios
+    onCompare?.({ resources: data })
   }
 
   return (
@@ -49,7 +49,8 @@ function CompareFormHelios({
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-3">
             {resourceOrder.map((key) => {
               const need = requiredResources[key] || 0
-              const have = comparedData[key] || 0
+              const have =
+                comparedData[key] || comparedData.resources?.[key] || 0
               const diff = have - need
               const isSurplus = diff >= 0
               const label = isSurplus ? 'Surplus' : 'Need'
@@ -85,7 +86,9 @@ function CompareFormHelios({
                   step="any"
                   name={key}
                   id={key}
-                  defaultValue={comparedData?.[key] || ''}
+                  defaultValue={
+                    comparedData?.[key] || comparedData?.resources?.[key] || ''
+                  }
                   className="w-full bg-special-input-green p-2 rounded text-zinc-400"
                 />
               </div>

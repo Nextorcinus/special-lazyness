@@ -5,6 +5,9 @@ import ResourceIcon from './ResourceIcon'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
 import { formatDuration } from '../utils/calculateResearch'
 
+// urutan sumber daya untuk tampilan
+const resourceOrder = ['Meat', 'Wood', 'Coal', 'Iron', 'Steel', 'FC Shards']
+
 export default function TotalResultHelios({ results = [], compares = [] }) {
   if (!results.length) return null
 
@@ -12,28 +15,36 @@ export default function TotalResultHelios({ results = [], compares = [] }) {
   if (!total) return null
 
   const compare = compares[0] || {}
+  const comparedResources = compare.resources || {}
+
+  // Hitung total SvS Points (jika ada di tiap result)
+  const totalSvSPoints = results.reduce(
+    (sum, r) => sum + (r.svsPoints || 0),
+    0
+  )
 
   return (
-    <div className="bg-special-inside py-6 px-6 rounded-xl mt-8 space-y-4">
-      <div className="text-xl text-white font-semibold border-b border-[#ffffff33] pb-2 mb-4">
-        Total Summary
-      </div>
+    <div className="bg-special-inside-green border border-zinc-900 p-4 rounded-xl mt-6 space-y-4 py-6">
+      <h3 className="text-lg lg:text-xl mb-2 text-[#d1e635]">
+        Total Result Required
+      </h3>
 
       {/* === Resource Total === */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-6 gap-4">
-        {Object.entries(total.resources || {}).map(([key, value]) => {
-          const compareVal = compare.resources?.[key] ?? null
-          const diff = compareVal !== null ? value - compareVal : null
-          const isMatch = diff === 0
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-6 gap-4 text-md">
+        {resourceOrder.map((key) => {
+          const need = total.resources?.[key] || 0
+          const have = comparedResources[key] || 0
+          const diff = have - need
 
-          let colorClass = 'text-xs text-gray-200 bg-white/20 px-2 py-1'
+          let colorClass =
+            'text-xs text-zinc-100 rounded-md border border-zinc-300 bg-white/10 px-2 py-1'
           let label = 'Match'
           if (diff > 0)
             colorClass =
-              'text-xs text-red-200 border border-red-400 bg-red-500/10 px-2 py-1'
+              'text-xs text-green-400 rounded-md border border-green-800 bg-green-700/10 px-2 py-1'
           else if (diff < 0)
             colorClass =
-              'text-xs text-green-400 border border-green-800 bg-green-700/10 px-2 py-1'
+              'text-xs text-red-200 rounded-md border border-red-400 bg-red-500/10 px-2 py-1'
 
           if (diff > 0) label = '+'
           else if (diff < 0) label = '-'
@@ -41,16 +52,18 @@ export default function TotalResultHelios({ results = [], compares = [] }) {
           return (
             <div
               key={key}
-              className="flex flex-col justify-center special-glass items-center px-2 py-2 rounded-xl"
+              className="flex flex-col items-center special-glass p-2 rounded-xl border"
             >
-              <div className="flex items-center justify-between gap-1 text-sm md:text-base w-full">
+              <div className="flex items-center gap-1 text-[#d1e635] text-sm md:text-sm lg:text-base mb-1">
                 <ResourceIcon type={key} />
-                {formatToShortNumber(value)}
+                <span>{formatToShortNumber(need)}</span>
               </div>
-              {diff !== null && (
-                <div className={`rounded-md mt-1 ${colorClass}`}>
+              {compares.length > 0 && (
+                <div className={`${colorClass}`}>
                   {label}
-                  {!isMatch && <> {formatToShortNumber(Math.abs(diff))}</>}
+                  {label !== 'Match' && (
+                    <> {formatToShortNumber(Math.abs(diff))}</>
+                  )}
                 </div>
               )}
             </div>
@@ -58,20 +71,28 @@ export default function TotalResultHelios({ results = [], compares = [] }) {
         })}
       </div>
 
-      {/* === TOTAL TIME === */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-y-0 gap-x-4 mt-6">
-        <div className="special-glass bg-[#9797974A] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1">
-          <span className="block text-white text-sm mb-1">Total Original Time</span>
-          <span className="block text-[#ffeed8] text-sm">
+      {/* === TOTAL TIME & POINTS === */}
+      <div className="text-sm md:text-base text-zinc-400 mt-4 space-y-1">
+        <div>
+          <span className="text-zinc-300">Total Original Time: </span>
+          <span className="text-yellow-100">
             {formatDuration(total.timeOriginal || 0)}
           </span>
         </div>
-        <div className="special-glass px-4 py-2 rounded-lg">
-          <span className="block text-white text-sm mb-1">Total Reduced Time</span>
-          <span className="block text-base">
+        <div>
+          <span className="text-zinc-300">Total Reduced Time: </span>
+          <span className="text-lime-400">
             {formatDuration(total.timeReduced || 0)}
           </span>
         </div>
+        {totalSvSPoints > 0 && (
+          <div>
+            <span className="text-zinc-300">Total SvS Points: </span>
+            <span className="text-yellow-400">
+              {formatToShortNumber(totalSvSPoints)}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   )

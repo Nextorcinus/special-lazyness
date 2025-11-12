@@ -81,7 +81,7 @@ export default function HeliosPage({ addAnotherTrigger }) {
     <main className="text-white w-full">
       <div className="relative w-full md:p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
-          <h2 className="text-2xl">Helios Research</h2>
+          <h2 className="text-2xl">War Academy</h2>
           <HeliosCategorySelector
   selected={category}
   onChange={(newCat) => {
