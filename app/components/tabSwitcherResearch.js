@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import TotalResult from './TotalResult'
 import ResourceIcon from './ResourceIcon'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
@@ -15,6 +15,11 @@ export default function TabSwitcherResearch({ compares, onDeleteHistory, onReset
   const { history, deleteHistory } = useResearchHistory()
   const { addAnother } = useAddAnother()
 
+  // 🔄 Urutkan history dari terbaru ke terlama
+  const sortedHistory = useMemo(() => {
+    return [...history].sort((a, b) => b.timestamp - a.timestamp)
+  }, [history])
+
   const handleDelete = (id, name) => {
     deleteHistory(id)
     onDeleteHistory?.(id)
@@ -22,8 +27,17 @@ export default function TabSwitcherResearch({ compares, onDeleteHistory, onReset
   }
 
   const handleAddAnother = () => {
-    console.log('Add Another button clicked') // Debug log
+    console.log('Add Another button clicked')
     addAnother()
+    // 🧭 Scroll ke atas setelah form reset
+    setTimeout(() => {
+      if (typeof window !== 'undefined') {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
+      }
+    }, 100) 
   }
 
   return (
@@ -47,7 +61,7 @@ export default function TabSwitcherResearch({ compares, onDeleteHistory, onReset
       {/* === TAB: OVERVIEW === */}
       {tab === 'overview' && (
         <div className="space-y-6">
-          {history.length === 0 ? (
+          {sortedHistory.length === 0 ? (
             <div className="text-center py-8">
               <p className="text-gray-400 mb-4">No research results yet.</p>
               <Button
@@ -59,39 +73,43 @@ export default function TabSwitcherResearch({ compares, onDeleteHistory, onReset
             </div>
           ) : (
             <>
-              {history.map((res) => {
+              {sortedHistory.map((res) => {
                 const compare = compares?.[0] || {}
 
                 return (
                   <div
                     key={res.id}
-                    className="bg-special-inside p-6 rounded-xl space-y-2 relative"
-                  >   
+                    className="bg-special-inside p-4 rounded-xl space-y-2 relative"
+                  >
                     <div className="relative flex justify-between items-center bg-title-result mb-4 pr-12">
-                       {' '}
-                       <div>
+                      <div>
                         <div className="text-lg lg:text-xl text-shadow-lg text-white mb-1">
-                          {res.name || res.research}
-                        </div>
+  {res.name || res.research}
+  {res.tier && (
+    <span className="text-cyan-400 ml-1 text-base">
+      (Tier {res.tier})
+    </span>
+  )}
+</div>
                         <span className="text-white text-sm">
                           Lv. {res.fromLevel} → {res.toLevel}
                         </span>
                       </div>
-                     <button
-  onClick={() => handleDelete(res.id, res.name || res.research)}
-  className="buttonGlass absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:scale-105 transition-transform duration-200"
-  aria-label="Delete history"
->
-  <img
-    src="/icon/trash-can.png"
-    alt="Delete"
-    className="w-5 h-5"
-  />
-</button>
+                      <button
+                        onClick={() => handleDelete(res.id, res.name || res.research)}
+                        className="buttonGlass absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:scale-105 transition-transform duration-200"
+                        aria-label="Delete history"
+                      >
+                        <img
+                          src="/icon/trash-can.png"
+                          alt="Delete"
+                          className="w-5 h-5"
+                        />
+                      </button>
                     </div>
 
                     {/* === Resources === */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-5 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-5 gap-4 gap-y-2">
                       {Object.entries(res.resources || {}).map(([key, value]) => {
                         const need = res.rawResources?.[key] || value
                         const hasCompare = compare && key in compare
@@ -168,7 +186,7 @@ export default function TabSwitcherResearch({ compares, onDeleteHistory, onReset
               })}
 
               {/* === Add Another Button === */}
-              <div className="bg-special-inside-dotted flex justify-center p-6 rounded-xl">
+              <div className="bg-special-inside-dotted flex justify-center p-4 rounded-xl">
                 <Button
                   onClick={handleAddAnother}
                   className="w-max buttonGlass text-white px-4 rounded hover:scale-105 transition-transform"
@@ -177,16 +195,14 @@ export default function TabSwitcherResearch({ compares, onDeleteHistory, onReset
                 </Button>
               </div>
 
-              <TotalResult results={history} comparedData={compares?.[0]} />
+              <TotalResult results={sortedHistory} comparedData={compares?.[0]} />
             </>
           )}
         </div>
       )}
 
       {/* === TAB: HISTORY === */}
-      {tab === 'history' && (
-        <ResearchHistoryList />
-      )}
+      {tab === 'history' && <ResearchHistoryList />}
     </div>
   )
 }

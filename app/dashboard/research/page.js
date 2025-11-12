@@ -13,85 +13,89 @@ import { toast } from 'sonner'
 
 export default function ResearchPage() {
   const { history, addToHistory, deleteHistory, resetHistory } = useResearchHistory()
-  const { trigger, addAnother } = useAddAnother()
+  const { trigger } = useAddAnother()
 
   const [category, setCategory] = useState('Growth')
   const [selectedSub, setSelectedSub] = useState('')
-  const [results, setResults] = useState([]) 
+  const [results, setResults] = useState([])
   const [compares, setCompares] = useState([])
   const [formKey, setFormKey] = useState(0)
 
-  console.log('🎯 [page.js] Render state:', {
-    category,
-    selectedSub,
-    formKey,
-    trigger,
-    historyLength: history.length,
-    resultsLength: results.length
-  })
-
-  
+  // --- 1️⃣ Reset form jika trigger addAnother berubah ---
   useEffect(() => {
-    console.log('🔍 [page.js] useEffect trigger check:', { trigger })
-    
     if (trigger > 0) {
-      console.log('🔄 [page.js] ADD ANOTHER TRIGGERED - Resetting form...')
-      
       setCategory('Growth')
       setSelectedSub('')
       setFormKey(prev => prev + 1)
-      
-      console.log('✅ [page.js] Form reset completed')
+      setResults([]) 
+      toast.message('Form reset for new entry')
     }
   }, [trigger])
 
-  
+
   useEffect(() => {
-    console.log('🔄 [page.js] Category changed, resetting subcategory:', category)
     setSelectedSub('')
   }, [category])
 
-  const subcategories = useMemo(
-    () => Object.keys(researchData[category] || {}),
-    [category]
-  )
+  
+  const subcategories = useMemo(() => {
+    return Object.keys(researchData[category] || {})
+  }, [category])
 
+  
   useEffect(() => {
     if (subcategories.length > 0 && !selectedSub) {
       setSelectedSub(subcategories[0])
     }
   }, [subcategories, selectedSub])
 
- const handleCalculate = (data) => {
-  console.log('📥 [page.js] handleCalculate received data:', data)
+  
+const handleCalculate = (data) => {
+  console.log('📦 Received data:', data)
 
-  const resultWithId = { 
-    ...data, 
-    id: uuidv4(), 
-    name: data.research || data.name || selectedSub, 
-    timestamp: Date.now()
+  if (!data) {
+    toast.error('No data received from form!')
+    return
   }
 
-  console.log('🆔 [page.js] Final resultWithId:', resultWithId)
+  const resultWithId = {
+    ...data,
+    id: uuidv4(),
+    name: data.research || data.name || selectedSub,
+    timestamp: Date.now(),
+  }
 
   
+
+  setResults(prev => {
+    const exists = prev.some(r =>
+      r.name === resultWithId.name &&
+      r.fromLevel === resultWithId.fromLevel &&
+      r.toLevel === resultWithId.toLevel &&
+      r.tier === resultWithId.tier
+    )
+   
+    if (exists) {
+      
+      return prev
+    }
+   
+    return [resultWithId, ...prev]
+  })
+
   addToHistory(resultWithId)
-
-  
-  setResults(prev => [...prev, resultWithId])
-
-  toast.success('Added to Research History!')
+  toast.success(`${resultWithId.name} added to Research History`)
 }
 
 
   return (
     <main className="p-1 md:p-6 text-white w-full">
       <div className="relative w-full md:p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2"> 
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
           <h2 className="text-2xl font-semibold mb-2">Research Upgrade</h2>
           <ResearchCategorySelector selected={category} onChange={setCategory} />
         </div>
-        
+
         {subcategories.length > 0 && (
           <ResearchSubcategoryScroll
             items={subcategories}
@@ -105,7 +109,7 @@ export default function ResearchPage() {
         <div className="flex flex-col md:px-6 lg:flex-row gap-6 mt-2 w-full">
           <div className="w-full">
             <ResearchForm
-              key={formKey}
+              key={formKey} // hanya berubah ketika benar-benar reset
               category={category}
               researchName={selectedSub}
               onCalculate={handleCalculate}
@@ -114,13 +118,15 @@ export default function ResearchPage() {
         </div>
       )}
 
-     
       <div className="mt-10 md:px-6">
         <TabSwitcherResearch
-          results={results} 
+          results={results}
           compares={compares}
           onDeleteHistory={deleteHistory}
-          onResetHistory={resetHistory}
+          onResetHistory={() => {
+            resetHistory()
+            setResults([])
+          }}
         />
       </div>
     </main>

@@ -17,12 +17,12 @@ export default function ResearchSubcategoryScroll({
     const slider = scrollRef.current
     if (!slider) return
 
-    const onMouseDown = (e) => {
-      isDown = true
-      slider.classList.add('cursor-grabbing')
-      startX = e.pageX - slider.offsetLeft
-      scrollLeft = slider.scrollLeft
-    }
+   const onMouseDown = (e) => {
+  isDown = true
+  slider.classList.add('cursor-grabbing')
+  startX = e.pageX - slider.offsetLeft
+  scrollLeft = slider.scrollLeft
+}
 
     const onMouseLeave = () => {
       isDown = false
@@ -55,27 +55,27 @@ export default function ResearchSubcategoryScroll({
     }
   }, [])
 
-  return (
-    <div
-      ref={scrollRef}
-      className="glass-new p-1 w-full overflow-x-auto no-scrollbar mt-4 rounded-xl "
-    >
-      <div className=" flex gap-1 cursor-grab select-none w-max ">
-        {items.map((item) => (
-          <button
-            key={item}
-            onClick={() => onSelect(item)}
-            className={cn(
-              'px-4 py-2 rounded-xl text-sm transition whitespace-nowrap',
-              selected === item
-                ? 'button button--glass text-white shadow'
-                : 'text-white hover:text-white'
-            )}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
+return (
+  <div
+    ref={scrollRef}
+    className="special-glass-cat p-1 w-full overflow-x-auto no-scrollbar mt-4 rounded-xl cursor-grab select-none"
+  >
+    <div className="flex gap-1 w-max">
+      {items.map((item) => (
+        <button
+          key={item}
+          onClick={() => onSelect(item)}
+          className={cn(
+            'px-4 py-2 rounded-xl text-sm transition whitespace-nowrap',
+            selected === item
+              ? 'button button--glass text-white shadow'
+              : 'text-white hover:text-white'
+          )}
+        >
+          {item}
+        </button>
+      ))}
     </div>
+  </div>
   )
 }

@@ -35,15 +35,7 @@ export default function ResearchForm({
   const [researchSpeed, setResearchSpeed] = useState('0')
   const [vpBonus, setVpBonus] = useState('0')
 
-  console.log('🔧 [ResearchForm] Render state:', {
-    category,
-    researchName,
-    tier,
-    fromLevel,
-    toLevel,
-    researchSpeed,
-    vpBonus
-  })
+  
 
   // === Tier Options ===
   const tierOptions = useMemo(
@@ -57,91 +49,56 @@ export default function ResearchForm({
     const tierData = researchData[category]?.[researchName]?.tiers?.[tier]
     if (!tierData) return []
     
-    // Ambil semua level yang tersedia untuk tier ini, urutkan dan filter undefined
     const levels = tierData.map(item => item.level).filter(level => level !== undefined)
     return Array.from(new Set(levels)).sort((a, b) => a - b)
   }, [category, researchName, tier])
 
-  // === Filter level tujuan ===
-  // Jika from level tidak ada, maka to level akan menampilkan semua level yang ada
-  // Jika from level ada, maka to level akan menampilkan level yang lebih besar dari from level
+  // === Filter To Levels ===
   const filteredToLevels = useMemo(() => {
     if (!fromLevel) return levelOptions
-
-    const fromLevelNum = parseInt(fromLevel)
-    return levelOptions.filter(level => level > fromLevelNum)
+    const fromNum = parseInt(fromLevel)
+    return levelOptions.filter(level => level > fromNum)
   }, [fromLevel, levelOptions])
 
   // === Reset level ketika Tier berubah ===
   useEffect(() => {
-    console.log('🔄 [ResearchForm] Tier changed:', {
-      tier,
-      levelOptions,
-      resettingLevels: !!tier
-    })
-    
     if (tier) {
+      
       setFromLevel('')
       setToLevel('')
     }
   }, [tier])
 
-  // === Load default values jika ada ===
+  // === Load default values hanya sekali saat ganti research ===
   useEffect(() => {
     if (!defaultValues || !researchName) return
 
-    console.log('📥 [ResearchForm] Loading default values:', defaultValues)
     
-    setTier(prev => prev || defaultValues.tier || '')
-    setFromLevel(prev => prev || String(defaultValues.fromLevel || ''))
-    setToLevel(prev => prev || String(defaultValues.toLevel || ''))
-    setResearchSpeed(prev => prev || String(defaultValues.buffs?.researchSpeed || '0'))
-    setVpBonus(prev => prev || String(defaultValues.buffs?.vpBonus || '0'))
-  }, [defaultValues, researchName])
+    setTier(defaultValues.tier || '')
+    setFromLevel(String(defaultValues.fromLevel || ''))
+    setToLevel(String(defaultValues.toLevel || ''))
+    setResearchSpeed(String(defaultValues.buffs?.researchSpeed || '0'))
+    setVpBonus(String(defaultValues.buffs?.vpBonus || '0'))
+  }, [researchName]) // ⬅ hanya berubah saat ganti researchName
 
-  // === Hitung hasil research ===
+  // === Handle Calculate ===
   const handleCalculate = () => {
-    console.log('🧮 [ResearchForm] Calculate button clicked with state:', {
-      tier,
-      fromLevel,
-      toLevel,
-      researchSpeed,
-      vpBonus
-    })
+  
 
     const from = parseInt(fromLevel)
     const to = parseInt(toLevel)
 
-    // Validasi input
-    if (!tier) {
-      toast.error('Please select Tier.')
-      return
-    }
+    if (!tier) return toast.error('Please select Tier.')
+    if (isNaN(from) || isNaN(to)) return toast.error('Please select valid Levels.')
+    if (to <= from) return toast.error('"To" level must be greater than "From" level.')
 
-    if (isNaN(from) || isNaN(to)) {
-      toast.error('Please select valid Levels.')
-      return
-    }
-
-    if (to <= from) {
-      toast.error('"To" level must be greater than "From" level.')
-      return
-    }
-
-    // Validasi level tersedia di data
     const isValidFrom = levelOptions.includes(from) || from === 0
     const isValidTo = levelOptions.includes(to)
-    
     if (!isValidFrom || !isValidTo) {
-      console.log('❌ [ResearchForm] Level validation failed:', {
-        from, to, levelOptions,
-        isValidFrom, isValidTo
-      })
-      toast.error('Selected levels are not available for this tier.')
-      return
+      return toast.error('Selected levels are not available for this tier.')
     }
 
-    console.log('✅ [ResearchForm] Validation passed, calculating...')
+   
 
     const result = calculateResearchUpgrade({
       category,
@@ -154,28 +111,28 @@ export default function ResearchForm({
       data: researchData,
     })
 
-    console.log('📊 [ResearchForm] Calculation result:', result)
-
     if (!result) {
-      console.log('❌ [ResearchForm] Calculation returned null/undefined')
       toast.error('Calculation failed. Please check your inputs.')
       return
     }
 
-    console.log('🚀 [ResearchForm] Calling onCalculate callback')
-    onCalculate?.(result)
-    toast.success('Research calculation completed!')
     
-    // Reset form setelah berhasil (opsional)
-    console.log('🔄 [ResearchForm] Resetting form fields')
+    result.tier = tier
+    result.fromLevel = from
+    result.toLevel = to
+    result.research = researchName
+
+    
+    onCalculate?.(result)
+
+    toast.success('Research calculation completed!')
+
+    
     setFromLevel('')
     setToLevel('')
-    setResearchSpeed('0')
-    setVpBonus('0')
   }
 
-  // VP Bonus options
-  const vpBonusOptions = ["0", "10", "20"]
+  const vpBonusOptions = ['0', '10', '20']
 
   return (
     <Card className="bg-glass-background1 text-white mt-6">
@@ -190,6 +147,7 @@ export default function ResearchForm({
 
         <TooltipProvider>
           <div className="bg-glass-background2 p-4 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 2xl:grid-cols-6 gap-4">
+            
             {/* === Tier === */}
             <div>
               <Label className="text-white text-shadow-md">Tier</Label>
@@ -214,7 +172,7 @@ export default function ResearchForm({
                 value={fromLevel} 
                 onValueChange={(value) => {
                   setFromLevel(value)
-                  setToLevel('') // Reset toLevel ketika fromLevel berubah
+                  setToLevel('')
                 }}
                 disabled={!tier}
               >
@@ -255,7 +213,7 @@ export default function ResearchForm({
 
             {/* === Research Speed === */}
             <div>
-              <Label className="text-white text-shadow-md">
+              <Label className="text-white w-full text-shadow-md">
                 Research Speed (%)
               </Label>
               <Input
@@ -263,7 +221,7 @@ export default function ResearchForm({
                 value={researchSpeed}
                 onChange={(e) => setResearchSpeed(e.target.value)}
                 placeholder="e.g. 30"
-                className="bg-special-input text-white"
+                className="bg-special-input w-full text-white"
                 min="0"
                 max="100"
               />
@@ -291,7 +249,7 @@ export default function ResearchForm({
                 <SelectContent>
                   {vpBonusOptions.map((bonus) => (
                     <SelectItem key={bonus} value={bonus}>
-                      {bonus === "0" ? "Off" : `${bonus}%`}
+                      {bonus === '0' ? 'Off' : `${bonus}%`}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -299,11 +257,11 @@ export default function ResearchForm({
             </div>
 
             {/* === Button === */}
-            <div className="flex items-end">
+            <div className="flex items-center">
               <Button
                 onClick={handleCalculate}
                 disabled={!tier || !fromLevel || !toLevel}
-                className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white rounded-lg py-6 md:py-4 w-full disabled:bg-gray-600 disabled:cursor-not-allowed"
+                className="button-Form text-sm md:text-base text-white rounded-lg py-6 md:py-6 w-full disabled:bg-gray-600 disabled:cursor-not-allowed"
               >
                 Calculate
               </Button>

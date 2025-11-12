@@ -39,7 +39,7 @@ export default function ResearchHistoryList() {
       <div ref={topRef} />
       <Card className="bg-special-inside text-white mt-10 border border-neutral-700">
         <CardHeader className="flex flex-row items-center justify-between px-4 py-2">
-          <h3 className="text-lg font-semibold">Research History</h3>
+          <h3 className="text-lg ">Research History</h3>
           {history.length > 0 && (
             <Button
               className="buttonGlass text-white px-3 py-1 rounded"
@@ -71,14 +71,11 @@ export default function ResearchHistoryList() {
                       Lv. {entry.fromLevel} → {entry.toLevel}
                     </div>
 
-                    {/* Waktu */}
-                    <div className="text-xs text-yellow mt-1">
-                      ⏱ {entry.timeReduced || entry.timeOriginal || '—'}
-                    </div>
+                  
                   </div>
 
                   <Button
-                    className="bg-red-600 hover:bg-red-700 text-white px-2 rounded"
+                    className="button text-white px-2 rounded"
                     onClick={() =>
                       handleDelete(entry.id, entry.research || entry.building)
                     }

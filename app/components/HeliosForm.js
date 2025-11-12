@@ -215,7 +215,7 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
             <div className="col-span-2 md:col-span-1 flex w-full items-center justify-center mt-2">
               <Button
                 onClick={handleCalculate}
-                className="button-Form text-sm md:text-base text-white rounded-lg py-6 md:py-10"
+                className="button-Form text-sm md:text-base text-white rounded-lg py-6 md:py-6"
               >
                 Calculate Research
               </Button>

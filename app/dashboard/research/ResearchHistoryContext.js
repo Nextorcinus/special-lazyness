@@ -64,7 +64,7 @@ export function ResearchHistoryProvider({ children }) {
     }
 
     const newHistory = [newEntry, ...prev]
-    console.log('✅ History updated:', newHistory)
+    
     return newHistory.slice(0, 50)
   })
 }

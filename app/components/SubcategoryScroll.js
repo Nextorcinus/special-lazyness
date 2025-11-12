@@ -54,7 +54,7 @@ export default function SubcategoryScroll({ items, selected, onSelect }) {
   return (
     <div
       ref={scrollRef}
-      className="glass-new p-1 w-full overflow-x-auto no-scrollbar mt-4 "
+      className="special-glass-cat p-1 w-full overflow-x-auto no-scrollbar mt-4 "
     >
       <div className=" flex gap-5 cursor-grab select-none w-max ">
         {items.map((item) => (
