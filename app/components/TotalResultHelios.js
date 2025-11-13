@@ -58,14 +58,14 @@ export default function TotalResultHelios({ results = [], compares = [] }) {
                 <ResourceIcon type={key} />
                 <span>{formatToShortNumber(need)}</span>
               </div>
-              {compares.length > 0 && (
-                <div className={`${colorClass}`}>
-                  {label}
-                  {label !== 'Match' && (
-                    <> {formatToShortNumber(Math.abs(diff))}</>
-                  )}
-                </div>
-              )}
+              {compares.length > 0 && Object.keys(comparedResources).length > 0 && (
+  <div className={`${colorClass}`}>
+    {label}
+    {label !== 'Match' && (
+      <> {formatToShortNumber(Math.abs(diff))}</>
+    )}
+  </div>
+)}
             </div>
           )
         })}

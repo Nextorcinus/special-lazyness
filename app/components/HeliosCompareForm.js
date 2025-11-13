@@ -2,10 +2,11 @@
 
 import React from 'react'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
+import { parseNumber } from '../utils/parseNumber' // ✅ gunakan utils yang sama
 import ResourceIcon from './ResourceIcon'
 import { toast } from 'sonner'
 
-function CompareFormHelios({
+export default function CompareFormHelios({
   requiredResources = {},
   comparedData = {},
   onCompare,
@@ -22,9 +23,19 @@ function CompareFormHelios({
     let hasValue = false
 
     resourceOrder.forEach((key) => {
-      const value = parseFloat(formData.get(key)) || 0
+      const inputValue = (formData.get(key) || '').trim()
+
+      // Jika kosong
+      if (inputValue === '') {
+        data[key] = 0
+        return
+      }
+
+      // ✅ Gunakan parseNumber dari utils (dukung satuan: K, M, B)
+      const value = parseNumber(inputValue)
       data[key] = value
-      if (value > 0) hasValue = true
+
+      if (!isNaN(value) && value > 0) hasValue = true
     })
 
     if (!hasValue) {
@@ -33,8 +44,15 @@ function CompareFormHelios({
     }
 
     toast.success('Data successfully sent for comparison!')
-    // ✅ Kirim data resource lengkap agar bisa dipakai di TotalResultHelios
     onCompare?.({ resources: data })
+  }
+
+  // === Default Value Formatter ===
+  const getDefaultValue = (key) => {
+    const val =
+      comparedData?.[key] || comparedData?.resources?.[key] || 0
+    if (!val || val === 0) return ''
+    return formatToShortNumber(val)
   }
 
   return (
@@ -82,14 +100,12 @@ function CompareFormHelios({
                   {key}
                 </label>
                 <input
-                  type="number"
-                  step="any"
+                  type="text"
                   name={key}
                   id={key}
-                  defaultValue={
-                    comparedData?.[key] || comparedData?.resources?.[key] || ''
-                  }
-                  className="w-full bg-special-input-green p-2 rounded text-zinc-400"
+                  defaultValue={getDefaultValue(key)}
+                  placeholder="e.g., 35M, 1.5K, 2B"
+                  className="w-full bg-special-input-green p-2 rounded text-zinc-400 placeholder-zinc-500"
                 />
               </div>
             ))}
@@ -105,5 +121,3 @@ function CompareFormHelios({
     </div>
   )
 }
-
-export default CompareFormHelios
