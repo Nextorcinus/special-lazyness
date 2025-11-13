@@ -113,7 +113,7 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
         )}
 
         <TooltipProvider>
-          <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-2 md:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5 gap-4">
+          <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-2 md:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
 
             {/* From */}
             <div>
@@ -234,12 +234,12 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
             </div>
 
             {/* Button */}
-            <div className="col-span-2 md:col-span-2 flex w-full items-center justify-start mt-2">
+            <div className="col-span-2 md:col-span-1 flex w-full items-center justify-start mt-2">
               <Button
                 onClick={handleCalculate}
                 className="button-Form text-sm md:text-base text-white rounded-lg py-6 md:py-6"
               >
-                Calculate Research
+                Calculate
               </Button>
             </div>
           </div>
