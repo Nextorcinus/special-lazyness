@@ -53,14 +53,14 @@ export default function ResearchForm({
     return Array.from(new Set(levels)).sort((a, b) => a - b)
   }, [category, researchName, tier])
 
-  // === Filter To Levels ===
+ 
   const filteredToLevels = useMemo(() => {
     if (!fromLevel) return levelOptions
     const fromNum = parseInt(fromLevel)
     return levelOptions.filter(level => level > fromNum)
   }, [fromLevel, levelOptions])
 
-  // === Reset level ketika Tier berubah ===
+ 
   useEffect(() => {
     if (tier) {
       
@@ -69,7 +69,7 @@ export default function ResearchForm({
     }
   }, [tier])
 
-  // === Load default values hanya sekali saat ganti research ===
+  
   useEffect(() => {
     if (!defaultValues || !researchName) return
 
@@ -79,7 +79,7 @@ export default function ResearchForm({
     setToLevel(String(defaultValues.toLevel || ''))
     setResearchSpeed(String(defaultValues.buffs?.researchSpeed || '0'))
     setVpBonus(String(defaultValues.buffs?.vpBonus || '0'))
-  }, [researchName]) // ⬅ hanya berubah saat ganti researchName
+  }, [researchName]) 
 
   // === Handle Calculate ===
   const handleCalculate = () => {

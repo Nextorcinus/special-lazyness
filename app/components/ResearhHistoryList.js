@@ -75,7 +75,7 @@ export default function ResearchHistoryList() {
                   </div>
 
                   <Button
-                    className="button text-white px-2 rounded"
+                    className="buttonForm text-white px-2 rounded"
                     onClick={() =>
                       handleDelete(entry.id, entry.research || entry.building)
                     }

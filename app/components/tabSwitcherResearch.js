@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useMemo } from 'react'
-import TotalResult from './TotalResult'
+import TotalResult from './ResearchTotalResult'
 import ResourceIcon from './ResourceIcon'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
 import { useResearchHistory } from '../dashboard/research/ResearchHistoryContext'
@@ -15,7 +15,7 @@ export default function TabSwitcherResearch({ compares, onDeleteHistory, onReset
   const { history, deleteHistory } = useResearchHistory()
   const { addAnother } = useAddAnother()
 
-  // 🔄 Urutkan history dari terbaru ke terlama
+  
   const sortedHistory = useMemo(() => {
     return [...history].sort((a, b) => b.timestamp - a.timestamp)
   }, [history])
@@ -29,7 +29,7 @@ export default function TabSwitcherResearch({ compares, onDeleteHistory, onReset
   const handleAddAnother = () => {
     console.log('Add Another button clicked')
     addAnother()
-    // 🧭 Scroll ke atas setelah form reset
+    
     setTimeout(() => {
       if (typeof window !== 'undefined') {
         window.scrollTo({
@@ -84,13 +84,13 @@ export default function TabSwitcherResearch({ compares, onDeleteHistory, onReset
                     <div className="relative flex justify-between items-center bg-title-result mb-4 pr-12">
                       <div>
                         <div className="text-lg lg:text-xl text-shadow-lg text-white mb-1">
-  {res.name || res.research}
-  {res.tier && (
-    <span className="text-cyan-400 ml-1 text-base">
-      (Tier {res.tier})
-    </span>
-  )}
-</div>
+                          {res.name || res.research}
+                          {res.tier && (
+                            <span className="text-cyan-400 ml-1 text-base">
+                              (Tier {res.tier})
+                            </span>
+                          )}
+                        </div>
                         <span className="text-white text-sm">
                           Lv. {res.fromLevel} → {res.toLevel}
                         </span>

@@ -45,7 +45,7 @@ export default function HeliosHistoryList() {
                   </div>
                 </div>
                 <Button
-                  className="bg-red-600 hover:bg-red-700 text-white px-2 rounded"
+                  className="button text-white px-2 rounded"
                   onClick={() => {
                     deleteHistory(entry.id)
                     toast.success(`History "${entry.building}" deleted.`)
