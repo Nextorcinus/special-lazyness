@@ -26,10 +26,10 @@ export default function Sidebar() {
     <aside
       className={cn(
         "fixed top-1/2 -translate-y-1/2 z-[9999]",
-        "bg-special-inside text-white flex flex-col items-center",
-        "transition-all duration-300 rounded-2xl shadow-lg py-6 px-3",
-        expanded ? "w-[260px]" : "w-[120px] py-6 px-3",
-        "overflow-hidden"
+        "special-glass-menu text-white flex flex-col items-center",
+        "transition-all duration-300  rounded-[20px] shadow-lg py-6 px-3 ",
+        expanded ? "w-[260px]" : "w-[90px] rounded-[40px] py-6 px-2",
+        ""
       )}
       style={{ left: '1%' }}
     >
@@ -39,11 +39,11 @@ export default function Sidebar() {
         className={cn(
           "absolute right-[-14px] top-1/2 -translate-y-1/2",
           "w-7 h-7 bg-[#FFFFFF20] backdrop-blur-md rounded-full",
-          "flex items-center justify-center shadow-md border border-white/20",
+          "flex items-center justify-center shadow-md border text-zinc-300 border-white/20",
           "hover:bg-white/30 transition"
         )}
       >
-        {expanded ? "◀" : "▶"}
+        {expanded ? "🡨" : "🡪"}
       </button>
 
       
@@ -54,33 +54,34 @@ export default function Sidebar() {
           const isActive = pathname === item.href
 
           return (
-            <Link
-              key={item.label}
-              href={item.href}
-              className={cn(
-                "flex items-center rounded-md transition py-1",
-                isActive ? "text-[#B3F35F]" : "text-white/80 hover:text-white"
-              )}
-            >
-              <Image
-                src={item.icon}
-                alt={item.label}
-                width={49}
-                height={49}
-              />
+           <Link
+  key={item.label}
+  href={item.href}
+  onClick={() => setExpanded(false)}   // ➜ Tutup sidebar setelah klik
+  className={cn(
+    "flex items-center rounded-xl transition py-1 cursor-pointer",
+    isActive ? "text-[#B3F35F] bg-[#384E57]/50" : "text-white/80 hover:text-white hover:bg-white/10 ",
+  )}
+>
+  <Image
+    src={item.icon}
+    alt={item.label}
+    width={49}
+    height={49}
+    loading="lazy"
+  />
 
-              {/* smoother text slide */}
-              <span
-                className={cn(
-                  "overflow-hidden whitespace-nowrap text-base transition-all duration-300",
-                  expanded
-                    ? "opacity-100 text-white ml-3 max-w-[200px]"
-                    : "opacity-0 ml-0 max-w-0"
-                )}
-              >
-                {item.label}
-              </span>
-            </Link>
+  <span
+    className={cn(
+      "overflow-hidden whitespace-nowrap text-base transition-all duration-300",
+      expanded
+        ? "opacity-100 text-white ml-3 max-w-[200px]"
+        : "opacity-0 ml-0 max-w-0"
+    )}
+  >
+    {item.label}
+  </span>
+</Link>
           )
         })}
       </nav>

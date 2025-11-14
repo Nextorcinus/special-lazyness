@@ -4,23 +4,51 @@ import React, { useMemo } from 'react'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
 import ResourceIcon from './ResourceIcon'
 
-export default function TotalResultCharm({ results = [] }) {
-  
-  const totalResources = useMemo(() => {
-    const total = { guide: 0, design: 0, jewel: 0, svs: 0 }
+export default function TotalResultCharm({ results = [], compares = [] }) {
+  if (!results.length) return null
 
-    results.forEach((res) => {
-      if (!res?.total) return
-      total.guide += res.total.guide || 0
-      total.design += res.total.design || 0
-      total.jewel += res.total.jewel || 0
-      total.svs += res.total.svs || 0
-    })
+  // ambil 1 compare, karena compare berlaku untuk semua
+  const comparedData = compares[0] || null
 
-    return total
+  // --- Hitung total kebutuhan ---
+  const total = useMemo(() => {
+    return results.reduce(
+      (acc, curr) => {
+        const res = curr.total || {}
+        acc.guide += res.guide || 0
+        acc.design += res.design || 0
+        acc.jewel += res.jewel || 0
+        acc.svs += res.svs || 0
+        return acc
+      },
+      { guide: 0, design: 0, jewel: 0, svs: 0 }
+    )
   }, [results])
 
-  if (!results.length) return null
+  const resources = [
+    { key: 'guide', label: 'Guides' },
+    { key: 'design', label: 'Design Manuals' },
+    { key: 'jewel', label: 'Jewel Secrets' },
+  ]
+
+  // --- Hitung compare ---
+  const compare = {}
+  resources.forEach(({ key }) => {
+    const have = Number(comparedData?.[key] || 0)
+    const need = total[key]
+    const diff = have - need
+
+    compare[key] = {
+      diff,
+      label: diff > 0 ? '+' : diff < 0 ? '-' : 'Match',
+      color:
+        diff > 0
+          ? 'text-green-400 border border-green-800 bg-green-700/10'
+          : diff < 0
+          ? 'text-red-200 border border-red-400 bg-red-500/10'
+          : 'text-gray-200 bg-white/10',
+    }
+  })
 
   return (
     <div className="bg-special-inside-green border border-[#ffffff26] mt-8 rounded-xl p-6 space-y-6">
@@ -29,38 +57,39 @@ export default function TotalResultCharm({ results = [] }) {
       </h3>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-2 gap-4 text-center">
-        {/* === Guide === */}
-        <div className="special-glass p-3 rounded-xl flex flex-col items-center">
-          <ResourceIcon type="guide" />
-          <p className="text-sm text-white mt-1">Guides</p>
-          <p className="text-lg  text-white">
-            {formatToShortNumber(totalResources.guide)}
-          </p>
-        </div>
+        {resources.map(({ key, label }) => (
+          <div 
+            key={key} 
+            className="special-glass p-3 rounded-xl flex flex-col items-center"
+          >
+            <ResourceIcon type={key} />
+            <p className="text-sm text-white mt-1">{label}</p>
 
-        {/* === Design === */}
-        <div className="special-glass p-3 rounded-xl flex flex-col items-center">
-          <ResourceIcon type="design" />
-          <p className="text-sm text-white mt-1">Designs</p>
-          <p className="text-lg  text-white">
-            {formatToShortNumber(totalResources.design)}
-          </p>
-        </div>
+            {/* Total need */}
+            <p className="text-lg text-white">
+              {formatToShortNumber(total[key])}
+            </p>
 
-        {/* === Jewel === */}
-        <div className="special-glass p-3 rounded-xl flex flex-col items-center">
-          <ResourceIcon type="jewel" />
-          <p className="text-sm text-white mt-1">Secrets</p>
-          <p className="text-lg  text-white">
-            {formatToShortNumber(totalResources.jewel)}
-          </p>
-        </div>
+            {/* Compare diff */}
+            {comparedData && (
+              <div
+                className={`text-xs mt-2 px-2 py-1 rounded-md ${compare[key].color}`}
+              >
+                {compare[key].label !== 'Match'
+                  ? `${compare[key].label}${formatToShortNumber(
+                      Math.abs(compare[key].diff)
+                    )}`
+                  : 'Match'}
+              </div>
+            )}
+          </div>
+        ))}
 
         {/* === SvS Points === */}
         <div className="special-glass bg-[#9797974A] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1 flex flex-col justify-center">
           <span className="block text-white text-sm mb-1">SvS Points:</span>
           <span className="block text-white text-lg ">
-            {formatToShortNumber(totalResources.svs)}
+            {formatToShortNumber(total.svs)}
           </span>
         </div>
       </div>

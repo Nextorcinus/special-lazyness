@@ -133,7 +133,7 @@ export default function TabSwitcherCharm({
                   </div>
                 )
               })}
-              <TotalResultCharm results={results} />
+              <TotalResultCharm results={results} compares={compares} />
             </>
           )}
         </div>

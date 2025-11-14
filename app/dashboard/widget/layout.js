@@ -9,7 +9,7 @@ import WelcomePopup from '../../components/Popup'
 export default function Widget({ children }) {
   return (
     <>
-      <backgroundLiquid />
+     
       <WelcomePopup />
       <PageWrapper>
         <div className="min-h-screen bg-special text-white">

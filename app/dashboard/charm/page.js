@@ -28,21 +28,26 @@ export default function CharmPage() {
 
   // === 1️⃣ Hitung Charm ===
   const handleCalculate = (data) => {
-    if (!data || !data.type || !data.from || !data.to) {
-      toast.warning('Please fill all required fields.')
-      return
-    }
-
-    const resultWithId = { ...data, id: uuidv4() }
-    setResults((prev) => [...prev, resultWithId])
-    setCompares((prev) => [...prev, null])
-    addHistory(resultWithId)
-
-    toast.success('Charm upgrade calculated!')
-    setTimeout(() => {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
-    }, 200)
+  if (!data || !data.type || !data.from || !data.to) {
+    toast.warning('Please fill all required fields.')
+    return
   }
+
+  // Pastikan total ikut
+  const resultWithId = { 
+    ...data,
+    id: uuidv4(),
+  }
+
+  setResults((prev) => [...prev, resultWithId])
+  setCompares((prev) => [...prev, null])
+  addHistory(resultWithId)
+
+  toast.success('Charm upgrade calculated!')
+  setTimeout(() => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+  }, 200)
+}
 
   // === 2️⃣ Compare ===
   const handleCompareSubmit = (compareData) => {
