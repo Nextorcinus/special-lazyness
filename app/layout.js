@@ -2,9 +2,7 @@
 import Sidebar from "./components/Sidebar";
 import MobileSidebar from "./components/MobileSidebar";
 import WelcomePopup from "./components/Popup";
-import GoldenBackground from "./components/GoldenBackground";
-import NeatBackground from "./components/NeatBackground"
-
+import NeatBackground from "./components/NeatBackground";
 
 export const metadata = {
   title: "Special Lazyness",
@@ -15,19 +13,26 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="" >
+      <body className="relative">
         <NeatBackground />
+
         <WelcomePopup />
-      
- 
-       
 
-        <div className="min-h-screen flex flex-col">
-          <MobileSidebar />
+        <div className="min-h-screen flex">     
+          <div className="hidden lg:block">
+            <Sidebar />
+          </div>
 
-          <main className="flex-1 w-full bg-special overflow-y-auto">
-            {children}
-          </main>
+          <div className="flex-1 flex flex-col">
+            <div className="lg:hidden">
+              <MobileSidebar />
+            </div>
+
+            {/* MAIN CONTENT */}
+            <main className="flex-1 w-full bg-special overflow-y-auto">
+              {children}
+            </main>
+          </div>
         </div>
       </body>
     </html>
