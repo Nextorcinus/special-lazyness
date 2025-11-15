@@ -123,7 +123,7 @@ export default function HeroDetail({ params }) {
         </div>
         <div>
           <h1 className="text-3xl font-bold mb-2">{hero.name}</h1>
-          <p className="text-md text-gray-400">{hero.description}</p>
+          <p className="text-md text-white">{hero.description}</p>
         </div>
       </div>
 
@@ -132,7 +132,7 @@ export default function HeroDetail({ params }) {
         <div className="flex justify-between items-start mb-2">
           <h2 className="text-xl font-semibold">Talent: {hero.talent.name}</h2>
         </div>
-        <p className="text-gray-400 mb-4">{hero.talent.description}</p>
+        <p className="text-white mb-4">{hero.talent.description}</p>
         {hero.talent['upgrade-preview'] && (
           <button
             onClick={() => setShowTalentPreview(true)}
@@ -191,7 +191,7 @@ export default function HeroDetail({ params }) {
                   SKILL {skill.number}
                 </span>
                 <h3 className="text-lg font-semibold mb-2">{skill.name}</h3>
-                <p className="text-gray-400 text-sm">{skill.description}</p>
+                <p className="text-white text-sm">{skill.description}</p>
               </div>
             )
           })}
@@ -201,7 +201,7 @@ export default function HeroDetail({ params }) {
       {hero.summarize && (
         <div className="mb-6 p-4 bg-special-inside rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Summary</h2>
-          <div className="text-gray-400 whitespace-pre-line">
+          <div className="text-white whitespace-pre-line">
             {hero.summarize}
           </div>
         </div>

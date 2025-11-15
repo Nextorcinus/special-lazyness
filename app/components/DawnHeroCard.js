@@ -1,9 +1,9 @@
-// components/DawnHeroCard.js
+
 import Link from 'next/link'
 import Image from 'next/image'
 
 export default function DawnHeroCard({ hero }) {
-  // Path gambar dari folder public/icon/
+  
   const imagePath = hero['image-hero']
     ? `/icon/${hero['image-hero']}`
     : '/icon/default-hero.png'
@@ -29,7 +29,7 @@ export default function DawnHeroCard({ hero }) {
 
   <div className="flex flex-col items-center">
     <h2 className="text-xl font-semibold">{hero.name}</h2>
-    <p className="text-gray-400">{hero.role || 'Academy Dawn'}</p>
+    <p className="text-white text-base">{hero.role || 'Academy Dawn'}</p>
     <p className="text-gray-500 text-sm mt-2">ID: {hero.id}</p>
   </div>
 </div>

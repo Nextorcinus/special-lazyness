@@ -1,4 +1,5 @@
 ﻿import "./globals.css";
+import Header from "./components/header";
 import Sidebar from "./components/Sidebar";
 import MobileSidebar from "./components/MobileSidebar";
 import WelcomePopup from "./components/Popup";
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className="relative">
         <NeatBackground />
+        <Header />
 
         <WelcomePopup />
 
@@ -27,9 +29,7 @@ export default function RootLayout({ children }) {
           </div>
 
           <div className="flex-1 flex flex-col min-w-0">
-            <div className="lg:hidden">
-              <MobileSidebar />
-            </div>
+           
 
             <main className="flex-1 w-full bg-special overflow-y-auto min-w-0">
               {children}

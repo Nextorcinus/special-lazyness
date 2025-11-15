@@ -185,7 +185,7 @@ export default function WidgetPage({ onCalculate }) {
       </div>
       {/* Hasil */}
       {result && (
-        <div className="mt-6 p-4 bg-special-inside-green rounded max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl shadow-md border ">
+        <div className="mt-6 p-4 bg-special-inside-green  max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl shadow-md border ">
           <p>
             <strong className="text-lime-400">{result.name} </strong>
             Level {result.level} "<em>{result.skill}</em>"{' '}

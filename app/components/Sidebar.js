@@ -57,7 +57,7 @@ export default function Sidebar() {
            <Link
   key={item.label}
   href={item.href}
-  onClick={() => setExpanded(false)}   // ➜ Tutup sidebar setelah klik
+  onClick={() => setExpanded(false)}   
   className={cn(
     "flex items-center rounded-xl transition py-1 cursor-pointer",
     isActive ? "text-[#B3F35F] bg-[#384E57]/50" : "text-white/80 hover:text-white hover:bg-white/10 ",

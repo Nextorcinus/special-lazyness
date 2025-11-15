@@ -3,10 +3,17 @@ import React from 'react'
 export default function HeroesDawnLayout({ children }) {
   return (
     <div className="min-h-screen bg-special text-white">
-      <header className="p-4 border-b border-gray-400">
-        <h1 className="text-2xl font-bold">Dawn Heroes</h1>
-      </header>
-      <main className="p-6">{children}</main>
-    </div>
+          <main className="flex flex-col items-center w-full">
+                <div className="w-full md:max-w-[765px] xl:max-w-[1200px] px-4 md:px-6 lg:px-8">
+            <div className="px-2 py-10">
+              {children}
+            
+            </div>
+            </div>
+          
+          </main>
+
+          
+        </div>
   )
 }

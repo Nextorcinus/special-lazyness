@@ -11,14 +11,14 @@ export default function DawnHeroList() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        // Dynamic import dengan path yang benar
+        
         const dawnData = await import('../../data/heroesDawn.json')
         console.log('Heroes data loaded:', dawnData.default || dawnData)
 
-        // Pastikan kita mengakses data yang benar
+        
         const data = dawnData.default || dawnData
 
-        // Tambahkan role jika tidak ada
+        
         const heroesWithRole = data.dawn.map((hero) => ({
           ...hero,
           role: hero.role || 'Dawn Hero',
@@ -28,7 +28,7 @@ export default function DawnHeroList() {
       } catch (error) {
         console.error('Error loading heroes data:', error)
 
-        // Fallback: coba fetch dari /data jika dynamic import gagal
+       
         try {
           const response = await fetch('/data/heroesDawn.json')
           const fallbackData = await response.json()
