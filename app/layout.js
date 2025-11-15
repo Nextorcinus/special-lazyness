@@ -13,23 +13,25 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <body className="relative">
         <NeatBackground />
 
         <WelcomePopup />
 
-        <div className="min-h-screen flex">     
+        <div className="min-h-screen flex min-w-0">     
           <div className="hidden lg:block">
             <Sidebar />
           </div>
 
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col min-w-0">
             <div className="lg:hidden">
               <MobileSidebar />
             </div>
 
-            {/* MAIN CONTENT */}
-            <main className="flex-1 w-full bg-special overflow-y-auto">
+            <main className="flex-1 w-full bg-special overflow-y-auto min-w-0">
               {children}
             </main>
           </div>

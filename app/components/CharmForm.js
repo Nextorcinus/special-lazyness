@@ -76,6 +76,7 @@ export default function CharmForm({ onSubmit, onReset }) {
 
     
     onSubmit?.(result)
+    
     toast.success(`Charm upgrade calculated: ${type} ${from} → ${to}`)
   }
 

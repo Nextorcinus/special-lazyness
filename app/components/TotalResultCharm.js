@@ -27,8 +27,8 @@ export default function TotalResultCharm({ results = [], compares = [] }) {
 
   const resources = [
     { key: 'guide', label: 'Guides' },
-    { key: 'design', label: 'Design Manuals' },
-    { key: 'jewel', label: 'Jewel Secrets' },
+    { key: 'design', label: 'Design' },
+    { key: 'jewel', label: 'Jewel' },
   ]
 
   // --- Hitung compare ---
@@ -63,10 +63,10 @@ export default function TotalResultCharm({ results = [], compares = [] }) {
             className="special-glass p-3 rounded-xl flex flex-col items-center"
           >
             <ResourceIcon type={key} />
-            <p className="text-sm text-white mt-1">{label}</p>
+            <p className="text-sm text-zinc-200 mt-1">{label}</p>
 
             {/* Total need */}
-            <p className="text-lg text-white">
+            <p className="text-base text-teal-300">
               {formatToShortNumber(total[key])}
             </p>
 
@@ -88,7 +88,7 @@ export default function TotalResultCharm({ results = [], compares = [] }) {
         {/* === SvS Points === */}
         <div className="special-glass bg-[#9797974A] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1 flex flex-col justify-center">
           <span className="block text-white text-sm mb-1">SvS Points:</span>
-          <span className="block text-white text-lg ">
+          <span className="block text-teal-300 text-base ">
             {formatToShortNumber(total.svs)}
           </span>
         </div>

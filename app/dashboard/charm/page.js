@@ -13,6 +13,8 @@ export default function CharmPage() {
   const [results, setResults] = useState([])
   const [compares, setCompares] = useState([])
   const [showCompareForm, setShowCompareForm] = useState(false)
+  const [tab, setTab] = useState("overview")
+  
 
   const { history, addHistory, deleteHistory, resetHistory } = useCharmHistory()
 
@@ -26,14 +28,14 @@ export default function CharmPage() {
     })
   }, [history])
 
-  // === 1️⃣ Hitung Charm ===
+ 
   const handleCalculate = (data) => {
   if (!data || !data.type || !data.from || !data.to) {
     toast.warning('Please fill all required fields.')
     return
   }
 
-  // Pastikan total ikut
+  
   const resultWithId = { 
     ...data,
     id: uuidv4(),
@@ -45,11 +47,14 @@ export default function CharmPage() {
 
   toast.success('Charm upgrade calculated!')
   setTimeout(() => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
-  }, 200)
+  document.getElementById("latest-result")?.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  })
+}, 200)
 }
 
-  // === 2️⃣ Compare ===
+  
   const handleCompareSubmit = (compareData) => {
     if (!compareData) return
 
@@ -65,7 +70,7 @@ export default function CharmPage() {
     toast.success('Comparison applied to all results!')
   }
 
-  // === 3️⃣ Delete satu history ===
+  
   const handleDeleteHistory = (id) => {
     deleteHistory(id)
     const updated = results.filter((item) => item.id !== id)
@@ -73,7 +78,7 @@ export default function CharmPage() {
     setCompares((prev) => prev.filter((_, i) => i < updated.length))
   }
 
-  // === 4️⃣ Reset semua ===
+  
   const handleResetHistory = () => {
     resetHistory()
     setResults([])
@@ -103,7 +108,10 @@ export default function CharmPage() {
       {/* === Charm Form === */}
       <div className="flex flex-col md:p-6 lg:flex-row gap-6 w-full">
         <div className="w-full">
-          <CharmForm onSubmit={handleCalculate} />
+          <CharmForm 
+  onSubmit={handleCalculate}
+  onAutoSwitch={() => setTab("overview")}
+/>
 
           <div className="flex justify-end mt-4">
             <button
@@ -153,12 +161,14 @@ export default function CharmPage() {
       {/* === Results Section === */}
       {Array.isArray(results) && results.length > 0 && (
         <div className="md:p-6 mt-8 space-y-6 w-full">
-          <TabSwitcherCharm
-            results={results}
-            compares={compares}
-            onDeleteHistory={handleDeleteHistory}
-            onResetHistory={handleResetHistory}
-          />
+         <TabSwitcherCharm
+  tab={tab}
+  setTab={setTab}
+  results={results}
+  compares={compares}
+  onDeleteHistory={handleDeleteHistory}
+  onResetHistory={handleResetHistory}
+/>
         </div>
       )}
     </main>
