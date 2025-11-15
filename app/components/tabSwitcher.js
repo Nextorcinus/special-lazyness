@@ -17,8 +17,12 @@ export default function TabSwitcher({
   onResetHistory,
 }) {
   const [tab, setTab] = useState('overview')
-  const { history, deleteHistory, resetHistory } = useHistory()
+
+  const { deleteHistory } = useHistory()
   const { addAnother } = useAddAnother()
+
+  // 🔥 TARUH YANG BARU DI ATAS
+  const sortedResults = [...results].reverse()
 
   return (
     <div className="">
@@ -41,39 +45,40 @@ export default function TabSwitcher({
       {/* === TAB: OVERVIEW === */}
       {tab === 'overview' && (
         <div className="space-y-6">
-          {results.map((res) => {
+          {sortedResults.map((res, index) => {
             const compare = compares[0]
+
+            const isLatest = index === 0 // 🎯 ITEM PALING BARU
+
             return (
               <div
                 key={res.id}
+                id={isLatest ? "latest-result" : undefined}
                 className="bg-special-inside py-4 px-4 rounded-xl space-y-2 "
               >
                 <div className="relative flex justify-between items-center bg-title-result mb-4 pr-12">
-                  {' '}
                   <div>
-                    <div className="text-lg lg:text-2xl text-shadow-lg text-white  mb-1">
+                    <div className="text-lg lg:text-2xl text-shadow-lg text-white mb-1">
                       {res.building}
                     </div>
-                    <span className="text-white text-sm">Level</span>{' '}
+                    <span className="text-white text-sm">Level</span>{" "}
                     <span className="text-white text-sm">
                       {res.fromLevel} → {res.toLevel}
                     </span>
                   </div>
+
+                  {/* delete */}
                   <button
                     onClick={() => {
                       deleteHistory(res.id)
                       toast.success(`History ${res.building} has been deleted.`)
                     }}
                     className="special-glass absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:scale-105 transition-transform duration-200"
-                    aria-label="Delete history"
                   >
-                    <img
-                      src="/icon/trash-can.png"
-                      alt="Delete"
-                      className="w-5 h-5"
-                    />
+                    <img src="/icon/trash-can.png" className="w-5 h-5" />
                   </button>
                 </div>
+
                 {/* Resources */}
                 <div>
                   <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 2xl:grid-cols-6 gap-4 gap-y-0 w-full">
@@ -83,13 +88,13 @@ export default function TabSwitcher({
                       const have = hasCompare ? compare[key] : null
                       const diff = hasCompare ? have - need : 0
 
-                      const isMatch = diff === 0
                       const color =
                         diff > 0
                           ? 'text-xs text-green-400 rounded-md border border-green-800 bg-green-700/10 px-2 py-1'
                           : diff < 0
                           ? 'text-xs text-red-200 border border-red-400 bg-red-500/10 px-2 py-1'
                           : 'text-xs text-gray-200 bg-white/20 px-2 py-1'
+
                       const label =
                         diff > 0 ? '+' : diff < 0 ? '-' : 'Match'
 
@@ -98,16 +103,15 @@ export default function TabSwitcher({
                           key={key}
                           className="flex flex-col justify-center special-glass items-center px-2 py-2 rounded-xl"
                         >
-                          <div className="flex items-center justify-between gap-1  text-sm md:text-base w-full">
+                          <div className="flex items-center justify-between gap-1 text-sm md:text-base w-full">
                             <ResourceIcon type={key} />
                             {formatToShortNumber(value)}
                           </div>
+
                           {hasCompare && (
-                            <div
-                              className={`text-xs md:text-sm rounded-md mt-1 ${color}`}
-                            >
+                            <div className={`${color} mt-1`}>
                               {label}
-                              {!isMatch && (
+                              {diff !== 0 && (
                                 <> {formatToShortNumber(Math.abs(diff))}</>
                               )}
                             </div>
@@ -128,14 +132,16 @@ export default function TabSwitcher({
                       {res.timeOriginal}
                     </span>
                   </div>
+
                   <div className="special-glass px-4 py-2 rounded-lg">
                     <span className="block text-white text-sm mb-1">
                       Reduce Time
                     </span>
-                    <span className="block  text-base">
+                    <span className="block text-base">
                       {res.timeReduced}
                     </span>
                   </div>
+
                   <div className="special-glass px-4 py-2 rounded-lg">
                     <span className="block text-white text-base mb-1">
                       SvS Points:
@@ -180,6 +186,7 @@ export default function TabSwitcher({
             )
           })}
 
+          {/* Add Another */}
           <div className="bg-special-inside-dotted flex justify-center p-6 rounded-xl ">
             <Button
               onClick={() => {
@@ -192,14 +199,17 @@ export default function TabSwitcher({
             </Button>
           </div>
 
-          {/* 2. Total Result */}
+          {/* Total Result */}
           <TotalResult results={results} comparedData={compares?.[0]} />
         </div>
       )}
 
       {/* === TAB: HISTORY === */}
       {tab === 'history' && (
-        <HistoryList onDelete={onDeleteHistory} onReset={onResetHistory} />
+        <HistoryList
+          onDelete={onDeleteHistory}
+          onReset={onResetHistory}
+        />
       )}
     </div>
   )

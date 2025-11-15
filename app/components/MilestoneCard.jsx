@@ -8,13 +8,13 @@ export default function MilestoneCard({ milestone: m, isUpcoming = false }) {
 
   return (
     <div
-      className={`rounded-xl border shadow bg-special-inside border-zinc-800 text-white mt-6 p-5 transition-all duration-300 ${statusStyle}`}
+      className={`rounded-2xl border shadow bg-special-inside border-zinc-800 text-white mt-6 p-5 transition-all duration-300 ${statusStyle}`}
     >
       {/* Title */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 mb-2">
         <h3
           className={`text-lg font-semibold ${
-            isUpcoming ? 'text-lime-400' : 'text-zinc-300'
+            isUpcoming ? 'text-teal-200' : 'text-zinc-300'
           }`}
         >
           Day {m.days} – {m.name}
@@ -31,7 +31,7 @@ export default function MilestoneCard({ milestone: m, isUpcoming = false }) {
 
       {/* Detail */}
       {m.details?.length > 0 && (
-        <p className="text-sm text-zinc-400 mb-3">{m.details[0]}</p>
+        <p className="text-sm text-white mb-2">{m.details[0]}</p>
       )}
 
       {/* icons */}

@@ -11,16 +11,17 @@ export default function GearHistoryList({ onResetGlobal }) {
 
   const handleReset = () => {
     resetHistory()
-    toast.success('All history has been reset.')
-    if (onResetGlobal) onResetGlobal()
+    toast.success("All history has been reset.")
+    onResetGlobal?.()
   }
 
   return (
     <Card className="bg-special-inside text-white mt-10 border border-neutral-700">
       <CardHeader className="flex flex-row items-center justify-between px-4 py-2">
         <h3 className="text-lg px-4 mt-4">Gear Upgrade History</h3>
+
         <Button
-          className="buttonGlass hover:bg-red-500  text-white px-2 py-0 rounded"
+          className="buttonGlass hover:bg-red-500 text-white px-2 py-0 rounded"
           onClick={handleReset}
         >
           Reset
@@ -37,22 +38,17 @@ export default function GearHistoryList({ onResetGlobal }) {
               className="flex justify-between items-center special-glass rounded px-4 py-3"
             >
               <div>
-                
                 <div className="text-base font-semibold">{entry.type}</div>
                 <div className="text-sm text-white mt-1">
                   {entry.from} → {entry.to}
                 </div>
               </div>
+
               <Button
                 className="button-Form text-white px-2 py-1 rounded"
                 onClick={() => {
                   deleteHistory(entry.id)
-                  toast.success(`History ${entry.type} has been deleted.`)
-
-                 
-                  if (history.length === 1 && typeof window !== 'undefined') {
-                    window.dispatchEvent(new CustomEvent('gear:forceReset'))
-                  }
+                  toast.success(`Deleted history for ${entry.type}.`)
                 }}
               >
                 Delete

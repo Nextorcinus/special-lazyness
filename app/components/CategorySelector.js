@@ -6,8 +6,8 @@ import { cn } from '../lib/utils'
 
 export default function CategorySelector({ selected, onChange }) {
   const categories = [
-    { name: 'Basic', icon: '/icon/basic.png' },
-    { name: 'Fire Crystal', icon: '/icon/fire_crystal.png' },
+    { name: 'Basic' },
+    { name: 'Fire Crystal'},
   ]
 
   return (
@@ -21,16 +21,7 @@ export default function CategorySelector({ selected, onChange }) {
             selected === cat.name && 'active text-lime-400'
           )}
         >
-          <Image
-            src={cat.icon}
-            alt={cat.name}
-            width={25}
-            height={25}
-            className={cn(
-              ' transition-all duration-300',
-              selected === cat.name && ' scale-100'
-            )}
-          />
+
           {cat.name}
         </button>
       ))}

@@ -72,9 +72,13 @@ export default function Home({ addAnotherTrigger }) {
     setCompares((prev) => [...prev, null])
     addHistory(resultWithId)
 
-    setTimeout(() => {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
-    }, 100)
+  setTimeout(() => {
+    document.getElementById("latest-result")?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    })
+  }, 150)
+
   }
 
   const handleCompareSubmit = (compareData) => {

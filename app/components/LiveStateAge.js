@@ -26,7 +26,7 @@ export default function LiveStateAge({ stateId }) {
     <div>
       <h2 className="text-xl font-bold">State {stateId}</h2>
       <p>Created At: {createdAt}</p>
-      <p className="text-lime-400">Age: {ageInDays} days</p>
+      <p className="text-teal-400">Age: {ageInDays} days</p>
     </div>
   )
 }

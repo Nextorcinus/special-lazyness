@@ -74,10 +74,10 @@ export default function WidgetPage({ onCalculate }) {
 
   return (
     <div className="p-4 md:p-6 text-white w-full">
-      <div className="relative bg-special-inside   mt-6 px-4 py-6 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
+      <div className="relative   mt-6 px-4 py-2 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
         <h2 className="text-2xl text-white">Widget Hero</h2>
       </div>
-      <div className="bg-special-inside w-full  text-white mt-6 px-4 py-6 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl">
+      <div className="bg-special-inside w-full  text-white mt-3 px-4 py-4 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl">
         <h1 className="text-xl mb-4 ">Widget Calculate</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -170,30 +170,12 @@ export default function WidgetPage({ onCalculate }) {
           {/* Submit */}
           <button
             type="submit"
-            className="bg-orange-500 hover:bg-orange-400 text-sm md:text-base text-white rounded-lg py-4 md:py-4 w-full sm:w-auto"
+            className="button-Form text-sm md:text-base text-white rounded-lg px-2 py-4 md:py-4 w-full sm:w-auto"
           >
             Analyze
           </button>
         </form>
 
-        {/* Hasil */}
-        {result && (
-          <div className="mt-6 p-4 special-glass rounded  shadow-md border ">
-            <p>
-              <strong className="text-lime-400">{result.name} </strong>
-              Level {result.level} "<em>{result.skill}</em>"{' '}
-              <strong className="text-yellow-400">{result.value}%</strong> for{' '}
-              <strong className="text-yellow-400">{result.type}</strong>
-              <br />
-              <span className="text-zinc-200 py-2">
-                Total Widget Required from Level {fromLevel} → {toLevel} :{' '}
-                <strong className="text-lime-400">
-                  {result.totalRequired}
-                </strong>
-              </span>
-            </p>
-          </div>
-        )}
 
         {!result && input && (
           <p className="mt-4 text-red-400">
@@ -201,6 +183,24 @@ export default function WidgetPage({ onCalculate }) {
           </p>
         )}
       </div>
+      {/* Hasil */}
+      {result && (
+        <div className="mt-6 p-4 bg-special-inside-green rounded max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl shadow-md border ">
+          <p>
+            <strong className="text-lime-400">{result.name} </strong>
+            Level {result.level} "<em>{result.skill}</em>"{' '}
+            <strong className="text-yellow-400">{result.value}%</strong> for{' '}
+            <strong className="text-yellow-400">{result.type}</strong>
+            <br />
+            <span className="text-zinc-200 py-2">
+              Total Widget Required from Level {fromLevel} → {toLevel} :{' '}
+              <strong className="text-lime-400">
+                {result.totalRequired} stones
+              </strong>
+            </span>
+          </p>
+        </div>
+      )}
       <div className="max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto mt-6 text-white">
         <p className="text-sm">
           Note: Exploration skills are designed for exploration battles (

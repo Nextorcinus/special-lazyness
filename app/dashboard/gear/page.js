@@ -4,7 +4,6 @@ import { useState, useEffect, useMemo } from 'react'
 import GearForm from '../../components/GearForm'
 import CompareFormGear from '../../components/CompareFormGear'
 import TabSwitcherGear from '../../components/tabSwitcherGear'
-import { v4 as uuidv4 } from 'uuid'
 import { useGearHistory } from './GearContext'
 import { toast } from 'sonner'
 import '../../globals.css'
@@ -13,12 +12,14 @@ export default function GearPage() {
   const [results, setResults] = useState([])
   const [compares, setCompares] = useState([])
   const [showCompareForm, setShowCompareForm] = useState(false)
+  const [tab, setTab] = useState("overview")
 
   const { history, addToHistory, deleteHistory, resetHistory } = useGearHistory()
 
-  // Sinkronisasi hasil dengan history
+  // Sinkronkan hasil lokal dengan Context history
   useEffect(() => {
     setResults(history)
+
     setCompares((prev) => {
       const updated = [...prev]
       while (updated.length < history.length) updated.push(null)
@@ -26,29 +27,40 @@ export default function GearPage() {
     })
   }, [history])
 
-  // === 1️⃣ Calculate Gear ===
+  // === Calculate Gear ===
   const handleCalculate = (data) => {
     if (!data || !data.type || !data.from || !data.to) {
-      toast.warning('Lengkapi semua pilihan sebelum menghitung.')
+      toast.warning("Please complete all fields before calculating.")
       return
     }
 
-    const resultWithId = { ...data, id: uuidv4() }
-    setResults((prev) => [...prev, resultWithId])
-    setCompares((prev) => [...prev, null])
-    addToHistory(resultWithId)
+    // Context otomatis membuat ID
+    addToHistory(data)
 
-    toast.success('Gear upgrade calculated!')
+    toast.success("Gear upgrade calculated!")
+
+    // pindah tab ke overview
+    setTab("overview")
+
+    // scroll ke result terbaru
     setTimeout(() => {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+      document.getElementById("latest-result")?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      })
     }, 200)
   }
 
-  // === 2️⃣ Compare Data ===
+  // === Compare Data ===
   const handleCompareSubmit = (compareData) => {
+    // gunakan history sebagai validasi utama
+    if (history.length === 0) {
+      toast.error("No calculation result available, please submit a calculation first.")
+      return
+    }
+
     if (!compareData) return
 
-    // Terapkan compareData ke semua result
     const newCompares = results.map(() => ({
       plans: Number(compareData.plans || 0),
       polish: Number(compareData.polish || 0),
@@ -59,26 +71,25 @@ export default function GearPage() {
 
     setCompares(newCompares)
     setShowCompareForm(false)
-    toast.success('Comparison applied to all results!')
+    toast.success("Comparison applied to all results!")
   }
 
-  // === 3️⃣ Delete satu riwayat ===
+  // === Delete dari Overview ===
   const handleDeleteHistory = (id) => {
     deleteHistory(id)
-    const updated = results.filter((item) => item.id !== id)
-    setResults(updated)
-    setCompares((prev) => prev.filter((_, i) => i < updated.length))
+    // results akan update otomatis dari useEffect
+    setCompares((prev) => prev.slice(0, Math.max(0, history.length - 1)))
   }
 
-  // === 4️⃣ Reset semua ===
+  // === Reset semua ===
   const handleResetHistory = () => {
     resetHistory()
     setResults([])
     setCompares([])
-    toast.success('Gear history has been reset.')
+    toast.success("Gear history has been reset.")
   }
 
-  // Default Compare Kosong
+  // default compare
   const defaultResources = useMemo(
     () => ({
       plans: 0,
@@ -92,14 +103,14 @@ export default function GearPage() {
 
   return (
     <main className="text-white w-full">
-      {/* === Header === */}
-      <div className="relative w-full md:px-6 py-0 mt-8">
+      {/* Header */}
+      <div className="relative w-full md:px-6 md:py-0 py-4  md:mt-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 px-6">
           <h2 className="text-2xl text-white">Chief Gear</h2>
         </div>
       </div>
 
-      {/* === Gear Form === */}
+      {/* Gear Form */}
       <div className="flex flex-col md:p-6 lg:flex-row gap-6 w-full">
         <div className="w-full">
           <GearForm onSubmit={handleCalculate} materialDataLoaded={true} />
@@ -109,27 +120,13 @@ export default function GearPage() {
               onClick={() => setShowCompareForm(true)}
               className="buttonGlass flex gap-2 text-sm md:text-base"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 md:h-5 md:w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
               Compare Resources
             </button>
           </div>
         </div>
       </div>
 
-      {/* === Popup Compare Form === */}
+      {/* Compare Popup */}
       {showCompareForm && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
           <div className="bg-[#ffffff35] backdrop-blur p-6 rounded-xl border border-white/20 w-[90%] max-w-lg relative">
@@ -149,10 +146,12 @@ export default function GearPage() {
         </div>
       )}
 
-      {/* === Results Section === */}
-      {Array.isArray(results) && results.length > 0 && (
+      {/* Results Section */}
+      {results.length > 0 && (
         <div className="md:p-6 py-4 mt-2 space-y-6 w-full">
           <TabSwitcherGear
+            tab={tab}
+            setTab={setTab}
             results={results}
             compares={compares}
             onDeleteHistory={handleDeleteHistory}

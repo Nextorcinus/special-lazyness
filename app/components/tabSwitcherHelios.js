@@ -21,22 +21,22 @@ export default function TabSwitcherHelios({
   const { deleteHistory } = useHeliosHistory()
   const { addAnother } = useAddAnother()
 
-  // === TOTAL CALCULATION ===
+  // === TOTAL CALCULATION: create an aggregated "total" item appended to results
   const resultsWithTotal = useMemo(() => {
     if (!results.length) return []
 
     const total = results.reduce(
       (acc, res) => {
-        // === Resource Total ===
+        // resources
         const baseResources = res.rawResources || res.resources || {}
         for (const key in baseResources) {
-          const baseVal = baseResources[key] || 0
+          const baseVal = Number(baseResources[key] || 0)
           acc.resources[key] = (acc.resources[key] || 0) + baseVal
         }
 
-        // === Time Total ===
-        acc.timeOriginal += res.timeOriginal || 0
-        acc.timeReduced += res.timeReduced || 0
+        // times
+        acc.timeOriginal += Number(res.timeOriginal || 0)
+        acc.timeReduced += Number(res.timeReduced || 0)
 
         return acc
       },
@@ -56,36 +56,53 @@ export default function TabSwitcherHelios({
     ]
   }, [results])
 
+  // Show newest results on top (reverse the list that includes the total)
+  const sortedResults = useMemo(() => {
+    return [...resultsWithTotal].reverse()
+  }, [resultsWithTotal])
+
   return (
     <div>
       {/* === Tab Buttons === */}
       <div className="flex gap-2 mb-6 border-b border-[#ffffff46]">
-        {['overview', 'history'].map((t) => (
-          <button
-            key={t}
-            className={`tab-button ${tab === t ? 'active' : ''}`}
-            onClick={() => setTab(t)}
-          >
-            {t === 'overview' ? 'Overview' : 'History'}
-          </button>
-        ))}
+        <button
+          className={`tab-button ${tab === 'overview' ? 'active' : ''}`}
+          onClick={() => setTab('overview')}
+        >
+          Overview
+        </button>
+        <button
+          className={`tab-button ${tab === 'history' ? 'active' : ''}`}
+          onClick={() => setTab('history')}
+        >
+          History
+        </button>
       </div>
 
       {/* === TAB: OVERVIEW === */}
       {tab === 'overview' && (
         <div className="space-y-6">
-          {results.map((res) => {
+          {sortedResults.map((res, index) => {
+            // if this is the appended total row, you might want to render differently
+            const isTotal = res.id === 'total'
             const compare = compares[0]
+            const isLatest = index === 0 && !isTotal // latest real item (not total)
+
+            if (isTotal) {
+              // render total (kept similar to your existing TotalResultHelios but in-place fallback)
+              return null // we render totals via TotalResultHelios component below
+            }
 
             return (
               <div
                 key={res.id}
+                id={isLatest ? 'latest-result' : undefined}
                 className="bg-special-inside py-4 px-4 rounded-xl space-y-2"
               >
                 {/* === Header === */}
                 <div className="relative flex justify-between items-center bg-title-result mb-4 pr-12">
                   <div>
-                    <div className="text-lg lg:text-2xl text-shadow-lg text-white mb-1">
+                    <div className="text-lg lg:text-xl text-shadow-lg text-white mb-1">
                       {res.building}
                     </div>
                     <span className="text-white text-sm">Level </span>
@@ -232,17 +249,14 @@ export default function TabSwitcherHelios({
             </Button>
           </div>
 
-          {/* === Total Result === */}
+          {/* === Total Result (uses the computed resultsWithTotal) === */}
           <TotalResultHelios results={resultsWithTotal} compares={compares} />
         </div>
       )}
 
       {/* === TAB: HISTORY === */}
       {tab === 'history' && (
-        <HeliosHistoryList
-          onDelete={onDeleteHistory}
-          onReset={onResetHistory}
-        />
+        <HeliosHistoryList onDelete={onDeleteHistory} onReset={onResetHistory} />
       )}
     </div>
   )

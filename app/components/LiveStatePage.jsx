@@ -75,14 +75,14 @@ export default function LiveStatePage({ stateId }) {
     <div className="p-4 md:p-6 text-white w-full">
       <div className="relative bg-special-inside border border-zinc-800 rounded-2xl p-6 shadow-md space-y-2 mb-6">
         <h1 className="text-2xl font-bold mb-2">State {stateId}</h1>
-        <p className="text-sm text-zinc-400">
+        <p className="text-sm text-white">
           Created At: {createdAt.toUTCString()}
         </p>
         <p className="text-lime-400 mb-6">Age: {ageInDays} days</p>
       </div>
 
-      <div className="relative bg-black-900 border border-orange-800 rounded-2xl p-6 shadow-md space-y-2 mb-6">
-        <p className="text-md text-orange-600">
+      <div className="relative bg-special-inside-green bg-black-900 border border-orange-800 rounded-2xl p-6 shadow-md space-y-2 mb-6">
+        <p className="text-sm text-red-400">
           note : Release times may vary between servers depending on their
           progress, activity levels, and several system related factors. The
           time difference is not exact and typically falls within an approximate
@@ -92,7 +92,7 @@ export default function LiveStatePage({ stateId }) {
         </p>
       </div>
 
-      <h2 className="text-xl mb-4 px-2 text-zinc-400">Upcoming Updates</h2>
+      <h2 className="text-xl mb-4 px-2 text-white">Upcoming Updates</h2>
       <div className="space-y-6">
         {upcoming.map((m) => (
           <MilestoneCard key={`${m.name}-${m.days}`} milestone={m} isUpcoming />
@@ -101,7 +101,7 @@ export default function LiveStatePage({ stateId }) {
 
       {achieved.length > 0 && (
         <>
-          <h2 className="text-xl mt-12 mb-4 px-2 text-zinc-400">
+          <h2 className="text-xl mt-12 mb-4 px-2 text-white">
             Previous Updates
           </h2>
           <div className="space-y-6">

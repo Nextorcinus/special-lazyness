@@ -9,22 +9,22 @@ export function GearHistoryProvider({ children }) {
   const [resetFormTrigger, setResetFormTrigger] = useState(0)
   const [resetGearParts, setResetGearParts] = useState([])
 
-  // 🧠 Load data dari localStorage saat pertama kali render
+  // Load from localStorage
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('gearHistory')
       if (saved) {
         try {
           setHistory(JSON.parse(saved))
-        } catch (err) {
-          console.error('❌ Error parsing gearHistory:', err)
+        } catch (error) {
+          console.error("Error parsing gearHistory:", error)
           localStorage.removeItem('gearHistory')
         }
       }
     }
   }, [])
 
-  // 💾 Simpan data ke localStorage setiap kali history berubah
+  // Save to localStorage
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (history.length > 0) {
@@ -35,85 +35,65 @@ export function GearHistoryProvider({ children }) {
     }
   }, [history])
 
-  // ➕ Tambah item baru ke history (hindari duplikat)
+  // Add to history (Context is the ONLY ID creator)
   const addToHistory = (entry) => {
-    setHistory((prev) => {
+    setHistory(prev => {
       const exists = prev.some(
-        (item) =>
-          item.type === entry.type &&
-          item.from === entry.from &&
-          item.to === entry.to
+        item => item.type === entry.type && item.from === entry.from && item.to === entry.to
       )
-
       if (exists) return prev
 
       return [
         ...prev,
-        { ...entry, id: `${entry.type}-${entry.from}->${entry.to}-${Date.now()}` },
+        {
+          ...entry,
+          id: `${entry.type}-${entry.from}-${entry.to}-${Date.now()}`
+        }
       ]
     })
   }
 
-  // 🔄 Update 1 item (misal jika re-calculate gear sama)
-  const updateHistory = (entry) => {
-    setHistory((prev) => {
-      const filtered = prev.filter((item) => item.type !== entry.type)
-      return [
-        ...filtered,
-        { ...entry, id: `${entry.type}-${entry.from}->${entry.to}-${Date.now()}` },
-      ]
-    })
-  }
-
-  // 🗑️ Hapus item dari history
+  // Delete based on ID
   const deleteHistory = (id) => {
-    setHistory((prev) => {
-      const updated = prev.filter((item) => item.id !== id)
-
-      const deletedItem = prev.find((item) => item.id === id)
-      if (deletedItem) {
-        setResetGearParts((parts) => [...parts, deletedItem.type])
+    setHistory(prev => {
+      const deleted = prev.find(x => x.id === id)
+      if (deleted) {
+        setResetGearParts(old => [...old, deleted.type])
       }
 
-      return updated
+      return prev.filter(item => item.id !== id)
     })
   }
 
-  // ♻️ Reset semua history
   const resetHistory = () => {
     setHistory([])
     setResetFormTrigger(Date.now())
-
     if (typeof window !== 'undefined') {
       localStorage.removeItem('gearHistory')
     }
   }
 
-  // 🔁 Trigger reset form global bila history kosong
+  // Reset form when history empty
   useEffect(() => {
     if (history.length === 0) {
       setResetFormTrigger(Date.now())
     }
   }, [history])
 
-  // ✅ Reset form khusus per gear
   const consumeResetGearPart = (gear) => {
-    setResetGearParts((prev) => prev.filter((g) => g !== gear))
+    setResetGearParts(prev => prev.filter(g => g !== gear))
   }
 
   return (
-    <GearHistoryContext.Provider
-      value={{
-        history,
-        addToHistory,
-        updateHistory,
-        deleteHistory,
-        resetHistory,
-        resetFormTrigger,
-        resetGearParts,
-        consumeResetGearPart,
-      }}
-    >
+    <GearHistoryContext.Provider value={{
+      history,
+      addToHistory,
+      deleteHistory,
+      resetHistory,
+      resetFormTrigger,
+      resetGearParts,
+      consumeResetGearPart,
+    }}>
       {children}
     </GearHistoryContext.Provider>
   )

@@ -51,9 +51,13 @@ export default function HeliosPage({ addAnotherTrigger }) {
     setResults((prev) => [...prev, resultWithId])
     setCompares((prev) => [...prev, null])
     addToHistory(resultWithId)
-    setTimeout(() => {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
-    }, 100)
+     setTimeout(() => {
+    document.getElementById("latest-result")?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    })
+  }, 150)
+
   }
 
   const handleCompareSubmit = (compareData) => {

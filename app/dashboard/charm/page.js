@@ -56,6 +56,11 @@ export default function CharmPage() {
 
   
   const handleCompareSubmit = (compareData) => {
+     if (results.length === 0) {
+    toast.error("No calculation result available, please submit a calculation first.")
+    return
+  }
+
     if (!compareData) return
 
     const newCompares = results.map(() => ({
@@ -99,7 +104,7 @@ export default function CharmPage() {
   return (
     <main className="text-white w-full">
       {/* === Header === */}
-      <div className="relative w-full md:px-6 py-0 mt-8">
+      <div className="relative w-full md:px-6 md:py-0 py-4 mt-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
           <h2 className="text-2xl text-white px-6">Chief Charm</h2>
         </div>

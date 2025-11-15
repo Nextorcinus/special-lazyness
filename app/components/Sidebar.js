@@ -38,8 +38,8 @@ export default function Sidebar() {
         onClick={() => setExpanded(!expanded)}
         className={cn(
           "absolute right-[-14px] top-1/2 -translate-y-1/2",
-          "w-7 h-7 bg-[#FFFFFF20] backdrop-blur-md rounded-full",
-          "flex items-center justify-center shadow-md border text-zinc-300 border-white/20",
+          "w-7 h-7 bg-[#02020240] backdrop-blur-md rounded-full",
+          "flex items-center justify-center shadow-md border text-white border-zinc-200/40",
           "hover:bg-white/30 transition"
         )}
       >
@@ -51,7 +51,7 @@ export default function Sidebar() {
       {/* Navigation */}
       <nav className="flex flex-col gap-2 w-full px-3 mt-4">
         {menu.map((item) => {
-          const isActive = pathname === item.href
+          const isActive = pathname.startsWith(item.href)
 
           return (
            <Link
