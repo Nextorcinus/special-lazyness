@@ -24,9 +24,9 @@ export default function FloatingCreatorButton() {
           onClick={() => setOpen(true)}
           className="
             fixed right-0 top-1/2 -translate-y-1/2
-            text-white text-sm
+            text-white text-xs
             bg-teal-400/20 hover:bg-teal-700 
-            px-2 py-2 rounded-l-xl
+            px-1 py-2 rounded-l-xl
             backdrop-blur-md shadow-lg
             z-50 cursor-pointer
             overflow-hidden
