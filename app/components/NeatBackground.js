@@ -73,7 +73,7 @@ export default function NeatBackground() {
         w-screen h-screen 
         overflow-hidden 
         -z-10
-        pointer-events-none text-color-transparent
+        pointer-events-none text-color-transparent neat
       "
     >
       <canvas

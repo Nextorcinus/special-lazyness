@@ -222,7 +222,7 @@ export default function GeneralPage() {
 
           <Button
             onClick={handleTimeCalc}
-            className="bg-lime-600 hover:bg-green-700 text-white rounded-sm py-5 mt-4"
+            className="button-Form text-white rounded-sm py-5 mt-4"
           >
             Calculate Points
           </Button>
@@ -269,7 +269,7 @@ export default function GeneralPage() {
 
           <Button
             onClick={handleFireCrystalCalc}
-            className="bg-lime-600 hover:bg-green-700 text-white rounded-sm py-5"
+            className="button-Form text-white rounded-sm py-5"
           >
             Calculate Points
           </Button>
@@ -316,7 +316,7 @@ export default function GeneralPage() {
 
           <Button
             onClick={handleShardCalc}
-            className="bg-lime-600 hover:bg-green-700 text-white rounded-sm py-5"
+            className="button-Form text-white rounded-sm py-5"
           >
             Calculate Points
           </Button>
@@ -388,7 +388,7 @@ export default function GeneralPage() {
 
             <Button
               onClick={handleEssenceCalc}
-              className="bg-lime-600 hover:bg-green-700 text-white rounded-sm py-5"
+              className="button-Form text-white rounded-sm py-5"
             >
               Calculate Stone Needed
             </Button>
@@ -432,7 +432,7 @@ export default function GeneralPage() {
 
             <Button
               onClick={handleStoneCalc}
-              className="bg-lime-600 hover:bg-green-700 text-white rounded-sm py-5"
+              className="button-Form text-white rounded-sm py-5"
             >
               Calculate Points
             </Button>
@@ -507,7 +507,7 @@ export default function GeneralPage() {
 
           <Button
             onClick={handleGatherCalc}
-            className="bg-lime-600 hover:bg-green-700 text-white rounded-sm py-5 mt-4"
+            className="button-Form text-white rounded-sm py-5 mt-4"
           >
             Calculate Points
           </Button>
@@ -550,7 +550,7 @@ export default function GeneralPage() {
 
           <Button
             onClick={handleTroopCalc}
-            className="bg-lime-600 hover:bg-green-700 text-white rounded-sm py-5"
+            className="button-Form text-white rounded-sm py-5"
           >
             Calculate Points
           </Button>

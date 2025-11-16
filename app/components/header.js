@@ -39,19 +39,22 @@ export default function Header() {
 
         {/* Contact Us */}
         <Link
-          href="/contact"
+          href="https://discord.com/users/380668333948928000"
           className="
             flex items-center gap-2 px-3 py-2 
             rounded-xl bg-white/10 hover:bg-white/20 
             border border-white/20 transition
             text-white text-sm
           "
+          target={"_blank"}
         >
           <Image 
             src="/icon/discord.png"
             alt="Contact Us"
             width={20}
             height={20}
+            
+
           />
           <span className="hidden text-white md:block">Contact Us</span>
         </Link>

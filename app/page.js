@@ -7,13 +7,12 @@ export default function Home() {
  
     <main className="flex items-center justify-center min-h-screen text-white p-6">
       <div className="max-w-2xl text-center">
-        <h1 className="text-4xl text-lime-500">Special Lazyness</h1>
-        <p className="text-zinc-400 mt-4">
-          I'm not here to make you win. I'm just here to stop you from wasting
-          resources and time. Calculating upgrade costs? Calculating research
-          needs? <i>Yeah... no thanks</i>. That's why I created this calculator,
-          because I'd rather click than think. Use it, prepare better, and maybe
-          / just maybe / lose with dignity. - special_one👻
+        <h1 className="text-4xl text-teal-300">Special Lazyness</h1>
+        <p className="text-white mt-4">
+          I made this appe because I am lazy. Seriously. I hate calculating things. Numbers stress me out. So I created this tool to make life easier not smarter just easier.
+
+          Enjoy it. Use it. Let it do the thinking while you do absolutely anything else.
+          special_one 👻
         </p>
       </div>
     </main>
