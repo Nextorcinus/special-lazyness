@@ -1,9 +1,8 @@
 ﻿import "./globals.css";
 import Header from "./components/header";
 import Sidebar from "./components/Sidebar";
-import MobileSidebar from "./components/MobileSidebar";
-import WelcomePopup from "./components/Popup";
 import NeatBackground from "./components/NeatBackground";
+import FloatingCreatorButton from "./components/FloatingCreatorButton";
 
 export const metadata = {
   title: "Special Lazyness",
@@ -14,28 +13,32 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
-      <body className="relative">
+      <body className="relative overflow-x-hidden">
+
+        {/* Background */}
         <NeatBackground />
+
+        {/* Header */}
         <Header />
 
-        <WelcomePopup />
+        {/* Layout Wrapper */}
+        <div className="flex min-w-0 pt-16">
 
-        <div className="min-h-screen flex min-w-0">     
-          <div className="hidden lg:block">
+          {/* Sidebar */}
+          <aside className="hidden lg:block">
             <Sidebar />
-          </div>
+          </aside>
 
-          <div className="flex-1 flex flex-col min-w-0">
-           
+          {/* Main content (NO OVERFLOW) */}
+          <main className="flex-1 min-w-0 bg-special">
+            {children}
+          </main>
 
-            <main className="flex-1 w-full bg-special overflow-y-auto min-w-0">
-              {children}
-            </main>
-          </div>
         </div>
+
+        {/* Floating button */}
+        <FloatingCreatorButton />
+
       </body>
     </html>
   );
