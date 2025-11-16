@@ -5,7 +5,7 @@ export default function Home() {
 
   return (
  
-    <main className="flex items-center justify-center min-h-screen text-white p-6">
+    <main className="flex items-center justify-center min-h-screen text-white px-12 md:px-6">
       <div className="max-w-2xl text-center">
         <h1 className="text-4xl text-teal-300">Special Lazyness</h1>
         <p className="text-white mt-4">
