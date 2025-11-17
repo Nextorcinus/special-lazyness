@@ -187,16 +187,19 @@ body {
 }
 
 .liquid-ether-container {
-  position: relative;
-  overflow: hidden;
-  width: 100vw;
-  height: 100%;
+  position: fixed;        /* tetap full-screen */
+  inset: 0;               /* pengganti top:0 left:0 width:100vw height:100% */
+  width: 100%;            /* aman */
+  height: 100%;           /* aman */
+  overflow: visible !important;     /* WAJIB agar popper tidak offset */
+
   background-color: #000;
-  position: fixed !important;
-  top: 0;
-  left: 0;
   z-index: -1;
   pointer-events: none;
+
+  /* Hapus semua efek yang memicu transform */
+  transform: none !important;
+  will-change: auto !important;
 }
 
 .star-border-container {
@@ -446,8 +449,7 @@ body {
   border: 1px rgba(243, 243, 243, 0.082) solid;
   backdrop-filter: blur(3px); 
   -webkit-backdrop-filter: blur(3px);
-    transform: translateZ(0);
-  will-change: transform;
+ 
 }
 
 .tab-button {
@@ -548,3 +550,13 @@ body {
   }
 }
 
+html, body {
+  overflow-x: visible !important;
+    overflow-y: auto;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Edge */
+}
