@@ -75,7 +75,7 @@ export default function FloatingCreatorButton() {
             >
               {/* Header */}
               <div className="flex justify-between items-center mb-3">
-                <h2 className="text-base font-semibold">Developer</h2>
+                <h2 className="text-base text-teal-300">Lazy Developer</h2>
                 <button
                   onClick={() => setOpen(false)}
                   className="p-1 rounded hover:bg-zinc-700"
