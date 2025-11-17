@@ -19,6 +19,9 @@ export default function TabSwitcherGear({
   onResetHistory,
 }) {
 
+  // Bersihkan angka dari koma
+  const toNum = (val) => parseInt(String(val).replace(/,/g, '')) || 0
+
   // Hitung total material
   const calculateMaterials = (gear, from, to) => {
     const levels = materialData
@@ -40,18 +43,18 @@ export default function TabSwitcherGear({
       )
 
       if (d) {
-        total.plans += parseInt(d.Plans) || 0
-        total.polish += parseInt(d.Polish) || 0
-        total.alloy += parseInt(d.Alloy) || 0
-        total.amber += parseInt(d.Amber) || 0
-        total.svs += parseInt(d["SvS Points"]) || 0
+        total.plans += toNum(d.Plans)
+        total.polish += toNum(d.Polish)
+        total.alloy += toNum(d.Alloy)
+        total.amber += toNum(d.Amber)
+        total.svs += toNum(d["SvS Points"])
       }
     }
 
     return total
   }
 
-  // Tambahkan total ke tiap result
+  // tambah total ke tiap result
   const resultsWithTotal = useMemo(() => {
     return results
       .map(r => ({
@@ -61,7 +64,11 @@ export default function TabSwitcherGear({
       .filter(r => r.total !== null)
   }, [results])
 
+  // Reverse item teratas agar yang terbaru tampil paling atas
   const sortedResults = [...resultsWithTotal].reverse()
+
+  // Compare harus dibalik agar match index dari sortedResults
+  const sortedCompares = [...compares].reverse()
 
   return (
     <div>
@@ -89,7 +96,9 @@ export default function TabSwitcherGear({
           {sortedResults.map((res, idx) => {
             const isLatest = idx === 0
             const total = res.total
-            const compare = compares?.[idx] || {}
+
+            // compare sesuai index setelah reverse
+            const compare = sortedCompares[idx] || null
 
             const fields = [
               { key: 'plans', label: 'Design Plans' },
@@ -104,6 +113,7 @@ export default function TabSwitcherGear({
                 id={isLatest ? "latest-result" : undefined}
                 className="bg-special-inside py-4 px-4 rounded-xl space-y-4 relative"
               >
+
                 {/* Header */}
                 <div className="relative flex justify-between items-center bg-title-result mb-4 pr-12">
                   <div>
@@ -116,7 +126,7 @@ export default function TabSwitcherGear({
                   <button
                     onClick={() => {
                       onDeleteHistory(res.id)
-                      toast.success(`Deleted ${res.type} upgrade.`)
+                      toast.success(`Deleted ${res.type} upgrade`)
                     }}
                     className="buttonGlass absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:scale-105 transition-transform"
                   >
@@ -128,18 +138,20 @@ export default function TabSwitcherGear({
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-center">
                   {fields.map(({ key, label }) => {
                     const need = total[key]
-                    const have = compare?.[key] ?? null
-                    const diff = have !== null ? have - need : 0
+                    const have = compare ? compare[key] : null
+                    const diff = have !== null ? have - need : null
 
                     const color =
-                      diff > 0
+                      diff === null
+                        ? "text-gray-200 bg-white/10"
+                        : diff > 0
                         ? "text-green-400 border border-green-800 bg-green-700/25"
                         : diff < 0
                         ? "text-[#FFBABA] border border-[#AD5556] bg-[#6D1B19]/25"
                         : "text-gray-200 bg-white/10"
 
                     const diffText =
-                      have === null
+                      diff === null
                         ? ""
                         : diff > 0
                         ? `+${formatToShortNumber(diff)}`
@@ -153,7 +165,7 @@ export default function TabSwitcherGear({
                         <p className="text-sm text-zinc-200 mt-1">{label}</p>
                         <p className="text-base text-white">{formatToShortNumber(need)}</p>
 
-                        {have !== null && (
+                        {diff !== null && (
                           <span className={`text-xs mt-1 px-2 py-1 rounded-md ${color}`}>
                             {diffText}
                           </span>
@@ -174,7 +186,11 @@ export default function TabSwitcherGear({
             )
           })}
 
-          <TotalResultGear results={resultsWithTotal} comparedData={compares[0]} />
+          {/* Summary harus pakai compare terbaru */}
+          <TotalResultGear
+            results={sortedResults}
+            comparedData={sortedCompares[0] || {}}
+          />
         </div>
       )}
 

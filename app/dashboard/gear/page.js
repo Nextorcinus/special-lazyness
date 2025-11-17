@@ -20,7 +20,7 @@ export default function GearPage() {
   useEffect(() => {
     setResults(history)
 
-    setCompares((prev) => {
+    setCompares(prev => {
       const updated = [...prev]
       while (updated.length < history.length) updated.push(null)
       return updated.slice(0, history.length)
@@ -34,15 +34,24 @@ export default function GearPage() {
       return
     }
 
-    // Context otomatis membuat ID
+    // Masukkan ke history via context
     addToHistory(data)
 
     toast.success("Gear upgrade calculated!")
 
-    // pindah tab ke overview
     setTab("overview")
 
-    // scroll ke result terbaru
+    // Apply compare otomatis ke hasil terbaru
+    if (compares.length > 0 && compares[0] !== null) {
+      const compareObj = compares[0]
+
+      setCompares(prev => {
+        const updated = [...prev, compareObj]
+        return updated
+      })
+    }
+
+    // Scroll to latest result
     setTimeout(() => {
       document.getElementById("latest-result")?.scrollIntoView({
         behavior: "smooth",
@@ -53,7 +62,6 @@ export default function GearPage() {
 
   // === Compare Data ===
   const handleCompareSubmit = (compareData) => {
-    // gunakan history sebagai validasi utama
     if (history.length === 0) {
       toast.error("No calculation result available, please submit a calculation first.")
       return
@@ -61,27 +69,31 @@ export default function GearPage() {
 
     if (!compareData) return
 
-    const newCompares = results.map(() => ({
+    const compareObj = {
       plans: Number(compareData.plans || 0),
       polish: Number(compareData.polish || 0),
       alloy: Number(compareData.alloy || 0),
       amber: Number(compareData.amber || 0),
       svs: Number(compareData.svs || 0),
-    }))
+    }
 
-    setCompares(newCompares)
+    // Apply compare ke seluruh results
+    setCompares(history.map(() => compareObj))
+
     setShowCompareForm(false)
     toast.success("Comparison applied to all results!")
   }
 
-  // === Delete dari Overview ===
+  // === Delete History ===
   const handleDeleteHistory = (id) => {
+    const index = results.findIndex(r => r.id === id)
+
     deleteHistory(id)
-    // results akan update otomatis dari useEffect
-    setCompares((prev) => prev.slice(0, Math.max(0, history.length - 1)))
+
+    setCompares(prev => prev.filter((_, i) => i !== index))
   }
 
-  // === Reset semua ===
+  // === Reset Semua ===
   const handleResetHistory = () => {
     resetHistory()
     setResults([])
@@ -103,8 +115,9 @@ export default function GearPage() {
 
   return (
     <main className="text-white w-full">
+
       {/* Header */}
-      <div className="relative w-full md:px-6 md:py-0 py-4  md:mt-8">
+      <div className="relative w-full md:px-6 md:py-0 py-4 md:mt-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 px-6">
           <h2 className="text-2xl text-white">Chief Gear</h2>
         </div>
@@ -126,7 +139,7 @@ export default function GearPage() {
         </div>
       </div>
 
-      {/* Compare Popup */}
+      {/* Compare Modal */}
       {showCompareForm && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
           <div className="bg-[#ffffff35] backdrop-blur p-6 rounded-xl border border-white/20 w-[90%] max-w-lg relative">

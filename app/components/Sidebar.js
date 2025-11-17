@@ -60,7 +60,7 @@ export default function Sidebar() {
   onClick={() => setExpanded(false)}   
   className={cn(
     "flex items-center rounded-xl transition py-1 cursor-pointer",
-    isActive ? "text-[#B3F35F] bg-[#384E57]/50" : "text-white/80 hover:text-white hover:bg-white/10 ",
+    isActive ? "text-[#B3F35F] bg-[#17546c]/50" : "text-white/80 hover:text-white hover:bg-white/10 ",
   )}
 >
   <Image

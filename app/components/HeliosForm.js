@@ -27,11 +27,10 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
   const [toLevel, setToLevel] = useState('')
   const [speed, setSpeed] = useState('0')
   const [vpBonus, setVpBonus] = useState('0')
-  const [doubleTime, setDoubleTime] = useState(false) // ✅ New
+  const [doubleTime, setDoubleTime] = useState(false)
 
   const { addToHistory } = useHeliosHistory()
 
-  // === Level options ===
   const levelOptions = useMemo(() => {
     return dataSource?.[category]?.[researchName]?.map((item) => item.level) || []
   }, [category, researchName, dataSource])
@@ -41,11 +40,14 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
     return levelOptions.filter((lvl) => lvl > from)
   }, [levelOptions, fromLevel])
 
-  // === Handle Calculate ===
   const handleCalculate = () => {
     const from = parseInt(fromLevel)
     const to = parseInt(toLevel)
-    const speedBonus = (parseFloat(speed) || 0) + (parseFloat(vpBonus) || 0)
+
+    const researchSpeedValue = parseFloat(speed) || 0
+    const vpBonusValue = parseFloat(vpBonus) || 0
+
+    const speedBonus = researchSpeedValue + vpBonusValue
 
     if (isNaN(from) || isNaN(to) || to <= from) {
       toast.error('Make sure levels are selected correctly.')
@@ -61,7 +63,6 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
       0
     )
 
-    // ✅ Jika double time aktif, waktu berkurang setengah
     const reduced = (raw / (1 + speedBonus / 100)) * (doubleTime ? 0.5 : 1)
 
     const resources = {
@@ -88,8 +89,8 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
       timeReduced: reduced,
       resources,
       buffs: {
-        researchSpeed: speedBonus,
-        vpLevel: vpBonus !== '0' ? `${vpBonus}%` : 'Off',
+        researchSpeed: researchSpeedValue,
+        vpLevel: vpBonusValue > 0 ? `${vpBonusValue}%` : 'Off',
         doubleTime,
         petLevel: 'Off',
         zinmanSkill: 'Off',
@@ -100,7 +101,6 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
     toast.success('Helios research calculation complete!')
   }
 
-  // === UI ===
   return (
     <Card className="bg-glass-background1 text-white mt-6">
       <CardContent className="space-y-6 pt-6">
@@ -115,7 +115,7 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
         <TooltipProvider>
           <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-2 md:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
 
-            {/* From */}
+            {/* FROM LEVEL */}
             <div>
               <Label className="text-zinc-800 text-shadow-md">From</Label>
               <Select
@@ -128,7 +128,9 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
                 <SelectTrigger className="bg-special-input text-white">
                   <SelectValue placeholder="Select Level" />
                 </SelectTrigger>
-                <SelectContent>
+
+                {/* FIX DROPDOWN SHIFT */}
+                <SelectContent position="popper" sideOffset={0}>
                   {levelOptions.map((lvl) => (
                     <SelectItem key={lvl} value={String(lvl)}>
                       {lvl}
@@ -138,14 +140,16 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
               </Select>
             </div>
 
-            {/* To */}
+            {/* TO LEVEL */}
             <div>
               <Label className="text-zinc-800 text-shadow-md">To</Label>
               <Select value={toLevel} onValueChange={setToLevel}>
                 <SelectTrigger className="bg-special-input text-white">
                   <SelectValue placeholder="Select Level" />
                 </SelectTrigger>
-                <SelectContent>
+
+                {/* FIX DROPDOWN SHIFT */}
+                <SelectContent position="popper" sideOffset={0}>
                   {toLevelOptions.map((lvl) => (
                     <SelectItem key={lvl} value={String(lvl)}>
                       {lvl}
@@ -155,17 +159,13 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
               </Select>
             </div>
 
-            {/* Research Speed */}
+            {/* RESEARCH SPEED */}
             <div>
               <Label className="text-zinc-800 text-shadow-md flex items-center gap-1 mt-1 mb-1 w-full">
                 Research Spd (%)
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button
-                      type="button"
-                      onClick={(e) => e.preventDefault()}
-                      onTouchStart={(e) => e.preventDefault()}
-                    >
+                    <button type="button">
                       <Info className="w-4 h-4 text-muted-foreground" />
                     </button>
                   </TooltipTrigger>
@@ -174,6 +174,7 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
                   </TooltipContent>
                 </Tooltip>
               </Label>
+
               <Input
                 type="number"
                 value={speed}
@@ -183,17 +184,13 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
               />
             </div>
 
-            {/* VP Bonus */}
+            {/* VP BONUS */}
             <div>
               <Label className="text-white text-shadow-md flex items-center gap-1 mt-1 mb-1">
                 VP Bonus
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button
-                      type="button"
-                      onClick={(e) => e.preventDefault()}
-                      onTouchStart={(e) => e.preventDefault()}
-                    >
+                    <button type="button">
                       <Info className="w-4 h-4 text-muted-foreground" />
                     </button>
                   </TooltipTrigger>
@@ -202,11 +199,14 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
                   </TooltipContent>
                 </Tooltip>
               </Label>
+
               <Select value={vpBonus} onValueChange={setVpBonus}>
                 <SelectTrigger className="bg-special-input text-white">
                   <SelectValue placeholder="Choose VP Bonus" />
                 </SelectTrigger>
-                <SelectContent>
+
+                {/* FIX DROPDOWN SHIFT */}
+                <SelectContent position="popper" sideOffset={0}>
                   <SelectItem value="0">Off</SelectItem>
                   <SelectItem value="10">10%</SelectItem>
                   <SelectItem value="20">20%</SelectItem>
@@ -214,7 +214,7 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
               </Select>
             </div>
 
-            {/* Double Time */}
+            {/* DOUBLE TIME */}
             <div className="flex flex-col justify-center">
               <Label className="text-white text-shadow-md mb-2">
                 Double Time
@@ -233,7 +233,7 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
               </div>
             </div>
 
-            {/* Button */}
+            {/* BUTTON */}
             <div className="col-span-2 md:col-span-1 flex w-full items-center justify-start mt-2">
               <Button
                 onClick={handleCalculate}
@@ -242,6 +242,7 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
                 Calculate
               </Button>
             </div>
+
           </div>
         </TooltipProvider>
       </CardContent>

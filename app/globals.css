@@ -362,7 +362,6 @@ body {
 
 /* OPTIMIZED: Reduced blur radius */
 .button--glass {
-  
   position: relative;
   border-radius: 56px !important;
   z-index: 10;
@@ -371,15 +370,15 @@ body {
   color: #ffffff;
   cursor: pointer;
   overflow: hidden;
-  text-shadow: 1px 1px 5px rgba(1, 1, 0, 0.9) !important;
+  text-shadow: 1px 1px 5px rgba(1, 1, 0, 0.4) !important;
   
 }
 
 .button--glass:active,
 .button--glass:focus {
-  background-color: rgba(255, 255, 255, 0.3);
-  text-shadow: 1px 1px 5px rgba(1, 1, 0, 0.9) !important;
+  background-color: rgba(255, 255, 255, 0.08);
   color: #ffffff;
+  box-shadow: inset -4px 3px 10px rgb(242 254 255 / 38%), 2px 2px 10px rgba(0, 0, 0, 0.07);
 }
 
 
@@ -447,6 +446,8 @@ body {
   border: 1px rgba(243, 243, 243, 0.082) solid;
   backdrop-filter: blur(3px); 
   -webkit-backdrop-filter: blur(3px);
+    transform: translateZ(0);
+  will-change: transform;
 }
 
 .tab-button {
@@ -546,5 +547,4 @@ body {
     filter: drop-shadow(0 0 3px rgba(255,255,255,0.2));
   }
 }
-
 
