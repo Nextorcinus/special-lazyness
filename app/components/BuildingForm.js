@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import basicData from "../data/BasicBuilding.json";
-import fireCrystalData from "../data/buildings.json";
+import { useBuildings } from "../lib/useBuildings";
 import { calculateUpgrade } from "../utils/calculateUpgrade";
 
 import { Card, CardContent } from "./ui/card";
@@ -18,80 +17,74 @@ import {
 import { Checkbox } from "./ui/checkbox";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./ui/tooltip";
-import { Info } from "lucide-react";
-import StarBorder from "./StarBorder.js";
 
 const buildingAliasMap = {
+  // Basic
+  Furnace: "Furnace",
   Marksman: "Marksman",
-  Lancer: "Lancer Camp",
+  Lancers: "Lancers",
   Infantry: "Infantry",
   Research: "Research Center",
-  Command: "Command Center",
+  "Research Center": "Research Center",
+  "Command Center": "Command Center",
   Embassy: "Embassy",
+
+  // Fire Crystal
+  "FC Furnace": "FC Furnace",
+  "FC Academy": "FC Academy",
+  "FC Marksman": "FC Marksman",
+  "FC Lancers": "FC Lancers",
+  "FC Infantry": "FC Infantry",
+  "FC Embassy": "FC Embassy",
+  "FC Infirmary": "FC Infirmary",
+  "FC Command Center": "FC Command Center",
 };
 
-function BuildingForm({
+export default function BuildingForm({
   category,
   selectedSub,
-  defaultValues = {},
   onCalculate,
 }) {
   const [fromLevel, setFromLevel] = useState("");
   const [toLevel, setToLevel] = useState("");
   const [petLevel, setPetLevel] = useState("Off");
-  const [vpLevel, setvpLevel] = useState("Off");
+  const [vpLevel, setVpLevel] = useState("Off");
   const [doubleTime, setDoubleTime] = useState(false);
   const [zinmanSkill, setZinmanSkill] = useState("Off");
   const [constructionSpeed, setConstructionSpeed] = useState(0);
 
-  const data = category === "Basic" ? basicData : fireCrystalData;
+  const { data, loading } = useBuildings(category);
+
+  // reset when building changes
+  useEffect(() => {
+    setFromLevel("");
+    setToLevel("");
+    setPetLevel("Off");
+    setVpLevel("Off");
+    setDoubleTime(false);
+    setZinmanSkill("Off");
+    setConstructionSpeed(0);
+  }, [selectedSub]);
+
   const normalizedBuilding = buildingAliasMap[selectedSub] || selectedSub;
 
-  // parsing data untuk mengurutkan level yang ada
   const levelOptions = useMemo(() => {
-    const buildingEntries = data.filter(
+    if (!Array.isArray(data)) return [];
+
+    const entries = data.filter(
       (b) =>
         b.Building?.trim().toLowerCase() ===
-        normalizedBuilding.trim().toLowerCase(),
+        normalizedBuilding.trim().toLowerCase()
     );
 
-    const levels = buildingEntries.map((b) => b.Level);
-    return Array.from(new Set(levels));
-  }, [normalizedBuilding, data]);
+    return [...new Set(entries.map((e) => e.Level))];
+  }, [data, normalizedBuilding]);
 
-  // perbandingan level dari dan ke
-  // jika from level tidak ada , maka to level akan menampilkan semua level yang ada
-  // jika form level ada maka to level akan menampilkan level yang lebih besar dari from level
   const filteredToLevels = useMemo(() => {
     if (!fromLevel) return levelOptions;
-
-    const fromIndex = levelOptions.findIndex((lvl) => lvl === fromLevel);
-    return levelOptions.slice(fromIndex + 1);
+    const i = levelOptions.indexOf(fromLevel);
+    return levelOptions.slice(i + 1);
   }, [fromLevel, levelOptions]);
-
-  useEffect(() => {
-    if (!defaultValues || !selectedSub) return;
-
-    setFromLevel((prev) => prev || defaultValues.fromLevel || "");
-    setToLevel((prev) => prev || defaultValues.toLevel || "");
-    setPetLevel((prev) => prev || defaultValues.buffs?.petLevel || "Off");
-    setvpLevel((prev) => prev || defaultValues.buffs?.vpLevel || "Off");
-    setDoubleTime((prev) =>
-      typeof prev === "boolean"
-        ? prev
-        : defaultValues.buffs?.doubleTime || false,
-    );
-    setZinmanSkill((prev) => prev || defaultValues.buffs?.zinmanSkill || "Off");
-    setConstructionSpeed(
-      (prev) => prev || defaultValues.buffs?.constructionSpeed || 0,
-    );
-  }, [defaultValues, selectedSub]);
 
   const handleSubmit = () => {
     const result = calculateUpgrade({
@@ -104,7 +97,7 @@ function BuildingForm({
         vpLevel,
         doubleTime,
         zinmanSkill,
-        constructionSpeed: +constructionSpeed,
+        constructionSpeed: Number(constructionSpeed),
       },
     });
 
@@ -116,156 +109,138 @@ function BuildingForm({
     }
   };
 
-  const petLevels = ["Off", "Lv.1", "Lv.2", "Lv.3", "Lv.4", "Lv.5"];
-  const vpLevels = ["Off", "10%", "20%"];
-  const zinmanLevels = ["Off", "Lv.1", "Lv.2", "Lv.3", "Lv.4", "Lv.5"];
-
   return (
     <Card className="bg-glass-background1 text-white mt-6">
       <CardContent className="space-y-6 pt-6">
         <h2 className="text-xl text-white">{selectedSub}</h2>
 
-        {levelOptions.length === 0 && (
-          <p className="text-red-400 text-sm">
-            ⚠ Data level for &quot;{selectedSub}&quot; not found on JSON.
-          </p>
-        )}
-        <TooltipProvider>
-          <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-2 md:grid-cols-4 xl:grid-col-4 2xl:grid-cols-8 gap-4 ">
-            <div>
-              <Label className="text-zinc-800 text-shadow-lg/20">From</Label>
+        {loading && <p className="text-sm">Loading...</p>}
 
-              <Select
-                value={fromLevel}
-                onValueChange={(v) => {
-                  setFromLevel(v);
-                  setToLevel("");
-                }}
-              >
-                <SelectTrigger className="bg-special-input text-white">
-                  <SelectValue placeholder="-- Select Level --" />
-                </SelectTrigger>
-                <SelectContent>
-                  {levelOptions.map((level) => (
-                    <SelectItem key={level} value={level}>
-                      {level}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label className="text-zinc-800  text-shadow-md ">To</Label>
-              <Select value={toLevel} onValueChange={setToLevel}>
-                <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
-                  <SelectValue placeholder="-- Select Level --" />
-                </SelectTrigger>
-                <SelectContent>
-                  {filteredToLevels.map((level) => (
-                    <SelectItem key={level} value={level}>
-                      {level}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          
+        {!loading && (
+          <>
+            {levelOptions.length === 0 && (
+              <p className="text-red-400 text-sm">
+                ⚠ Data level for "{selectedSub}" not found.
+              </p>
+            )}
 
-          
-            <div>
-              <Label className="text-zinc-800  text-shadow-md">Pet</Label>
-              <Select value={petLevel} onValueChange={setPetLevel}>
-                <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {petLevels.map((level) => (
-                    <SelectItem key={level} value={level}>
-                      {level}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <div className="flex items-center gap-1 mb-2">
-                <Label className="text-white text-shadow-md">Vp</Label>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      type="button"
-                      onClick={(e) => e.preventDefault()}
-                      onTouchStart={(e) => e.preventDefault()}
-                    >
-                      <Info className="w-4 h-4 text-muted-foreground" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent side="top">
-                    <p>
-                      Buff from Vice President +10%, + if president activates
-                      buff speed (for SvS /KOI) choose 20%
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
+            <div className="bg-glass-background2 p-4 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-8 gap-4">
+
+              <div>
+                <Label>From</Label>
+                <Select
+                  value={fromLevel}
+                  onValueChange={(v) => {
+                    setFromLevel(v);
+                    setToLevel("");
+                  }}
+                >
+                  <SelectTrigger className="bg-special-input text-white">
+                    <SelectValue placeholder="-- Select Level --" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {levelOptions.map((lvl) => (
+                      <SelectItem key={lvl} value={lvl}>
+                        {lvl}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
-              <Select value={vpLevel} onValueChange={setvpLevel}>
-                <SelectTrigger className=" bg-special-input text-white">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {vpLevels.map((level) => (
-                    <SelectItem key={level} value={level}>
-                      {level}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <div>
+                <Label>To</Label>
+                <Select value={toLevel} onValueChange={setToLevel}>
+                  <SelectTrigger className="bg-special-input text-white">
+                    <SelectValue placeholder="-- Select Level --" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {filteredToLevels.map((lvl) => (
+                      <SelectItem key={lvl} value={lvl}>
+                        {lvl}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label>Pet</Label>
+                <Select value={petLevel} onValueChange={setPetLevel}>
+                  <SelectTrigger className="bg-special-input text-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {["Off", "Lv.1", "Lv.2", "Lv.3", "Lv.4", "Lv.5"].map(
+                      (lvl) => (
+                        <SelectItem key={lvl} value={lvl}>
+                          {lvl}
+                        </SelectItem>
+                      )
+                    )}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label>Vp</Label>
+                <Select value={vpLevel} onValueChange={setVpLevel}>
+                  <SelectTrigger className="bg-special-input text-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {["Off", "10%", "20%"].map((lvl) => (
+                      <SelectItem key={lvl} value={lvl}>
+                        {lvl}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label>Zinman Skill</Label>
+                <Select value={zinmanSkill} onValueChange={setZinmanSkill}>
+                  <SelectTrigger className="bg-special-input text-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {["Off", "Lv.1", "Lv.2", "Lv.3", "Lv.4", "Lv.5"].map(
+                      (lvl) => (
+                        <SelectItem key={lvl} value={lvl}>
+                          {lvl}
+                        </SelectItem>
+                      )
+                    )}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label>Const Speed (%)</Label>
+                <Input
+                  type="number"
+                  value={constructionSpeed}
+                  onChange={(e) => setConstructionSpeed(e.target.value)}
+                  className="bg-special-input text-white"
+                />
+              </div>
+
+              <div className="col-span-2 md:col-span-1 flex items-center gap-2">
+                <Checkbox checked={doubleTime} onCheckedChange={setDoubleTime} />
+                <Label>Double Time</Label>
+              </div>
+
+              <Button
+                onClick={handleSubmit}
+                className="button-Form text-white rounded-lg py-6 md:py-10"
+              >
+                Calculate
+              </Button>
             </div>
-            <div>
-              <Label className="text-white text-shadow-md">Zinman Skill</Label>
-              <Select value={zinmanSkill} onValueChange={setZinmanSkill}>
-                <SelectTrigger className=" bg-special-input  text-white">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {zinmanLevels.map((level) => (
-                    <SelectItem key={level} value={level}>
-                      {level}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label className="text-zinc-700 text-shadow-md">Const Speed (%)</Label>
-              <Input
-                type="number"
-                value={constructionSpeed}
-                onChange={(e) => setConstructionSpeed(e.target.value)}
-                min={0}
-                max={100}
-                placeholder="77.54"
-                className=" bg-special-input text-white"
-              />
-            </div>
-            <div className="col-span-2 md:col-span-1 flex w-full items-center gap-2  text-white text-shadow-md">
-              <Checkbox checked={doubleTime} onCheckedChange={setDoubleTime} />
-              <Label>Double Time</Label>
-            </div>
-          
-          
-        <Button
-          onClick={handleSubmit}
-          className="button-Form text-sm md:text-base text-white  rounded-lg py-6 md:py-10"
-        >
-          Calculate
-        </Button>
-        </div>
-        </TooltipProvider>
+          </>
+        )}
       </CardContent>
     </Card>
   );
 }
-
-export default BuildingForm;
