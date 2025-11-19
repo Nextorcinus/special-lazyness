@@ -1,81 +1,81 @@
-"use client";
+'use client'
 
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { createPortal } from "react-dom";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
+import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { createPortal } from 'react-dom'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 export default function NotifBadge() {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [open, setOpen] = useState(false);
-  const dropdownRef = useRef(null);
-  const iconRef = useRef(null);
+  const [open, setOpen] = useState(false)
+  const dropdownRef = useRef(null)
+  const iconRef = useRef(null)
 
-  const [notifications, setNotifications] = useState([]);
-  const [isReady, setIsReady] = useState(false);
+  const [notifications, setNotifications] = useState([])
+  const [isReady, setIsReady] = useState(false)
 
   const defaultNotifications = [
     {
       id: 1,
-      text: "State 1067 updated successfully",
+      text: 'State 1067 updated successfully foundry',
       href: null,
       read: false,
     },
     {
       id: 2,
-      text: "New data added to Research > Economy",
-      href: "/dashboard/research",
+      text: 'New Charm Lv.16 Updated',
+      href: '/dashboard/research',
       read: false,
     },
     {
       id: 3,
-      text: "Building upgrade result saved",
-      href: "/dashboard/buildings",
+      text: 'New UI interface',
+      href: null,
       read: true,
     },
-  ];
+  ]
 
   /* LOAD FROM LOCALSTORAGE */
   useEffect(() => {
-    const saved = localStorage.getItem("notifications");
+    const saved = localStorage.getItem('notifications')
 
     if (saved) {
-      setNotifications(JSON.parse(saved));
+      setNotifications(JSON.parse(saved))
     } else {
-      setNotifications(defaultNotifications);
+      setNotifications(defaultNotifications)
     }
 
-    setIsReady(true);
-  }, []);
+    setIsReady(true)
+  }, [])
 
   /* SAVE TO LOCALSTORAGE */
   useEffect(() => {
     if (isReady) {
-      localStorage.setItem("notifications", JSON.stringify(notifications));
+      localStorage.setItem('notifications', JSON.stringify(notifications))
     }
-  }, [notifications, isReady]);
+  }, [notifications, isReady])
 
   /* CLICK OUTSIDE */
   useEffect(() => {
-    if (!open) return;
+    if (!open) return
 
     const handleClickOutside = (e) => {
-      if (iconRef.current?.contains(e.target)) return;
-      if (dropdownRef.current?.contains(e.target)) return;
-      setOpen(false);
-    };
+      if (iconRef.current?.contains(e.target)) return
+      if (dropdownRef.current?.contains(e.target)) return
+      setOpen(false)
+    }
 
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('touchstart', handleClickOutside)
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, [open]);
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
+    }
+  }, [open])
 
   /* JIKA BELUM READY → JANGAN RENDER NOTIF */
   if (!isReady) {
@@ -83,10 +83,10 @@ export default function NotifBadge() {
       <button className="relative w-9 h-9 rounded-full flex items-center justify-center">
         <span className="text-lg">🔔</span>
       </button>
-    );
+    )
   }
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
+  const unreadCount = notifications.filter((n) => !n.read).length
 
   /* DROPDOWN UI */
   const dropdown = (
@@ -141,19 +141,19 @@ export default function NotifBadge() {
                     href={notif.href}
                     className="block"
                     onClick={(e) => {
-                      e.preventDefault();
+                      e.preventDefault()
 
                       setNotifications((prev) =>
                         prev.map((n) =>
                           n.id === notif.id ? { ...n, read: true } : n
                         )
-                      );
+                      )
 
-                      setOpen(false);
+                      setOpen(false)
 
                       setTimeout(() => {
-                        router.push(notif.href);
-                      }, 50);
+                        router.push(notif.href)
+                      }, 50)
                     }}
                   >
                     <div
@@ -161,8 +161,8 @@ export default function NotifBadge() {
                         p-3 rounded-lg text-sm border transition cursor-pointer
                         ${
                           notif.read
-                            ? "bg-white/5 text-gray-200 border-white/10"
-                            : "bg-[#B3F35F]/10 text-[#B3F35F] border-[#B3F35F]/20"
+                            ? 'bg-white/5 text-gray-200 border-white/10'
+                            : 'bg-[#B3F35F]/10 text-[#B3F35F] border-[#B3F35F]/20'
                         }
                       `}
                     >
@@ -178,14 +178,14 @@ export default function NotifBadge() {
                         prev.map((n) =>
                           n.id === notif.id ? { ...n, read: true } : n
                         )
-                      );
+                      )
                     }}
                     className={`
                       p-3 rounded-lg text-sm border transition cursor-default
                       ${
                         notif.read
-                          ? "bg-white/5 text-gray-200 border-white/10"
-                          : "bg-[#B3F35F]/10 text-[#B3F35F] border-[#B3F35F]/20"
+                          ? 'bg-white/5 text-gray-200 border-white/10'
+                          : 'bg-[#B3F35F]/10 text-[#B3F35F] border-[#B3F35F]/20'
                       }
                     `}
                   >
@@ -198,40 +198,39 @@ export default function NotifBadge() {
         </motion.div>
       )}
     </AnimatePresence>
-  );
+  )
 
   return (
     <>
       {/* ICON BUTTON */}
       <button
-  ref={iconRef}
-  onClick={() => setOpen(!open)}
-  className="relative w-9 h-9 rounded-full flex items-center justify-center"
->
-  <Image
-    src="/icon/notif.png"
-    width={22}
-    height={22}
-    alt="Notification Icon"
-    className="object-contain"
-  />
+        ref={iconRef}
+        onClick={() => setOpen(!open)}
+        className="relative w-9 h-9 rounded-full flex items-center justify-center"
+      >
+        <Image
+          src="/icon/notif.png"
+          width={22}
+          height={22}
+          alt="Notification Icon"
+          className="object-contain"
+        />
 
-  {unreadCount > 0 && (
-    <span
-      className="
+        {unreadCount > 0 && (
+          <span
+            className="
         absolute -top-1 -right-1 w-5 h-5 bg-red-500 
         rounded-full text-xs flex items-center 
         justify-center text-white shadow-lg
       "
-    >
-      {unreadCount}
-    </span>
-  )}
-</button>
-
+          >
+            {unreadCount}
+          </span>
+        )}
+      </button>
 
       {/* PORTAL */}
-      {typeof window !== "undefined" && createPortal(dropdown, document.body)}
+      {typeof window !== 'undefined' && createPortal(dropdown, document.body)}
     </>
-  );
+  )
 }

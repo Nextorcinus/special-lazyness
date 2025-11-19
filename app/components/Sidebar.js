@@ -16,6 +16,7 @@ const menu = [
   { label: 'Calc Points', href: '/dashboard/general', icon: '/icon-menu/calc.png' },
   { label: 'State Age', href: '/dashboard/state', icon: '/icon-menu/state.png' },
   { label: 'Experts', href: '/dashboard/dawn', icon: '/icon-menu/dawn.png' },
+  { label: 'Foundry', href: '/dashboard/foundry', icon: '/icon-menu/foundry.png' }
 ]
 
 export default function Sidebar() {
@@ -66,8 +67,8 @@ export default function Sidebar() {
   <Image
     src={item.icon}
     alt={item.label}
-    width={49}
-    height={49}
+    width={44}
+    height={44}
     loading="lazy"
   />
 

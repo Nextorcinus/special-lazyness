@@ -76,7 +76,7 @@ const sortedMembers = [...filtered].sort((a, b) => {
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="special-glass text-sm rounded px-2 py-1 text-white"
+          className="bg-zinc-800/60 border border-zinc-700 text-sm rounded-lg px-2 py-2 "
         >
           <option value="name">Sort: Name</option>
           <option value="power">Sort: Power</option>
@@ -98,13 +98,13 @@ const sortedMembers = [...filtered].sort((a, b) => {
           <li
             key={i}
             onClick={() => setSelectedMember(member.Name)}
-            className="flex justify-between items-center border border-zinc-600 p-2 rounded bg-zinc-600 hover:bg-zinc-600 cursor-pointer"
+            className="flex justify-between items-center border border-zinc-600 p-2 rounded special-glass hover:bg-teal-600 cursor-pointer"
           >
             <div>
               {member.Name}{' '}
-              <span className="text-sm text-zinc-400">({member.Power})</span>
+              <span className="text-sm text-lime-100">({member.Power})</span>
             </div>
-            <span className="text-sm text-lime-600 ml-2">
+            <span className="text-sm text-lime-400 ml-2">
               FC {member['Furnace Level'] || 0}
             </span>
           </li>

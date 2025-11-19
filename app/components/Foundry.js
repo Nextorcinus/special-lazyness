@@ -2,10 +2,7 @@
 import { useEffect } from 'react'
 import MemberList from './FoundryMemberList'
 import TaskList from './FoundryTaskList'
-import {
-  FoundryProvider,
-  useFoundry,
-} from '../dashboard/foundry/FoundryContext'
+import { useFoundry } from '../dashboard/foundry/FoundryContext'
 import list from '../data/listNameMember.json'
 
 function InnerBoard() {
@@ -24,9 +21,5 @@ function InnerBoard() {
 }
 
 export default function Foundry() {
-  return (
-    <FoundryProvider>
-      <InnerBoard />
-    </FoundryProvider>
-  )
+  return <InnerBoard />
 }

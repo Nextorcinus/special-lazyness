@@ -76,37 +76,40 @@ ${task.note || '(empty)'}`
   }
 
   return (
-    <div className="bg-special-inside  p-4 rounded">
+    <div className="bg-special-inside  p-4 rounded-lg">
       <h2 className="text-xl mb-2">Tasks</h2>
 
       {/* Form */}
-      <div className="flex flex-col sm:flex-row gap-2 mb-4">
-        <select
-          value={selectedTemplate}
-          onChange={(e) => handleTemplateSelect(e.target.value)}
-          className="bg-zinc-700 text-sm rounded px-2 py-2 text-white w-full sm:w-1/3"
-        >
-          <option value="">Select Building...</option>
-          {templates.map((t, i) => (
-            <option key={i} value={t}>
-              {t}
-            </option>
-          ))}
-        </select>
+<div className="flex flex-col sm:flex-row gap-2 mb-4">
 
-        <input
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          className="flex-grow bg-zinc-700 p-2 rounded text-sm text-white placeholder:text-zinc-400"
-          placeholder="or type here for custom"
-        />
-        <button
-          onClick={handleAdd}
-          className="bg-green-600 px-4 py-2 rounded text-sm hover:bg-green-500 transition"
-        >
-          Add
-        </button>
-      </div>
+  <select
+    value={selectedTemplate}
+    onChange={(e) => handleTemplateSelect(e.target.value)}
+    className="bg-zinc-800/60 border border-zinc-700 text-sm rounded-lg px-3 py-2 text-white w-full sm:w-1/3 focus:outline-none focus:ring-2 focus:ring-teal-500"
+  >
+    <option value="">Select building...</option>
+    {templates.map((t, i) => (
+      <option key={i} value={t}>
+        {t}
+      </option>
+    ))}
+  </select>
+
+  <input
+    value={newTask}
+    onChange={(e) => setNewTask(e.target.value)}
+    className="flex-grow bg-zinc-800/60 border border-zinc-700 px-3 py-2 rounded-lg text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
+    placeholder="Or type custom task name..."
+  />
+
+  <button
+    onClick={handleAdd}
+    className="bg-teal-600 hover:bg-teal-500 px-5 py-2 rounded-lg text-sm font-medium text-white transition active:scale-95"
+  >
+    Add
+  </button>
+
+</div>
 
       <p className="text-zinc-300 text-sm italic mb-3">
         You can select a building or type your own custom task name.
@@ -116,7 +119,7 @@ ${task.note || '(empty)'}`
       <div className="flex gap-2 mb-4">
         <button
           onClick={handleCopyAll}
-          className="bg-zinc-400 px-3 py-1 rounded text-sm"
+          className="bg-zinc-500 px-3 py-1 text-zinc-300 rounded text-sm"
         >
           Copy all text
         </button>
@@ -138,7 +141,7 @@ ${task.note || '(empty)'}`
       {/* Task List */}
       <ul className="space-y-2">
         {tasks.map((task, idx) => (
-          <li key={idx} className="bg-title-result p-3 rounded">
+          <li key={idx} className="bg-zinc-700/40 p-3 rounded">
             <div className="flex justify-between items-center mb-1">
 
               <p className="text-base text-teal-400">{task.name}</p>

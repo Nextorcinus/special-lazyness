@@ -1,12 +1,27 @@
 'use client'
 import { createContext, useContext, useState, useEffect } from 'react'
 import { toast } from 'sonner'
+import { useMembersByState } from '../../hooks/useMembersByState' 
 
 const FoundryContext = createContext()
 
 export function FoundryProvider({ children }) {
   const [tasks, setTasks] = useState([])
   const [members, setMembers] = useState([])
+  const [selectedState, setSelectedState] = useState('991')
+
+  // Fetch members berdasarkan state
+  const { members: fetchedMembers } = useMembersByState(selectedState)
+
+  useEffect(() => {
+  console.log("STATE SELECTED:", selectedState)
+  console.log("FETCHED MEMBERS:", fetchedMembers)
+}, [selectedState, fetchedMembers])
+
+  // Apply hasil fetched ke state members
+  useEffect(() => {
+    setMembers(fetchedMembers || [])
+  }, [fetchedMembers])
 
   const handleUnassign = (taskName, memberName) => {
     setTasks(prev =>
@@ -30,7 +45,6 @@ export function FoundryProvider({ children }) {
     toast.info(`"${memberName}" removed from "${taskName}".`)
   }
 
-  // Note untuk keseluruhan task
   const addTaskNote = (taskName, text) => {
     setTasks(prev =>
       prev.map(task =>
@@ -41,34 +55,34 @@ export function FoundryProvider({ children }) {
     )
   }
 
-  // Load from localStorage (with normalization)
+  // Load saved tasks
   useEffect(() => {
-    const savedTasks = localStorage.getItem('foundry-tasks')
-    if (savedTasks) {
-      try {
-        const parsed = JSON.parse(savedTasks)
+    const saved = localStorage.getItem('foundry-tasks')
+    if (!saved) return
 
-        // Normalisasi field task agar selalu punya note
-        const normalized = parsed.map(task => ({
-          name: task.name,
-          assigned: task.assigned || [],
-          note: typeof task.note === 'string' ? task.note : ''
-        }))
+    try {
+      const parsed = JSON.parse(saved)
 
-        setTasks(normalized)
+      const normalized = Array.isArray(parsed)
+        ? parsed.map(task => ({
+            name: task.name,
+            assigned: Array.isArray(task.assigned) ? task.assigned : [],
+            note: typeof task.note === 'string' ? task.note : ''
+          }))
+        : []
 
-      } catch {
-        console.error('Error parsing saved tasks')
-      }
+      setTasks(normalized)
+    } catch (e) {
+      console.error('Error parsing saved tasks', e)
     }
   }, [])
 
-  // Save to localStorage whenever tasks change
+  // Save tasks
   useEffect(() => {
     localStorage.setItem('foundry-tasks', JSON.stringify(tasks))
   }, [tasks])
 
-  // Assign member
+  // Assign member to task
   const assignMemberToTask = (memberName, taskName) => {
     setTasks(prev =>
       prev.map(task => {
@@ -96,7 +110,9 @@ export function FoundryProvider({ children }) {
         setMembers,
         assignMemberToTask,
         handleUnassign,
-        addTaskNote
+        addTaskNote,
+        selectedState,
+        setSelectedState
       }}
     >
       {children}

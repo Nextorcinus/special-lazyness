@@ -24,6 +24,7 @@ const menu = [
   { label: "Calc Points", href: "/dashboard/general", icon: "/icon-menu/calc.png" },
   { label: "State Age", href: "/dashboard/state", icon: "/icon-menu/state.png" },
   { label: "Experts", href: "/dashboard/dawn", icon: "/icon-menu/dawn.png" },
+  { label: 'Foundry', href: '/dashboard/foundry', icon: '/icon-menu/foundry.png' }
 ];
 
 export default function MobileSidebar() {
