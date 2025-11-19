@@ -1,7 +1,7 @@
 'use client'
 import { useEffect } from 'react'
-import MemberList from './MemberList'
-import TaskList from './TaskList'
+import MemberList from './FoundryMemberList'
+import TaskList from './FoundryTaskList'
 import {
   FoundryProvider,
   useFoundry,
@@ -17,13 +17,13 @@ function InnerBoard() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <MemberList />
       <TaskList />
+      <MemberList />
     </div>
   )
 }
 
-export default function TaskBoard() {
+export default function Foundry() {
   return (
     <FoundryProvider>
       <InnerBoard />

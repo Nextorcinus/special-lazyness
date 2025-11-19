@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
-const NUM_COLUMNS = 5
+const NUM_COLUMNS = 3
 const COLUMN_COLOR = '#147883'
 
 export default function PageTransitionWrapper({ children }) {

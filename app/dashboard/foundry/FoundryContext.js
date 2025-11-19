@@ -8,28 +8,21 @@ export function FoundryProvider({ children }) {
   const [tasks, setTasks] = useState([])
   const [members, setMembers] = useState([])
 
-  // ✅ Unassign dengan logika pengganti (c)
   const handleUnassign = (taskName, memberName) => {
-    setTasks((prev) =>
-      prev.map((task) => {
+    setTasks(prev =>
+      prev.map(task => {
         if (task.name !== taskName) return task
 
-        // Hapus member yang dihapus
-        const updated = task.assigned.filter((m) => m !== memberName)
-
-        // Jika yang dihapus adalah captain (punya "(c)")
+        const updated = task.assigned.filter(m => m !== memberName)
         const wasCaptain = memberName.includes('(c)')
 
-        // Jika ada anggota tersisa dan yang dihapus adalah captain
         if (wasCaptain && updated.length > 0) {
-          // Jadikan anggota pertama sebagai (c) baru
           const [first, ...rest] = updated
           const newAssigned = [`${first} (c)`, ...rest]
           toast.info(`"${first}" is now the new captain of "${taskName}".`)
           return { ...task, assigned: newAssigned }
         }
 
-        // Jika bukan captain, cukup kembalikan list baru
         return { ...task, assigned: updated }
       })
     )
@@ -37,27 +30,48 @@ export function FoundryProvider({ children }) {
     toast.info(`"${memberName}" removed from "${taskName}".`)
   }
 
-  // ✅ Load saved tasks from localStorage
+  // Note untuk keseluruhan task
+  const addTaskNote = (taskName, text) => {
+    setTasks(prev =>
+      prev.map(task =>
+        task.name === taskName
+          ? { ...task, note: text }
+          : task
+      )
+    )
+  }
+
+  // Load from localStorage (with normalization)
   useEffect(() => {
     const savedTasks = localStorage.getItem('foundry-tasks')
     if (savedTasks) {
       try {
-        setTasks(JSON.parse(savedTasks))
+        const parsed = JSON.parse(savedTasks)
+
+        // Normalisasi field task agar selalu punya note
+        const normalized = parsed.map(task => ({
+          name: task.name,
+          assigned: task.assigned || [],
+          note: typeof task.note === 'string' ? task.note : ''
+        }))
+
+        setTasks(normalized)
+
       } catch {
         console.error('Error parsing saved tasks')
       }
     }
   }, [])
 
-  // ✅ Save to localStorage whenever tasks change
+  // Save to localStorage whenever tasks change
   useEffect(() => {
     localStorage.setItem('foundry-tasks', JSON.stringify(tasks))
   }, [tasks])
 
-  // ✅ Assign logic — menambahkan (c) jika anggota pertama
+  // Assign member
   const assignMemberToTask = (memberName, taskName) => {
-    setTasks((prev) =>
-      prev.map((task) => {
+    setTasks(prev =>
+      prev.map(task => {
         if (task.name !== taskName) return task
 
         if (task.assigned.includes(memberName)) return task
@@ -67,7 +81,7 @@ export function FoundryProvider({ children }) {
 
         return {
           ...task,
-          assigned: [...task.assigned, newMember],
+          assigned: [...task.assigned, newMember]
         }
       })
     )
@@ -81,7 +95,8 @@ export function FoundryProvider({ children }) {
         members,
         setMembers,
         assignMemberToTask,
-        handleUnassign, // ✅ tambahkan supaya TaskList bisa pakai versi baru
+        handleUnassign,
+        addTaskNote
       }}
     >
       {children}

@@ -3,15 +3,12 @@
 import React, { useState } from 'react'
 import { Toaster } from 'sonner'
 import PageWrapper from '../../components/PageWrapper'
-import WelcomePopup from '../../components/Popup'
 
 
 
 export default function Widget({ children }) {
   return (
     <>
-     
-      <WelcomePopup />
       <PageWrapper>
       
         <div className="min-h-screen bg-special text-white">

@@ -1,12 +1,12 @@
 'use client'
 import { useFoundry } from '../dashboard/foundry/FoundryContext'
 import { useState } from 'react'
-import { Trash2, X } from 'lucide-react'
+import { Trash2, X, Copy } from 'lucide-react'
 import { toast } from 'sonner'
-import ConfirmDialog from '../components/ConfirmDialog'
+import ConfirmDialog from './ConfirmDialog'
 
 export default function TaskList() {
-  const { tasks, setTasks, handleUnassign } = useFoundry()
+  const { tasks, setTasks, handleUnassign, addTaskNote } = useFoundry()
   const [newTask, setNewTask] = useState('')
   const [selectedTemplate, setSelectedTemplate] = useState('')
 
@@ -26,7 +26,7 @@ export default function TaskList() {
   const handleAdd = () => {
     const taskName = newTask.trim()
     if (taskName) {
-      setTasks([...tasks, { name: taskName, assigned: [] }])
+      setTasks([...tasks, { name: taskName, assigned: [], note: '' }])
       setNewTask('')
       setSelectedTemplate('')
       toast.success(`Task "${taskName}" added.`)
@@ -38,27 +38,48 @@ export default function TaskList() {
     setNewTask(value)
   }
 
- 
-
-  const handleCopy = () => {
+  // Copy ALL tasks
+  const handleCopyAll = () => {
     const output = tasks
       .map((task) => {
         const members = task.assigned.length
           ? task.assigned.map((m) => `- ${m}`).join('\n')
           : '- (no members)'
-        return `${task.name}\n${members}`
+
+        return `${task.name}
+${members}
+
+Note:
+${task.note || '(empty)'}`
+
       })
-      .join('\n\n')
+      .join('\n\n-------------------------\n\n')
 
     navigator.clipboard.writeText(output)
-    toast.success('The task result has been copied to the clipboard.')
+    toast.success('All task data copied.')
+  }
+
+  // Copy single task including task note
+  const copySingleTask = (task) => {
+    const members = task.assigned.length
+      ? task.assigned.map((m) => `- ${m}`).join('\n')
+      : '- (no members)'
+
+    const output = `${task.name}
+${members}
+
+Note:
+${task.note || '(empty)'}`
+
+    navigator.clipboard.writeText(output)
+    toast.success(`Copied "${task.name}".`)
   }
 
   return (
-    <div className="bg-zinc-800 p-4 rounded">
+    <div className="bg-special-inside  p-4 rounded">
       <h2 className="text-xl mb-2">Tasks</h2>
 
-      {/* cek form disini yeee */}
+      {/* Form */}
       <div className="flex flex-col sm:flex-row gap-2 mb-4">
         <select
           value={selectedTemplate}
@@ -94,7 +115,7 @@ export default function TaskList() {
       {/* Tools */}
       <div className="flex gap-2 mb-4">
         <button
-          onClick={handleCopy}
+          onClick={handleCopyAll}
           className="bg-zinc-400 px-3 py-1 rounded text-sm"
         >
           Copy all text
@@ -117,27 +138,39 @@ export default function TaskList() {
       {/* Task List */}
       <ul className="space-y-2">
         {tasks.map((task, idx) => (
-          <li key={idx} className="bg-zinc-700 p-3 rounded">
+          <li key={idx} className="bg-title-result p-3 rounded">
             <div className="flex justify-between items-center mb-1">
-              <p className="text-base text-lime-400">{task.name}</p>
 
-              <ConfirmDialog
-                title={`Delete task "${task.name}"?`}
-                description="This will delete this task and its assigned members."
-                onConfirm={() => {
-                  setTasks((prev) => prev.filter((_, i) => i !== idx))
-                  toast.success(`Task "${task.name}" deleted.`)
-                }}
-              >
+              <p className="text-base text-teal-400">{task.name}</p>
+
+              <div className="flex items-center gap-3">
                 <button
-                  className="text-red-400 hover:text-red-200"
-                  title="Delete Task"
+                  onClick={() => copySingleTask(task)}
+                  className="text-blue-400 hover:text-blue-200"
+                  title="Copy Task"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Copy className="w-4 h-4" />
                 </button>
-              </ConfirmDialog>
+
+                <ConfirmDialog
+                  title={`Delete task "${task.name}"?`}
+                  description="This will delete this task and its assigned members."
+                  onConfirm={() => {
+                    setTasks((prev) => prev.filter((_, i) => i !== idx))
+                    toast.success(`Task "${task.name}" deleted.`)
+                  }}
+                >
+                  <button
+                    className="text-red-400 hover:text-red-200"
+                    title="Delete Task"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </ConfirmDialog>
+              </div>
             </div>
 
+            {/* Members */}
             <ul className="ml-4 text-sm text-zinc-300 space-y-1">
               {task.assigned.map((m, i) => (
                 <li key={i} className="flex justify-between items-center">
@@ -145,12 +178,19 @@ export default function TaskList() {
                   <button
                     onClick={() => handleUnassign(task.name, m)}
                     className="text-red-400 hover:text-red-200"
-                    title="Unassign"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 </li>
               ))}
+
+              {/* Note per task */}
+              <textarea
+                className="w-full bg-zinc-800/30 text-sm p-2 rounded mt-3 text-white placeholder:text-zinc-500"
+                placeholder="Add task note..."
+                value={task.note || ''}
+                onChange={(e) => addTaskNote(task.name, e.target.value)}
+              />
             </ul>
           </li>
         ))}

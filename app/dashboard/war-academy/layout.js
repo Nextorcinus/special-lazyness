@@ -6,7 +6,7 @@ import { HeliosHistoryProvider } from './HeliosHistoryContext'
 import HeliosHistoryList from '../../components/HeliosHistoryList'
 import { AddAnotherProvider } from '../../dashboard/research/AddAnotherContext'
 import PageWrapper from '../../components/PageWrapper'
-import WelcomePopup from '../../components/Popup'
+
 
 export default function HeliosLayout({ children }) {
   const [resetFormTrigger, setResetFormTrigger] = useState(0)

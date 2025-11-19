@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { Toaster } from 'sonner'
 import PageWrapper from '../../components/PageWrapper'
-import WelcomePopup from '../../components/Popup'
+
 
 export default function General({ children }) {
   return (

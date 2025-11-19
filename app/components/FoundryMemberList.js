@@ -2,7 +2,7 @@
 import { useFoundry } from '../dashboard/foundry/FoundryContext'
 import { useState } from 'react'
 
-export default function MemberList() {
+export default function FoundryMemberList() {
   const { members, tasks, assignMemberToTask } = useFoundry()
   const [selectedMember, setSelectedMember] = useState(null)
   const [sortBy, setSortBy] = useState('name')
@@ -14,10 +14,21 @@ const getAssignedNames = () => {
   )
 }
 
+const getFCValue = (member) => {
+  const raw = member['Furnace Level']
+
+  if (typeof raw === 'number') return raw
+
+  const parsed = Number(raw)
+  if (!isNaN(parsed)) return parsed
+
+  return 0
+}
+
   // Filtered + sorted
   const assignedNames = getAssignedNames()
   const filtered = members
-    .filter((m) => !assignedNames.includes(m.Name)) // filter keluar yang sudah di-assign
+    .filter((m) => !assignedNames.includes(m.Name)) 
     .filter((m) => {
       const query = search.toLowerCase()
       const fcText = `fc ${m['Furnace Level'] || ''}`.toLowerCase()
@@ -46,9 +57,10 @@ const sortedMembers = [...filtered].sort((a, b) => {
     return parsePower(b.Power) - parsePower(a.Power)
   }
 
-  if (sortBy === 'furnace')
-    return (b['Furnace Level'] || 0) - (a['Furnace Level'] || 0)
-    
+  if (sortBy === 'furnace') {
+    return getFCValue(b) - getFCValue(a)
+  }
+
   return 0
 })
 
@@ -58,13 +70,13 @@ const sortedMembers = [...filtered].sort((a, b) => {
   }
 
   return (
-    <div className="bg-zinc-800 p-4 rounded">
+    <div className="bg-special-inside-green p-4 rounded">
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-xl">Member List</h2>
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="bg-zinc-700 text-sm rounded px-2 py-1 text-white"
+          className="special-glass text-sm rounded px-2 py-1 text-white"
         >
           <option value="name">Sort: Name</option>
           <option value="power">Sort: Power</option>
@@ -86,7 +98,7 @@ const sortedMembers = [...filtered].sort((a, b) => {
           <li
             key={i}
             onClick={() => setSelectedMember(member.Name)}
-            className="flex justify-between items-center border border-zinc-600 p-2 rounded bg-zinc-700 hover:bg-zinc-600 cursor-pointer"
+            className="flex justify-between items-center border border-zinc-600 p-2 rounded bg-zinc-600 hover:bg-zinc-600 cursor-pointer"
           >
             <div>
               {member.Name}{' '}

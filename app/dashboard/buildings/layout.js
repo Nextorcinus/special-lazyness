@@ -5,7 +5,7 @@ import { AddAnotherProvider } from './AddAnotherContext'
 
 import { Toaster } from 'sonner'
 import PageWrapper from '../../components/PageWrapper'
-import WelcomePopup from '../../components/Popup'
+
 
 export default function BuildingsLayout({ children }) {
   return (
