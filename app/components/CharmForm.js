@@ -3,15 +3,9 @@
 import { useState } from 'react'
 import charmData from '../data/MaterialDatacharm.json'
 import { Label } from '../components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../components/ui/select'
 import { Button } from '../components/ui/button'
 import { toast } from 'sonner'
+import HybridSelect from './HybridSelect'   // ← gunakan ini
 
 const charmTypes = ['Cap', 'Watch', 'Coat', 'Pants', 'Belt', 'Weapon']
 const charmLevels = charmData.map((item) => item.level.toString())
@@ -26,7 +20,6 @@ export default function CharmForm({ onSubmit, onReset }) {
     setSelection((prev) => {
       const updated = { ...prev, [field]: value }
 
-      
       if (
         field === 'from' &&
         updated.to &&
@@ -39,51 +32,36 @@ export default function CharmForm({ onSubmit, onReset }) {
     })
   }
 
-  // === Hitung ===
   const handleCalculate = (e) => {
     e.preventDefault()
-
     const { type, from, to } = selection
+
     if (!type || !from || !to) {
       toast.warning('Please select type, from, and to level.')
       return
     }
 
-    const fromIndex = charmData.findIndex((item) => item.level === parseInt(from))
-    const toIndex = charmData.findIndex((item) => item.level === parseInt(to))
+    const fromIndex = charmData.findIndex((i) => i.level === parseInt(from))
+    const toIndex = charmData.findIndex((i) => i.level === parseInt(to))
+
     if (fromIndex === -1 || toIndex === -1 || fromIndex >= toIndex) {
       toast.error('Invalid level range selected.')
       return
     }
 
-    // Hitung total bahan
     const total = { guide: 0, design: 0, jewel: 0, svs: 0 }
     for (let i = fromIndex + 1; i <= toIndex; i++) {
       const data = charmData[i]
-      if (!data) continue
-      total.guide += data.guide_cost || 0
-      total.design += data.design_cost || 0
-      total.jewel += data.jewel_cost || 0
-      total.svs += data.svs_point || 0
+      if (data) {
+        total.guide += data.guide_cost || 0
+        total.design += data.design_cost || 0
+        total.jewel += data.jewel_cost || 0
+        total.svs += data.svs_point || 0
+      }
     }
 
-    const result = {
-      type,
-      from,
-      to,
-      total,
-    }
-
-    
-    onSubmit?.(result)
-    
+    onSubmit?.({ type, from, to, total })
     toast.success(`Charm upgrade calculated: ${type} ${from} → ${to}`)
-  }
-
-  const handleLocalReset = () => {
-    setSelection(initialState)
-    onReset?.()
-    toast.info('Charm form has been reset.')
   }
 
   const availableToLevels = selection.from
@@ -91,87 +69,61 @@ export default function CharmForm({ onSubmit, onReset }) {
     : charmLevels
 
   return (
-    <form
-      onSubmit={handleCalculate}
+    <form onSubmit={handleCalculate}
       className="py-4 px-4 bg-special-inside rounded-xl space-y-6"
     >
       <h2 className="text-xl text-white">Select Charm</h2>
 
-      {/* === Input Area === */}
-      <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-4 xl:grid-col-4 2xl:grid-cols-4 gap-4">
+      <div className="bg-glass-background2 p-4 grid grid-cols-1 md:grid-cols-4 gap-4">
+        
         {/* Type */}
         <div>
           <Label className="text-white">Charm Type</Label>
-          <Select
+          <HybridSelect
             value={selection.type}
-            onValueChange={(val) => handleChange('type', val)}
-          >
-            <SelectTrigger className="bg-special-input text-white w-full">
-              <SelectValue placeholder="Select Charm Type" />
-            </SelectTrigger>
-            <SelectContent>
-              {charmTypes.map((type) => (
-                <SelectItem key={type} value={type}>
-                  {type}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            onChange={(val) => handleChange('type', val)}
+            placeholder="Select Charm Type"
+            options={charmTypes.map((t) => ({ value: t, label: t }))}
+          />
         </div>
 
         {/* From */}
         <div>
           <Label className="text-white">From</Label>
-          <Select
+          <HybridSelect
             value={selection.from}
-            onValueChange={(val) => handleChange('from', val)}
-          >
-            <SelectTrigger className="bg-special-input text-white w-full">
-              <SelectValue placeholder="From" />
-            </SelectTrigger>
-            <SelectContent>
-              {charmLevels.map((lvl) => (
-                <SelectItem key={lvl} value={lvl}>
-                  Level {lvl}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            onChange={(val) => handleChange('from', val)}
+            placeholder="From"
+            options={charmLevels.map((lvl) => ({
+              value: lvl, label: `Level ${lvl}`
+            }))}
+          />
         </div>
 
         {/* To */}
         <div>
           <Label className="text-white">To</Label>
-          <Select
+          <HybridSelect
             value={selection.to}
-            onValueChange={(val) => handleChange('to', val)}
-            disabled={!selection.from}
-          >
-            <SelectTrigger className="bg-special-input text-white w-full">
-              <SelectValue placeholder="To" />
-            </SelectTrigger>
-            <SelectContent>
-              {availableToLevels.map((lvl) => (
-                <SelectItem key={lvl} value={lvl}>
-                  Level {lvl}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            onChange={(val) => handleChange('to', val)}
+            placeholder="To"
+            options={availableToLevels.map((lvl) => ({
+              value: lvl, label: `Level ${lvl}`
+            }))}
+          />
         </div>
 
-        {/* Calculate */}
+        {/* Button */}
         <div className="flex">
           <Button
             type="submit"
-            className="button-Form text-sm md:text-base text-white rounded-lg py-6 md:py-6 w-full"
+            className="button-Form text-sm md:text-base text-white rounded-lg py-6 w-full"
           >
             Calculate
           </Button>
         </div>
       </div>
 
-     
     </form>
   )
 }
