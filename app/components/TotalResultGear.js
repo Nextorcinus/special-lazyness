@@ -7,6 +7,8 @@ import ResourceIcon from './ResourceIcon'
 export default function TotalResultGear({ results = [], comparedData = null }) {
   if (!results.length) return null
 
+  const hasCompare = comparedData && Object.keys(comparedData).length > 0
+
   const total = results.reduce(
     (acc, curr) => {
       const res = curr.total || {}
@@ -28,21 +30,29 @@ export default function TotalResultGear({ results = [], comparedData = null }) {
   ]
 
   const compare = {}
-  resources.forEach(({ key }) => {
-    const have = comparedData?.[key] || 0
-    const need = total[key]
-    const diff = have - need
-    compare[key] = {
-      diff,
-      label: diff > 0 ? '+' : diff < 0 ? '-' : 'Match',
-      color:
+  if (hasCompare) {
+    resources.forEach(({ key }) => {
+      const have = comparedData?.[key] || 0
+      const need = total[key]
+      const diff = have - need
+
+      const color =
         diff > 0
-          ? 'text-green-400 border border-green-800 bg-green-700/10'
+          ? 'text-green-400 border border-green-800 bg-green-700/25'
           : diff < 0
-          ? 'text-red-200 border border-red-400 bg-red-500/10'
-          : 'text-gray-200 bg-white/10',
-    }
-  })
+          ? 'text-[#FFBABA] border border-[#AD5556] bg-[#6D1B19]/25'
+          : 'text-gray-200 bg-white/10'
+
+      const diffText =
+        diff > 0
+          ? '+' + formatToShortNumber(diff)
+          : diff < 0
+          ? '-' + formatToShortNumber(Math.abs(diff))
+          : 'Match'
+
+      compare[key] = { diff, color, diffText }
+    })
+  }
 
   return (
     <div className="bg-special-inside-green border border-[#ffffff26] mt-8 rounded-xl p-6 space-y-6">
@@ -61,15 +71,10 @@ export default function TotalResultGear({ results = [], comparedData = null }) {
             <p className="text-base text-teal-300">
               {formatToShortNumber(total[key])}
             </p>
-            {comparedData && (
-              <div
-                className={`text-xs mt-1 px-2 py-1 rounded-md ${compare[key].color}`}
-              >
-                {compare[key].label !== 'Match'
-                  ? `${compare[key].label}${formatToShortNumber(
-                      Math.abs(compare[key].diff)
-                    )}`
-                  : 'Match'}
+
+            {hasCompare && (
+              <div className={`text-xs mt-1 px-2 py-1 rounded-md ${compare[key].color}`}>
+                {compare[key].diffText}
               </div>
             )}
           </div>

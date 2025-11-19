@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import fireData from '../../../../data/buildings.json'
+import fireData from '../../../../app/data/buildings.json'
 
 export async function GET() {
   return NextResponse.json(fireData, {

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import basicData from '../../../../data/BasicBuilding.json'
+import basicData from '../../../../app/data/BasicBuilding.json'
 
 export async function GET() {
   return NextResponse.json(basicData, {
