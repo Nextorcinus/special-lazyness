@@ -23,8 +23,8 @@ export default function HybridSelect({
     const check = () =>
       setIsMobile(
         typeof window !== "undefined" &&
-        (window.innerWidth <= 768 ||
-          /iPhone|iPad|iPod|Android/i.test(navigator.userAgent))
+        (window.innerWidth <= 865 ||
+          /iPhone|iPod|Android/i.test(navigator.userAgent))
       );
 
     check();
