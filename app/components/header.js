@@ -18,15 +18,17 @@ export default function Header() {
     >
       {/* LEFT AREA: LOGO */}
       <div className="flex items-center gap-3">
-        <Image 
-          src="/icon/logo.png"
-          alt="Logo"
-          width={40}
-          height={40}
-          className="rounded-md"
-        />
+        <Link href="/">
+          <Image 
+            src="/icon/logo.png"
+            alt="Logo"
+            width={40}
+            height={40}
+            className="rounded-md cursor-pointer"
+          />
+        </Link>
 
-        <span className="text-white  hidden md:block">
+        <span className="text-white hidden md:block">
           Special Lazyness
         </span>
       </div>
@@ -53,8 +55,6 @@ export default function Header() {
             alt="Contact Us"
             width={20}
             height={20}
-            
-
           />
           <span className="hidden text-white md:block">Contact Us</span>
         </Link>
