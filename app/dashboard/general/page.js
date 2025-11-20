@@ -34,10 +34,10 @@ export default function GeneralPage() {
 
   // Kalkulator Gather Resources (4 jenis)
   const [gatherInputs, setGatherInputs] = useState([
-    { label: 'Meat', gatherUnit: 1000, pointPerGather: 3, totalGathered: 0 },
-    { label: 'Wood', gatherUnit: 1000, pointPerGather: 3, totalGathered: 0 },
-    { label: 'Coal', gatherUnit: 200, pointPerGather: 3, totalGathered: 0 },
-    { label: 'Iron', gatherUnit: 50, pointPerGather: 3, totalGathered: 0 },
+    { label: 'Meat', gatherUnit: 0, pointPerGather: 0, totalGathered: 0 },
+    { label: 'Wood', gatherUnit: 0, pointPerGather: 0, totalGathered: 0 },
+    { label: 'Coal', gatherUnit: 0, pointPerGather: 0, totalGathered: 0 },
+    { label: 'Iron', gatherUnit: 0, pointPerGather: 0, totalGathered: 0 },
   ])
   const [gatherResult, setGatherResult] = useState(null)
 
@@ -184,7 +184,7 @@ export default function GeneralPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
             <div>
-              <Label className="text-zinc-200">Points per minute</Label>
+              <Label className="text-zinc-100">Points per minute</Label>
               <Input
                 type="number"
                 value={pointPerMinute}
@@ -195,7 +195,7 @@ export default function GeneralPage() {
             </div>
 
             <div>
-              <Label className="text-zinc-200">Days</Label>
+              <Label className="text-zinc-100">Days</Label>
               <Input
                 type="number"
                 value={days}
@@ -207,7 +207,7 @@ export default function GeneralPage() {
             </div>
 
             <div>
-              <Label className="text-zinc-200">Hours</Label>
+              <Label className="text-zinc-100">Hours</Label>
               <Input
                 type="number"
                 value={hours}
@@ -243,7 +243,7 @@ export default function GeneralPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <Label className="text-zinc-200">Fire Crystal</Label>
+              <Label className="text-zinc-100">Fire Crystal</Label>
               <Input
                 type="number"
                 value={itemCount}
@@ -255,7 +255,7 @@ export default function GeneralPage() {
             </div>
 
             <div>
-              <Label className="text-zinc-200">Points per Item</Label>
+              <Label className="text-zinc-100">Points per Item</Label>
               <Input
                 type="number"
                 value={pointPerItem}
@@ -411,7 +411,7 @@ export default function GeneralPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <Label className="text-zinc-200">Number of Stones</Label>
+                <Label className="text-zinc-100">Number of Stones</Label>
                 <FormattedNumberInput
                   value={stoneCount}
                   onChange={setStoneCount}
@@ -420,7 +420,7 @@ export default function GeneralPage() {
                 />
               </div>
               <div>
-                <Label className="text-zinc-200">Points per Stone</Label>
+                <Label className="text-zinc-100">Points per Stone</Label>
                 <FormattedNumberInput
                   value={pointPerStone}
                   onChange={setPointPerStone}
@@ -462,7 +462,7 @@ export default function GeneralPage() {
               className="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-4 mt-4"
             >
               <div>
-                <Label className="text-zinc-300">{res.label}</Label>
+                <Label className="text-zinc-100">{res.label}</Label>
                 <Input
                   type="number"
                   value={res.gatherUnit}
@@ -470,11 +470,11 @@ export default function GeneralPage() {
                     handleGatherInputChange(index, 'gatherUnit', e.target.value)
                   }
                   className="bg-special-input text-white w-full"
-                  min={1}
+                  placeholder="Meat (e.g. 14,000,000)"
                 />
               </div>
               <div>
-                <Label className="text-zinc-400">{res.label} – Point</Label>
+                <Label className="text-zinc-100">{res.label} – Point</Label>
                 <Input
                   type="number"
                   value={res.pointPerGather}
@@ -490,7 +490,7 @@ export default function GeneralPage() {
                 />
               </div>
               <div className="col-span-full md:col-span-1">
-                <Label className="text-zinc-400">
+                <Label className="text-zinc-100">
                   {res.label} – Total Gathered
                 </Label>
                 <FormattedNumberInput
@@ -527,7 +527,7 @@ export default function GeneralPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <Label className="text-zinc-400">Number of Troops</Label>
+              <Label className="text-zinc-100">Number of Troops</Label>
               <Input
                 type="number"
                 value={troopCount}
@@ -537,7 +537,7 @@ export default function GeneralPage() {
               />
             </div>
             <div>
-              <Label className="text-zinc-400">Points per Troop</Label>
+              <Label className="text-zinc-100">Points per Troop</Label>
               <Input
                 type="number"
                 value={pointPerTroop}

@@ -95,7 +95,7 @@ export default function HeroDetail({ params }) {
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto text-white">
+    <div className="p-2 md:p-6 max-w-4xl mx-auto text-white">
       {/* Back Button */}
       <Link
         href="/dashboard/dawn"
@@ -150,13 +150,13 @@ export default function HeroDetail({ params }) {
           {Array.isArray(hero.expedition) ? (
             <ul className="list-disc pl-6">
               {hero.expedition.map((exp, idx) => (
-                <li key={idx} className="text-lime-400">
+                <li key={idx} className="text-teal-200">
                   {exp}
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="text-lime-400">{hero.expedition} *max</p>
+            <p className="text-teal-200">{hero.expedition} *max</p>
           )}
         </div>
       )}
@@ -175,7 +175,7 @@ export default function HeroDetail({ params }) {
                 key={skill.number}
                 className="border border-gray-700 rounded-lg p-4 flex flex-col items-center text-center hover:bg-gray-800 transition-colors duration-200"
               >
-                {/* Gambar Skill dengan frame */}
+                
                 <div className="w-32 h-32 mb-3 flex items-center justify-center  rounded-lg p-2">
                   <img
                     src={skillImagePath}
@@ -187,7 +187,7 @@ export default function HeroDetail({ params }) {
                   />
                 </div>
 
-                <span className="text-xs text-lime-400 bg-gray-800 px-2 py-1 rounded mb-2">
+                <span className="text-xs text-teal-200 bg-teal-800 px-2 py-1 rounded mb-2">
                   SKILL {skill.number}
                 </span>
                 <h3 className="text-lg font-semibold mb-2">{skill.name}</h3>
