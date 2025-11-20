@@ -3,15 +3,8 @@
 import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
 import heroData from '../../data/heroData'
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from '../../components/ui/select'
-
 import { Label } from '../../components/ui/label'
+import HybridSelect from '../../components/HybridSelect'
 
 export default function WidgetPage({ onCalculate }) {
   let levelData = [
@@ -27,14 +20,12 @@ export default function WidgetPage({ onCalculate }) {
     { level: 10, required: 50, value: 15, type: 'exploration' },
   ]
 
-  const [input, setInput] = useState('')
-  const [selectedHero, setSelectedHero] = useState('')
-  const [selectedRequired, setSelectedRequired] = useState('')
-  const [result, setResult] = useState(null)
-  const [fromLevel, setFromLevel] = useState()
-  const [toLevel, setToLevel] = useState('')
-
   const levelOptions = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+
+  const [selectedHero, setSelectedHero] = useState('')
+  const [fromLevel, setFromLevel] = useState('')
+  const [toLevel, setToLevel] = useState('')
+  const [result, setResult] = useState(null)
 
   function getTotalRequired(from, to) {
     return levelData
@@ -59,6 +50,7 @@ export default function WidgetPage({ onCalculate }) {
         skill: hero[level.type],
         totalRequired,
       })
+
       toast.success('Widget successfully calculated!')
     } else {
       setResult(null)
@@ -74,138 +66,119 @@ export default function WidgetPage({ onCalculate }) {
 
   return (
     <div className="p-4 md:p-6 text-white w-full">
-      <div className="relative   mt-6 px-4 py-2 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
-        <h2 className="text-2xl text-white">Widget Hero</h2>
+
+      {/* Title */}
+      <div className="mt-6 px-4 py-2 max-w-2xl mx-auto">
+        <h2 className="text-2xl">Widget Hero</h2>
       </div>
-      <div className="bg-special-inside w-full  text-white mt-3 px-4 py-4 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl">
-        <h1 className="text-xl mb-4 ">Widget Calculate</h1>
+
+      {/* FORM */}
+      <div className="bg-special-inside mt-3 px-4 py-5 max-w-2xl mx-auto rounded-xl">
+
+        <h1 className="text-xl mb-4">Widget Calculate</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Dropdown Hero */}
+
+          {/* HERO DROPDOWN */}
           <div className="w-full">
-            <Label className="py-1 px-2 mb-1 block">Hero</Label>
-            <Select
+            <Label className="mb-1 block">Hero</Label>
+
+            <HybridSelect
               value={selectedHero}
-              onValueChange={(value) => setSelectedHero(value)}
-            >
-              <SelectTrigger className="w-full bg-special-input text-white px-3 py-2  rounded">
-                {selectedHero !== '' ? (
-                  <SelectValue />
-                ) : (
-                  <span className="text-muted-foreground">Choose Hero</span>
-                )}
-              </SelectTrigger>
-              <SelectContent>
-                {heroData.map((hero) => (
-                  <SelectItem key={hero.heroes} value={hero.heroes}>
-                    {hero.heroes}{' '}
-                    {hero.status && (
-                      <span className="text-yellow-400 ">({hero.status})</span>
-                    )}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              onChange={setSelectedHero}
+              placeholder="Choose Hero"
+              className="bg-special-input text-white"
+              options={heroData.map((hero) => ({
+                value: hero.heroes,
+                label: hero.status
+                  ? `${hero.heroes} (${hero.status})`
+                  : hero.heroes,
+              }))}
+            />
           </div>
 
+          {/* FROM / TO */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* FROM LEVEL */}
+
+            {/* FROM */}
             <div>
-              <Label className="py-1 px-2 text-white">From</Label>
-              <Select
+              <Label className="mb-1">From</Label>
+
+              <HybridSelect
                 value={fromLevel}
-                onValueChange={(value) => {
-                  setFromLevel(value)
+                onChange={(v) => {
+                  setFromLevel(v)
                   setToLevel('')
                 }}
-              >
-                <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
-                  {fromLevel !== '' ? (
-                    <SelectValue />
-                  ) : (
-                    <span className="text-muted-foreground px-3">
-                      -- Select Level --
-                    </span>
-                  )}
-                </SelectTrigger>
-                <SelectContent>
-                  {levelOptions.map((level) => (
-                    <SelectItem key={level} value={String(level)}>
-                      {level}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                placeholder="Select Level"
+                className="bg-special-input text-white"
+                options={levelOptions.map((lvl) => ({
+                  value: lvl,
+                  label: lvl,
+                }))}
+              />
             </div>
 
-            {/* TO LEVEL */}
+            {/* TO */}
             <div>
-              <Label className="text-white py-1 px-2">To</Label>
-              <Select
+              <Label className="mb-1">To</Label>
+
+              <HybridSelect
                 value={toLevel}
-                onValueChange={(value) => setToLevel(value)}
-              >
-                <SelectTrigger className="bg-zinc-800 bg-special-input text-white">
-                  {toLevel !== '' ? (
-                    <SelectValue />
-                  ) : (
-                    <span className="text-muted-foreground px-3">
-                      -- Select Level --
-                    </span>
-                  )}
-                </SelectTrigger>
-                <SelectContent>
-                  {levelOptions
-                    .filter((level) => Number(level) > Number(fromLevel))
-                    .map((level) => (
-                      <SelectItem key={level} value={String(level)}>
-                        {level}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
+                onChange={setToLevel}
+                disabled={!fromLevel}
+                placeholder="Select Level"
+                className="bg-special-input text-white"
+                options={levelOptions
+                  .filter((lvl) => Number(lvl) > Number(fromLevel))
+                  .map((lvl) => ({
+                    value: lvl,
+                    label: lvl,
+                  }))}
+              />
             </div>
           </div>
 
-          {/* Submit */}
+          {/* BUTTON */}
           <button
             type="submit"
-            className="button-Form text-sm md:text-base text-white rounded-lg px-2 py-4 md:py-4 w-full sm:w-auto"
+            className="button-Form text-white rounded-lg py-4 px-4 w-full sm:w-auto"
           >
             Analyze
           </button>
         </form>
 
-
-        {!result && input && (
-          <p className="mt-4 text-red-400">
-            Data tidak ditemukan untuk required: {input}
-          </p>
+        {/* Error message */}
+        {!result && selectedHero && (
+          <p className="mt-3 text-red-400"></p>
         )}
       </div>
-      {/* Hasil */}
+
+      {/* RESULT */}
       {result && (
-        <div className="mt-6 p-4 bg-special-inside-green  max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl shadow-md border ">
+        <div className="mt-6 p-4 bg-special-inside-green max-w-2xl mx-auto rounded-xl border">
           <p>
-            <strong className="text-lime-400">{result.name} </strong>
-            Level {result.level} "<em>{result.skill}</em>"{' '}
+            <strong className="text-lime-400">{result.name}</strong> Level{' '}
+            {result.level}{' '}
+            "<em>{result.skill}</em>"{' '}
             <strong className="text-yellow-400">{result.value}%</strong> for{' '}
             <strong className="text-yellow-400">{result.type}</strong>
-            <br />
-            <span className="text-zinc-200 py-2">
-              Total Widget Required from Level {fromLevel} → {toLevel} :{' '}
-              <strong className="text-lime-400">
-                {result.totalRequired} stones
-              </strong>
-            </span>
+          </p>
+
+          <p className="text-zinc-200 mt-2">
+            Total Widget Required from Level {fromLevel} → {toLevel}:{' '}
+            <strong className="text-lime-400">
+              {result.totalRequired} stones
+            </strong>
           </p>
         </div>
       )}
-      <div className="max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto mt-6 text-white">
+
+      {/* NOTE */}
+      <div className="max-w-2xl mx-auto mt-6 text-white">
         <p className="text-sm">
-          Note: Exploration skills are designed for exploration battles (
-          <em>exploration, arena or intel</em>) and expedition skills are
-          exclusively used in expedition battles.
+          Note: Exploration skills work for exploration battles (exploration,
+          arena, intel). Expedition skills only work in expedition battles.
         </p>
       </div>
     </div>

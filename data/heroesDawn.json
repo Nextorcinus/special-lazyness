@@ -89,7 +89,7 @@
         "description": "Commander Romulus is an expert at large deployments, increasing heroes expedition army size limit by 10.000.",
         "upgrade-preview": "commander-crest.png"
       },
-      "expedition": ["Troops lethality : +15%", "Troops health : +15%"],
+      "expedition": ["Troops lethality : +20%", "Troops health : +20%"],
       "expedition-preview": "",
       "summarize": "Focus: PvP & War Events (SVS, Rally, Expedition)\n\nAdvantages:\nIncreases Troop Capacity, Rally Capacity, and daily Loyalty Tags.\nIncreases troop capacity at max level by 10,000. This is very useful for whales.\n\nSkill Breakdown:\nSkill 1: Adds 600 troops per day and 10 loyalty tags at max level. So troops will be trained for free at the highest level, for example, if we have T11, we can take the T11.\nSkill 2: Increases attack and defense by 10% at max level at level 20.\nSkill 3: Increases lethality and health by 10% at max level at level 20.\nSkill 4: Increases rally capacity at max level by 100,000.\n\nF2P Effectiveness: Low-Medium\nF2P players find it difficult to maximize benefits due to limited troops and the difficulty of achieving large rallies.\n\nEffectiveness for Spenders: Very High\nP2P players can immediately utilize Troop & Rally Cap for PvP events, providing a significant strategic advantage.\n\nConclusion: Romulus is suitable for whales and spenders.",
       "skills": [
@@ -159,6 +159,90 @@
         }
       ],
       "image-hero": "holger.png"
+    },
+    {
+  "id": "05",
+  "name": "Fabian",
+  "description": "Fabian was an engineer at the Imperial Foundry of the former Solaris Empire. His exceptional engineering talent earned him high status at a young age. After joining the Rebels, his weapon designs played a key role in turning the tide in their favor.",
+  "talent": {
+    "name": "Craftsman of War",
+    "description": "Fabian’s mighty weapons grant all allied troops in Foundry Battle and Tundra Hellfire +30% Attack and +30% Defense.",
+    "upgrade-preview": "craftsman.png"
+  },
+  "expedition": ["Troops Attack : +10%", "Troops Defense : +10%"],
+  "expedition-preview": "",
+  "summarize": "Focus: Foundry Battle and Tundra Hellfire performance\n\nAdvantages:\nFabian is one of the strongest Experts for Foundry and Hellfire thanks to his high troop attribute boosts and rally capacity increases. His talent alone provides large stat boosts to every ally participating in these modes, making him extremely valuable in coordinated battles.\n\nSkill Breakdown:\nSkill 1: Salvager — Doubles Arsenal Token gains, helping players accelerate Foundry weapon progression.\nSkill 2: Crisis Rescue — Provides instant recovery of 1,000,000 troops in Foundry Battle and Tundra Hellfire, enabling sustained fight participation.\nSkill 3: Heightened Firepower — Adds +30% Lethality and +30% Health to troops in Foundry Battle and Tundra Hellfire.\nSkill 4: Battle Bulwark — Grants +150,000 Rally Capacity, significantly improving rally performance.\n\nF2P Effectiveness: Medium High\nEven without spending, Fabian provides major benefits in Foundry and Hellfire. His Salvager skill accelerates token gain for everyone.\n\nEffectiveness for Spenders: Very High\nSpenders maximise his utility due to faster Foundry upgrades, stronger rallies and higher contribution in competitive modes.",
+  "skills": [
+    {
+      "number": 1,
+      "name": "Salvager",
+      "description": "Arsenal Tokens gained are increased by 100%.",
+      "skill-img": "salvager.png"
+    },
+    {
+      "number": 2,
+      "name": "Crisis Rescue",
+      "description": "Instant recovery of 1,000,000 troops in Foundry Battle and Tundra Hellfire.",
+      "skill-img": "crisis-rescue.png"
+    },
+    {
+      "number": 3,
+      "name": "Heightened Firepower",
+      "description": "+30% Lethality and +30% Health for troops in Foundry Battle and Tundra Hellfire.",
+      "skill-img": "heightened_firepower.png"
+    },
+    {
+      "number": 4,
+      "name": "Battle Bulwark",
+      "description": "Increases Rally Capacity by +150,000 in Foundry Battle and Tundra Hellfire.",
+      "skill-img": "battle_bulwark.png"
     }
+  ],
+  "image-hero": "fabian.png"
+},
+{
+  "id": "06",
+  "name": "Baldur",
+  "description": "Baldur is a diplomat of the Dawn Alliance. He navigates effortlessly among allies with his calm intelligence and unexpected strategies, ensuring the Alliance gains the most in non-combat domains.",
+  "talent": {
+    "name": "Master Negotiator",
+    "description": "Thanks to Baldur’s reputation and charm, item prices in the Alliance Shop are reduced by 15%, and rewards from Personal Activity Triumph Chests are increased by 100%.",
+    "upgrade-preview": "master-negotiation.png"
+  },
+  "expedition": ["Troops Attack : +10%", "Troops Defense : +10%"],
+  "expedition-preview": "",
+  "summarize": "Focus: Alliance events & strategic resource gain\n\nAdvantages:\nBaldur enhances Alliance-wide rewards, shop discounts, and milestone gains in Alliance events. Ideal for players active in Alliance Championship, Showdown, Mobilisation events.\n\nSkill Breakdown:\nSkill 1: Master Negotiator — Reduces Alliance Shop item prices by 15% and doubles the reward from Personal Activity Triumph Chests.\nSkill 2: Blazing Sunrise — +20% Alliance Mobilization Points and +3 Monument tiers.\nSkill 3: Honored Conquest — +50% Alliance Championship Badges and +3 Alliance Championship Shop items.\nSkill 4: Bounty Hunter — +50% Crazy Joe point rewards and bonus Chest per 200,000 points (limit of 10 per season).\nSkill 5: Dawn Hymn — +50% Alliance Showdown points (excluding the Tundra Trade Route) and +3 daily Milestone Reward tiers.\n\nF2P Effectiveness: High\nEven Free-to-Play players gain significant value via discounts and extra rewards in Alliance events.\n\nEffectiveness for Spenders: Very High\nSpenders who push Alliance events and buy shop items’ll extract maximum value.",
+  "skills": [
+    
+    {
+      "number": 1,
+      "name": "Blazing Sunrise",
+      "description": "+20% Alliance Mobilization Points and +3 Monument tier(s).",
+      "skill-img": "blazing-sunrise.png"
+    },
+    {
+      "number": 2,
+      "name": "Honored Conquest",
+      "description": "+50% Alliance Championship Badges and +3 items in the Alliance Championship Shop.",
+      "skill-img": "honorest-conquest.png"
+    },
+    {
+      "number": 3,
+      "name": "Bounty Hunter",
+      "description": "+50% Crazy Joe point rewards and a bonus Chest per 200,000 points (limit of 10 per season).",
+      "skill-img": "bounty-hunter.png"
+    },
+    {
+      "number": 4,
+      "name": "Dawn Hymn",
+      "description": "+50% Alliance Showdown points (excluding the Tundra Trade Route) and +3 daily Milestone Reward tiers.",
+      "skill-img": "dawn-hymn.png"
+    }
+  ],
+  "image-hero": "baldur.png"
+}
+
+
+
   ]
 }

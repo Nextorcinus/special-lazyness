@@ -3,16 +3,11 @@
 import { useEffect, useState } from 'react'
 import { levels } from '../data/levels'
 import { Label } from '../components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../components/ui/select'
 import { Button } from '../components/ui/button'
 import { toast } from 'sonner'
 import { useGearHistory } from '../dashboard/gear/GearContext'
+
+import HybridSelect from '../components/HybridSelect'   // ← TAMBAHKAN INI
 
 const gearParts = ['Cap', 'Watch', 'Coat', 'Pants', 'Belt', 'Weapon']
 
@@ -31,7 +26,6 @@ export default function GearForm({
   const [selection, setSelection] = useState(initialState)
   const { resetGearParts } = useGearHistory()
 
-  // Reset saat trigger aktif
   useEffect(() => {
     setSelection(initialState)
   }, [resetTrigger])
@@ -42,7 +36,6 @@ export default function GearForm({
     setSelection((prev) => {
       const updated = { ...prev, [field]: value }
 
-      // Pastikan "to" selalu lebih tinggi dari "from"
       if (
         field === 'from' &&
         updated.to &&
@@ -55,29 +48,20 @@ export default function GearForm({
     })
   }
 
-  // --- Tombol Calculate ---
- const handleCalculate = (e) => {
-  e.preventDefault()
+  const handleCalculate = (e) => {
+    e.preventDefault()
 
-  if (!selection.type || !selection.from || !selection.to) {
-    toast.warning('Lengkapi semua pilihan terlebih dahulu.')
-    return
-  }
+    if (!selection.type || !selection.from || !selection.to) {
+      toast.warning('Lengkapi semua pilihan terlebih dahulu.')
+      return
+    }
 
-  if (!materialDataLoaded) {
-    toast.warning('Data belum dimuat sepenuhnya.')
-  }
+    if (!materialDataLoaded) {
+      toast.warning('Data belum dimuat sepenuhnya.')
+    }
 
-  toast.success('Upgrade calculated successfully!')
-  onSubmit(selection)
-}
-
-
-  // --- Tombol Reset Lokal ---
-  const handleLocalReset = () => {
-    setSelection(initialState)
-    if (onReset) onReset()
-    toast.info('Form telah direset.')
+    toast.success('Upgrade calculated successfully!')
+    onSubmit(selection)
   }
 
   const availableToLevels = selection.from
@@ -88,78 +72,59 @@ export default function GearForm({
     <div className="py-4 px-4 bg-special-inside rounded-xl space-y-6">
       <h2 className="text-xl">Select Gear Upgrade</h2>
 
-    <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-4 xl:grid-col-4 2xl:grid-cols-4 gap-4 ">
+      <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-4 xl:grid-col-4 2xl:grid-cols-4 gap-4">
 
-      <div>
-        <Label className="text-white">Gear Type</Label>
-        <Select
-          value={selection.type}
-          onValueChange={(val) => handleChange('type', val)}
-        >
-          <SelectTrigger className="bg-special-input text-white w-full">
-            <SelectValue placeholder="Select Gear Type" />
-          </SelectTrigger>
-          <SelectContent>
-            {gearParts.map((part) => (
-              <SelectItem key={part} value={part}>
-                {part}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+        {/* GEAR TYPE */}
+        <div>
+          <Label className="text-white">Gear Type</Label>
+          <HybridSelect
+            value={selection.type}
+            onChange={(val) => handleChange('type', val)}
+            placeholder="Select Gear Type"
+            options={gearParts.map((p) => ({ value: p, label: p }))}
+            className="bg-special-input text-white w-full"
+          />
+        </div>
 
-      <div>
-        <Label className="text-white">From</Label>
-        
-          <Select
+        {/* FROM */}
+        <div>
+          <Label className="text-white">From</Label>
+          <HybridSelect
             value={selection.from}
-            onValueChange={(val) => handleChange('from', val)}
-          >
-            <SelectTrigger className="bg-special-input text-white">
-              <SelectValue placeholder="From" />
-            </SelectTrigger>
-            <SelectContent>
-              {levels.map((level) => (
-                <SelectItem key={level} value={level}>
-                  {level}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-      </div>
-      <div>
-        <Label className="text-white">To</Label>
-        <Select
-            value={selection.to}
-            onValueChange={(val) => handleChange('to', val)}
-            disabled={!selection.from}
-          >
-            <SelectTrigger className="bg-special-input text-white">
-              <SelectValue placeholder="To" />
-            </SelectTrigger>
-            <SelectContent>
-              {availableToLevels.map((level) => (
-                <SelectItem key={level} value={level}>
-                  {level}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-      </div>
-    
+            onChange={(val) => handleChange('from', val)}
+            placeholder="From"
+            options={levels.map((lvl) => ({ value: lvl, label: lvl }))}
+            className="bg-special-input text-white w-full"
+          />
+        </div>
 
-   
-      <div className="flex ">
-        <Button
-  type="button"
-  onClick={handleCalculate}
-  className="button-Form text-sm md:text-base text-white  rounded-lg py-4 md:py-6"
->
-  Calculate
-</Button>
-</div>
-        
+        {/* TO */}
+        <div>
+          <Label className="text-white">To</Label>
+          <HybridSelect
+            value={selection.to}
+            onChange={(val) => handleChange('to', val)}
+            placeholder="To"
+            disabled={!selection.from}
+            options={availableToLevels.map((lvl) => ({
+              value: lvl,
+              label: lvl,
+            }))}
+            className="bg-special-input text-white w-full"
+          />
+        </div>
+
+        {/* BUTTON */}
+        <div className="flex">
+          <Button
+            type="button"
+            onClick={handleCalculate}
+            className="button-Form text-sm md:text-base text-white rounded-lg py-4 md:py-6 w-full"
+          >
+            Calculate
+          </Button>
+        </div>
+
       </div>
     </div>
   )

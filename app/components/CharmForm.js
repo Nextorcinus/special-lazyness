@@ -5,7 +5,7 @@ import charmData from '../data/MaterialDatacharm.json'
 import { Label } from '../components/ui/label'
 import { Button } from '../components/ui/button'
 import { toast } from 'sonner'
-import HybridSelect from './HybridSelect'   // ← gunakan ini
+import HybridSelect from './HybridSelect'   
 
 const charmTypes = ['Cap', 'Watch', 'Coat', 'Pants', 'Belt', 'Weapon']
 const charmLevels = charmData.map((item) => item.level.toString())
@@ -74,7 +74,7 @@ export default function CharmForm({ onSubmit, onReset }) {
     >
       <h2 className="text-xl text-white">Select Charm</h2>
 
-      <div className="bg-glass-background2 p-4 grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-4 gap-4">
         
         {/* Type */}
         <div>

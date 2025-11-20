@@ -17,11 +17,16 @@ export default function NotifBadge() {
   const [notifications, setNotifications] = useState([])
   const [isReady, setIsReady] = useState(false)
 
+
+
+  /* tambahkan versi notif */
+  const NOTIF_VERSION = 4
+
   const defaultNotifications = [
     {
       id: 1,
       text: 'State 1067 updated successfully foundry',
-      href: null,
+      href: '/dashboard/foundry',
       read: false,
     },
     {
@@ -32,24 +37,41 @@ export default function NotifBadge() {
     },
     {
       id: 3,
+      text: 'New Gear Pink T4 Updated',
+      href: '/dashboard/gear',
+      read: false,
+    },
+    {
+      id: 4,
+      text: 'New Expert Hero Dawn',
+      href: '/dashboard/dawn',
+      read: false,
+    },
+    {
+      id: 5,
       text: 'New UI interface',
       href: null,
       read: true,
     },
   ]
 
-  /* LOAD FROM LOCALSTORAGE */
+  /* LOAD FROM LOCALSTORAGE, TAPI CEK VERSI */
   useEffect(() => {
     const saved = localStorage.getItem('notifications')
+    const savedVersion = localStorage.getItem('notif_version')
 
-    if (saved) {
+    if (saved && String(savedVersion) === String(NOTIF_VERSION)) {
       setNotifications(JSON.parse(saved))
     } else {
       setNotifications(defaultNotifications)
+      localStorage.setItem('notif_version', NOTIF_VERSION)
+      localStorage.setItem('notifications', JSON.stringify(defaultNotifications))
     }
 
     setIsReady(true)
   }, [])
+
+
 
   /* SAVE TO LOCALSTORAGE */
   useEffect(() => {
@@ -77,7 +99,6 @@ export default function NotifBadge() {
     }
   }, [open])
 
-  /* JIKA BELUM READY → JANGAN RENDER NOTIF */
   if (!isReady) {
     return (
       <button className="relative w-9 h-9 rounded-full flex items-center justify-center">
@@ -88,7 +109,7 @@ export default function NotifBadge() {
 
   const unreadCount = notifications.filter((n) => !n.read).length
 
-  /* DROPDOWN UI */
+  /* DROPDOWN */
   const dropdown = (
     <AnimatePresence>
       {open && (
@@ -98,24 +119,11 @@ export default function NotifBadge() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.18 }}
-          className="
-            fixed z-[99999]
-            top-[60px] left-[20%]  w-72
-            md:top-[65px] md:left-auto md:right-[160px] md:translate-x-0
-          "
+          className="fixed z-[99999] top-[60px] left-[20%] w-72 md:top-[65px] md:left-auto md:right-[160px]"
         >
-          <div
-            className="
-              w-72 rounded-xl bg-zinc-900/45 
-              backdrop-blur-lg border border-white/20
-              shadow-2xl p-4
-            "
-          >
-            {/* Header */}
+          <div className="w-72 rounded-xl bg-zinc-900/45 backdrop-blur-lg border border-white/20 shadow-2xl p-4">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-semibold text-white">
-                Notifications
-              </span>
+              <span className="text-sm font-semibold text-white">Notifications</span>
 
               {unreadCount > 0 && (
                 <button
@@ -131,11 +139,9 @@ export default function NotifBadge() {
               )}
             </div>
 
-            {/* LIST */}
             <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
               {notifications.map((notif) =>
                 notif.href ? (
-                  /* === LINK NOTIFICATION === */
                   <Link
                     key={notif.id}
                     href={notif.href}
@@ -151,43 +157,34 @@ export default function NotifBadge() {
 
                       setOpen(false)
 
-                      setTimeout(() => {
-                        router.push(notif.href)
-                      }, 50)
+                      setTimeout(() => router.push(notif.href), 50)
                     }}
                   >
                     <div
-                      className={`
-                        p-3 rounded-lg text-sm border transition cursor-pointer
-                        ${
-                          notif.read
-                            ? 'bg-white/5 text-gray-200 border-white/10'
-                            : 'bg-[#B3F35F]/10 text-[#B3F35F] border-[#B3F35F]/20'
-                        }
-                      `}
+                      className={
+                        notif.read
+                          ? 'p-3 rounded-lg text-sm border bg-white/5 text-gray-200 border-white/10'
+                          : 'p-3 rounded-lg text-sm border bg-[#B3F35F]/10 text-[#B3F35F] border-[#B3F35F]/20'
+                      }
                     >
                       {notif.text}
                     </div>
                   </Link>
                 ) : (
-                  /* === NON-LINK NOTIFICATION === */
                   <div
                     key={notif.id}
-                    onClick={() => {
+                    onClick={() =>
                       setNotifications((prev) =>
                         prev.map((n) =>
                           n.id === notif.id ? { ...n, read: true } : n
                         )
                       )
-                    }}
-                    className={`
-                      p-3 rounded-lg text-sm border transition cursor-default
-                      ${
-                        notif.read
-                          ? 'bg-white/5 text-gray-200 border-white/10'
-                          : 'bg-[#B3F35F]/10 text-[#B3F35F] border-[#B3F35F]/20'
-                      }
-                    `}
+                    }
+                    className={
+                      notif.read
+                        ? 'p-3 rounded-lg text-sm border bg-white/5 text-gray-200 border-white/10'
+                        : 'p-3 rounded-lg text-sm border bg-[#B3F35F]/10 text-[#B3F35F] border-[#B3F35F]/20'
+                    }
                   >
                     {notif.text}
                   </div>
@@ -202,7 +199,6 @@ export default function NotifBadge() {
 
   return (
     <>
-      {/* ICON BUTTON */}
       <button
         ref={iconRef}
         onClick={() => setOpen(!open)}
@@ -217,19 +213,12 @@ export default function NotifBadge() {
         />
 
         {unreadCount > 0 && (
-          <span
-            className="
-        absolute -top-1 -right-1 w-5 h-5 bg-red-500 
-        rounded-full text-xs flex items-center 
-        justify-center text-white shadow-lg
-      "
-          >
+          <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center text-white shadow-lg">
             {unreadCount}
           </span>
         )}
       </button>
 
-      {/* PORTAL */}
       {typeof window !== 'undefined' && createPortal(dropdown, document.body)}
     </>
   )

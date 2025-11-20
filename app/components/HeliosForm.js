@@ -4,23 +4,19 @@ import React, { useState, useMemo } from 'react'
 import { Card, CardContent } from './ui/card'
 import { Label } from './ui/label'
 import { Input } from './ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from './ui/select'
 import { Button } from './ui/button'
 import { toast } from 'sonner'
-import { useHeliosHistory } from '../dashboard/war-academy/HeliosHistoryContext'
+
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from './ui/tooltip'
+
 import { Info } from 'lucide-react'
+
+import HybridSelect from '../components/HybridSelect'   // ← seragam dengan form lain
 
 export default function HeliosForm({ category, researchName, onCalculate, dataSource }) {
   const [fromLevel, setFromLevel] = useState('')
@@ -29,24 +25,20 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
   const [vpBonus, setVpBonus] = useState('0')
   const [doubleTime, setDoubleTime] = useState(false)
 
-  const { addToHistory } = useHeliosHistory()
-
   const levelOptions = useMemo(() => {
     return dataSource?.[category]?.[researchName]?.map((item) => item.level) || []
   }, [category, researchName, dataSource])
 
   const toLevelOptions = useMemo(() => {
-    const from = parseInt(fromLevel)
-    return levelOptions.filter((lvl) => lvl > from)
+    const f = parseInt(fromLevel)
+    return levelOptions.filter((lvl) => lvl > f)
   }, [levelOptions, fromLevel])
 
   const handleCalculate = () => {
     const from = parseInt(fromLevel)
     const to = parseInt(toLevel)
-
     const researchSpeedValue = parseFloat(speed) || 0
     const vpBonusValue = parseFloat(vpBonus) || 0
-
     const speedBonus = researchSpeedValue + vpBonusValue
 
     if (isNaN(from) || isNaN(to) || to <= from) {
@@ -102,9 +94,10 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
   }
 
   return (
-    <Card className="bg-glass-background1 text-white mt-6">
+    <Card className="bg-glass-background1 sm:items-center text-white mt-6">
       <CardContent className="space-y-6 pt-6">
-        <h2 className="text-xl text-white">{researchName}</h2>
+        
+        <h2 className="text-xl">{researchName}</h2>
 
         {levelOptions.length === 0 && (
           <p className="text-red-400 text-sm">
@@ -113,56 +106,49 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
         )}
 
         <TooltipProvider>
-          <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-2 md:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
+          <div className="bg-glass-background2 p-4 grid grid-cols-2 md:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
 
             {/* FROM LEVEL */}
             <div>
-              <Label className="text-zinc-800 text-shadow-md">From</Label>
-              <Select
+              <Label className="text-white">From</Label>
+
+              <HybridSelect
                 value={fromLevel}
-                onValueChange={(v) => {
+                onChange={(v) => {
                   setFromLevel(v)
                   setToLevel('')
                 }}
-              >
-                <SelectTrigger className="bg-special-input text-white">
-                  <SelectValue placeholder="Select Level" />
-                </SelectTrigger>
-
-                {/* FIX DROPDOWN SHIFT */}
-                <SelectContent position="popper" sideOffset={0}>
-                  {levelOptions.map((lvl) => (
-                    <SelectItem key={lvl} value={String(lvl)}>
-                      {lvl}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                placeholder="Select Level"
+                options={levelOptions.map((lvl) => ({
+                  value: String(lvl),
+                  label: lvl,
+                }))}
+                className="bg-special-input text-white"
+              />
             </div>
 
             {/* TO LEVEL */}
             <div>
-              <Label className="text-zinc-800 text-shadow-md">To</Label>
-              <Select value={toLevel} onValueChange={setToLevel}>
-                <SelectTrigger className="bg-special-input text-white">
-                  <SelectValue placeholder="Select Level" />
-                </SelectTrigger>
+              <Label className="text-white">To</Label>
 
-                {/* FIX DROPDOWN SHIFT */}
-                <SelectContent position="popper" sideOffset={0}>
-                  {toLevelOptions.map((lvl) => (
-                    <SelectItem key={lvl} value={String(lvl)}>
-                      {lvl}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <HybridSelect
+                value={toLevel}
+                onChange={setToLevel}
+                placeholder="Select Level"
+                disabled={!fromLevel}
+                options={toLevelOptions.map((lvl) => ({
+                  value: String(lvl),
+                  label: lvl,
+                }))}
+                className="bg-special-input text-white"
+              />
             </div>
 
             {/* RESEARCH SPEED */}
             <div>
-              <Label className="text-zinc-800 text-shadow-md flex items-center gap-1 mt-1 mb-1 w-full">
-                Research Spd (%)
+              <Label className="text-white flex items-center gap-1 mb-2
+              ">
+                Research (%)
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button type="button">
@@ -170,7 +156,7 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
                     </button>
                   </TooltipTrigger>
                   <TooltipContent side="top">
-                    <p>Includes speed from gear, talents, buffs, etc.</p>
+                    <p>Includes gear, talents, and buffs.</p>
                   </TooltipContent>
                 </Tooltip>
               </Label>
@@ -180,13 +166,13 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
                 value={speed}
                 onChange={(e) => setSpeed(e.target.value)}
                 placeholder="Example: 25"
-                className="bg-special-input w-full text-white"
+                className="bg-special-input text-white"
               />
             </div>
 
             {/* VP BONUS */}
             <div>
-              <Label className="text-white text-shadow-md flex items-center gap-1 mt-1 mb-1">
+              <Label className="text-white flex items-center gap-1 mb-2">
                 VP Bonus
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -195,49 +181,44 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
                     </button>
                   </TooltipTrigger>
                   <TooltipContent side="top">
-                    <p>Additional speed from Vice President buff (10% / 20%)</p>
+                    <p>Vice President bonus: +10% or +20%</p>
                   </TooltipContent>
                 </Tooltip>
               </Label>
 
-              <Select value={vpBonus} onValueChange={setVpBonus}>
-                <SelectTrigger className="bg-special-input text-white">
-                  <SelectValue placeholder="Choose VP Bonus" />
-                </SelectTrigger>
-
-                {/* FIX DROPDOWN SHIFT */}
-                <SelectContent position="popper" sideOffset={0}>
-                  <SelectItem value="0">Off</SelectItem>
-                  <SelectItem value="10">10%</SelectItem>
-                  <SelectItem value="20">20%</SelectItem>
-                </SelectContent>
-              </Select>
+              <HybridSelect
+                value={vpBonus}
+                onChange={setVpBonus}
+                placeholder="VP Bonus"
+                options={[
+                  { value: '0', label: 'Off' },
+                  { value: '10', label: '10%' },
+                  { value: '20', label: '20%' },
+                ]}
+                className="bg-special-input text-white"
+              />
             </div>
 
             {/* DOUBLE TIME */}
             <div className="flex flex-col justify-center">
-              <Label className="text-white text-shadow-md mb-2">
-                Double Time
-              </Label>
+              <Label className="text-white mb-1">Double Time</Label>
               <div className="flex items-center gap-2">
                 <input
                   id="doubleTime"
                   type="checkbox"
                   checked={doubleTime}
                   onChange={(e) => setDoubleTime(e.target.checked)}
-                  className="w-5 h-5 accent-[#00ffff] cursor-pointer"
+                  className="w-5 h-5 accent-cyan-300 cursor-pointer"
                 />
-                <Label htmlFor="doubleTime" className="cursor-pointer">
-                  Active
-                </Label>
+                <Label htmlFor="doubleTime">Active</Label>
               </div>
             </div>
 
             {/* BUTTON */}
-            <div className="col-span-2 md:col-span-1 flex w-full items-center justify-start mt-2">
+            <div className="col-span-2 md:col-span-1 flex items-center">
               <Button
                 onClick={handleCalculate}
-                className="button-Form text-sm md:text-base text-white rounded-lg py-6 md:py-6"
+                className="button-Form text-sm md:text-base text-white rounded-lg py-6 md:py-6 w-full"
               >
                 Calculate
               </Button>

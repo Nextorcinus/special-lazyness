@@ -7,19 +7,13 @@ import { calculateUpgrade } from "../utils/calculateUpgrade";
 import { Card, CardContent } from "./ui/card";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
 import { Checkbox } from "./ui/checkbox";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 
+import HybridSelect from "./HybridSelect"; // ← HYBRID SELECT
+
 const buildingAliasMap = {
-  // Basic
   Furnace: "Furnace",
   Marksman: "Marksman",
   Lancers: "Lancers",
@@ -29,7 +23,6 @@ const buildingAliasMap = {
   "Command Center": "Command Center",
   Embassy: "Embassy",
 
-  // Fire Crystal
   "FC Furnace": "FC Furnace",
   "FC Academy": "FC Academy",
   "FC Marksman": "FC Marksman",
@@ -55,7 +48,6 @@ export default function BuildingForm({
 
   const { data, loading } = useBuildings(category);
 
-  // reset when building changes
   useEffect(() => {
     setFromLevel("");
     setToLevel("");
@@ -126,96 +118,83 @@ export default function BuildingForm({
 
             <div className="bg-glass-background2 p-4 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-8 gap-4">
 
+              {/* FROM */}
               <div>
                 <Label>From</Label>
-                <Select
+                <HybridSelect
                   value={fromLevel}
-                  onValueChange={(v) => {
+                  onChange={(v) => {
                     setFromLevel(v);
                     setToLevel("");
                   }}
-                >
-                  <SelectTrigger className="bg-special-input text-white">
-                    <SelectValue placeholder="-- Select Level --" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {levelOptions.map((lvl) => (
-                      <SelectItem key={lvl} value={lvl}>
-                        {lvl}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  placeholder="-- Select Level --"
+                  options={levelOptions.map((lvl) => ({
+                    value: lvl,
+                    label: lvl,
+                  }))}
+                  className="bg-special-input text-white"
+                />
               </div>
 
+              {/* TO */}
               <div>
                 <Label>To</Label>
-                <Select value={toLevel} onValueChange={setToLevel}>
-                  <SelectTrigger className="bg-special-input text-white">
-                    <SelectValue placeholder="-- Select Level --" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {filteredToLevels.map((lvl) => (
-                      <SelectItem key={lvl} value={lvl}>
-                        {lvl}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <HybridSelect
+                  value={toLevel}
+                  onChange={setToLevel}
+                  placeholder="-- Select Level --"
+                  options={filteredToLevels.map((lvl) => ({
+                    value: lvl,
+                    label: lvl,
+                  }))}
+                  className="bg-special-input text-white"
+                />
               </div>
 
+              {/* PET */}
               <div>
                 <Label>Pet</Label>
-                <Select value={petLevel} onValueChange={setPetLevel}>
-                  <SelectTrigger className="bg-special-input text-white">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {["Off", "Lv.1", "Lv.2", "Lv.3", "Lv.4", "Lv.5"].map(
-                      (lvl) => (
-                        <SelectItem key={lvl} value={lvl}>
-                          {lvl}
-                        </SelectItem>
-                      )
-                    )}
-                  </SelectContent>
-                </Select>
+                <HybridSelect
+                  value={petLevel}
+                  onChange={setPetLevel}
+                  placeholder="Select"
+                  options={["Off", "Lv.1", "Lv.2", "Lv.3", "Lv.4", "Lv.5"].map(
+                    (lvl) => ({ value: lvl, label: lvl })
+                  )}
+                  className="bg-special-input text-white"
+                />
               </div>
 
+              {/* VP */}
               <div>
                 <Label>Vp</Label>
-                <Select value={vpLevel} onValueChange={setVpLevel}>
-                  <SelectTrigger className="bg-special-input text-white">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {["Off", "10%", "20%"].map((lvl) => (
-                      <SelectItem key={lvl} value={lvl}>
-                        {lvl}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <HybridSelect
+                  value={vpLevel}
+                  onChange={setVpLevel}
+                  placeholder="Select"
+                  options={["Off", "10%", "20%"].map((lvl) => ({
+                    value: lvl,
+                    label: lvl,
+                  }))}
+                  className="bg-special-input text-white"
+                />
               </div>
 
+              {/* ZINMAN */}
               <div>
                 <Label>Zinman Skill</Label>
-                <Select value={zinmanSkill} onValueChange={setZinmanSkill}>
-                  <SelectTrigger className="bg-special-input text-white">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {["Off", "Lv.1", "Lv.2", "Lv.3", "Lv.4", "Lv.5"].map(
-                      (lvl) => (
-                        <SelectItem key={lvl} value={lvl}>
-                          {lvl}
-                        </SelectItem>
-                      )
-                    )}
-                  </SelectContent>
-                </Select>
+                <HybridSelect
+                  value={zinmanSkill}
+                  onChange={setZinmanSkill}
+                  placeholder="Select"
+                  options={["Off", "Lv.1", "Lv.2", "Lv.3", "Lv.4", "Lv.5"].map(
+                    (lvl) => ({ value: lvl, label: lvl })
+                  )}
+                  className="bg-special-input text-white"
+                />
               </div>
 
+              {/* CONSTRUCTION SPEED */}
               <div>
                 <Label>Const Speed (%)</Label>
                 <Input
@@ -226,11 +205,13 @@ export default function BuildingForm({
                 />
               </div>
 
+              {/* DOUBLE TIME */}
               <div className="col-span-2 md:col-span-1 flex items-center gap-2">
                 <Checkbox checked={doubleTime} onCheckedChange={setDoubleTime} />
                 <Label>Double Time</Label>
               </div>
 
+              {/* SUBMIT */}
               <Button
                 onClick={handleSubmit}
                 className="button-Form text-white rounded-lg py-6 md:py-10"
