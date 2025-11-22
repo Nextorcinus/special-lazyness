@@ -90,10 +90,10 @@ export default function TabSwitcher({
 
                       const color =
                         diff > 0
-                          ? 'text-xs text-green-400 rounded-md border border-green-800 bg-green-700/10 px-2 py-1'
+                          ? 'text-xs text-green-400 rounded-md border border-green-800 bg-green-700/20 px-2 py-1'
                           : diff < 0
-                          ? 'text-xs text-red-200 border border-red-400 bg-red-500/10 px-2 py-1'
-                          : 'text-xs text-gray-200 bg-white/20 px-2 py-1'
+                          ? 'text-xs text-red-200 border rounded-md border-red-400 bg-red-700/20 px-2 py-1'
+                          : 'text-xs rounded-md text-gray-200 bg-white/20 px-2 py-1'
 
                       const label =
                         diff > 0 ? '+' : diff < 0 ? '-' : 'Match'
