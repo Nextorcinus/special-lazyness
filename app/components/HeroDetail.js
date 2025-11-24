@@ -272,10 +272,9 @@ export default function HeroDetail({ initialId }) {
 
               <div>
                 <h3 className="text-md font-semibold mb-2">Expedition</h3>
-                {/* expedition bars expect percent numbers (0-100). parsePercent converts "650.52%" => 650.52.
-                    If values are >100 we clamp inside BarWithTitle. Pass isPercent to treat value as percent. */}
-                <BarWithTitle label="Attack" value={atkExp} isPercent />
-                <BarWithTitle label="Defense" value={defExp} isPercent />
+              
+   <BarWithTitle label="Attack" value={atkExp} max={1200} />
+<BarWithTitle label="Defense" value={defExp} max={1200} />
               </div>
             </div>
 

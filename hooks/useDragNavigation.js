@@ -1,6 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 export default function useDragNavigation(ref, onNext, onPrev, enabled = true) {
+  const swipeLocked = useRef(false)
+
   useEffect(() => {
     if (!ref.current || !enabled) return
 
@@ -8,8 +10,11 @@ export default function useDragNavigation(ref, onNext, onPrev, enabled = true) {
     let startX = 0
     let diff = 0
 
+    const threshold = 90 // lebih tinggi supaya tidak terlalu sensitif
+
     const startDrag = (x) => {
       isDragging = true
+      swipeLocked.current = false
       startX = x
       diff = 0
     }
@@ -17,17 +22,16 @@ export default function useDragNavigation(ref, onNext, onPrev, enabled = true) {
     const moveDrag = (x) => {
       if (!isDragging) return
       diff = x - startX
+
+      if (!swipeLocked.current && Math.abs(diff) > threshold) {
+        swipeLocked.current = true
+        diff < 0 ? onNext() : onPrev()
+      }
     }
 
     const endDrag = () => {
-      if (!isDragging) return
       isDragging = false
-
-      // threshold drag
-      if (Math.abs(diff) > 50) {
-        diff < 0 ? onNext() : onPrev()
-      }
-
+      swipeLocked.current = false
       diff = 0
     }
 
