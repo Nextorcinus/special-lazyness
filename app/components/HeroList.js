@@ -3,27 +3,16 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
-export default function HeroList() {
-  const [heroes, setHeroes] = useState([])
-  const [loading, setLoading] = useState(true)
+export default async function HeroList() {
+  let heroes = []
 
-  useEffect(() => {
-    fetch('/api/heroes/index')
-      .then((r) => r.json())
-      .then((data) => setHeroes(data || []))
-      .catch((err) => {
-        console.error('Failed to load heroes index', err)
-        setHeroes([])
-      })
-      .finally(() => setLoading(false))
-  }, [])
-
-  if (loading && heroes.length === 0) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-white">
-        Loading...
-      </div>
-    )
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/heroes/index`, {
+      cache: 'force-cache'
+    })
+    heroes = await res.json()
+  } catch (e) {
+    heroes = []
   }
 
   return (
@@ -35,10 +24,10 @@ export default function HeroList() {
       )}
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6">
-        {heroes.map((hero) => (
+        {heroes.map(hero => (
           <Link
             key={hero.id}
-            href={`/dashboard/heroes/${hero.id}`}
+            href={`/dashboard/heroes/${hero.id}`} 
             className="group bg-zinc-700/20 border border-white/10 rounded-xl p-3 hover:bg-teal-700 transition"
           >
             <div className="aspect-[3/4] w-full overflow-hidden rounded-lg">
