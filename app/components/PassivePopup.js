@@ -35,7 +35,7 @@ export default function PassivePopup({ passive, onClose }) {
           </h2>
           <div className="flex items-center gap-3 mb-3">
             <Image
-              src={`/${passive.icon}.png`}
+              src={`/icon/${passive.icon}.png`}
               alt={passive.name}
               width={60}
               height={60}
@@ -76,7 +76,7 @@ export default function PassivePopup({ passive, onClose }) {
           </h2>
           <div className="flex items-center gap-3 mb-3">
             <Image
-              src={`/${passive.icon}.png`}
+              src={`/icon/${passive.icon}.png`}
               alt={passive.name}
               width={48}
               height={48}

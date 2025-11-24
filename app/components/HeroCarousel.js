@@ -42,7 +42,7 @@ export default function HeroCarousel({ heroes, activeIndex, onSelect }) {
       style={{ width: 50, height: 50 }}
     >
       <Image
-        src={`/${h.thumbnail}`}
+        src={`/icon/${h.thumbnail}`}
         alt={h.name}
         width={50}
         height={50}

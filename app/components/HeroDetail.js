@@ -15,10 +15,10 @@ import WidgetPopup from './WidgetPopup'
 import BarWithTitle from './BarWithTitle'
 
 export default function HeroDetail({ initialId }) {
-  const [indexList, setIndexList] = useState([]) // array dari index.json
-  const [index, setIndex] = useState(0) // aktif index di indexList
-  const [hero, setHero] = useState(null) // hero yang sedang tampil
-  const [loading, setLoading] = useState(true) // loading saat fetch data hero baru
+  const [indexList, setIndexList] = useState([]) 
+  const [index, setIndex] = useState(0) 
+  const [hero, setHero] = useState(null) 
+  const [loading, setLoading] = useState(true) 
 
   const [activeSkill, setActiveSkill] = useState(null)
   const [showSkillDetail, setShowSkillDetail] = useState(false)
@@ -86,7 +86,7 @@ export default function HeroDetail({ initialId }) {
       .then((data) => {
         // preload image first
         const img = new Image()
-        img.src = `/${data.image}`
+        img.src = `/icon/${data.image}`
         img.onload = () => {
           // set data only after image loaded to avoid blank
           setHero(data)
@@ -273,7 +273,7 @@ export default function HeroDetail({ initialId }) {
         }}
       />
       <img
-        src="/BG.png"
+        src="/icon/BG.png"
         alt="Background"
         draggable="false"
         className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-3"
@@ -414,7 +414,7 @@ export default function HeroDetail({ initialId }) {
                           }}
                         >
                           <img
-                            src={`/${icon}`}
+                            src={`/icon/${icon}`}
                             alt={skill['skill-name']}
                             width={70}
                             height={70}
@@ -459,7 +459,7 @@ export default function HeroDetail({ initialId }) {
                           }}
                         >
                           <img
-                            src={`/${icon}`}
+                            src={`/icon/${icon}`}
                             alt={skill['skill-name']}
                             width={70}
                             height={70}
@@ -498,7 +498,7 @@ export default function HeroDetail({ initialId }) {
                         }}
                       >
                         <img
-                          src={`/${
+                          src={`/icon/${
                             hero['widget-icon'] ||
                             hero.widget?.icon ||
                             'placeholder.png'
@@ -529,7 +529,7 @@ export default function HeroDetail({ initialId }) {
                         }}
                       >
                         <img
-                          src={`/${hero.uniquePassive.icon}.png`}
+                          src={`/icon/${hero.uniquePassive.icon}.png`}
                           alt="passive"
                           width={60}
                           height={60}
@@ -559,7 +559,7 @@ export default function HeroDetail({ initialId }) {
                 {hero?.image && (
                   <motion.img
                     key={hero.id}
-                    src={`/${hero.image}`}
+                    src={`/icon/${hero.image}`}
                     alt={hero.name}
                     className="absolute inset-0 w-full h-full object-contain drop-shadow-xl cursor-grab active:cursor-grabbing select-none"
                     draggable={false}

@@ -37,7 +37,7 @@ export default function WidgetPopup({ widget, onClose }) {
           {/* Icon + Name */}
           <div className="flex items-center gap-3 mb-3">
             <Image
-              src={`/${widget.icon}.png`}
+              src={`/icon/${widget.icon}.png`}
               alt={widget.name}
               width={60}
               height={60}
@@ -58,7 +58,7 @@ export default function WidgetPopup({ widget, onClose }) {
           {widget.stats?.exploration && (
             <div className="mt-4 text-sm">
               <Image
-                src={`/${widget.stats.exploration.icon}`}
+                src={`/icon/${widget.stats.exploration.icon}`}
                 alt="exploration icon"
                 width={40}
                 height={40}
@@ -104,7 +104,7 @@ export default function WidgetPopup({ widget, onClose }) {
           {widget.stats?.expedition && (
             <div className="mt-4 text-sm">
               <Image
-                src={`/${widget.stats.expedition.icon}`}
+                src={`/icon/${widget.stats.expedition.icon}`}
                 alt="expedition icon"
                 width={40}
                 height={40}
@@ -166,7 +166,7 @@ export default function WidgetPopup({ widget, onClose }) {
 
           <div className="flex items-center gap-3 mb-3">
             <Image
-              src={`/${widget.icon}.png`}
+              src={`/icon/${widget.icon}.png`}
               alt={widget.name}
               width={48}
               height={48}

@@ -37,7 +37,7 @@ export default function HeroPopup({ skill, onClose }) {
           </h2>
           <div className="flex items-center gap-3 mb-3">
             <Image
-              src={`/${skill.icon}`}
+              src={`/icon/${skill.icon}`}
               alt={skill.name}
               width={60}
               height={60}
@@ -106,7 +106,7 @@ export default function HeroPopup({ skill, onClose }) {
           </h2>
           <div className="flex items-center gap-3 mb-3">
             <Image
-              src={`/${skill.icon}`}
+              src={`/icon/${skill.icon}`}
               alt={skill.name}
               width={48}
               height={48}
