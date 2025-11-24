@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import gsap from 'gsap'
 import SplitText from '../../lib/gsap/SplitText'
 import { motion, AnimatePresence } from 'framer-motion'
-import Lenis from '@studio-freight/lenis'
 import { TypeAnimation } from 'react-type-animation'
 import useDragNavigation from '../../hooks/useDragNavigation'
 import HeroCarousel from './HeroCarousel'
@@ -36,6 +35,10 @@ export default function HeroDetail({ initialId }) {
   const passiveRef = useRef(null)
   const skillTitleRefs = useRef([])
   const skillImageRefs = useRef([])
+
+  // local swipe state for touch support
+  const touchStartX = useRef(null)
+  const touchDeltaX = useRef(0)
 
   const addSkillTitleRef = (el) => {
     if (el && !skillTitleRefs.current.includes(el)) {
@@ -79,8 +82,10 @@ export default function HeroDetail({ initialId }) {
       .then((data) => {
         if (!data) return
 
+        // build fallback-safe image path: prefer data.image, then thumbnail, then placeholder
+        const imagePath = data.image || data.thumbnail || 'placeholder.png'
         const img = new Image()
-        img.src = `/icon/${data.image}`
+        img.src = `/icon/${imagePath}`
 
         img.onload = () => {
           setHero(data)
@@ -91,6 +96,7 @@ export default function HeroDetail({ initialId }) {
         }
 
         img.onerror = () => {
+          // still set hero even if image missing
           setHero(data)
           setIsReady(true)
         }
@@ -113,26 +119,67 @@ export default function HeroDetail({ initialId }) {
     setIndex((prev) => (prev - 1 + indexList.length) % indexList.length)
   }, [indexList])
 
-  // drag navigation
+  // drag navigation (mouse) from hook; we add touch handlers below for mobile
   const isAnyPopupOpen = showSkillDetail || showPassiveDetail || showWidgetDetail
   useDragNavigation(imageRef, handleNext, handlePrev, !isAnyPopupOpen)
 
-  // wheel scroll to switch hero
+  // wheel scroll to switch hero - attach to image container
   useEffect(() => {
     const el = imageRef.current
     if (!el) return
 
     const scrollHandler = (e) => {
       if (isAnyPopupOpen) return
-
-      e.preventDefault()
+      // only respond when horizontal or vertical large enough
       const delta = e.deltaX !== 0 ? e.deltaX : e.deltaY
-      if (delta > 0) handleNext()
-      else handlePrev()
+      if (Math.abs(delta) < 6) return
+      e.preventDefault()
+      delta > 0 ? handleNext() : handlePrev()
     }
 
     el.addEventListener('wheel', scrollHandler, { passive: false })
     return () => el.removeEventListener('wheel', scrollHandler)
+  }, [isAnyPopupOpen, handleNext, handlePrev])
+
+  // touch handlers for mobile swipe on the imageRef element
+  useEffect(() => {
+    const el = imageRef.current
+    if (!el) return
+
+    const onTouchStart = (e) => {
+      if (isAnyPopupOpen) return
+      touchStartX.current = e.touches?.[0]?.pageX ?? null
+      touchDeltaX.current = 0
+    }
+
+    const onTouchMove = (e) => {
+      if (touchStartX.current === null) return
+      const x = e.touches?.[0]?.pageX ?? 0
+      touchDeltaX.current = x - touchStartX.current
+    }
+
+    const onTouchEnd = () => {
+      if (touchStartX.current === null) return
+      const delta = touchDeltaX.current
+      touchStartX.current = null
+      touchDeltaX.current = 0
+      const threshold = 40
+      if (Math.abs(delta) > threshold) {
+        delta < 0 ? handleNext() : handlePrev()
+      }
+    }
+
+    el.addEventListener('touchstart', onTouchStart, { passive: true })
+    el.addEventListener('touchmove', onTouchMove, { passive: true })
+    el.addEventListener('touchend', onTouchEnd)
+    el.addEventListener('touchcancel', onTouchEnd)
+
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart)
+      el.removeEventListener('touchmove', onTouchMove)
+      el.removeEventListener('touchend', onTouchEnd)
+      el.removeEventListener('touchcancel', onTouchEnd)
+    }
   }, [isAnyPopupOpen, handleNext, handlePrev])
 
   // gsap animations
@@ -168,20 +215,27 @@ export default function HeroDetail({ initialId }) {
   const explorationSkills = hero?.skills?.exploration || {}
   const expeditionSkills = explorationSkills.expedition || {}
 
+  // parse expedition values that may be like "650.52%" or numbers
   const parsePercent = (v) => {
-  if (!v) return 0
-  if (typeof v === "number") return v
-  if (typeof v === "string") return parseFloat(v.replace("%", "")) || 0
-  return 0
-}
+    if (v === undefined || v === null) return 0
+    if (typeof v === 'number') return v
+    if (typeof v === 'string') {
+      const n = parseFloat(v.replace('%', '').trim())
+      return Number.isFinite(n) ? n : 0
+    }
+    return 0
+  }
 
-const atkExp = Number(hero?.expedition?.attack) || 0
-const defExp = Number(hero?.expedition?.defense) || 0
-const maxExp = Math.max(atkExp, defExp) || 1
+  const atkExp = parsePercent(hero?.expedition?.attack)
+  const defExp = parsePercent(hero?.expedition?.defense)
+
+  // safe hero image path and alt
+  const heroImageFilename = hero?.image || hero?.thumbnail || 'placeholder.png'
+  const heroImageAlt = hero?.name || 'hero'
 
   return (
     <div className="w-full flex justify-center">
-      <div className="w-full px-3 sm:px-4 md:px-6 lg:px-10 py-6 ">
+      <div className="w-full px-3 sm:px-4 md:px-6 lg:px-10 py-6 max-w-[1100px]">
 
         <button onClick={() => window.history.back()} className="text-green-400 hover:underline mb-6">
           ← BACK TO HOME
@@ -195,7 +249,6 @@ const maxExp = Math.max(atkExp, defExp) || 1
 
           {/* LEFT */}
           <div className="w-full">
-
             <h2 className="text-sm uppercase tracking-wider font-semibold text-yellow-500 mb-2">
               Generation {hero?.generation}
             </h2>
@@ -210,7 +263,6 @@ const maxExp = Math.max(atkExp, defExp) || 1
             </div>
 
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-
               <div>
                 <h3 className="text-md font-semibold mb-2">Stats</h3>
                 <BarWithTitle label="Attack" value={hero?.stats?.attack ?? 0} max={15000} />
@@ -220,31 +272,63 @@ const maxExp = Math.max(atkExp, defExp) || 1
 
               <div>
                 <h3 className="text-md font-semibold mb-2">Expedition</h3>
-                    <BarWithTitle
-                    label="Attack"
-                    value={atkExp}
-                    max={1200}
-                  />
-
-                  <BarWithTitle
-                    label="Defense"
-                    value={defExp}
-                    max={1200}
-                  />
+                {/* expedition bars expect percent numbers (0-100). parsePercent converts "650.52%" => 650.52.
+                    If values are >100 we clamp inside BarWithTitle. Pass isPercent to treat value as percent. */}
+                <BarWithTitle label="Attack" value={atkExp} isPercent />
+                <BarWithTitle label="Defense" value={defExp} isPercent />
               </div>
-
             </div>
 
             {/* Skills */}
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-
               <div>
                 <h3 ref={addSkillTitleRef} className="text-md font-semibold mb-2">Skill Exploration</h3>
-
                 <div className="flex gap-3">
                   {Object.entries(explorationSkills)
                     .filter(([key]) => key !== 'expedition')
-                    .map(([_, skill], i) => (
+                    .map(([_, skill], i) => {
+                      const icon = skill?.effects?.icon || 'placeholder.png'
+                      const altText = skill?.['skill-name'] || 'skill'
+                      return (
+                        <div
+                          key={i}
+                          ref={addSkillImageRef}
+                          className="skill rounded-lg border border-white/20 cursor-pointer w-[70px] h-[70px] flex items-center justify-center overflow-hidden"
+                          onClick={() => {
+                            setActiveSkill({
+                              name: skill['skill-name'],
+                              description: skill.effects?.description,
+                              icon: skill.effects?.icon,
+                              stats: skill.effects?.stats,
+                              effectName: skill.effects?.['effect-name'],
+                              affectOn: skill.effects?.['affect-on'],
+                              triggerPoint: skill['trigger-point'],
+                              triggerTime: skill['trigger-time'],
+                              type: 'exploration',
+                            })
+                            setShowSkillDetail(true)
+                          }}
+                        >
+                          <img
+                            src={`/icon/${icon}`}
+                            alt={altText}
+                            width={70}
+                            height={70}
+                            onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/icon/placeholder.png' }}
+                          />
+                        </div>
+                      )
+                    })}
+                </div>
+              </div>
+
+              <div>
+                <h3 ref={addSkillTitleRef} className="text-md font-semibold mb-2">Skill Expedition</h3>
+                <div className="flex gap-3">
+                  {Object.entries(expeditionSkills).map(([_, skill], i) => {
+                    const icon = skill?.effects?.icon || 'placeholder.png'
+                    const altText = skill?.['skill-name'] || 'skill'
+                    return (
                       <div
                         key={i}
                         ref={addSkillImageRef}
@@ -255,57 +339,31 @@ const maxExp = Math.max(atkExp, defExp) || 1
                             description: skill.effects?.description,
                             icon: skill.effects?.icon,
                             stats: skill.effects?.stats,
-                            affectOn: skill.effects?.['affect-on']
+                            effectName: skill.effects?.['effect-name'],
+                            affectOn: skill.effects?.['affect-on'],
+                            triggerPoint: skill['trigger-point'],
+                            triggerTime: skill['trigger-time'],
+                            type: 'expedition',
                           })
                           setShowSkillDetail(true)
                         }}
                       >
                         <img
-                          src={`/icon/${skill.effects?.icon}`}
-                          alt={skill['skill-name']}
+                          src={`/icon/${icon}`}
+                          alt={altText}
                           width={70}
                           height={70}
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/icon/placeholder.png' }}
                         />
                       </div>
-                    ))}
+                    )
+                  })}
                 </div>
               </div>
-
-              <div>
-                <h3 ref={addSkillTitleRef} className="text-md font-semibold mb-2">Skill Expedition</h3>
-
-                <div className="flex gap-3">
-                  {Object.entries(expeditionSkills).map(([_, skill], i) => (
-                    <div
-                      key={i}
-                      ref={addSkillImageRef}
-                      className="skill rounded-lg border border-white/20 cursor-pointer w-[70px] h-[70px] flex items-center justify-center overflow-hidden"
-                      onClick={() => {
-                        setActiveSkill({
-                          name: skill['skill-name'],
-                          description: skill.effects?.description,
-                          icon: skill.effects?.icon,
-                          stats: skill.effects?.stats
-                        })
-                        setShowSkillDetail(true)
-                      }}
-                    >
-                      <img
-                        src={`/icon/${skill.effects?.icon}`}
-                        alt={skill['skill-name']}
-                        width={70}
-                        height={70}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
             </div>
 
             {/* Widget and Passive */}
             <div className="mt-8 grid grid-cols-2 gap-4 text-sm">
-
               <div ref={widgetRef}>
                 <h3 className="font-semibold mb-2 text-md">Widget</h3>
                 {hero?.widget?.['has-widget'] ? (
@@ -324,10 +382,11 @@ const maxExp = Math.max(atkExp, defExp) || 1
                       }}
                     >
                       <img
-                        src={`/icon/${hero['widget-icon'] || hero.widget?.icon}.png`}
-                        alt={hero['widget-name'] || hero.widget?.name}
+                        src={`/icon/${hero['widget-icon'] || hero.widget?.icon || 'placeholder.png'}`}
+                        alt={hero['widget-name'] || hero.widget?.name || 'widget'}
                         width={60}
                         height={60}
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/icon/placeholder.png' }}
                       />
                     </div>
                     <span>{hero['widget-name'] || hero.widget?.name}</span>
@@ -343,9 +402,10 @@ const maxExp = Math.max(atkExp, defExp) || 1
                   <div className="flex items-center gap-2">
                     <img
                       src={`/icon/${hero.uniquePassive.icon}.png`}
-                      alt={hero.uniquePassive.name}
+                      alt={hero.uniquePassive.name || 'passive'}
                       width={60}
                       height={60}
+                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/icon/placeholder.png' }}
                     />
                     <span>{hero.uniquePassive.name}</span>
                   </div>
@@ -353,16 +413,12 @@ const maxExp = Math.max(atkExp, defExp) || 1
                   <span className="text-white/50 italic">No Passive</span>
                 )}
               </div>
-
             </div>
-
           </div>
 
           {/* RIGHT */}
           <div className="flex flex-col items-center w-full" ref={imageRef}>
-
             <div className="relative w-full max-w-[380px] h-[420px] sm:w-[320px] sm:h-[420px] md:w-[350px] md:h-[450px] overflow-hidden rounded-xl">
-
               {loading && (
                 <div className="absolute inset-0 z-20 flex items-center justify-center text-white/70 text-sm">
                   Loading...
@@ -373,18 +429,26 @@ const maxExp = Math.max(atkExp, defExp) || 1
                 {hero?.image && (
                   <motion.img
                     key={hero.id}
-                    src={`/icon/${hero.image}`}
-                    alt={hero.name}
+                    src={`/icon/${heroImageFilename}`}
+                    alt={heroImageAlt}
                     className="absolute inset-0 w-full h-full object-contain drop-shadow-xl pointer-events-none"
                     draggable={false}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/icon/placeholder.png' }}
+                  />
+                )}
+                {!hero?.image && (
+                  <img
+                    src="/icon/placeholder.png"
+                    alt="placeholder"
+                    className="absolute inset-0 w-full h-full object-contain drop-shadow-xl pointer-events-none"
+                    draggable={false}
                   />
                 )}
               </AnimatePresence>
-
             </div>
 
             <div className="flex gap-4 mt-6 items-center">
@@ -400,11 +464,8 @@ const maxExp = Math.max(atkExp, defExp) || 1
 
               <button onClick={handleNext} className="text-2xl p-2 text-white/60 hover:text-white">❯</button>
             </div>
-
           </div>
-
         </div>
-
       </div>
     </div>
   )
