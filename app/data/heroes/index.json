@@ -228,41 +228,41 @@
     "name": "Edith",
     "rarity": "Legendary",
     "class": "Infantry",
-    "thumbnail": "edith_thumb.jpg"
+    "thumbnail": "edith.jpg"
   },
    {
     "id": "gordon",
     "name": "Gordon",
     "rarity": "Legendary",
     "class": "Lancer",
-    "thumbnail": "gordon_thumb.jpg"
+    "thumbnail": "gordon.jpg"
   },
   {
     "id": "bradley",
     "name": "Bradley",
     "rarity": "Legendary",
     "class": "Marksman",
-    "thumbnail": "bradley_thumb.jpg"
+    "thumbnail": "bradley.jpg"
   },
   {
     "id": "gatot",
     "name": "Gatot",
     "rarity": "Legendary",
     "class": "Infantry",
-    "thumbnail": "gatot_thumb.jpg"
+    "thumbnail": "gatot.jpg"
   },
    {
     "id": "sonya",
     "name": "Sonya",
     "rarity": "Legendary",
     "class": "Lancer",
-    "thumbnail": "sonya_thumb.jpg"
+    "thumbnail": "sonya.jpg"
   },
   {
     "id": "hendrik",
     "name": "Hendrik",
     "rarity": "Legendary",
     "class": "Marksman",
-    "thumbnail": "hendrik_thumb.jpg"
+    "thumbnail": "hendrik.jpg"
   }
 ]

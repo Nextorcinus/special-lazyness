@@ -38,12 +38,12 @@ export default function HeroList() {
         {heroes.map(hero => (
           <Link
             key={hero.id}
-            href={`/heroes/${hero.id}`}
-            className="group bg-zinc-900 border border-white/10 rounded-xl p-3 hover:bg-zinc-800 transition"
+            href={`/dashboard/heroes/${hero.id}`} 
+            className="group bg-zinc-700/20 border border-white/10 rounded-xl p-3 hover:bg-teal-700 transition"
           >
             <div className="aspect-[3/4] w-full overflow-hidden rounded-lg">
               <img
-                src={`/${hero.image}`}
+                src={`/icon/${hero.thumbnail}`}
                 alt={hero.name}
                 draggable="false"
                 className="w-full h-full object-cover group-hover:scale-105 transition"
@@ -54,7 +54,7 @@ export default function HeroList() {
               <p className="text-lg font-semibold text-green-400">
                 {hero.name}
               </p>
-              <p className="text-xs text-white/50">
+              <p className="text-sm text-white/50">
                 {hero.rarity} {hero.class}
               </p>
             </div>
