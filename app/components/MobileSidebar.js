@@ -23,6 +23,7 @@ const menu = [
   { label: "Widget", href: "/dashboard/widget", icon: "/icon-menu/widget.png" },
   { label: "Calc Points", href: "/dashboard/general", icon: "/icon-menu/calc.png" },
   { label: "State Age", href: "/dashboard/state", icon: "/icon-menu/state.png" },
+  { label: 'Heroes', href: '/dashboard/heroes', icon: '/icon-menu/heroes.png' },
   { label: "Experts", href: "/dashboard/dawn", icon: "/icon-menu/dawn.png" },
   { label: "Foundry", href: "/dashboard/foundry", icon: "/icon-menu/foundry.png" }
 ];
