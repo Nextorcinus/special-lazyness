@@ -12,15 +12,16 @@ export default function GearPage() {
   const [results, setResults] = useState([])
   const [compares, setCompares] = useState([])
   const [showCompareForm, setShowCompareForm] = useState(false)
-  const [tab, setTab] = useState("overview")
+  const [tab, setTab] = useState('overview')
 
-  const { history, addToHistory, deleteHistory, resetHistory } = useGearHistory()
+  const { history, addToHistory, deleteHistory, resetHistory } =
+    useGearHistory()
 
   // Sinkronkan hasil lokal dengan Context history
   useEffect(() => {
     setResults(history)
 
-    setCompares(prev => {
+    setCompares((prev) => {
       const updated = [...prev]
       while (updated.length < history.length) updated.push(null)
       return updated.slice(0, history.length)
@@ -30,22 +31,22 @@ export default function GearPage() {
   // === Calculate Gear ===
   const handleCalculate = (data) => {
     if (!data || !data.type || !data.from || !data.to) {
-      toast.warning("Please complete all fields before calculating.")
+      toast.warning('Please complete all fields before calculating.')
       return
     }
 
     // Masukkan ke history via context
     addToHistory(data)
 
-    toast.success("Gear upgrade calculated!")
+    toast.success('Gear upgrade calculated!')
 
-    setTab("overview")
+    setTab('overview')
 
     // Apply compare otomatis ke hasil terbaru
     if (compares.length > 0 && compares[0] !== null) {
       const compareObj = compares[0]
 
-      setCompares(prev => {
+      setCompares((prev) => {
         const updated = [...prev, compareObj]
         return updated
       })
@@ -53,9 +54,9 @@ export default function GearPage() {
 
     // Scroll to latest result
     setTimeout(() => {
-      document.getElementById("latest-result")?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
+      document.getElementById('latest-result')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
       })
     }, 200)
   }
@@ -63,7 +64,9 @@ export default function GearPage() {
   // === Compare Data ===
   const handleCompareSubmit = (compareData) => {
     if (history.length === 0) {
-      toast.error("No calculation result available, please submit a calculation first.")
+      toast.error(
+        'No calculation result available, please submit a calculation first.'
+      )
       return
     }
 
@@ -81,16 +84,16 @@ export default function GearPage() {
     setCompares(history.map(() => compareObj))
 
     setShowCompareForm(false)
-    toast.success("Comparison applied to all results!")
+    toast.success('Comparison applied to all results!')
   }
 
   // === Delete History ===
   const handleDeleteHistory = (id) => {
-    const index = results.findIndex(r => r.id === id)
+    const index = results.findIndex((r) => r.id === id)
 
     deleteHistory(id)
 
-    setCompares(prev => prev.filter((_, i) => i !== index))
+    setCompares((prev) => prev.filter((_, i) => i !== index))
   }
 
   // === Reset Semua ===
@@ -98,7 +101,7 @@ export default function GearPage() {
     resetHistory()
     setResults([])
     setCompares([])
-    toast.success("Gear history has been reset.")
+    toast.success('Gear history has been reset.')
   }
 
   // default compare
@@ -115,11 +118,10 @@ export default function GearPage() {
 
   return (
     <main className="text-white w-full">
-
       {/* Header */}
       <div className="relative w-full md:px-6 md:py-0 py-4 md:mt-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 px-6">
-          <h2 className="text-2xl text-white">Chief Gear</h2>
+          <h2 className="text-2xl text-lime-400">Chief Gear</h2>
         </div>
       </div>
 
