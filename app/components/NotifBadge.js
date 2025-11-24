@@ -49,6 +49,12 @@ export default function NotifBadge() {
     },
     {
       id: 5,
+      text: 'Heroes Whiteout Survival',
+      href: '/dashboard/heroes',
+      read: false,
+    },
+    {
+      id: 6,
       text: 'New UI interface',
       href: null,
       read: true,
@@ -139,7 +145,7 @@ export default function NotifBadge() {
               )}
             </div>
 
-            <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+            <div className="space-y-2 max-h-60 overflow-y-auto overflow-hidden pr-1">
               {notifications.map((notif) =>
                 notif.href ? (
                   <Link
