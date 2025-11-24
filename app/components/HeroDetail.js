@@ -381,7 +381,7 @@ export default function HeroDetail({ initialId }) {
                       }}
                     >
                       <img
-                        src={`/icon/${hero['widget-icon'] || hero.widget?.icon || 'placeholder.png'}`}
+                        src={`/icon/${(hero['widget-icon'] || hero.widget?.icon || 'placeholder')}.png`}
                         alt={hero['widget-name'] || hero.widget?.name || 'widget'}
                         width={60}
                         height={60}
