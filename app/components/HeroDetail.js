@@ -12,6 +12,7 @@ import Particles from './Particles'
 import HeroPopup from './HeroPopup'
 import PassivePopup from './PassivePopup'
 import WidgetPopup from './WidgetPopup'
+import BarWithTitle from './BarWithTitle'
 
 export default function HeroDetail({ initialId }) {
   const [indexList, setIndexList] = useState([]) // array dari index.json

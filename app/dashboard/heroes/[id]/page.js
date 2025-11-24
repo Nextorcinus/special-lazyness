@@ -1,6 +1,6 @@
 'use client'
 
-import HeroDetail from '../app/components/HeroDetail.js'
+import HeroDetail from '../../../components/HeroDetail'
 
 export default function Page({ params }) {
   return (
