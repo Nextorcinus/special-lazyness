@@ -20,7 +20,7 @@ export default function NotifBadge() {
 
 
   /* tambahkan versi notif */
-  const NOTIF_VERSION = 4
+  const NOTIF_VERSION = 5
 
   const defaultNotifications = [
     {
@@ -145,7 +145,7 @@ export default function NotifBadge() {
               )}
             </div>
 
-            <div className="space-y-2 max-h-60 overflow-y-auto overflow-hidden pr-1">
+            <div className="space-y-2 max-h-60 overflow-y-auto  pr-1">
               {notifications.map((notif) =>
                 notif.href ? (
                   <Link

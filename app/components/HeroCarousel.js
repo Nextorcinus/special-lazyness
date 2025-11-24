@@ -41,14 +41,14 @@ export default function HeroCarousel({ heroes, activeIndex, onSelect }) {
       }`}
       style={{ width: 50, height: 50 }}
     >
-      <Image
-        src={`/icon/${h.thumbnail}`}
-        alt={h.name}
-        width={50}
-        height={50}
-        draggable={false}
-        className="object-cover"
-      />
+    <Image
+    src={`/icon/${h.thumbnail || "placeholder.png"}`}
+    alt={h.name || "Hero Thumbnail"}
+    width={50}
+    height={50}
+    className="object-cover"
+    onError={() => {}}
+    />
     </div>
   ))}
 </div>

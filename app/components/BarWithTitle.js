@@ -3,28 +3,29 @@
 import { motion } from 'framer-motion'
 
 export default function BarWithTitle({ label, value, max, isPercent }) {
-  const percent = Math.min((value / max) * 100, 100)
-  const val = isPercent ? `${value}%` : value
+  const safeValue = Number(value) || 0
+  const safeMax = Number(max) || 1
+
+ const percent = isPercent
+  ? (safeValue > 1 ? safeValue / 100 : safeValue) * 100
+  : (safeValue / safeMax) * 100
+
+  const safePercent = Math.max(0, Math.min(100, percent))
 
   return (
-    <div className="mb-3 py-1">
-      <div className="w-full h-6 md:h-8  bg-gray-700/40 rounded-full relative overflow-hidden shadow-inner">
-        {/* Bar Isi (Animated + Gradient + Rounded) */}
+    <div className="mb-2">
+      <div className="flex justify-between mb-1">
+        <span>{label}</span>
+        <span>{Math.round(safeValue)}</span>
+      </div>
+
+      <div className="w-full h-2 bg-white/10 rounded">
         <motion.div
           initial={{ width: 0 }}
-          animate={{ width: `${percent}%` }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="h-full absolute top-0 left-0 rounded-full"
-          style={{
-            background: 'linear-gradient(90deg, #22c55e, #14b8a6)',
-          }}
+          animate={{ width: `${safePercent}%` }}
+          transition={{ duration: 0.4 }}
+          className="h-full bg-green-400 rounded"
         />
-
-        {/* Label dan Angka di atas bar */}
-        <div className="absolute inset-0 px-3 flex items-center justify-between text-sm leading-none font-semibold text-white z-10 ">
-          <span>{label}</span>
-          <span>{val}</span>
-        </div>
       </div>
     </div>
   )

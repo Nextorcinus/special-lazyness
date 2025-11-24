@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Lenis from '@studio-freight/lenis'
 import { TypeAnimation } from 'react-type-animation'
 import useDragNavigation from '../../hooks/useDragNavigation'
-import HeroCarousel from './HeroCarousel.js'
+import HeroCarousel from './HeroCarousel'
 import HeroPopup from './HeroPopup'
 import PassivePopup from './PassivePopup'
 import WidgetPopup from './WidgetPopup'
@@ -49,6 +49,7 @@ export default function HeroDetail({ initialId }) {
     }
   }
 
+  // load index list
   useEffect(() => {
     let mounted = true
     setLoading(true)
@@ -112,26 +113,45 @@ export default function HeroDetail({ initialId }) {
     setIndex((prev) => (prev - 1 + indexList.length) % indexList.length)
   }, [indexList])
 
+  // drag navigation
   const isAnyPopupOpen = showSkillDetail || showPassiveDetail || showWidgetDetail
   useDragNavigation(imageRef, handleNext, handlePrev, !isAnyPopupOpen)
 
+  // wheel scroll to switch hero
+  useEffect(() => {
+    const el = imageRef.current
+    if (!el) return
+
+    const scrollHandler = (e) => {
+      if (isAnyPopupOpen) return
+
+      e.preventDefault()
+      const delta = e.deltaX !== 0 ? e.deltaX : e.deltaY
+      if (delta > 0) handleNext()
+      else handlePrev()
+    }
+
+    el.addEventListener('wheel', scrollHandler, { passive: false })
+    return () => el.removeEventListener('wheel', scrollHandler)
+  }, [isAnyPopupOpen, handleNext, handlePrev])
+
+  // gsap animations
   useEffect(() => {
     if (!isReady || !hero) return
+
     if (!rarityRef.current || !classRef.current || !widgetRef.current || !passiveRef.current) return
 
     gsap.registerPlugin(SplitText)
     const cleanup = []
 
-    const animateSplit = (ref, delay = 0) => {
+    const animateSplit = (ref, delay) => {
       try {
         const split = new SplitText(ref.current, { type: 'chars' })
-        gsap.fromTo(split.chars, { opacity: 0, x: -20 }, {
-          opacity: 1,
-          x: 0,
-          stagger: 0.04,
-          duration: 0.1,
-          delay,
-        })
+        gsap.fromTo(
+          split.chars,
+          { opacity: 0, x: -20 },
+          { opacity: 1, x: 0, stagger: 0.04, duration: 0.1, delay }
+        )
         cleanup.push(() => split.revert())
       } catch {}
     }
@@ -139,17 +159,8 @@ export default function HeroDetail({ initialId }) {
     animateSplit(rarityRef, 0.2)
     animateSplit(classRef, 0.3)
 
-    gsap.fromTo(widgetRef.current, { opacity: 0, y: 10 }, {
-      opacity: 1,
-      y: 0,
-      duration: 0.5,
-    })
-
-    gsap.fromTo(passiveRef.current, { opacity: 0, y: 10 }, {
-      opacity: 1,
-      y: 0,
-      duration: 0.5,
-    })
+    gsap.fromTo(widgetRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 })
+    gsap.fromTo(passiveRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 })
 
     return () => cleanup.forEach((fn) => fn())
   }, [isReady, hero])
@@ -157,9 +168,20 @@ export default function HeroDetail({ initialId }) {
   const explorationSkills = hero?.skills?.exploration || {}
   const expeditionSkills = explorationSkills.expedition || {}
 
+  const parsePercent = (v) => {
+  if (!v) return 0
+  if (typeof v === "number") return v
+  if (typeof v === "string") return parseFloat(v.replace("%", "")) || 0
+  return 0
+}
+
+const atkExp = Number(hero?.expedition?.attack) || 0
+const defExp = Number(hero?.expedition?.defense) || 0
+const maxExp = Math.max(atkExp, defExp) || 1
+
   return (
     <div className="w-full flex justify-center">
-      <div className="w-full px-3 sm:px-4 md:px-6 lg:px-10 py-6 max-w-[1100px]">
+      <div className="w-full px-3 sm:px-4 md:px-6 lg:px-10 py-6 ">
 
         <button onClick={() => window.history.back()} className="text-green-400 hover:underline mb-6">
           ← BACK TO HOME
@@ -174,12 +196,12 @@ export default function HeroDetail({ initialId }) {
           {/* LEFT */}
           <div className="w-full">
 
-            <h2 className="text-sm uppercase tracking-wider text-white mb-2">
+            <h2 className="text-sm uppercase tracking-wider font-semibold text-yellow-500 mb-2">
               Generation {hero?.generation}
             </h2>
 
             <h1 className="text-4xl sm:text-5xl font-bold text-green-400">
-              <TypeAnimation key={hero?.id} sequence={[hero?.name || '', 1000]} speed={50} wrapper="span" repeat={0} />
+              <TypeAnimation key={hero?.id} sequence={[hero?.name || '', 1000]} speed={50} wrapper="span" />
             </h1>
 
             <div className="mt-4 space-y-1 text-base">
@@ -198,8 +220,17 @@ export default function HeroDetail({ initialId }) {
 
               <div>
                 <h3 className="text-md font-semibold mb-2">Expedition</h3>
-                <BarWithTitle label="Attack" value={hero?.expedition?.attack ?? 0} max={1500} isPercent />
-                <BarWithTitle label="Defense" value={hero?.expedition?.defense ?? 0} max={1500} isPercent />
+                    <BarWithTitle
+                    label="Attack"
+                    value={atkExp}
+                    max={1200}
+                  />
+
+                  <BarWithTitle
+                    label="Defense"
+                    value={defExp}
+                    max={1200}
+                  />
               </div>
 
             </div>
@@ -207,9 +238,9 @@ export default function HeroDetail({ initialId }) {
             {/* Skills */}
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
 
-              {/* Exploration */}
               <div>
                 <h3 ref={addSkillTitleRef} className="text-md font-semibold mb-2">Skill Exploration</h3>
+
                 <div className="flex gap-3">
                   {Object.entries(explorationSkills)
                     .filter(([key]) => key !== 'expedition')
@@ -224,14 +255,14 @@ export default function HeroDetail({ initialId }) {
                             description: skill.effects?.description,
                             icon: skill.effects?.icon,
                             stats: skill.effects?.stats,
-                            affectOn: skill.effects?.['affect-on'],
+                            affectOn: skill.effects?.['affect-on']
                           })
                           setShowSkillDetail(true)
                         }}
                       >
                         <img
                           src={`/icon/${skill.effects?.icon}`}
-                          alt={skill['skill-name'] || 'skill icon'}
+                          alt={skill['skill-name']}
                           width={70}
                           height={70}
                         />
@@ -240,9 +271,9 @@ export default function HeroDetail({ initialId }) {
                 </div>
               </div>
 
-              {/* Expedition */}
               <div>
                 <h3 ref={addSkillTitleRef} className="text-md font-semibold mb-2">Skill Expedition</h3>
+
                 <div className="flex gap-3">
                   {Object.entries(expeditionSkills).map(([_, skill], i) => (
                     <div
@@ -254,12 +285,17 @@ export default function HeroDetail({ initialId }) {
                           name: skill['skill-name'],
                           description: skill.effects?.description,
                           icon: skill.effects?.icon,
-                          stats: skill.effects?.stats,
+                          stats: skill.effects?.stats
                         })
                         setShowSkillDetail(true)
                       }}
                     >
-                      <img src={`/icon/${skill.effects?.icon}`} alt="" width={70} height={70} />
+                      <img
+                        src={`/icon/${skill.effects?.icon}`}
+                        alt={skill['skill-name']}
+                        width={70}
+                        height={70}
+                      />
                     </div>
                   ))}
                 </div>
@@ -267,13 +303,11 @@ export default function HeroDetail({ initialId }) {
 
             </div>
 
-            {/* Widget & Passive */}
+            {/* Widget and Passive */}
             <div className="mt-8 grid grid-cols-2 gap-4 text-sm">
 
-              {/* Widget */}
               <div ref={widgetRef}>
                 <h3 className="font-semibold mb-2 text-md">Widget</h3>
-
                 {hero?.widget?.['has-widget'] ? (
                   <div className="flex items-center gap-2">
                     <div
@@ -284,20 +318,16 @@ export default function HeroDetail({ initialId }) {
                           affectOn: hero['widget-affect-on'] || hero.widget?.['affect-on'],
                           level: hero['widget-level'] || hero.widget?.level,
                           stats: hero['widget-stats'] || hero.widget?.['widget-stats'],
-                          icon: hero['widget-icon'] || hero.widget?.icon,
+                          icon: hero['widget-icon'] || hero.widget?.icon
                         })
                         setShowWidgetDetail(true)
                       }}
                     >
                       <img
-                        src={`/icon/${hero['widget-icon'] || hero.widget?.icon || 'placeholder'}.png`}
+                        src={`/icon/${hero['widget-icon'] || hero.widget?.icon}.png`}
                         alt={hero['widget-name'] || hero.widget?.name}
                         width={60}
                         height={60}
-                        onError={(e) => {
-                          e.currentTarget.onerror = null
-                          e.currentTarget.src = '/icon/placeholder.png'
-                        }}
                       />
                     </div>
                     <span>{hero['widget-name'] || hero.widget?.name}</span>
@@ -307,10 +337,8 @@ export default function HeroDetail({ initialId }) {
                 )}
               </div>
 
-              {/* Passive */}
               <div ref={passiveRef}>
                 <h3 className="font-semibold mb-2 text-md">Unique Passive</h3>
-
                 {hero?.uniquePassive?.icon ? (
                   <div className="flex items-center gap-2">
                     <img
@@ -318,10 +346,6 @@ export default function HeroDetail({ initialId }) {
                       alt={hero.uniquePassive.name}
                       width={60}
                       height={60}
-                      onError={(e) => {
-                        e.currentTarget.onerror = null
-                        e.currentTarget.src = '/icon/placeholder.png'
-                      }}
                     />
                     <span>{hero.uniquePassive.name}</span>
                   </div>
@@ -351,7 +375,7 @@ export default function HeroDetail({ initialId }) {
                     key={hero.id}
                     src={`/icon/${hero.image}`}
                     alt={hero.name}
-                    className="absolute inset-0 w-full h-full object-contain drop-shadow-xl"
+                    className="absolute inset-0 w-full h-full object-contain drop-shadow-xl pointer-events-none"
                     draggable={false}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -364,9 +388,7 @@ export default function HeroDetail({ initialId }) {
             </div>
 
             <div className="flex gap-4 mt-6 items-center">
-              <button onClick={handlePrev} className="text-2xl p-2 text-white/60 hover:text-white">
-                ❮
-              </button>
+              <button onClick={handlePrev} className="text-2xl p-2 text-white/60 hover:text-white">❮</button>
 
               <div className="px-2 py-1 rounded-xl">
                 <HeroCarousel
@@ -376,9 +398,7 @@ export default function HeroDetail({ initialId }) {
                 />
               </div>
 
-              <button onClick={handleNext} className="text-2xl p-2 text-white/60 hover:text-white">
-                ❯
-              </button>
+              <button onClick={handleNext} className="text-2xl p-2 text-white/60 hover:text-white">❯</button>
             </div>
 
           </div>

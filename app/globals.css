@@ -561,3 +561,11 @@ body::-webkit-scrollbar {
   display: none; 
 }
 
+
+.scroll-hidden {
+  scrollbar-width: none; 
+}
+
+.scroll-hidden::-webkit-scrollbar {
+  display: none; 
+}

@@ -187,7 +187,7 @@ export default function WidgetPopup({ widget, onClose }) {
           {widget.stats?.exploration && (
             <div className="mt-4 text-sm">
               <Image
-                src={`/${widget.stats.expedition.icon}`}
+                src={`/icon/${widget.stats.expedition.icon}`}
                 alt="expedition icon"
                 width={40}
                 height={40}
@@ -233,7 +233,7 @@ export default function WidgetPopup({ widget, onClose }) {
           {widget.stats?.expedition && (
             <div className="mt-4 text-sm">
               <Image
-                src={`/${widget.stats.expedition.icon}`}
+                src={`/icon/${widget.stats.expedition.icon}`}
                 alt="expedition icon"
                 width={40}
                 height={40}
