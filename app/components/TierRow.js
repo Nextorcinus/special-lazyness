@@ -35,7 +35,7 @@ export default function TierRow({ label, color, heroes = [] }) {
           items={heroes.map(h => h.id)}
           strategy={horizontalListSortingStrategy}
         >
-          <div className="flex justify-center gap-2 flex-wrap w-full">
+          <div className="flex justify-center md:justify-start gap-2 flex-wrap w-full">
             {heroes.map(hero => (
               <TierItem key={hero.id} hero={hero} />
             ))}
