@@ -18,11 +18,11 @@
       "1": {
         "skill-name": "Trapnet",
         "trigger-point": "Skill Use",
-        "trigger-time": "",
+        "trigger-time": "1.5s",
         "effects": {
           "effect-name": "Area Damage + Immobilize",
           "affect-on": ["Enemy Heroes"],
-          "stats": ["200%", "280%"],
+          "stats": ["200%", "220%", "240%", "260%", "280%"],
           "description": "Deals 200%–280% area damage and immobilizes enemies.",
           "icon": "trapnet.png"
         }
@@ -34,7 +34,7 @@
         "effects": {
           "effect-name": "Area Damage",
           "affect-on": ["Enemy Heroes"],
-          "stats": ["50%", "70%"],
+          "stats": ["50%", "55%", "60%", "65%", "70%"],
           "description": "Deals 50%–70% area damage.",
           "icon": "tidal_force.png"
         }
@@ -54,12 +54,12 @@
       "expedition": {
         "1": {
           "skill-name": "Onslaught",
-          "trigger-point": "All Troops",
+          "trigger-point": "Open Rally/ Attack",
           "trigger-time": "",
           "effects": {
-            "effect-name": "Stun Chance",
+            "effect-name": "All Troops Attack / Stun Chance",
             "affect-on": ["All Troops"],
-            "stats": ["20%"],
+            "stats": ["4%", "8%", "12%", "16%", "20%"],
             "description": "Troops’ attacks have a chance to stun targets for 1 turn.",
             "icon": "onslaught.png"
           }
@@ -67,11 +67,11 @@
         "2": {
           "skill-name": "Iron Strength",
           "trigger-point": "All Troops",
-          "trigger-time": "",
+          "trigger-time": "2 Turn",
           "effects": {
             "effect-name": "Reduce Damage",
             "affect-on": ["All Troops"],
-            "stats": ["50%"],
+            "stats": ["10%", "20%", "30%", "40%", "50%"],
             "description": "Reduces damage dealt by enemy troops.",
             "icon": "iron_strength.png"
           }
@@ -83,7 +83,7 @@
           "effects": {
             "effect-name": "Extra Damage",
             "affect-on": ["All Troops"],
-            "stats": ["50%"],
+            "stats": ["10%", "20%", "30%", "40%", "50%"],
             "description": "Grants a chance to deal additional damage.",
             "icon": "poison_harpoon.png"
           }

@@ -1,141 +1,118 @@
 {
   "id": "molly",
   "name": "Molly",
-  "generation": "1",
+  "generation": "S1",
   "rarity": "Legendary",
   "class": "Lancer",
   "stats": {
-    "attack": 1776,
+    "attack": 2220,
     "defense": 2220,
-    "health": 17760
+    "health": 22200
   },
   "expedition": {
-    "attack": 140.11,
-    "defense": 140.11
+    "attack": 200.16,
+    "defense": 200.16
   },
   "skills": {
     "exploration": {
       "1": {
-        "skill-name": "Earthshake",
+        "skill-name": "Super Snowball",
         "trigger-point": "Targeting and Near Enemies",
-        "trigger-time": "2s",
+        "trigger-time": "1.5s",
         "effects": {
-          "effect-name": "Reduce Attack Enemy",
-          "affect-on": [
-            "Point Target"
-          ],
-          "stats": [
-            "1%",
-            "2%",
-            "3%",
-            "4%",
-            "5%"
-          ],
-          "description": "Walis Bokan lets out an intimidating war cry, reducing Attack",
-          "icon": "earthshake.png"
+          "effect-name": "Deal of Attack",
+          "affect-on": ["Point Target"],
+          "stats": ["180%", "198%", "216%", "234%", "252%"],
+          "description": "Molly launches a Super Snowball which plops down to deal Attack*180%/198%/216%/234%/252% Area of Effect Damage and freezes them for 1.5s.",
+          "icon": "super_snowball.png"
         }
       },
       "2": {
-        "skill-name": "Echoing Boost",
+        "skill-name": "Frost Ambush",
         "trigger-point": "Nearby Friendly troops",
         "trigger-time": "Long Interval",
         "effects": {
-          "effect-name": "Increasing Nearby Attack",
-          "affect-on": [
-            "Point Target"
-          ],
-          "stats": [
-            "15%",
-            "20%",
-            "25%",
-            "30%",
-            "35%"
-          ],
-          "description": "Beyond intimidating enemies, Walis Bokan\u2019s war cry invigorates allies. Upon casting Earthshake, increases his and nearby friendly troops\u2019 Attack ",
-          "icon": "joint_defense.png"
+          "effect-name": "Deal of Attack",
+          "affect-on": ["Point Target"],
+          "stats": ["150%", "165%", "180%", "195%", "210%"],
+          "description": "Molly ambushes the enemy with her great camouflage skills, dealing Attack*150%/165%/180%/195%/210% damage.",
+          "icon": "frost_ambush.png"
         }
       },
       "3": {
-        "skill-name": "Jungle-Born Agility",
+        "skill-name": "Youthful Persistence",
         "trigger-point": "Self",
-        "trigger-time": "Long Interval",
+        "trigger-time": "under 50% Health",
         "effects": {
-          "effect-name": "Increasing Damage Attack",
-          "affect-on": [
-            "Self"
-          ],
-          "stats": [
-            "10%",
-            "15%",
-            "20%",
-            "25%",
-            "30%"
-          ],
-          "description": " Years of fighting in the jungles and mountains grant Walis Bokan swift agility, increasing his Attack Speed",
-          "icon": "jungle-born_agility.png"
+          "effect-name": "Attack Speed",
+          "affect-on": ["Self"],
+          "stats": ["20%", "30%", "40%", "50%", "60%"],
+          "description": "Molly loves a challenge, gaining +20%/30%/40%/50%/60% Attack Speed under 50% Health.",
+          "icon": "youtful_persistence.png"
         }
       },
       "expedition": {
         "1": {
-          "skill-name": "Tactical Deception",
-          "trigger-point": "All Troops",
-          "trigger-time": "Long Interval",
+          "skill-name": "Calling of the Snow",
+          "trigger-point": "Starter Rally",
+          "trigger-time": "1 turn",
           "effects": {
             "effect-name": "Reduce Damage Taken",
-            "affect-on": [
-              "All Troops Rally",
-              "All Troops Joiner"
-            ],
-            "stats": [
-              "4%",
-              "8%",
-              "12%",
-              "16%",
-              "20%"
-            ],
-            "description": " Sergey's guards our troops with his shield, reducing damage taken for all troops ",
-            "icon": "tactical_deception.png"
+            "affect-on": ["All Troops on Rally", "All Troops Joiner"],
+            "stats": ["4%", "8%", "12%", "16%", "20%"],
+            "description": "Molly leads a charge as overwhelming as an avalanche, granting all troop's attack a +4%/8%/12%/16%/20% chance of stunning enemies for 1 turn.",
+            "icon": "calling_of_the_snow.png"
           }
         },
         "2": {
-          "skill-name": "Emerald Warrior",
+          "skill-name": "Ice Dominion",
           "trigger-point": "March",
-          "trigger-time": "",
+          "trigger-time": "Starter Rally",
           "effects": {
-            "effect-name": "Increasing March Speed",
-            "affect-on": [
-              "March"
-            ],
-            "stats": [
-              "20%",
-              "40%",
-              "60%",
-              "80%",
-              "100%"
-            ],
-            "description": " Walis Bokan passes on the islander\u2019s hunting techniques to the soldiers, increasing Hunting March Speed",
-            "icon": "emerald_warrior.png"
+            "effect-name": "Increasing Attack Damage dealt 50%",
+            "affect-on": ["Rally"],
+            "stats": ["10%", "20%", "20%", "40%", "50%"],
+            "description": "Molly excels in snowy terrains, granting all troops' attack a 50% chance of increasing damage dealt by +10%/20%/30%/40%/50%.",
+            "icon": "ice_dominion.png"
+          }
+        },
+        "3": {
+          "skill-name": "Youthful Rage",
+          "trigger-point": "March",
+          "trigger-time": "Starter Rally",
+          "effects": {
+            "effect-name": "Increasing Damage Dealt",
+            "affect-on": ["Rally"],
+            "stats": ["5%", "10%", "15%", "20%", "25%"],
+            "description": "Hell hath no fury like an angry Molly. Increasing damage dealt by +5%/10%/15%/20%/25% damage.",
+            "icon": "youtful_rage.png"
           }
         }
       }
     }
   },
   "widget": {
-    "has-widget": false
+    "has-widget": true
   },
-  "widget-name": "",
-  "widget-affect-on": "",
-  "widget-description": "",
-  "widget-level": "",
+  "widget-name": "Yeti Spirit",
+  "widget-icon": "yeti_spirit",
+  "widget-affect-on": "Defender Troops on Rally",
+  "widget-level": "Lv5",
   "widget-stats": {
     "exploration": {
-      "attack": "",
-      "defense": "",
-      "health": ""
+      "attack": 450,
+      "defense": 450,
+      "health": 4500,
+      "ability": "Molly wields a modified version of the launcher, boosting damage dealt by 30%.",
+      "icon": "modified_launcher.png",
+      "name": "Modified Launcher"
     },
     "expedition": {
-      "lethality": "",
-      "Health": ""
+      "lethality": "50%",
+      "Health": "50%",
+      "ability": "With the blessing of the snow, Defender Troops' Lethality is increased by 15%.",
+      "icon": "snowy_blessing.png",
+      "name": "Snowy Blessing"
     }
   },
   "uniquePassive": {
