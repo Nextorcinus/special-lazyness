@@ -5,21 +5,28 @@ import TierItem from './TierItem'
 
 export default function TierRow({ label, color, heroes = [] }) {
   return (
-    <div className="flex items-center w-full gap-3">
+    <div className="flex w-full gap-3 items-center">
       
-      {/* Kotak kiri berwarna */}
+      {/* Label Tier */}
       <div
-        className="w-20 h-16 rounded flex items-center justify-center font-bold text-xl text-black"
-        style={{
-          backgroundColor: color,
-          flexShrink: 0
-        }}
+        className="
+          flex items-center justify-center font-bold text-black
+          rounded
+          w-14 h-10 text-base
+          sm:w-20 sm:h-16 sm:text-xl
+        "
+        style={{ backgroundColor: color, flexShrink: 0 }}
       >
         {label}
       </div>
 
-      {/* Area tempat hero */}
-      <div className="flex-1 min-h-[64px] rounded-lg bg-white/10 p-3">
+      {/* Area Dropzone */}
+      <div
+        className="
+          flex-1 bg-white/10 rounded-lg p-2 min-h-[52px]
+          sm:p-3 sm:min-h-[64px] border border-white/20
+        "
+      >
         <SortableContext
           items={heroes.map(h => h.id)}
           strategy={horizontalListSortingStrategy}

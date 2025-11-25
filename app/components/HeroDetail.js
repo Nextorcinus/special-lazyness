@@ -238,7 +238,7 @@ export default function HeroDetail({ initialId }) {
       <div className="w-full px-3 sm:px-4 md:px-6 lg:px-10 py-6 max-w-[1100px]">
 
         <button onClick={() => window.history.back()} className="text-green-400 hover:underline mb-6">
-          ← BACK TO HOME
+          ← BACK
         </button>
 
         {showSkillDetail && <HeroPopup skill={activeSkill} onClose={() => setShowSkillDetail(false)} />}
