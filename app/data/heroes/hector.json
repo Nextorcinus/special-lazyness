@@ -60,7 +60,7 @@
             "effect-name": "Chance Damage Taken Reduction",
             "affect-on": ["All Troops"],
             "stats": ["10%", "20%", "30%", "40%", "50%"],
-            "description": "Hector’s presence gives all troops a 40% chance to reduce damage taken by 10%–50%.",
+            "description": "Hector’s presence gives all troops a 40% chance to reduce damage taken by level stats.",
             "icon": "survival_instincts.png"
           }
         },
@@ -72,7 +72,7 @@
             "effect-name": "Infantry Damage + / Marksman Damage +",
             "affect-on": ["Infantry Troops", "Marksman Troops"],
             "stats": ["100% / 10%", "125% / 20%", "150% / 30%", "175% / 40%", "200% / 50%"],
-            "description": "Increases Infantry damage by 100%–200% and Marksman damage by 10%–50%. Effect decreases by 80% each attack and ends after 5 attacks.",
+            "description": "Increases Infantry damage by 100%–200% and Marksman damage by level stats. Effect decreases by 80% each attack and ends after 5 attacks.",
             "icon": "rampant.png"
           }
         },
@@ -84,7 +84,7 @@
             "effect-name": "Chance Extra Damage",
             "affect-on": ["Self"],
             "stats": ["120%", "140%", "160%", "180%", "200%"],
-            "description": "Hector has a 25% chance to deal 120%–200% damage on attack.",
+            "description": "Hector has a 25% chance to deal by level stats damage on attack.",
             "icon": "blitz.png"
           }
         }

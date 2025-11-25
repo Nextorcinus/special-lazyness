@@ -60,7 +60,7 @@
             "effect-name": "Troops’ Attack Boost",
             "affect-on": ["All Troops"],
             "stats": ["5%", "10%", "15%", "20%", "25%"],
-            "description": "Bradley’s years of combat experience enable him to destroy enemies efficiently, increasing Attack for all troops by 5%-25%.",
+            "description": "Bradley’s years of combat experience enable him to destroy enemies efficiently, increasing Attack for all troops by level stats.",
             "icon": "veterans_might.png"
           }
         },

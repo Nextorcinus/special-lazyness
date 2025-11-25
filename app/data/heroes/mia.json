@@ -60,7 +60,7 @@
             "effect-name": "Increasing Damage Taken",
             "affect-on": ["All Enemy Troops"],
             "stats": ["10%", "20%", "30%", "40%", "50%"],
-            "description": "Grants all troops’ attack a 50% chance of cursing the target, increasing their damage taken by 10%–50%.",
+            "description": "Grants all troops’ attack a 50% chance of cursing the target, increasing their damage taken by level.",
             "icon": "bad_luck_streak.png"
           }
         },
@@ -72,7 +72,7 @@
             "effect-name": "Chance Extra Damage",
             "affect-on": ["All Troops"],
             "stats": ["10%", "20%", "30%", "40%", "50%"],
-            "description": "Mia brings good luck to our troops, granting all troops’ attack a 50% chance of dealing 10%–50% more damage.",
+            "description": "Mia brings good luck to our troops, granting all troops’ attack a 50% chance of dealing damage by level.",
             "icon": "lucky_charm.png"
           }
         },
@@ -84,7 +84,7 @@
             "effect-name": "Damage Taken Reduction",
             "affect-on": ["All Troops"],
             "stats": ["10%", "20%", "30%", "40%", "50%"],
-            "description": "Mia foresees potential dangers before battle, granting a 40% chance of reducing damage taken by 10%–50% for all troops.",
+            "description": "Mia foresees potential dangers before battle, granting a 40% chance of reducing damage taken by level for all troops.",
             "icon": "ritual_deciphering.png"
           }
         }
