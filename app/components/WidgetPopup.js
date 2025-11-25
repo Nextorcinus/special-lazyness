@@ -16,12 +16,11 @@ export default function WidgetPopup({ widget, onClose }) {
         exit={{ opacity: 0 }}
         onClick={onClose}
       >
-        <motion.div
+       <motion.div
           className="absolute right-0 top-0 h-full w-80 bg-[#1F1C2E] bg-opacity-60 backdrop-blur-sm text-white pt-[100px] px-6 pb-6 border-l border-[#4E4E4E]"
           initial={{ x: '100%' }}
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
-          transition={{ type: 'tween' }}
           onClick={(e) => e.stopPropagation()}
         >
           <button

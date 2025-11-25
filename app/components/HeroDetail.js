@@ -273,8 +273,8 @@ export default function HeroDetail({ initialId }) {
               <div>
                 <h3 className="text-md font-semibold mb-2">Expedition</h3>
               
-   <BarWithTitle label="Attack" value={atkExp} max={1200} />
-<BarWithTitle label="Defense" value={defExp} max={1200} />
+                <BarWithTitle label="Attack" value={atkExp} max={1200} />
+                <BarWithTitle label="Defense" value={defExp} max={1200} />
               </div>
             </div>
 
@@ -292,7 +292,7 @@ export default function HeroDetail({ initialId }) {
                         <div
                           key={i}
                           ref={addSkillImageRef}
-                          className="skill rounded-lg border border-white/20 cursor-pointer w-[70px] h-[70px] flex items-center justify-center overflow-hidden"
+                          className="skill rounded-lg cursor-pointer w-[70px] h-[70px] flex items-center justify-center overflow-hidden"
                           onClick={() => {
                             setActiveSkill({
                               name: skill['skill-name'],
@@ -331,7 +331,7 @@ export default function HeroDetail({ initialId }) {
                       <div
                         key={i}
                         ref={addSkillImageRef}
-                        className="skill rounded-lg border border-white/20 cursor-pointer w-[70px] h-[70px] flex items-center justify-center overflow-hidden"
+                        className="skill rounded-lg  cursor-pointer w-[70px] h-[70px] flex items-center justify-center overflow-hidden"
                         onClick={() => {
                           setActiveSkill({
                             name: skill['skill-name'],
@@ -395,22 +395,26 @@ export default function HeroDetail({ initialId }) {
                 )}
               </div>
 
-              <div ref={passiveRef}>
+            <div ref={passiveRef}>
                 <h3 className="font-semibold mb-2 text-md">Unique Passive</h3>
-                {hero?.uniquePassive?.icon ? (
-                  <div className="flex items-center gap-2">
-                    <img
-                      src={`/icon/${hero.uniquePassive.icon}.png`}
-                      alt={hero.uniquePassive.name || 'passive'}
-                      width={60}
-                      height={60}
-                      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/icon/placeholder.png' }}
-                    />
-                    <span>{hero.uniquePassive.name}</span>
-                  </div>
-                ) : (
-                  <span className="text-white/50 italic">No Passive</span>
-                )}
+                <div className="flex items-center gap-2">
+                  {hero?.uniquePassive?.icon ? (
+                    <>
+                      <div
+                        className="w-[60px] h-[60px] cursor-pointer"
+                        onClick={() => {
+                          setActivePassive(hero.uniquePassive)
+                          setShowPassiveDetail(true)
+                        }}
+                      >
+                        <img src={`/icon/${hero.uniquePassive.icon}.png`} alt="passive" width={60} height={60} />
+                      </div>
+                      <span>{hero.uniquePassive.name}</span>
+                    </>
+                  ) : (
+                    <span className="text-white/50 italic">No Passive</span>
+                  )}
+                </div>
               </div>
             </div>
           </div>

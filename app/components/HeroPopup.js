@@ -89,6 +89,13 @@ export default function HeroPopup({ skill, onClose }) {
         exit={{ opacity: 0 }}
         onClick={onClose}
       >
+        <motion.div
+          className="absolute right-0 top-0 h-full w-80 bg-[#1F1C2E] bg-opacity-60 backdrop-blur-sm text-white pt-[100px] px-6 pb-6 border-l border-[#4E4E4E]"
+          initial={{ x: '100%' }}
+          animate={{ x: 0 }}
+          exit={{ x: '100%' }}
+          onClick={(e) => e.stopPropagation()}
+        ></motion.div>
         <div
           className="relative bg-[#1a1a1a] p-6 rounded-lg max-w-xs w-full z-60"
           onClick={(e) => e.stopPropagation()}

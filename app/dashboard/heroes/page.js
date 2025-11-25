@@ -1,9 +1,15 @@
 import HeroList from '../../components/HeroList'
+import { headers } from 'next/headers'
 
-export default function HeroesDashboardPage() {
-  return (
-    <div>
-      <HeroList />
-    </div>
-  )
+export default async function HeroesDashboardPage() {
+  const host = headers().get('host')
+  const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https'
+  const base = `${protocol}://${host}`
+
+  const res = await fetch(`${base}/api/heroes/index`, {
+    cache: 'force-cache'
+  })
+  const heroes = await res.json()
+
+  return <HeroList heroes={heroes} />
 }
