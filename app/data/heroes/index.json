@@ -5,7 +5,8 @@
     "rarity": "Rare",
     "class": "Infantry",
     "thumbnail": "smith-thumb.png",
-    "generation": "Rare"
+    "generation": "Rare",
+    "tier": "D"
   },
   {
     "id": "eugene",
@@ -13,7 +14,8 @@
     "rarity": "Rare",
     "class": "Infantry",
     "thumbnail": "eugene-thumb.png",
-    "generation": "Rare"
+    "generation": "Rare",
+    "tier": "D"
   },
   {
     "id": "charlie",
@@ -21,7 +23,8 @@
     "rarity": "Rare",
     "class": "Infantry",
     "thumbnail": "charlie_thumb.png",
-    "generation": "Rare"
+    "generation": "Rare",
+    "tier": "D"
   },
   {
     "id": "cloris",
@@ -29,7 +32,8 @@
     "rarity": "Rare",
     "class": "Marksman",
     "thumbnail": "cloris_thumb.png",
-    "generation": "Rare"
+    "generation": "Rare",
+    "tier": "D"
   },
   {
     "id": "sergey",
@@ -37,7 +41,8 @@
     "rarity": "Epic",
     "class": "Infantry",
     "thumbnail": "sergey_thumb.png",
-    "generation": "Epic"
+    "generation": "Epic",
+    "tier": "D"
   },
   {
     "id": "jessie",
@@ -45,7 +50,8 @@
     "rarity": "Epic",
     "class": "Lancer",
     "thumbnail": "jessie_thumb.png",
-    "generation": "Epic"
+    "generation": "Epic",
+    "tier": "SS"
   },
   {
     "id": "jasser",
@@ -53,7 +59,8 @@
     "rarity": "Epic",
     "class": "Marksman",
     "thumbnail": "jasser_thumb.jpg",
-    "generation": "Epic"
+    "generation": "Epic",
+    "tier": "SS"
   },
   {
     "id": "seoyoon",
@@ -61,7 +68,8 @@
     "rarity": "Epic",
     "class": "Marksman",
     "thumbnail": "seo_yoon_thumb.jpg",
-    "generation": "Epic"
+    "generation": "Epic",
+    "tier": "SS"
   },
   {
     "id": "bahiti",
@@ -69,7 +77,8 @@
     "rarity": "Epic",
     "class": "Marksman",
     "thumbnail": "bahiti_thumb.png",
-    "generation": "Epic"
+    "generation": "Epic",
+    "tier": "D"
   },
   {
     "id": "gina",
@@ -77,7 +86,8 @@
     "rarity": "Epic",
     "class": "Marksman",
     "thumbnail": "gina_thumb.png",
-    "generation": "Epic"
+    "generation": "Epic",
+    "tier": "D"
   },
   {
     "id": "lingxue",
@@ -85,7 +95,8 @@
     "rarity": "Epic",
     "class": "Lancer",
     "thumbnail": "ling_xue_thumb.jpg",
-    "generation": "Epic"
+    "generation": "Epic",
+    "tier": "D"
   },
   {
     "id": "patrick",
@@ -93,7 +104,8 @@
     "rarity": "Epic",
     "class": "Lancer",
     "thumbnail": "patrick_thumb.png",
-    "generation": "Epic"
+    "generation": "Epic",
+    "tier": "D"
   },
   {
     "id": "lumakbokan",
@@ -101,7 +113,8 @@
     "rarity": "Epic",
     "class": "Lancer",
     "thumbnail": "lumak_bokan_thumb.jpg",
-    "generation": "Epic"
+    "generation": "Epic",
+    "tier": "D"
   },
   {
     "id": "zinman",
@@ -109,7 +122,8 @@
     "rarity": "Legendary",
     "class": "Lancer",
     "thumbnail": "zinman_thumb.png",
-    "generation": "S1"
+    "generation": "S1",
+    "tier": "D"
   },
   {
     "id": "jeronimo",
@@ -117,7 +131,8 @@
     "rarity": "Legendary",
     "class": "Infantry",
     "thumbnail": "jeronimo_thumb.png",
-    "generation": "S1"
+    "generation": "S1",
+    "tier": "SS"
   },
   {
     "id": "molly",
@@ -125,7 +140,8 @@
     "rarity": "Legendary",
     "class": "Lancer",
     "thumbnail": "molly_thumb.png",
-    "generation": "S1"
+    "generation": "S1",
+    "tier": "D"
   },
   {
     "id": "natalia",
@@ -133,7 +149,8 @@
     "rarity": "Legendary",
     "class": "Infantry",
     "thumbnail": "natalia_thumb.png",
-    "generation": "S1"
+    "generation": "S1",
+    "tier": "D"
   },
   {
     "id": "alonso",
@@ -141,7 +158,8 @@
     "rarity": "Legendary",
     "class": "Marksman",
     "thumbnail": "alonso_thumb.jpg",
-    "generation": "S2"
+    "generation": "S2",
+    "tier": "C"
   },
   {
     "id": "philly",
@@ -149,7 +167,8 @@
     "rarity": "Legendary",
     "class": "Lancer",
     "thumbnail": "philly_thumb.jpg",
-    "generation": "S2"
+    "generation": "S2",
+    "tier": "B"
   },
   {
     "id": "flint",
@@ -157,7 +176,8 @@
     "rarity": "Legendary",
     "class": "Infantry",
     "thumbnail": "flint_thumb.jpg",
-    "generation": "S2"
+    "generation": "S2",
+    "tier": "A"
   },
   {
     "id": "greg",
@@ -165,7 +185,8 @@
     "rarity": "Legendary",
     "class": "Marksman",
     "thumbnail": "greg_thumb.jpg",
-    "generation": "S3"
+    "generation": "S3",
+    "tier": "A"
   },
   {
     "id": "mia",
@@ -173,7 +194,8 @@
     "rarity": "Legendary",
     "class": "Lancer",
     "thumbnail": "mia_thumb.jpg",
-    "generation": "S3"
+    "generation": "S3",
+    "tier": "A"
   },
   {
     "id": "logan",
@@ -181,7 +203,8 @@
     "rarity": "Legendary",
     "class": "Infantry",
     "thumbnail": "logan_thumb.jpg",
-    "generation": "S3"
+    "generation": "S3",
+    "tier": "A"
   },
   {
     "id": "ahmose",
@@ -189,7 +212,8 @@
     "rarity": "Legendary",
     "class": "Marksman",
     "thumbnail": "ahmose_thumb.jpg",
-    "generation": "S4"
+    "generation": "S4",
+    "tier": "D"
   },
   {
     "id": "reina",
@@ -197,7 +221,8 @@
     "rarity": "Legendary",
     "class": "Lancer",
     "thumbnail": "reina_thumb.jpg",
-    "generation": "S4"
+    "generation": "S4",
+    "tier": "SS"
   },
   {
     "id": "lynn",
@@ -205,7 +230,8 @@
     "rarity": "Legendary",
     "class": "Marksman",
     "thumbnail": "lynn_thumb.jpg",
-    "generation": "S4"
+    "generation": "S4",
+    "tier": "SS"
   },
   {
     "id": "hector",
@@ -213,7 +239,8 @@
     "rarity": "Legendary",
     "class": "Infantry",
     "thumbnail": "hector_thumb.jpg",
-    "generation": "S5"
+    "generation": "S5",
+    "tier": "SS"
   },
   {
     "id": "norah",
@@ -221,7 +248,8 @@
     "rarity": "Legendary",
     "class": "Lancer",
     "thumbnail": "norah_thumb.jpg",
-    "generation": "S5"
+    "generation": "S5",
+    "tier": "B"
   },
   {
     "id": "gwen",
@@ -229,7 +257,8 @@
     "rarity": "Legendary",
     "class": "Marksman",
     "thumbnail": "gwen_thumb.jpg",
-    "generation": "S5"
+    "generation": "S5",
+    "tier": "SS"
   },
   {
     "id": "wu_ming",
@@ -237,15 +266,17 @@
     "rarity": "Legendary",
     "class": "Infantry",
     "thumbnail": "wuming_thumb.jpg",
-    "generation": "S6"
+    "generation": "S6",
+    "tier": "D"
   },
-   {
+  {
     "id": "renee",
     "name": "Renee",
     "rarity": "Legendary",
     "class": "Lancer",
     "thumbnail": "renee_thumb.jpg",
-    "generation": "S6"
+    "generation": "S6",
+    "tier": "B"
   },
   {
     "id": "wayne",
@@ -253,7 +284,8 @@
     "rarity": "Legendary",
     "class": "Marksman",
     "thumbnail": "wayne_thumb.jpg",
-    "generation": "S6"
+    "generation": "S6",
+    "tier": "SS"
   },
   {
     "id": "edith",
@@ -261,15 +293,17 @@
     "rarity": "Legendary",
     "class": "Infantry",
     "thumbnail": "edith.jpg",
-    "generation": "S7"
+    "generation": "S7",
+    "tier": "C"
   },
-   {
+  {
     "id": "gordon",
     "name": "Gordon",
     "rarity": "Legendary",
     "class": "Lancer",
     "thumbnail": "gordon.jpg",
-    "generation": "S7"
+    "generation": "S7",
+    "tier": "B"
   },
   {
     "id": "bradley",
@@ -277,7 +311,8 @@
     "rarity": "Legendary",
     "class": "Marksman",
     "thumbnail": "bradley.jpg",
-    "generation": "S7"
+    "generation": "S7",
+    "tier": "SS"
   },
   {
     "id": "gatot",
@@ -285,15 +320,17 @@
     "rarity": "Legendary",
     "class": "Infantry",
     "thumbnail": "gatot.jpg",
-    "generation": "S8"
+    "generation": "S8",
+    "tier": "D"
   },
-   {
+  {
     "id": "sonya",
     "name": "Sonya",
     "rarity": "Legendary",
     "class": "Lancer",
     "thumbnail": "sonya.jpg",
-    "generation": "S8"
+    "generation": "S8",
+    "tier": "SS"
   },
   {
     "id": "hendrik",
@@ -301,6 +338,7 @@
     "rarity": "Legendary",
     "class": "Marksman",
     "thumbnail": "hendrik.jpg",
-    "generation": "S8"
+    "generation": "S8",
+    "tier": "C"
   }
 ]
