@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export default function Page() {
   return (
-    <div className="p-6 space-y-2">
+    <div className="p-1 md:p-6 space-y-2">
         <Link
         href="/dashboard/heroes"
         className="text-green-400 hover:underline mb-12"
