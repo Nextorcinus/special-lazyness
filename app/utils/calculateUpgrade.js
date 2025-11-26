@@ -61,8 +61,9 @@ export function calculateUpgrade({
     (b) => b.Building?.trim().toLowerCase() === building.trim().toLowerCase()
   )
 
-  const startIndex = buildingEntries.findIndex((b) => b.Level === fromLevel)
-  const endIndex = buildingEntries.findIndex((b) => b.Level === toLevel)
+  const startIndex = buildingEntries.findIndex((b) => String(b.Level) === String(fromLevel))
+const endIndex = buildingEntries.findIndex((b) => String(b.Level) === String(toLevel))
+
 
   if (startIndex === -1 || endIndex === -1 || startIndex >= endIndex) {
     // console.warn(' Level not found on data:', { fromLevel, toLevel })
