@@ -7,7 +7,7 @@ export default async function HeroesDashboardPage() {
   const base = `${protocol}://${host}`
 
   const res = await fetch(`${base}/api/heroes/index`, {
-    cache: 'force-cache'
+    next: { revalidate: 10 }
   })
   const heroes = await res.json()
 

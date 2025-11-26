@@ -340,5 +340,32 @@
     "thumbnail": "hendrik.jpg",
     "generation": "S8",
     "tier": "C"
+  },
+  {
+    "id": "magnus",
+    "name": "Magnus",
+    "rarity": "Legendary",
+    "class": "Infantry",
+    "thumbnail": "magnus.jpg",
+    "generation": "S9",
+    "tier": "SS"
+  },
+  {
+    "id": "fred",
+    "name": "Fred",
+    "rarity": "Legendary",
+    "class": "Lancer",
+    "thumbnail": "fred.jpg",
+    "generation": "S9",
+    "tier": "SS"
+  },
+  {
+    "id": "xura",
+    "name": "Xura",
+    "rarity": "Legendary",
+    "class": "Marksman",
+    "thumbnail": "xura.jpg",
+    "generation": "S9",
+    "tier": "C"
   }
 ]
