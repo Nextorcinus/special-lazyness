@@ -367,5 +367,32 @@
     "thumbnail": "xura.jpg",
     "generation": "S9",
     "tier": "C"
+  },
+    {
+    "id": "gregory",
+    "name": "Gregory",
+    "rarity": "Legendary",
+    "class": "Infantry",
+    "thumbnail": "gregory.jpg",
+    "generation": "S10",
+    "tier": "SS"
+  },
+  {
+    "id": "freya",
+    "name": "Freya",
+    "rarity": "Legendary",
+    "class": "Lancer",
+    "thumbnail": "freya.jpg",
+    "generation": "S10",
+    "tier": "SS"
+  },
+  {
+    "id": "blanchette",
+    "name": "Blanchette",
+    "rarity": "Legendary",
+    "class": "Marksman",
+    "thumbnail": "blanchette.jpg",
+    "generation": "S10",
+    "tier": "C"
   }
 ]

@@ -24,7 +24,7 @@
           "affect-on": ["Nearby enemies"],
           "stats": ["100%", "110%", "120%", "130%", "140%"],
           "description": "Gregory readies a furious strike, dealing Attack ×100%–140% area damage while knocking back and stunning nearby enemies for 1s.",
-          "icon": "sword_of_the_mountain.png"
+          "icon": "sword_of_mountain.png"
         }
       },
       "2": {
@@ -50,9 +50,8 @@
           "description": "After Gregory falls, increases all friendly troops’ Attack by 8%–24% for 5 seconds.",
           "icon": "sacrificial_will.png"
         }
-      }
-    },
-    "expedition": {
+      },
+      "expedition": {
       "1": {
         "skill-name": "Legion of the Sun",
         "trigger-point": "Troops Buff",
@@ -87,10 +86,11 @@
           "stats": ["4%", "8%", "12%", "16%", "20%"],
           "description": "Reduces damage taken by friendly Infantry troops by 4%–20%.",
           "icon": "unbroken.png"
+          }
         }
       }
-    }
-  },
+  }
+},
   "widget": {
     "has-widget": true
   },

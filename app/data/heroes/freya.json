@@ -47,11 +47,11 @@
           "effect-name": "Crit Rate + after Normal Attacks",
           "affect-on": ["Self"],
           "stats": ["60%","70%","80%","90%","100%"],
-          "description": "Freya’s condition periodically erupts: after 8 → 7 → 6 → 5 → 4 normal attacks, Crit Rate increases by 60%–100%. :contentReference[oaicite:3]{index=3}",
+          "description": "Freya’s condition periodically erupts: after 8 → 7 → 6 → 5 → 4 normal attacks, Crit Rate increases by 60%–100%.",
           "icon": "crystal_fury.png"
         }
-      }
-    },
+      },
+    
     "expedition": {
       "1": {
         "skill-name": "Fog of War",
@@ -85,17 +85,18 @@
           "effect-name": "Friendly Infantry & Marksman Damage + / Damage Taken −",
           "affect-on": ["Friendly Infantry & Marksman troops"],
           "stats": ["3%/3%","6%/6%","9%/9%","12%/12%","15%/15%"],
-          "description": "Decreases damage taken by and increases damage dealt of friendly Infantry and Marksman by 3%–15%. :contentReference[oaicite:6]{index=6}",
+          "description": "Decreases damage taken by and increases damage dealt of friendly Infantry and Marksman by 3%–15%. ",
           "icon": "nights_vengeance.png"
         }
       }
     }
-  },
+   }
+},
   "widget": {
     "has-widget": true
   },
   "widget-name": "Blood Moon Scythe",
-  "widget-icon": "blood_moon_scythe",
+  "widget-icon": "blood_moon_scythe_1",
   "widget-affect-on": "Self / Lancer Troops",
   "widget-level": "Lv5",
   "widget-stats": {
@@ -103,19 +104,19 @@
       "attack": 2506,
       "defense": 2506,
       "health": 25065,
-      "ability": "Night’s Raid (Lv.5): Freya’s rigorous training increases her damage by 30% while her instincts reflexively deal Attack ×300% damage to enemies’ summons. :contentReference[oaicite:7]{index=7}",
+      "ability": "Night’s Raid (Lv.5): Freya’s rigorous training increases her damage by 30% while her instincts reflexively deal Attack ×300% damage to enemies’ summons. ",
       "icon": "nights_raid.png",
       "name": "Night’s Raid"
     },
     "expedition": {
       "lethality": "277.50%",
       "Health": "277.50%",
-      "ability": "Defender of the Watch (Lv.5): Freya’s vigilance increases Defender Troops’ Defense by 15%. :contentReference[oaicite:8]{index=8}",
+      "ability": "Defender of the Watch (Lv.5): Freya’s vigilance increases Defender Troops’ Defense by 15%.",
       "icon": "defender_of_the_watch.png",
       "name": "Defender of the Watch"
     }
   },
   "uniquePassive": {},
   "image": "freya.png",
-  "thumbnail": "freya_thumb.png"
+  "thumbnail": "freya.jpg"
 }

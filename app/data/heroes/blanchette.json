@@ -50,8 +50,7 @@
           "description": "Damage dealt by Blanchette increases by 10%–50% as the target’s health decreases.",
           "icon": "red_pursuit.png"
         }
-      }
-    },
+      },
     "expedition": {
       "1": {
         "skill-name": "Armed to the Teeth",
@@ -90,7 +89,8 @@
         }
       }
     }
-  },
+  }
+},
   "widget": {
     "has-widget": true
   },
@@ -117,5 +117,5 @@
   },
   "uniquePassive": {},
   "image": "blanchette.png",
-  "thumbnail": "blanchette_thumb.png"
+  "thumbnail": "blanchette.jpg"
 }
