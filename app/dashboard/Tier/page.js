@@ -1,6 +1,9 @@
 'use client'
 
 import TierList from '../../components/TierList'
+import RallySetupCollapse from '../../components/RallySetupCollapse'
+import heroesData from '../../data/heroes/TierList.json'
+
 import Link from "next/link"
 
 export default function Page() {
@@ -18,6 +21,7 @@ export default function Page() {
       </h1>
 
       <TierList />
+       <RallySetupCollapse data={heroesData} />
     </div>
   )
 }
