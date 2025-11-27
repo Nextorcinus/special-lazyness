@@ -42,7 +42,7 @@
     "class": "Infantry",
     "thumbnail": "sergey_thumb.png",
     "generation": "Epic",
-    "tier": "D"
+    "tier": "C"
   },
   {
     "id": "jessie",
@@ -78,7 +78,7 @@
     "class": "Marksman",
     "thumbnail": "bahiti_thumb.png",
     "generation": "Epic",
-    "tier": "D"
+    "tier": "C"
   },
   {
     "id": "gina",
@@ -96,7 +96,7 @@
     "class": "Lancer",
     "thumbnail": "ling_xue_thumb.jpg",
     "generation": "Epic",
-    "tier": "D"
+    "tier": "C"
   },
   {
     "id": "patrick",
@@ -105,7 +105,7 @@
     "class": "Lancer",
     "thumbnail": "patrick_thumb.png",
     "generation": "Epic",
-    "tier": "D"
+    "tier": "C"
   },
   {
     "id": "lumakbokan",
@@ -114,7 +114,7 @@
     "class": "Lancer",
     "thumbnail": "lumak_bokan_thumb.jpg",
     "generation": "Epic",
-    "tier": "D"
+    "tier": "C"
   },
   {
     "id": "zinman",
@@ -168,7 +168,7 @@
     "class": "Lancer",
     "thumbnail": "philly_thumb.jpg",
     "generation": "S2",
-    "tier": "A"
+    "tier": "B"
   },
   {
     "id": "flint",
@@ -177,7 +177,7 @@
     "class": "Infantry",
     "thumbnail": "flint_thumb.jpg",
     "generation": "S2",
-    "tier": "C"
+    "tier": "A"
   },
   {
     "id": "greg",
@@ -195,7 +195,7 @@
     "class": "Lancer",
     "thumbnail": "mia_thumb.jpg",
     "generation": "S3",
-    "tier": "A"
+    "tier": "B"
   },
   {
     "id": "logan",
@@ -204,7 +204,7 @@
     "class": "Infantry",
     "thumbnail": "logan_thumb.jpg",
     "generation": "S3",
-    "tier": "C"
+    "tier": "B"
   },
   {
     "id": "ahmose",
@@ -213,7 +213,7 @@
     "class": "Marksman",
     "thumbnail": "ahmose_thumb.jpg",
     "generation": "S4",
-    "tier": "D"
+    "tier": "C"
   },
   {
     "id": "reina",
@@ -249,7 +249,7 @@
     "class": "Lancer",
     "thumbnail": "norah_thumb.jpg",
     "generation": "S5",
-    "tier": "A"
+    "tier": "B"
   },
   {
     "id": "gwen",
@@ -258,7 +258,7 @@
     "class": "Marksman",
     "thumbnail": "gwen_thumb.jpg",
     "generation": "S5",
-    "tier": "SS"
+    "tier": "B"
   },
   {
     "id": "wu_ming",
@@ -267,7 +267,7 @@
     "class": "Infantry",
     "thumbnail": "wuming_thumb.jpg",
     "generation": "S6",
-    "tier": "D"
+    "tier": "C"
   },
   {
     "id": "renee",
@@ -285,7 +285,7 @@
     "class": "Marksman",
     "thumbnail": "wayne_thumb.jpg",
     "generation": "S6",
-    "tier": "B"
+    "tier": "A"
   },
   {
     "id": "edith",
@@ -321,7 +321,7 @@
     "class": "Infantry",
     "thumbnail": "gatot.jpg",
     "generation": "S8",
-    "tier": "D"
+    "tier": "C"
   },
   {
     "id": "sonya",
@@ -339,7 +339,7 @@
     "class": "Marksman",
     "thumbnail": "hendrik.jpg",
     "generation": "S8",
-    "tier": "C"
+    "tier": "A"
   },
   {
     "id": "magnus",
@@ -357,7 +357,7 @@
     "class": "Lancer",
     "thumbnail": "fred.jpg",
     "generation": "S9",
-    "tier": "SS"
+    "tier": "C"
   },
   {
     "id": "xura",
@@ -375,7 +375,7 @@
     "class": "Infantry",
     "thumbnail": "gregory.jpg",
     "generation": "S10",
-    "tier": "SS"
+    "tier": "B"
   },
   {
     "id": "freya",
@@ -384,7 +384,7 @@
     "class": "Lancer",
     "thumbnail": "freya.jpg",
     "generation": "S10",
-    "tier": "SS"
+    "tier": "C"
   },
   {
     "id": "blanchette",
@@ -393,6 +393,6 @@
     "class": "Marksman",
     "thumbnail": "blanchette.jpg",
     "generation": "S10",
-    "tier": "C"
+    "tier": "SS"
   }
 ]
