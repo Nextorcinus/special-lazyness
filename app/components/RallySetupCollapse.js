@@ -7,55 +7,70 @@ import heroesData from '../data/heroes/index.json'
 export default function RallySetupCollapse({ data }) {
   const [openIndex, setOpenIndex] = useState(null)
 
-  const toggle = index => {
-    setOpenIndex(openIndex === index ? null : index)
+  const handleToggle = index => {
+    setOpenIndex(prev => (prev === index ? null : index))
+  }
+
+  if (!Array.isArray(data)) {
+    return null
   }
 
   return (
-    <div className="space-y-4">
-      {Array.isArray(data) && data.map((gen, index) => (
-        <div key={index} className="border border-gray-700 rounded-lg overflow-hidden">
+    <div className="p-6 space-y-4">
+      <header className="mt-6 px-4 py-2">
+        <h2 className="text-2xl font-bold">Bear Hunt Guide</h2>
+      </header>
+
+      {data.map((gen, index) => (
+        <section 
+          key={index} 
+          className="border border-white/20 rounded-lg overflow-hidden"
+        >
           <button
-            className="w-full text-left px-4 py-3 bg-gray-900 hover:bg-gray-800 font-semibold"
-            onClick={() => toggle(index)}
+            onClick={() => handleToggle(index)}
+            className="w-full text-left px-4 py-3 bg-white/10 hover:bg-gray-800 font-semibold"
           >
             Gen {gen.generation}
           </button>
 
           {openIndex === index && (
-            <div className="p-4 space-y-6 bg-gray-950">
+            <div className="p-4 space-y-6 bg-zinc-900/70">
               {gen.setups.map((setup, i) => (
-                <div key={i}>
-                  <h3 className="text-lg font-bold mb-2">{setup.type}</h3>
+                <div key={i} className="space-y-3">
+                  <h3 className="text-lg font-bold text-white">{setup.type}</h3>
 
-                  <div className="flex gap-2 mb-3">
+                  <div className="flex gap-2">
                     {setup.id.map(heroId => {
-                      const heroInfo = heroesData.find(h => h.id === heroId)
-
-                      if (!heroInfo) return null
+                      const hero = heroesData.find(h => h.id === heroId)
+                      if (!hero) return null
 
                       return (
                         <Image
                           key={heroId}
-                          src={`/icon/${heroInfo.thumbnail}`}
-                          alt={heroInfo.name}
+                          src={`/icon/${hero.thumbnail}`}
+                          alt={hero.name}
                           width={60}
                           height={60}
-                          className="rounded"
+                          className="rounded shadow-md"
                         />
                       )
                     })}
                   </div>
 
-                  <ul className="text-sm leading-relaxed space-y-1">
-                    <li>Troop Formation: {setup.formation}</li>
+                  <ul className="text-sm text-zinc-200 leading-relaxed space-y-1">
+                    <li>
+                      <span className="font-semibold text-green-400">
+                        Troop Formation:
+                      </span>{' '}
+                      {setup.formation}
+                    </li>
                     <li>{setup.suggest}</li>
                   </ul>
                 </div>
               ))}
             </div>
           )}
-        </div>
+        </section>
       ))}
     </div>
   )
