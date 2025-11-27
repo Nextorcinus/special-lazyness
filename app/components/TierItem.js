@@ -19,8 +19,14 @@ export default function TierItem({ hero }) {
       style={style}
       {...attributes}
       {...listeners}
-      className="w-16 h-16 rounded overflow-hidden border border-white/20 cursor-pointer active:cursor-grabbing block"
+      className="w-16 h-16 rounded overflow-hidden border border-white/20 cursor-pointer active:cursor-grabbing block relative"
     >
+      {/* Badge generation */}
+      <div className="absolute top-0.5 right-0.5 z-10 border border-yellow-900 bg-lime-500 text-black text-[10px] font-bold px-1 py-[1px] rounded">
+        {hero.generation}
+      </div>
+
+      {/* Thumbnail */}
       <img
         src={`/icon/${hero.thumbnail}`}
         alt={hero.name}

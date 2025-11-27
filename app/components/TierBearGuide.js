@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import heroesData from '../data/heroes/index.json'
 
-export default function RallySetupCollapse({ data }) {
+export default function TierBearGuide({ data }) {
   const [openIndex, setOpenIndex] = useState(null)
 
   const handleToggle = index => {

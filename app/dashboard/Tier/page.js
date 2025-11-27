@@ -1,7 +1,7 @@
 'use client'
 
 import TierList from '../../components/TierList'
-import RallySetupCollapse from '../../components/RallySetupCollapse'
+import RallySetupCollapse from '../../components/TierBearGuide'
 import heroesData from '../../data/heroes/TierList.json'
 
 import Link from "next/link"
