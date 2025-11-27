@@ -206,8 +206,28 @@ export default function HeroDetail({ initialId }) {
     animateSplit(rarityRef, 0.2)
     animateSplit(classRef, 0.3)
 
-    gsap.fromTo(widgetRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 })
-    gsap.fromTo(passiveRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 })
+ gsap.fromTo(
+      widgetRef.current,
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.5, delay: 0.3, ease: 'power2.out' }
+    )
+    gsap.fromTo(
+      passiveRef.current,
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.5, delay: 0.3, ease: 'power2.out' }
+    )
+
+    gsap.fromTo(
+      skillTitleRefs.current.filter(Boolean),
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
+    )
+
+    gsap.fromTo(
+      skillImageRefs.current.filter(Boolean),
+      { opacity: 0, y: 20, scale: 0.8 },
+      { opacity: 1, y: 0, scale: 1, stagger: 0.05, duration: 0.4, ease: 'back.out(1.7)' }
+    )
 
     return () => cleanup.forEach((fn) => fn())
   }, [isReady, hero])
@@ -232,6 +252,9 @@ export default function HeroDetail({ initialId }) {
   // safe hero image path and alt
   const heroImageFilename = hero?.image || hero?.thumbnail || 'placeholder.png'
   const heroImageAlt = hero?.name || 'hero'
+
+  
+
 
   return (
     <div className="w-full flex justify-center">
