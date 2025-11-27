@@ -35,7 +35,7 @@
           "effect-name": "Damage + Immobilize",
           "affect-on": ["Target"],
           "stats": ["100%","110%","120%","130%","140%"],
-          "description": "Freya chain-smashes and binds a target, dealing Attack ×100%–140% damage and immobilizing them for 1.5 s. :contentReference[oaicite:2]{index=2}",
+          "description": "Freya chain-smashes and binds a target, dealing Attack ×100%–140% damage and immobilizing them for 1.5 s.",
           "icon": "prickled_bind.png"
         }
       },
@@ -73,7 +73,7 @@
           "effect-name": "Extra Hit Chance",
           "affect-on": ["Target"],
           "stats": ["20%","40%","60%","80%","100%"],
-          "description": "After normal attack, Freya has 50% chance to perform Reap, dealing Attack ×(20%–100%) extra damage. :contentReference[oaicite:5]{index=5}",
+          "description": "After normal attack, Freya has 50% chance to perform Reap, dealing Attack ×(20%–100%) extra damage.",
           "icon": "blood_moon_scythe.png"
         }
       },
