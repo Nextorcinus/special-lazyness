@@ -569,3 +569,26 @@ body::-webkit-scrollbar {
 .scroll-hidden::-webkit-scrollbar {
   display: none; 
 }
+
+.shine {
+  position: absolute;
+  inset: 0;
+  left: -120%;
+  width: 80%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,0.8) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  animation: shineMove 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes shineMove {
+  0% { left: -120%; opacity: 0; }
+  10% { opacity: 1; }
+  50% { left: 150%; opacity: 0.8; }
+  100% { opacity: 0; }
+}

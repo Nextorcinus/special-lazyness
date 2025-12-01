@@ -117,12 +117,11 @@ export default function HeroList({ heroes }) {
       href="/dashboard/Tier"
       className="
         fixed bottom-5 left-1/2 -translate-x-1/2
-        bg-white/20 backdrop-blur-md
+        bg-white/20 hover:bg-white backdrop-blur-md
         border border-white/30
         p-3 rounded-full shadow-lg
-        hover:bg-white/90 transition
         flex items-center justify-center
-        z-50
+        z-50 overflow-hidden
       "
     >
       <img
@@ -130,10 +129,11 @@ export default function HeroList({ heroes }) {
         alt="Tier"
         width="49"
         height="49"
-        className="pointer-events-none"
+        className="pointer-events-none relative z-10"
       />
-    </Link>
 
+      <span className="shine"></span>
+    </Link>
 
       </div>
     </div>
