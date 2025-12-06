@@ -199,7 +199,7 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
               />
             </div>
 
-            {/* DOUBLE TIME */}
+            {/* DOUBLE TIME
             <div className="flex flex-col justify-center">
               <Label className="text-white mb-1">Double Time</Label>
               <div className="flex items-center gap-2">
@@ -212,7 +212,7 @@ export default function HeliosForm({ category, researchName, onCalculate, dataSo
                 />
                 <Label htmlFor="doubleTime">Active</Label>
               </div>
-            </div>
+            </div> */}
 
             {/* BUTTON */}
             <div className="col-span-2 md:col-span-1 flex items-center">
