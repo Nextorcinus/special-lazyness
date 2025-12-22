@@ -71,7 +71,18 @@
           "effects": {
             "effect-name": "Infantry Damage + / Marksman Damage +",
             "affect-on": ["Infantry Troops", "Marksman Troops"],
-            "stats": ["100% / 10%", "125% / 20%", "150% / 30%", "175% / 40%", "200% / 50%"],
+            "stats": [
+              "100%",
+              "125%",
+              "150%",
+              "175% ",
+              "200%",
+              "20",
+              "40%",
+              "60%",
+              "80%",
+              "100%"
+            ],
             "description": "Increases Infantry damage by 100%–200% and Marksman damage by level stats. Effect decreases by 80% each attack and ends after 5 attacks.",
             "icon": "rampant.png"
           }
