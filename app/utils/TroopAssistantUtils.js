@@ -95,6 +95,28 @@ export function distributeAllLegions({ legions, ratio, totalTroops }) {
   })
 }
 
+/* ---------- BACKWARD COMPAT WRAPPER ---------- */
+export function calculateTroopDistribution(troops, ratio, legionCount) {
+  const legions = Array.from({ length: legionCount }, () => ({
+    infantry: 0,
+    lancer: 0,
+    marksman: 0,
+    maxSize: Number.MAX_SAFE_INTEGER,
+  }))
+
+  distributeAllLegions({
+    legions,
+    ratio,
+    totalTroops: troops,
+  })
+
+  return legions.map((l) => ({
+    infantry: l.infantry,
+    lancer: l.lancer,
+    marksman: l.marksman,
+  }))
+}
+
 /* ---------- BEAR TRAP AUTO FORMATION ---------- */
 export function autoBearTrapFormation({
   totalTroops,
