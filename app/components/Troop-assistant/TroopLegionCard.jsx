@@ -91,7 +91,7 @@ export default function TroopLegionCard({
       {/* Max size & total */}
       <div className="grid grid-cols-2 gap-4 items-center">
         <div>
-          <label className="text-xs text-white">Max Legion Size</label>
+          <label className="text-xs text-white">Max March Size</label>
           <FormattedNumberInput
             value={legion.maxSize}
             onChange={(value) =>
