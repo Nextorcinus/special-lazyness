@@ -116,30 +116,6 @@ export default function TroopLegionCard({
         </div>
       </div>
 
-      {/* Troop sliders */}
-      {['infantry', 'lancer', 'marksman'].map((type) => (
-        <div key={type} className="space-y-1">
-          <div className="flex justify-between items-center">
-            <label className="capitalize text-sm text-white/80">{type}</label>
-
-            <FormattedNumberInput
-              value={legion[type]}
-              onChange={(value) => handleChange(type, value)}
-              className="w-24 p-1 rounded-md text-white text-right text-sm border-0"
-            />
-          </div>
-
-          <input
-            type="range"
-            min={0}
-            max={legion.maxSize}
-            value={legion[type]}
-            onChange={(e) => handleChange(type, Number(e.target.value))}
-            className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-white/40"
-          />
-        </div>
-      ))}
-
       {/* Presets */}
       <div>
         <div className="text-xs text-white mb-2">Quick Presets</div>
@@ -166,6 +142,30 @@ export default function TroopLegionCard({
           })}
         </div>
       </div>
+
+      {/* Troop sliders */}
+      {['infantry', 'lancer', 'marksman'].map((type) => (
+        <div key={type} className="space-y-1">
+          <div className="flex justify-between items-center">
+            <label className="capitalize text-sm text-white/80">{type}</label>
+
+            <FormattedNumberInput
+              value={legion[type]}
+              onChange={(value) => handleChange(type, value)}
+              className="w-24 p-1 rounded-md text-white text-right text-sm border-0"
+            />
+          </div>
+
+          <input
+            type="range"
+            min={0}
+            max={legion.maxSize}
+            value={legion[type]}
+            onChange={(e) => handleChange(type, Number(e.target.value))}
+            className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-white/40"
+          />
+        </div>
+      ))}
     </div>
   )
 }

@@ -46,6 +46,11 @@ const menu = [
   { label: 'Heroes', href: '/dashboard/heroes', icon: '/icon-menu/heroes.png' },
   { label: 'Experts', href: '/dashboard/dawn', icon: '/icon-menu/dawn.png' },
   {
+    label: 'Troops Assistant',
+    href: '/dashboard/troops',
+    icon: '/icon-menu/troops.png',
+  },
+  {
     label: 'Foundry',
     href: '/dashboard/foundry',
     icon: '/icon-menu/foundry.png',

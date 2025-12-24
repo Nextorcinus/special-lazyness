@@ -17,41 +17,39 @@ export default function NotifBadge() {
   const [notifications, setNotifications] = useState([])
   const [isReady, setIsReady] = useState(false)
 
-
-
   /* tambahkan versi notif */
-  const NOTIF_VERSION = 5
+  const NOTIF_VERSION = 1
 
   const defaultNotifications = [
     {
       id: 1,
-      text: 'State 1067 updated successfully foundry',
-      href: '/dashboard/foundry',
+      text: 'Troops Assistant Feature Added',
+      href: '/dashboard/troops',
       read: false,
     },
     {
       id: 2,
       text: 'New Charm Lv.16 Updated',
       href: '/dashboard/research',
-      read: false,
+      read: true,
     },
     {
       id: 3,
       text: 'New Gear Pink T4 Updated',
       href: '/dashboard/gear',
-      read: false,
+      read: true,
     },
     {
       id: 4,
       text: 'New Expert Hero Dawn',
       href: '/dashboard/dawn',
-      read: false,
+      read: true,
     },
     {
       id: 5,
       text: 'Heroes Whiteout Survival',
       href: '/dashboard/heroes',
-      read: false,
+      read: true,
     },
     {
       id: 6,
@@ -71,13 +69,14 @@ export default function NotifBadge() {
     } else {
       setNotifications(defaultNotifications)
       localStorage.setItem('notif_version', NOTIF_VERSION)
-      localStorage.setItem('notifications', JSON.stringify(defaultNotifications))
+      localStorage.setItem(
+        'notifications',
+        JSON.stringify(defaultNotifications)
+      )
     }
 
     setIsReady(true)
   }, [])
-
-
 
   /* SAVE TO LOCALSTORAGE */
   useEffect(() => {
@@ -129,7 +128,9 @@ export default function NotifBadge() {
         >
           <div className="w-72 rounded-xl bg-zinc-900/45 backdrop-blur-lg border border-white/20 shadow-2xl p-4">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-semibold text-white">Notifications</span>
+              <span className="text-sm font-semibold text-white">
+                Notifications
+              </span>
 
               {unreadCount > 0 && (
                 <button

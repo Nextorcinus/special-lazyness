@@ -4,7 +4,7 @@ import { autoBearTrapFormation } from '../../utils/TroopAssistantUtils'
 import TroopAssistantPreset from './TroopAssistantPreset'
 import TroopLegionCard from './TroopLegionCard'
 import FormattedNumberInput from '../../utils/FormattedNumbernInput'
-import { useHistory } from '../../dashboard/Troops-Assistant/HistoryContext'
+import { useHistory } from '../../dashboard/troops/HistoryContext'
 
 export default function TroopAssistantCalculator() {
   const {
