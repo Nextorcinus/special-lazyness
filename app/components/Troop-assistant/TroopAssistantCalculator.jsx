@@ -5,6 +5,7 @@ import TroopAssistantPreset from './TroopAssistantPreset'
 import TroopLegionCard from './TroopLegionCard'
 import FormattedNumberInput from '../../utils/FormattedNumbernInput'
 import { useHistory } from '../../dashboard/troops/HistoryContext'
+import { toast } from 'sonner'
 
 export default function TroopAssistantCalculator() {
   const {
@@ -42,6 +43,15 @@ export default function TroopAssistantCalculator() {
       marksman: Number(troops.marksman) || 0,
     }
 
+    if (
+      safeTroops.infantry === 0 &&
+      safeTroops.lancer === 0 &&
+      safeTroops.marksman === 0
+    ) {
+      toast.error('Please enter troop numbers first')
+      return
+    }
+
     const safeJoinerSize = Math.min(joinerSize, maxJoinerCapacity)
 
     const result = autoBearTrapFormation({
@@ -52,6 +62,10 @@ export default function TroopAssistantCalculator() {
     })
 
     setLegions(result)
+
+    toast.success(
+      `Rally calculated successfully. ${result.length} formations created`
+    )
   }
 
   return (
@@ -101,7 +115,7 @@ export default function TroopAssistantCalculator() {
 
         <div className="flex justify-between items-center mt-2">
           <span className="text-sm text-white p-2">
-            Joiner March max capacity (depends on your alliance rules)
+            Joiner March max capacity
           </span>
 
           <div className="flex gap-2 items-center">
