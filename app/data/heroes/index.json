@@ -186,7 +186,7 @@
     "class": "Marksman",
     "thumbnail": "greg_thumb.jpg",
     "generation": "S3",
-    "tier": "A"
+    "tier": "B"
   },
   {
     "id": "mia",
@@ -258,7 +258,7 @@
     "class": "Marksman",
     "thumbnail": "gwen_thumb.jpg",
     "generation": "S5",
-    "tier": "B"
+    "tier": "A"
   },
   {
     "id": "wu_ming",
@@ -339,7 +339,7 @@
     "class": "Marksman",
     "thumbnail": "hendrik.jpg",
     "generation": "S8",
-    "tier": "A"
+    "tier": "B"
   },
   {
     "id": "magnus",
@@ -368,7 +368,7 @@
     "generation": "S9",
     "tier": "C"
   },
-    {
+  {
     "id": "gregory",
     "name": "Gregory",
     "rarity": "Legendary",
