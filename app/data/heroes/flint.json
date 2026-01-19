@@ -59,7 +59,7 @@
           "effects": {
             "effect-name": "Burn Damage",
             "affect-on": ["All Troops"],
-            "stats": ["8%", "16%", "24%", "32%", "40%"],
+            "stats": ["20%", "40%", "60%", "80%", "100%"],
             "description": "Flint Increases his infantry Damage Dealt.",
             "icon": "pyromaniac.png"
           }
@@ -83,7 +83,7 @@
           "effects": {
             "effect-name": "Damage Taken Increase",
             "affect-on": ["Enemy Troops"],
-            "stats": ["10%", "20%", "30%", "40%", "50%"],
+            "stats": ["5%", "10%", "15%", "20%", "25%"],
             "description": "Increases all Troops Lethality",
             "icon": "immolation.png"
           }
