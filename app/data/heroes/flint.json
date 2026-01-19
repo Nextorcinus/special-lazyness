@@ -60,7 +60,7 @@
             "effect-name": "Burn Damage",
             "affect-on": ["All Troops"],
             "stats": ["8%", "16%", "24%", "32%", "40%"],
-            "description": "Troops have a chance to inflict burn damage.",
+            "description": "Flint Increases his infantry Damage Dealt.",
             "icon": "pyromaniac.png"
           }
         },
@@ -72,7 +72,7 @@
             "effect-name": "Attack Boost",
             "affect-on": ["All Troops"],
             "stats": ["5%", "10%", "15%", "20%", "25%"],
-            "description": "Boosts troop attack.",
+            "description": "Increasing All troops attack.",
             "icon": "burning_resolve.png"
           }
         },
@@ -84,7 +84,7 @@
             "effect-name": "Damage Taken Increase",
             "affect-on": ["Enemy Troops"],
             "stats": ["10%", "20%", "30%", "40%", "50%"],
-            "description": "Increases damage taken by enemies.",
+            "description": "Increases all Troops Lethality",
             "icon": "immolation.png"
           }
         }
