@@ -96,7 +96,7 @@
     "setups": [
       {
         "type": "Best Hero",
-        "id": ["jeronimo", "reina", "gwen"],
+        "id": ["hector", "reina", "gwen"],
         "formation": "1/3/6",
         "suggest": "In Gen5 you can retire Alonso. Gwen has same widget but better hero skills. Heavy marksman formation works well"
       },
@@ -119,13 +119,13 @@
     "setups": [
       {
         "type": "Best Hero",
-        "id": ["jeronimo", "reina", "wayne"],
+        "id": ["hector", "reina", "wayne"],
         "formation": "1/3/6",
         "suggest": "Even without rally widget, Wayne’s crit rate skill gives better total rally damage than Gwen"
       },
       {
         "type": "Alternative Best Hero",
-        "id": ["jeronimo", "mia", "wayne"],
+        "id": ["hector", "mia", "wayne"],
         "formation": "1/1/8",
         "suggest": "Mia’s skills can boost Wayne’s damage even more if luck is on your side"
       },
@@ -138,65 +138,65 @@
     ]
   },
   {
-  "generation": "7",
-  "setups": [
-    {
-      "type": "Best Hero",
-      "id": ["jeronimo", "mia", "bradley"],
-      "formation": "1/1/8",
-      "suggest": "Bradley is latest gen hero that has highest stats for Marksman troops. You will have a huge Marksman attack stat"
-    },
-    {
-      "type": "Alternative Best Hero",
-      "id": ["jeronimo", "reina", "wayne"],
-      "formation": "1/3/6",
-      "suggest": "This comp allows Bradley and Mia to join other people’s rallies while you keep this rally strong"
-    },
-    {
-      "type": "F2P",
-      "id": ["hector", "mia", "bradley"],
-      "formation": "1/1/8",
-      "suggest": "Bradley gives highest stats, while Mia boosts Marksman Attack even higher"
-    }
-  ]
+    "generation": "7",
+    "setups": [
+      {
+        "type": "Best Hero",
+        "id": ["hector", "mia", "bradley"],
+        "formation": "1/1/8",
+        "suggest": "Bradley is latest gen hero that has highest stats for Marksman troops. You will have a huge Marksman attack stat"
+      },
+      {
+        "type": "Alternative Best Hero",
+        "id": ["hector", "reina", "wayne"],
+        "formation": "1/3/6",
+        "suggest": "This comp allows Bradley and Mia to join other people’s rallies while you keep this rally strong"
+      },
+      {
+        "type": "F2P",
+        "id": ["hector", "mia", "bradley"],
+        "formation": "1/1/8",
+        "suggest": "Bradley gives highest stats, while Mia boosts Marksman Attack even higher"
+      }
+    ]
   },
   {
-  "generation": "8",
-  "setups": [
-    {
-      "type": "Best Hero",
-      "id": ["jeronimo", "mia", "bradley"],
-      "formation": "1/1/8",
-      "suggest": "Sonya works only for lancer troops so not ideal for bear trap. Hendrik mainly defensive so not good for rally lead"
-    },
-    {
-      "type": "Alternative Best Hero",
-      "id": ["jeronimo", "sonya", "bradley"],
-      "formation": "1/3/6",
-      "suggest": "If Mia isn’t maxed, use Sonya with 30 percent Lancers for her skills to have impact"
-    },
-    {
-      "type": "F2P",
-      "id": ["hector", "mia", "bradley"],
-      "formation": "1/1/8",
-      "suggest": "Hector still better than newest gen hero for bear trap rally"
-    }
-  ]
+    "generation": "8",
+    "setups": [
+      {
+        "type": "Best Hero",
+        "id": ["hector", "mia", "bradley"],
+        "formation": "1/1/8",
+        "suggest": "Sonya works only for lancer troops so not ideal for bear trap. Hendrik mainly defensive so not good for rally lead"
+      },
+      {
+        "type": "Alternative Best Hero",
+        "id": ["hector", "sonya", "bradley"],
+        "formation": "1/3/6",
+        "suggest": "If Mia isn’t maxed, use Sonya with 30 percent Lancers for her skills to have impact"
+      },
+      {
+        "type": "F2P",
+        "id": ["hector", "mia", "bradley"],
+        "formation": "1/1/8",
+        "suggest": "Hector still better than newest gen hero for bear trap rally"
+      }
+    ]
   },
   {
     "generation": "9",
     "setups": [
       {
         "type": "Best Hero",
-        "id": ["jeronimo", "mia", "bradley"],
+        "id": ["hector", "mia", "bradley"],
         "formation": "1/1/8",
         "suggest": "Fred not compatible with Bradley. Xura focuses on opponent troops so not good for bear hunt rally"
       },
       {
         "type": "Alternative Best Hero",
-        "id": ["magnus", "mia", "bradley"],
+        "id": ["hector", "mia", "bradley"],
         "formation": "1/1/8",
-        "suggest": "Same as P2W bear hunt. If you do not have Jeronimo yet, you can use Magnus for rally lead"
+        "suggest": "Same as P2W bear hunt. If you do not have Jeronimo yet, you can use Magnus for rally lead, but after buff hero hectro skill maybe Hector is still better"
       },
       {
         "type": "F2P",
@@ -207,30 +207,26 @@
     ]
   },
   {
-  "generation": "10",
-  "setups": [
-    {
-      "type": "Best Hero",
-      "id": ["jeronimo", "mia", "blanchette"],
-      "formation": "1/1/8",
-      "suggest": "Blanchette is a masterpiece hero since all her skills boost damage. Freya not recommended here"
-    },
-    {
-      "type": "Alternative Best Hero",
-      "id": ["gregory", "mia", "blanchette"],
-      "formation": "1/1/8",
-      "suggest": "Almost same as P2W bear hunt. If you do not have Jeronimo use Gregory. Some say Gregory performs better"
-    },
-    {
-      "type": "F2P",
-      "id": ["hector", "mia", "blanchette"],
-      "formation": "1/1/8",
-      "suggest": "Blanchette appears in lucky wheels and has insane damage for bear trap rally"
-    }
-  ]
-}
-
-
-
-
+    "generation": "10",
+    "setups": [
+      {
+        "type": "Best Hero",
+        "id": ["hector", "mia", "blanchette"],
+        "formation": "1/1/8",
+        "suggest": "Blanchette is a masterpiece hero since all her skills boost damage. Freya not recommended here"
+      },
+      {
+        "type": "Alternative Best Hero",
+        "id": ["gregory", "mia", "blanchette"],
+        "formation": "1/1/8",
+        "suggest": "Almost same as P2W bear hunt. If you do not have Jeronimo use Gregory. Some say Gregory performs better but after buff hero hectro skill maybe Hector is still better"
+      },
+      {
+        "type": "F2P",
+        "id": ["hector", "mia", "blanchette"],
+        "formation": "1/1/8",
+        "suggest": "Blanchette appears in lucky wheels and has insane damage for bear trap rally"
+      }
+    ]
+  }
 ]
