@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import { toast } from 'sonner'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
 import ResourceIcon from './ResourceIcon'
@@ -16,13 +16,23 @@ export default function TabSwitcherCharm({
   onDeleteHistory,
   onResetHistory,
 }) {
-  // Hitung total bahan
+
+  const statLabelMap = {
+    Cap: 'Lancer',
+    Watch: 'Lancer',
+    Coat: 'Infantry',
+    Pants: 'Infantry',
+    Belt: 'Marksman',
+    Weapon: 'Marksman',
+  }
+
   const calculateMaterials = (from, to) => {
-    const fromIndex = charmData.findIndex((i) => i.level === parseInt(from))
-    const toIndex = charmData.findIndex((i) => i.level === parseInt(to))
+    const fromIndex = charmData.findIndex(i => i.level === parseInt(from))
+    const toIndex = charmData.findIndex(i => i.level === parseInt(to))
     if (fromIndex === -1 || toIndex === -1 || fromIndex >= toIndex) return null
 
-    const total = { guide: 0, design: 0, jewel: 0, svs: 0 }
+    const total = { guide: 0, design: 0, jewel: 0, svs: 0, stat: 0 }
+
     for (let i = fromIndex + 1; i <= toIndex; i++) {
       const data = charmData[i]
       if (!data) continue
@@ -30,38 +40,52 @@ export default function TabSwitcherCharm({
       total.design += data.design_cost || 0
       total.jewel += data.jewel_cost || 0
       total.svs += data.svs_point || 0
+      total.stat += data.stat_diff || 0
     }
+
     return total
   }
 
-  // Delete handler
   const handleDelete = (id, type) => {
     onDeleteHistory?.(id)
     toast.success(`Deleted ${type} upgrade.`)
   }
 
-  // Urutkan hasil terbaru paling atas
   const sortedResults = [...results].reverse()
+
+  // Ini inti perbaikannya: merge base JSON dengan override svs dari form
+  const resultsWithTotal = useMemo(() => {
+    return results.map(r => {
+      const base = calculateMaterials(r.from, r.to) ?? {
+        guide: 0,
+        design: 0,
+        jewel: 0,
+        svs: 0,
+        stat: 0,
+      }
+
+      return {
+        ...r,
+        total: {
+          ...base,            // semua dari JSON
+          ...(r.total || {}), // override hanya jika form kirim svs
+          stat: base.stat,    // paksa stat tetap dari JSON
+        },
+      }
+    })
+  }, [results])
 
   return (
     <div>
-      {/* Tabs */}
       <div className="flex gap-2 mb-6 border-b border-[#ffffff46]">
-        <button
-          className={`tab-button ${tab === 'overview' ? 'active' : ''}`}
-          onClick={() => setTab('overview')}
-        >
+        <button className={`tab-button ${tab === 'overview' ? 'active' : ''}`} onClick={() => setTab('overview')}>
           Overview
         </button>
-        <button
-          className={`tab-button ${tab === 'history' ? 'active' : ''}`}
-          onClick={() => setTab('history')}
-        >
+        <button className={`tab-button ${tab === 'history' ? 'active' : ''}`} onClick={() => setTab('history')}>
           History
         </button>
       </div>
 
-      {/* OVERVIEW */}
       {tab === 'overview' && (
         <div className="space-y-6">
           {sortedResults.length === 0 ? (
@@ -70,25 +94,21 @@ export default function TabSwitcherCharm({
             </div>
           ) : (
             <>
-              {sortedResults.map((res, idx) => {
-                const total = calculateMaterials(res.from, res.to)
-                if (!total) return null
-
-                const compare = compares?.[idx] || {}
-                const isLatest = idx === 0 // 🔥 hasil terbaru
+              {sortedResults.map(res => {
+                const merged = resultsWithTotal.find(r => r.id === res.id)
+                const total = merged?.total ?? {
+                  guide: 0,
+                  design: 0,
+                  jewel: 0,
+                  svs: 0,
+                  stat: 0,
+                }
 
                 return (
-                  <div
-                    key={res.id}
-                    id={isLatest ? 'latest-result' : undefined} // 🔥 tambahkan ID di hasil terbaru
-                    className="bg-special-inside py-4 px-4 rounded-xl space-y-4 relative"
-                  >
-                    {/* Title */}
-                    <div className="relative flex justify-between items-center bg-title-result mb-4 pr-12">
+                  <div key={res.id} className="bg-special-inside py-4 px-4 rounded-xl space-y-4">
+                    <div className="flex justify-between items-center bg-title-result mb-4 pr-12">
                       <div>
-                        <div className="text-lg lg:text-xl text-shadow-lg text-white mb-1">
-                          {res.type}
-                        </div>
+                        <div className="text-lg text-white mb-1">{res.type}</div>
                         <span className="text-white text-sm">
                           Level: {res.from} → {res.to}
                         </span>
@@ -96,69 +116,36 @@ export default function TabSwitcherCharm({
 
                       <button
                         onClick={() => handleDelete(res.id, res.type)}
-                        className="buttonGlass absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:scale-105 transition-transform duration-200"
+                        className="buttonGlass p-2 rounded-lg"
                       >
-                        <img
-                          src="/icon/trash-can.png"
-                          alt="Delete"
-                          className="w-5 h-5"
-                        />
+                        <img src="/icon/trash-can.png" alt="Delete" className="w-5 h-5" />
                       </button>
                     </div>
 
-                    {/* Resources */}
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 gap-y-2 text-center">
-                      {['guide', 'design', 'jewel'].map((key) => {
-                        const need = total[key]
-                        const have = compare?.[key] ?? null
-                        const diff = have !== null ? have - need : 0
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                      {['guide', 'design', 'jewel'].map(key => (
+                        <div key={key} className="special-glass p-3 rounded-xl flex flex-col items-center">
+                          <ResourceIcon type={key} />
+                          <p className="text-sm text-zinc-200 mt-1">{key}</p>
+                          <p className="text-base text-white">
+                            {formatToShortNumber(total[key])}
+                          </p>
+                        </div>
+                      ))}
 
-                        const diffText =
-                          have === null
-                            ? ''
-                            : diff > 0
-                            ? `+${formatToShortNumber(diff)}`
-                            : diff < 0
-                            ? `-${formatToShortNumber(Math.abs(diff))}`
-                            : 'Match'
-
-                        const color =
-                          diff > 0
-                            ? 'text-green-400 border border-green-800 bg-green-700/25'
-                            : diff < 0
-                            ? 'text-[#FFBABA] border border-[#AD5556] bg-[#6D1B19]/25'
-                            : 'text-gray-200 bg-white/10'
-
-                        return (
-                          <div
-                            key={key}
-                            className="special-glass p-3 rounded-xl flex flex-col items-center"
-                          >
-                            <ResourceIcon type={key} />
-                            <p className="text-sm  text-zinc-200 mt-1">
-                              {key.charAt(0).toUpperCase() + key.slice(1)}
-                            </p>
-                            <p className="text-base text-white">
-                              {formatToShortNumber(need)}
-                            </p>
-                            {have !== null && (
-                              <span
-                                className={`text-xs mt-2 px-2 py-1 rounded-md ${color}`}
-                              >
-                                {diffText}
-                              </span>
-                            )}
-                          </div>
-                        )
-                      })}
-
-                      {/* SvS */}
-                      <div className="special-glass bg-[#9797974A] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1 flex flex-col justify-center relative">
-                        <span className="block text-sm text-zinc-200 mb-1">
-                          SvS Points:
-                        </span>
-                        <span className="block text-base text-white">
+                      <div className="special-glass p-3 rounded-xl flex flex-col justify-center">
+                        <span className="text-sm text-zinc-200 mb-1">SvS Points</span>
+                        <span className="text-white text-base">
                           {formatToShortNumber(total.svs)}
+                        </span>
+                      </div>
+
+                      <div className="special-glass p-3 rounded-xl flex flex-col justify-center">
+                        <span className="text-sm text-zinc-200 mb-1">
+                          Stats Gain {statLabelMap[res.type]}
+                        </span>
+                        <span className="text-green-400 text-base">
+                          +{total.stat.toFixed(1)} %
                         </span>
                       </div>
                     </div>
@@ -166,14 +153,12 @@ export default function TabSwitcherCharm({
                 )
               })}
 
-              {/* Total Result */}
-              <TotalResultCharm results={results} compares={compares} />
+              <TotalResultCharm results={resultsWithTotal} compares={compares} />
             </>
           )}
         </div>
       )}
 
-      {/* HISTORY */}
       {tab === 'history' && (
         <CharmHistoryList onResetGlobal={onResetHistory} />
       )}

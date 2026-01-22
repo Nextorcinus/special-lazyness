@@ -7,23 +7,27 @@ import ResourceIcon from './ResourceIcon'
 export default function TotalResultCharm({ results = [], compares = [] }) {
   if (!results.length) return null
 
-  // ambil 1 compare, karena compare berlaku untuk semua
+  
   const comparedData = compares[0] || null
 
-  // --- Hitung total kebutuhan ---
+
   const total = useMemo(() => {
-    return results.reduce(
-      (acc, curr) => {
-        const res = curr.total || {}
-        acc.guide += res.guide || 0
-        acc.design += res.design || 0
-        acc.jewel += res.jewel || 0
-        acc.svs += res.svs || 0
-        return acc
-      },
-      { guide: 0, design: 0, jewel: 0, svs: 0 }
-    )
-  }, [results])
+  return results.reduce(
+    (acc, curr) => {
+      const res = curr.total ?? curr ?? {}
+
+      acc.guide += res.guide || 0
+      acc.design += res.design || 0
+      acc.jewel += res.jewel || 0
+      acc.svs += res.svs || 0
+      acc.stat += res.stat || 0
+
+      return acc
+    },
+    { guide: 0, design: 0, jewel: 0, svs: 0, stat: 0 }
+  )
+}, [results])
+
 
   const resources = [
     { key: 'guide', label: 'Guides' },
@@ -31,7 +35,7 @@ export default function TotalResultCharm({ results = [], compares = [] }) {
     { key: 'jewel', label: 'Jewel' },
   ]
 
-  // --- Hitung compare ---
+  
   const compare = {}
   resources.forEach(({ key }) => {
     const have = Number(comparedData?.[key] || 0)
@@ -91,6 +95,19 @@ export default function TotalResultCharm({ results = [], compares = [] }) {
           <span className="block text-teal-300 text-base ">
             {formatToShortNumber(total.svs)}
           </span>
+        </div>
+        {/* Stats Gain */}
+        <div className="special-glass bg-[#4a97974a] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1 flex flex-col justify-center">
+          <span className="block text-white text-sm mb-1">Stats Gain:</span>
+          <span className="block text-green-400 text-base">
+            +{total.stat.toFixed(1)} %
+          </span>
+           <span className="text-xs inline-block mt-2 px-2 py-1 rounded-md text-[#FFBABA] border border-[#AD5556] bg-[#6D1B19]/25">
+                          Lethality
+                        </span>
+                        <span className="text-xs inline-block mt-2 px-2 py-1 rounded-md text-green-400 border border-green-800 bg-green-700/25">
+                          Health
+                        </span>
         </div>
       </div>
     </div>

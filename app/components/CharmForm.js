@@ -9,10 +9,13 @@ import HybridSelect from './HybridSelect'
 
 const charmTypes = ['Cap', 'Watch', 'Coat', 'Pants', 'Belt', 'Weapon']
 const charmLevels = charmData.map((item) => item.level.toString())
+const valeriaLevels = Array.from({ length: 11 }, (_, i) => i.toString())
 
 export default function CharmForm({ onSubmit, onReset }) {
   const initialState = { type: '', from: '', to: '' }
+
   const [selection, setSelection] = useState(initialState)
+  const [valeriaLevel, setValeriaLevel] = useState('0')
 
   const getLevelIndex = (level) => charmLevels.indexOf(level)
 
@@ -34,6 +37,7 @@ export default function CharmForm({ onSubmit, onReset }) {
 
   const handleCalculate = (e) => {
     e.preventDefault()
+
     const { type, from, to } = selection
 
     if (!type || !from || !to) {
@@ -49,19 +53,42 @@ export default function CharmForm({ onSubmit, onReset }) {
       return
     }
 
-    const total = { guide: 0, design: 0, jewel: 0, svs: 0 }
+    const total = {
+      guide: 0,
+      design: 0,
+      jewel: 0,
+      svsBase: 0,
+      svs: 0,
+      valeriaBonus: 0,
+    }
+
     for (let i = fromIndex + 1; i <= toIndex; i++) {
       const data = charmData[i]
       if (data) {
         total.guide += data.guide_cost || 0
         total.design += data.design_cost || 0
         total.jewel += data.jewel_cost || 0
-        total.svs += data.svs_point || 0
+        total.svsBase += data.svs_point || 0
       }
     }
 
-    onSubmit?.({ type, from, to, total })
-    toast.success(`Charm upgrade calculated: ${type} ${from} → ${to}`)
+    const level = parseInt(valeriaLevel)
+    const bonusPercent = Math.min(level * 2, 20)
+
+    total.valeriaBonus = bonusPercent
+    total.svs = Math.round(total.svsBase * (1 + bonusPercent / 100))
+
+    onSubmit?.({
+      type,
+      from,
+      to,
+      total,
+      valeriaLevel,
+    })
+
+    toast.success(
+      `Charm calculated with Valeria Lv ${valeriaLevel} (+${bonusPercent}% SvS)`
+    )
   }
 
   const availableToLevels = selection.from
@@ -69,13 +96,14 @@ export default function CharmForm({ onSubmit, onReset }) {
     : charmLevels
 
   return (
-    <form onSubmit={handleCalculate}
+    <form
+      onSubmit={handleCalculate}
       className="py-4 px-4 bg-special-inside rounded-xl space-y-6"
     >
       <h2 className="text-xl text-white">Select Charm</h2>
 
-      <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-4 gap-4">
-        
+      <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-5 gap-4">
+
         {/* Type */}
         <div>
           <Label className="text-white">Charm Type</Label>
@@ -95,7 +123,8 @@ export default function CharmForm({ onSubmit, onReset }) {
             onChange={(val) => handleChange('from', val)}
             placeholder="From"
             options={charmLevels.map((lvl) => ({
-              value: lvl, label: `Level ${lvl}`
+              value: lvl,
+              label: `Level ${lvl}`,
             }))}
           />
         </div>
@@ -108,7 +137,22 @@ export default function CharmForm({ onSubmit, onReset }) {
             onChange={(val) => handleChange('to', val)}
             placeholder="To"
             options={availableToLevels.map((lvl) => ({
-              value: lvl, label: `Level ${lvl}`
+              value: lvl,
+              label: `Level ${lvl}`,
+            }))}
+          />
+        </div>
+
+        {/* Valeria Bonus */}
+        <div>
+          <Label className="text-white">Valeria Level (SvS Bonus)</Label>
+          <HybridSelect
+            value={valeriaLevel}
+            onChange={(val) => setValeriaLevel(val)}
+            placeholder="Valeria Level"
+            options={valeriaLevels.map((lvl) => ({
+              value: lvl,
+              label: `Level ${lvl} (+${Math.min(lvl * 2, 20)}%)`,
             }))}
           />
         </div>
@@ -123,7 +167,6 @@ export default function CharmForm({ onSubmit, onReset }) {
           </Button>
         </div>
       </div>
-
     </form>
   )
 }
