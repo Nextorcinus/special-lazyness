@@ -16,7 +16,6 @@ export default function TabSwitcherCharm({
   onDeleteHistory,
   onResetHistory,
 }) {
-
   const statLabelMap = {
     Cap: 'Lancer',
     Watch: 'Lancer',
@@ -27,8 +26,8 @@ export default function TabSwitcherCharm({
   }
 
   const calculateMaterials = (from, to) => {
-    const fromIndex = charmData.findIndex(i => i.level === parseInt(from))
-    const toIndex = charmData.findIndex(i => i.level === parseInt(to))
+    const fromIndex = charmData.findIndex((i) => i.level === parseInt(from))
+    const toIndex = charmData.findIndex((i) => i.level === parseInt(to))
     if (fromIndex === -1 || toIndex === -1 || fromIndex >= toIndex) return null
 
     const total = { guide: 0, design: 0, jewel: 0, svs: 0, stat: 0 }
@@ -55,7 +54,7 @@ export default function TabSwitcherCharm({
 
   // Ini inti perbaikannya: merge base JSON dengan override svs dari form
   const resultsWithTotal = useMemo(() => {
-    return results.map(r => {
+    return results.map((r) => {
       const base = calculateMaterials(r.from, r.to) ?? {
         guide: 0,
         design: 0,
@@ -67,9 +66,9 @@ export default function TabSwitcherCharm({
       return {
         ...r,
         total: {
-          ...base,            // semua dari JSON
+          ...base, // semua dari JSON
           ...(r.total || {}), // override hanya jika form kirim svs
-          stat: base.stat,    // paksa stat tetap dari JSON
+          stat: base.stat, // paksa stat tetap dari JSON
         },
       }
     })
@@ -78,10 +77,16 @@ export default function TabSwitcherCharm({
   return (
     <div>
       <div className="flex gap-2 mb-6 border-b border-[#ffffff46]">
-        <button className={`tab-button ${tab === 'overview' ? 'active' : ''}`} onClick={() => setTab('overview')}>
+        <button
+          className={`tab-button ${tab === 'overview' ? 'active' : ''}`}
+          onClick={() => setTab('overview')}
+        >
           Overview
         </button>
-        <button className={`tab-button ${tab === 'history' ? 'active' : ''}`} onClick={() => setTab('history')}>
+        <button
+          className={`tab-button ${tab === 'history' ? 'active' : ''}`}
+          onClick={() => setTab('history')}
+        >
           History
         </button>
       </div>
@@ -94,8 +99,8 @@ export default function TabSwitcherCharm({
             </div>
           ) : (
             <>
-              {sortedResults.map(res => {
-                const merged = resultsWithTotal.find(r => r.id === res.id)
+              {sortedResults.map((res) => {
+                const merged = resultsWithTotal.find((r) => r.id === res.id)
                 const total = merged?.total ?? {
                   guide: 0,
                   design: 0,
@@ -105,10 +110,15 @@ export default function TabSwitcherCharm({
                 }
 
                 return (
-                  <div key={res.id} className="bg-special-inside py-4 px-4 rounded-xl space-y-4">
+                  <div
+                    key={res.id}
+                    className="bg-special-inside py-4 px-4 rounded-xl space-y-4"
+                  >
                     <div className="flex justify-between items-center bg-title-result mb-4 pr-12">
                       <div>
-                        <div className="text-lg text-white mb-1">{res.type}</div>
+                        <div className="text-lg text-white mb-1">
+                          {res.type}
+                        </div>
                         <span className="text-white text-sm">
                           Level: {res.from} → {res.to}
                         </span>
@@ -118,13 +128,20 @@ export default function TabSwitcherCharm({
                         onClick={() => handleDelete(res.id, res.type)}
                         className="buttonGlass p-2 rounded-lg"
                       >
-                        <img src="/icon/trash-can.png" alt="Delete" className="w-5 h-5" />
+                        <img
+                          src="/icon/trash-can.png"
+                          alt="Delete"
+                          className="w-5 h-5"
+                        />
                       </button>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                      {['guide', 'design', 'jewel'].map(key => (
-                        <div key={key} className="special-glass p-3 rounded-xl flex flex-col items-center">
+                      {['guide', 'design', 'jewel'].map((key) => (
+                        <div
+                          key={key}
+                          className="special-glass p-3 rounded-xl flex flex-col items-center"
+                        >
                           <ResourceIcon type={key} />
                           <p className="text-sm text-zinc-200 mt-1">{key}</p>
                           <p className="text-base text-white">
@@ -134,7 +151,9 @@ export default function TabSwitcherCharm({
                       ))}
 
                       <div className="special-glass p-3 rounded-xl flex flex-col justify-center">
-                        <span className="text-sm text-zinc-200 mb-1">SvS Points</span>
+                        <span className="text-sm text-zinc-200 mb-1">
+                          SvS Points
+                        </span>
                         <span className="text-white text-base">
                           {formatToShortNumber(total.svs)}
                         </span>
@@ -144,7 +163,7 @@ export default function TabSwitcherCharm({
                         <span className="text-sm text-zinc-200 mb-1">
                           Stats Gain {statLabelMap[res.type]}
                         </span>
-                        <span className="text-green-400 text-base">
+                        <span className="text-white-400 text-base">
                           +{total.stat.toFixed(1)} %
                         </span>
                       </div>
@@ -153,15 +172,16 @@ export default function TabSwitcherCharm({
                 )
               })}
 
-              <TotalResultCharm results={resultsWithTotal} compares={compares} />
+              <TotalResultCharm
+                results={resultsWithTotal}
+                compares={compares}
+              />
             </>
           )}
         </div>
       )}
 
-      {tab === 'history' && (
-        <CharmHistoryList onResetGlobal={onResetHistory} />
-      )}
+      {tab === 'history' && <CharmHistoryList onResetGlobal={onResetHistory} />}
     </div>
   )
 }
