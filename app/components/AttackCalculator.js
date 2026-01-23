@@ -193,33 +193,107 @@ export default function AttackCalculator() {
       </form>
 
       <div className="mt-6 bg-glass-background2 p-4 rounded-xl space-y-3">
-        <h3 className="text-white text-lg font-semibold">
-          How this calculator works
-        </h3>
+        <h3 className="text-white text-lg font-semibold">1. Troops Attack</h3>
 
         <div className="flex flex-col md:flex-row gap-4 items-start">
           <Image
-            src="/public/icon/alonso.png"
-            alt="Attack Formula"
+            src="/public/icon/troopattack.png"
+            alt="Troops Attack"
+            width={400}
+            height={200}
+            className=" object-cover"
+          />
+
+          <p className="text-white/80 text-sm leading-relaxed">
+            type Troop's attack from bonus overview, then for unit attack copy
+            from each hero
+          </p>
+        </div>
+      </div>
+      <div className="mt-6 bg-glass-background2 p-4 rounded-xl space-y-3">
+        <h3 className="text-white text-lg font-semibold">2. Hero Attack</h3>
+
+        <div className="flex flex-col md:flex-row gap-4 items-start">
+          <Image
+            src="/public/icon/hero_attack.png"
+            alt="Hero Attack"
             width={400}
             height={200}
             className="rounded-lg object-cover"
           />
 
           <p className="text-white/80 text-sm leading-relaxed">
-            This calculator uses the same logic as in-game combat stats. Base
-            Combat Stat is calculated from Troops Attack, Unit Attack, and Hero
-            Attack. Special bonuses such as Widget, Buff, and Pet are applied
-            using the formula:
-            <br />
-            <br />
-            <span className="text-white font-medium">
-              (Base × (1 + Special%)) + Special
-            </span>
-            <br />
-            <br />
-            Synergy is applied as a final adjustment layer after the main
-            calculation.
+            copy hero attack from hero info page
+          </p>
+        </div>
+      </div>
+      <div className="mt-6 bg-glass-background2 p-4 rounded-xl space-y-3">
+        <h3 className="text-white text-lg font-semibold">3. Skin Bonus</h3>
+
+        <div className="flex flex-col md:flex-row gap-4 items-start">
+          <Image
+            src="/public/icon/skin_bonus.png"
+            alt="Skin Bonus"
+            width={400}
+            height={200}
+            className="rounded-lg object-cover"
+          />
+
+          <p className="text-white/80 text-sm leading-relaxed">
+            copy hero attack from hero info page
+          </p>
+        </div>
+      </div>
+      <div className="mt-6 bg-glass-background2 p-4 rounded-xl space-y-3">
+        <h3 className="text-white text-lg font-semibold">4. Hero Widget</h3>
+
+        <div className="flex flex-col md:flex-row gap-4 items-start">
+          <Image
+            src="/public/icon/hero_widget.png"
+            alt="Hero Widget"
+            width={400}
+            height={200}
+            className="rounded-lg object-cover"
+          />
+
+          <p className="text-white/80 text-sm leading-relaxed">
+            check hero widget level and percentage bonus.
+          </p>
+        </div>
+      </div>
+      <div className="mt-6 bg-glass-background2 p-4 rounded-xl space-y-3">
+        <h3 className="text-white text-lg font-semibold">5. Buff Pet</h3>
+
+        <div className="flex flex-col md:flex-row gap-4 items-start">
+          <Image
+            src="/public/icon/buff_pet.png"
+            alt="Buff Pet"
+            width={400}
+            height={200}
+            className="rounded-lg object-cover"
+          />
+
+          <p className="text-white/80 text-sm leading-relaxed">
+            check pet buff level and percentage bonus.
+          </p>
+        </div>
+      </div>
+      <div className="mt-6 bg-glass-background2 p-4 rounded-xl space-y-3">
+        <h3 className="text-white text-lg font-semibold">
+          6. Hero Synergy Gear Chief
+        </h3>
+
+        <div className="flex flex-col md:flex-row gap-4 items-start">
+          <Image
+            src="/public/icon/hero_synergy.png"
+            alt="Hero Synergy"
+            width={400}
+            height={200}
+            className="rounded-lg object-cover"
+          />
+
+          <p className="text-white/80 text-sm leading-relaxed">
+            check your gear for synergy bonus.
           </p>
         </div>
       </div>
