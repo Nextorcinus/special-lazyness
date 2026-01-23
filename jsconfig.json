@@ -6,6 +6,6 @@
       "@/components/*": ["./components/*"]
     }
   },
-  "include": ["**/*.js", "**/*.jsx"],
+  "include": ["**/*.js", "**/*.jsx", "app/components/AttackCalculator.js"],
   "exclude": ["node_modules"]
 }
