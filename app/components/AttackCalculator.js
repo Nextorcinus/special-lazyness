@@ -197,7 +197,7 @@ export default function AttackCalculator() {
 
         <div className="flex flex-col md:flex-row gap-4 items-start">
           <Image
-            src="/public/icon/troopattack.png"
+            src="/icon/troopsattack.png"
             alt="Troops Attack"
             width={400}
             height={200}
@@ -215,7 +215,7 @@ export default function AttackCalculator() {
 
         <div className="flex flex-col md:flex-row gap-4 items-start">
           <Image
-            src="/public/icon/hero_attack.png"
+            src="/icon/hero_attack.png"
             alt="Hero Attack"
             width={400}
             height={200}
@@ -232,7 +232,7 @@ export default function AttackCalculator() {
 
         <div className="flex flex-col md:flex-row gap-4 items-start">
           <Image
-            src="/public/icon/skin_bonus.png"
+            src="/icon/skin_bonus.png"
             alt="Skin Bonus"
             width={400}
             height={200}
@@ -249,7 +249,7 @@ export default function AttackCalculator() {
 
         <div className="flex flex-col md:flex-row gap-4 items-start">
           <Image
-            src="/public/icon/hero_widget.png"
+            src="/icon/hero_widget.png"
             alt="Hero Widget"
             width={400}
             height={200}
@@ -266,7 +266,7 @@ export default function AttackCalculator() {
 
         <div className="flex flex-col md:flex-row gap-4 items-start">
           <Image
-            src="/public/icon/buff_pet.png"
+            src="/icon/buff_pet.png"
             alt="Buff Pet"
             width={400}
             height={200}
@@ -285,7 +285,7 @@ export default function AttackCalculator() {
 
         <div className="flex flex-col md:flex-row gap-4 items-start">
           <Image
-            src="/public/icon/hero_synergy.png"
+            src="/icon/hero_synergy.png"
             alt="Hero Synergy"
             width={400}
             height={200}
@@ -293,7 +293,8 @@ export default function AttackCalculator() {
           />
 
           <p className="text-white/80 text-sm leading-relaxed">
-            check your gear for synergy bonus.
+            check your gear for synergy bonus.synergy active only if you are
+            starter rally.
           </p>
         </div>
       </div>
