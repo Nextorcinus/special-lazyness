@@ -46,7 +46,15 @@ export default function TotalResult({ results = [], comparedData = null }) {
 
   const totalOriginalTime = sumDurations(results.map((r) => r.timeOriginal))
   const totalReducedTime = sumDurations(results.map((r) => r.timeReduced))
-  const totalSvSPoints = results.reduce((sum, r) => sum + (r.svsPoints || 0), 0)
+
+  // SvS final: pakai svsFinal jika ada, fallback ke svsBase
+  const totalSvSPoints = results.reduce(
+    (sum, r) => sum + (r.svsFinal ?? r.svsBase ?? 0),
+    0
+  )
+
+  // Ambil Valeria bonus terbesar yang dipakai
+  const maxValeriaBonus = Math.max(...results.map((r) => r.valeriaBonus || 0))
 
   const compare = {}
   resourceOrder.forEach((key) => {
@@ -60,8 +68,8 @@ export default function TotalResult({ results = [], comparedData = null }) {
         diff > 0
           ? 'text-xs text-green-400 rounded-md border border-green-800 bg-green-700/10 px-2 py-1'
           : diff < 0
-          ? 'text-xs text-red-200 rounded-md border border-red-400 bg-red-500/10 px-2 py-1'
-          : 'text-xs text-zinc-100 rounded-md border border-zinc-300 bg-white/10 px-2 py-1',
+            ? 'text-xs text-red-200 rounded-md border border-red-400 bg-red-500/10 px-2 py-1'
+            : 'text-xs text-zinc-100 rounded-md border border-zinc-300 bg-white/10 px-2 py-1',
       label: diff > 0 ? '+' : diff < 0 ? '-' : 'Match',
     }
   })
@@ -76,12 +84,13 @@ export default function TotalResult({ results = [], comparedData = null }) {
         {resourceOrder.map((key) => (
           <div
             key={key}
-            className="flex flex-col items-center special-glass p-2 rounded-xl border "
+            className="flex flex-col items-center special-glass p-2 rounded-xl border"
           >
-            <div className="flex items-center gap-1 text-[#d1e635] text-sm md:text-sm lg:text-base mb-1">
+            <div className="flex items-center gap-1 text-[#d1e635] text-sm lg:text-base mb-1">
               <ResourceIcon type={key} />
               <span>{formatToShortNumber(total[key])}</span>
             </div>
+
             {comparedData && (
               <div className={`text-xs ${compare[key].color}`}>
                 {compare[key].label}
@@ -99,15 +108,23 @@ export default function TotalResult({ results = [], comparedData = null }) {
           <span className="text-zinc-300">Total Original Time: </span>
           <span className="text-yellow-100">{totalOriginalTime}</span>
         </div>
+
         <div>
           <span className="text-zinc-300">Total Reduced Time: </span>
           <span className="text-lime-400">{totalReducedTime}</span>
         </div>
+
         <div>
           <span className="text-zinc-300">Total SvS Points: </span>
           <span className="text-yellow-400">
             {formatToShortNumber(totalSvSPoints)}
           </span>
+
+          {maxValeriaBonus > 0 && (
+            <span className="ml-2 text-xs text-cyan-400">
+              +{maxValeriaBonus}% Valeria
+            </span>
+          )}
         </div>
       </div>
     </div>

@@ -61,12 +61,14 @@ export function calculateUpgrade({
     (b) => b.Building?.trim().toLowerCase() === building.trim().toLowerCase()
   )
 
-  const startIndex = buildingEntries.findIndex((b) => String(b.Level) === String(fromLevel))
-const endIndex = buildingEntries.findIndex((b) => String(b.Level) === String(toLevel))
-
+  const startIndex = buildingEntries.findIndex(
+    (b) => String(b.Level) === String(fromLevel)
+  )
+  const endIndex = buildingEntries.findIndex(
+    (b) => String(b.Level) === String(toLevel)
+  )
 
   if (startIndex === -1 || endIndex === -1 || startIndex >= endIndex) {
-    // console.warn(' Level not found on data:', { fromLevel, toLevel })
     return null
   }
 
@@ -85,18 +87,10 @@ const endIndex = buildingEntries.findIndex((b) => String(b.Level) === String(toL
   const zinman = normalizeBuff(buffs.zinmanSkill, zinmanBuffMap)
   const zinmanMultiplier = 1 - zinman / 100
 
-  // console.log(
-  //   'Building Range:',
-  //   range.map((r) => r.Level)
-  // )
-
   for (const r of range) {
     const seconds = parseDurationToSeconds(r.Duration || '0m')
     totalSeconds += seconds
 
-    // console.log(`Duration ${r.Level}: ${r.Duration} = ${seconds}s`)
-
-    // Calculate Zinman skill
     rawResources.Meat +=
       (+r.Meat?.toString().replace(/[^0-9.]/g, '') || 0) * zinmanMultiplier
     rawResources.Wood +=
@@ -106,7 +100,6 @@ const endIndex = buildingEntries.findIndex((b) => String(b.Level) === String(toL
     rawResources.Iron +=
       (+r.Iron?.toString().replace(/[^0-9.]/g, '') || 0) * zinmanMultiplier
 
-    // Zinman tidak mempengaruhi RFC dan Crystal
     rawResources.Crystal += +r.Crystal || 0
     rawResources.RFC += +r['Refined Fire Crystal'] || 0
   }
@@ -116,39 +109,34 @@ const endIndex = buildingEntries.findIndex((b) => String(b.Level) === String(toL
   const pet = normalizeBuff(buffs.petLevel, petBuffMap)
   const doubleTime = buffs.doubleTime ? 20 : 0
 
-  const totalBuff = constructionSpeed + vp + pet + doubleTime // hapus Zinman tidak mempengaruhi waktu
-
-  // console.log(' Buff Breakdown:', {
-  //   constructionSpeed,
-  //   vp,
-  //   pet,
-  //   zinman,
-  //   doubleTime,
-  //   totalBuffPercent: totalBuff,
-  // })
+  const totalBuff = constructionSpeed + vp + pet + doubleTime
 
   const reducedSeconds = totalSeconds / (1 + totalBuff / 100)
 
-  // console.log(' Total Seconds:', totalSeconds)
-  // console.log(' Reduced Seconds:', reducedSeconds)
-  // console.log(' Formatted Original:', formatDuration(totalSeconds))
-  // console.log(' Formatted Reduced:', formatDuration(reducedSeconds))
-  // console.log(' Total Resources:', rawResources)
+  // ===== SvS calculation with Valeria =====
+  const svsBase = range.reduce((sum, r) => {
+    const svs = parseInt((r['SvS Points'] || '0').toString().replace(/,/g, ''))
+    return sum + (isNaN(svs) ? 0 : svs)
+  }, 0)
 
+  const valeriaBonus = Math.min(parseFloat(buffs?.valeriaBonus) || 0, 20)
+  const svsFinal = Math.round(svsBase * (1 + valeriaBonus / 100))
+
+  // ===== Final return =====
   return {
     building,
     fromLevel,
     toLevel,
     buffs,
+
     timeOriginal: formatDuration(totalSeconds),
     timeReduced: formatDuration(reducedSeconds),
+
     rawResources,
     resources: { ...rawResources },
-    svsPoints: range.reduce((sum, r) => {
-      const svs = parseInt(
-        (r['SvS Points'] || '0').toString().replace(/,/g, '')
-      )
-      return sum + (isNaN(svs) ? 0 : svs)
-    }, 0),
+
+    svsBase,
+    svsFinal,
+    valeriaBonus,
   }
 }
