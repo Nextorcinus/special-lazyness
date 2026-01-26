@@ -4,6 +4,7 @@ import React from 'react'
 import { toast } from 'sonner'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
 import { parseNumber } from '../utils/parseNumber'
+import ResourceIcon from './ResourceIcon'
 
 export default function CompareFormGear({
   requiredResources = {},
@@ -85,23 +86,41 @@ export default function CompareFormGear({
         </div>
       ) : (
         <form onSubmit={handleCompare}>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {resources.map(({ key, label }) => (
-              <div key={key}>
-                <label
-                  htmlFor={key}
-                  className="text-sm text-white block sm:mt-1 sm:mb-1 lg:mt-3"
-                >
+              <div key={key} className="space-y-1">
+                <label htmlFor={key} className="text-sm text-white block">
                   {label}
                 </label>
-                <input
-                  type="text"
-                  id={key}
-                  name={key}
-                  defaultValue={getDefaultValue(key)}
-                  placeholder="e.g. 35 M, 1.5 K"
-                  className="w-full bg-special-input-green p-2 rounded text-zinc-400"
-                />
+
+                <div className="relative">
+                  <div className="absolute left-3 top-[40%] -translate-y-1/2 pointer-events-none opacity-80">
+                    <ResourceIcon type={key} />
+                  </div>
+
+                  <input
+                    type="text"
+                    id={key}
+                    name={key}
+                    defaultValue={getDefaultValue(key)}
+                    placeholder="e.g. 35 M, 1.5 K"
+                    className="
+            w-full
+            bg-special-input-green
+            text-zinc-200
+            placeholder:text-zinc-500
+            rounded-lg
+            px-3
+            py-2
+            pl-11
+            border border-white/10
+            focus:outline-none
+            focus:ring-2
+            focus:ring-teal-500/40
+            transition
+          "
+                  />
+                </div>
               </div>
             ))}
           </div>

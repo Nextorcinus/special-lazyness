@@ -121,7 +121,7 @@ export default function GearPage() {
       {/* Header */}
       <div className="relative w-full md:px-6 md:py-0 py-4 md:mt-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 px-6">
-          <h2 className="text-2xl text-lime-400">Chief Gear</h2>
+          <h2 className="text-2xl text-white">Chief Gear</h2>
         </div>
       </div>
 

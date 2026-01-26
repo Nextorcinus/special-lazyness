@@ -5,6 +5,7 @@ import { Label } from '../components/ui/label'
 import { Button } from '../components/ui/button'
 import { Input } from '../components/ui/input'
 import { toast } from 'sonner'
+import ResourceIcon from './ResourceIcon'
 
 export default function CompareFormCharm({ onCompare, comparedData = {} }) {
   const [form, setForm] = useState({
@@ -70,22 +71,26 @@ export default function CompareFormCharm({ onCompare, comparedData = {} }) {
           <Label htmlFor={name} className="text-white">
             {label}
           </Label>
-          <Input
-            type="number"
-            id={name}
-            name={name}
-            value={form[name]}
-            onChange={handleChange}
-            className="w-full bg-special-input-green p-2 rounded text-zinc-400"
-            placeholder="0"
-          />
+
+          <div className="relative">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2">
+              <ResourceIcon type={name} />
+            </div>
+
+            <Input
+              type="number"
+              id={name}
+              name={name}
+              value={form[name]}
+              onChange={handleChange}
+              className="w-full bg-special-input-green p-2 pl-12 rounded text-zinc-400"
+              placeholder="0"
+            />
+          </div>
         </div>
       ))}
 
-      <Button
-        type="submit"
-        className="mt-6 px-4 py-2 button-Form "
-      >
+      <Button type="submit" className="mt-6 px-4 py-2 button-Form ">
         Compare
       </Button>
     </form>

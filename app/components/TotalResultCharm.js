@@ -4,30 +4,28 @@ import React, { useMemo } from 'react'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
 import ResourceIcon from './ResourceIcon'
 
-export default function TotalResultCharm({ results = [], compares = [] }) {
+export default function TotalResultCharm({ results = [], compares = {} }) {
   if (!results.length) return null
 
-  
-  const comparedData = compares[0] || null
-
+  // compares sekarang langsung object, bukan array
+  const comparedData = compares
 
   const total = useMemo(() => {
-  return results.reduce(
-    (acc, curr) => {
-      const res = curr.total ?? curr ?? {}
+    return results.reduce(
+      (acc, curr) => {
+        const res = curr.total ?? curr ?? {}
 
-      acc.guide += res.guide || 0
-      acc.design += res.design || 0
-      acc.jewel += res.jewel || 0
-      acc.svs += res.svs || 0
-      acc.stat += res.stat || 0
+        acc.guide += res.guide || 0
+        acc.design += res.design || 0
+        acc.jewel += res.jewel || 0
+        acc.svs += res.svs || 0
+        acc.stat += res.stat || 0
 
-      return acc
-    },
-    { guide: 0, design: 0, jewel: 0, svs: 0, stat: 0 }
-  )
-}, [results])
-
+        return acc
+      },
+      { guide: 0, design: 0, jewel: 0, svs: 0, stat: 0 }
+    )
+  }, [results])
 
   const resources = [
     { key: 'guide', label: 'Guides' },
@@ -35,7 +33,6 @@ export default function TotalResultCharm({ results = [], compares = [] }) {
     { key: 'jewel', label: 'Jewel' },
   ]
 
-  
   const compare = {}
   resources.forEach(({ key }) => {
     const have = Number(comparedData?.[key] || 0)
@@ -49,8 +46,8 @@ export default function TotalResultCharm({ results = [], compares = [] }) {
         diff > 0
           ? 'text-green-400 border border-green-800 bg-green-700/10'
           : diff < 0
-          ? 'text-red-200 border border-red-400 bg-red-500/10'
-          : 'text-gray-200 bg-white/10',
+            ? 'text-red-200 border border-red-400 bg-red-500/10'
+            : 'text-gray-200 bg-white/10',
     }
   })
 
@@ -62,8 +59,8 @@ export default function TotalResultCharm({ results = [], compares = [] }) {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-2 gap-4 text-center">
         {resources.map(({ key, label }) => (
-          <div 
-            key={key} 
+          <div
+            key={key}
             className="special-glass p-3 rounded-xl flex flex-col items-center"
           >
             <ResourceIcon type={key} />
@@ -92,22 +89,25 @@ export default function TotalResultCharm({ results = [], compares = [] }) {
         {/* === SvS Points === */}
         <div className="special-glass bg-[#9797974A] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1 flex flex-col justify-center">
           <span className="block text-white text-sm mb-1">SvS Points:</span>
-          <span className="block text-teal-300 text-base ">
+          <span className="block text-teal-300 text-base">
             {formatToShortNumber(total.svs)}
           </span>
         </div>
-        {/* Stats Gain */}
+
+        {/* === Stats Gain === */}
         <div className="special-glass bg-[#4a97974a] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1 flex flex-col justify-center">
           <span className="block text-white text-sm mb-1">Stats Gain:</span>
           <span className="block text-green-400 text-base">
-            +{total.stat.toFixed(1)} %
+            +{(total.stat ?? 0).toFixed(1)} %
           </span>
-           <span className="text-xs inline-block mt-2 px-2 py-1 rounded-md text-[#FFBABA] border border-[#AD5556] bg-[#6D1B19]/25">
-                          Lethality
-                        </span>
-                        <span className="text-xs inline-block mt-2 px-2 py-1 rounded-md text-green-400 border border-green-800 bg-green-700/25">
-                          Health
-                        </span>
+
+          <span className="text-xs inline-block mt-2 px-2 py-1 rounded-md text-[#FFBABA] border border-[#AD5556] bg-[#6D1B19]/25">
+            Lethality
+          </span>
+
+          <span className="text-xs inline-block mt-2 px-2 py-1 rounded-md text-green-400 border border-green-800 bg-green-700/25">
+            Health
+          </span>
         </div>
       </div>
     </div>

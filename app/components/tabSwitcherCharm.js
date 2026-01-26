@@ -12,7 +12,7 @@ export default function TabSwitcherCharm({
   tab,
   setTab,
   results = [],
-  compares = [],
+  compares = {},
   onDeleteHistory,
   onResetHistory,
 }) {
@@ -52,7 +52,6 @@ export default function TabSwitcherCharm({
 
   const sortedResults = [...results].reverse()
 
-  // Ini inti perbaikannya: merge base JSON dengan override svs dari form
   const resultsWithTotal = useMemo(() => {
     return results.map((r) => {
       const base = calculateMaterials(r.from, r.to) ?? {
@@ -66,9 +65,9 @@ export default function TabSwitcherCharm({
       return {
         ...r,
         total: {
-          ...base, // semua dari JSON
-          ...(r.total || {}), // override hanya jika form kirim svs
-          stat: base.stat, // paksa stat tetap dari JSON
+          ...base,
+          ...(r.total || {}),
+          stat: base.stat,
         },
       }
     })
@@ -137,18 +136,51 @@ export default function TabSwitcherCharm({
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                      {['guide', 'design', 'jewel'].map((key) => (
-                        <div
-                          key={key}
-                          className="special-glass p-3 rounded-xl flex flex-col items-center"
-                        >
-                          <ResourceIcon type={key} />
-                          <p className="text-sm text-zinc-200 mt-1">{key}</p>
-                          <p className="text-base text-white">
-                            {formatToShortNumber(total[key])}
-                          </p>
-                        </div>
-                      ))}
+                      {['guide', 'design', 'jewel'].map((key) => {
+                        const have = Number(compares?.[key] || 0)
+                        const need = total[key]
+                        const diff = have - need
+
+                        const badge =
+                          diff > 0
+                            ? {
+                                text: `+${formatToShortNumber(diff)}`,
+                                class:
+                                  'text-green-400 border border-green-800 bg-green-700/10',
+                              }
+                            : diff < 0
+                              ? {
+                                  text: `-${formatToShortNumber(Math.abs(diff))}`,
+                                  class:
+                                    'text-red-300 border border-red-600 bg-red-500/10',
+                                }
+                              : {
+                                  text: 'Match',
+                                  class: 'text-gray-300 bg-white/10',
+                                }
+
+                        return (
+                          <div
+                            key={key}
+                            className="special-glass p-3 rounded-xl flex flex-col items-center"
+                          >
+                            <ResourceIcon type={key} />
+                            <p className="text-sm text-zinc-200 mt-1">{key}</p>
+
+                            <p className="text-base text-white">
+                              {formatToShortNumber(need)}
+                            </p>
+
+                            {compares && (
+                              <span
+                                className={`text-xs mt-2 px-2 py-1 rounded-md ${badge.class}`}
+                              >
+                                {badge.text}
+                              </span>
+                            )}
+                          </div>
+                        )
+                      })}
 
                       <div className="special-glass p-3 rounded-xl flex flex-col justify-center">
                         <span className="text-sm text-zinc-200 mb-1">
@@ -164,7 +196,7 @@ export default function TabSwitcherCharm({
                           Stats Gain {statLabelMap[res.type]}
                         </span>
                         <span className="text-white-400 text-base">
-                          +{total.stat.toFixed(1)} %
+                          +{(total.stat ?? 0).toFixed(1)} %
                         </span>
                       </div>
                     </div>
