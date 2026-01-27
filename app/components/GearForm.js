@@ -6,10 +6,10 @@ import { Label } from '../components/ui/label'
 import { Button } from '../components/ui/button'
 import { toast } from 'sonner'
 import { useGearHistory } from '../dashboard/gear/GearContext'
-
-import HybridSelect from '../components/HybridSelect'   // ← TAMBAHKAN INI
+import HybridSelect from '../components/HybridSelect'
 
 const gearParts = ['Cap', 'Watch', 'Coat', 'Pants', 'Belt', 'Weapon']
+const valeriaLevels = Array.from({ length: 11 }, (_, i) => i.toString())
 
 export default function GearForm({
   onSubmit,
@@ -21,6 +21,7 @@ export default function GearForm({
     type: '',
     from: '',
     to: '',
+    valeriaLevel: '0',
   }
 
   const [selection, setSelection] = useState(initialState)
@@ -60,8 +61,17 @@ export default function GearForm({
       toast.warning('Data belum dimuat sepenuhnya.')
     }
 
-    toast.success('Upgrade calculated successfully!')
-    onSubmit(selection)
+    const level = parseInt(selection.valeriaLevel || '0')
+    const bonusPercent = Math.min(level * 2, 20)
+
+    toast.success(
+      `Upgrade calculated with Valeria Lv.${level} (+${bonusPercent}% SvS)`
+    )
+
+    onSubmit({
+      ...selection,
+      valeriaBonus: bonusPercent,
+    })
   }
 
   const availableToLevels = selection.from
@@ -72,8 +82,7 @@ export default function GearForm({
     <div className="py-4 px-4 bg-special-inside rounded-xl space-y-6">
       <h2 className="text-xl">Select Gear Upgrade</h2>
 
-      <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-4 xl:grid-col-4 2xl:grid-cols-4 gap-4">
-
+      <div className="bg-glass-background2 p-4 grid grid-cols-1 md:grid-cols-5 gap-4">
         {/* GEAR TYPE */}
         <div>
           <Label className="text-white">Gear Type</Label>
@@ -114,6 +123,21 @@ export default function GearForm({
           />
         </div>
 
+        {/* VALERIA */}
+        <div>
+          <Label className="text-white">Valeria Bonus</Label>
+          <HybridSelect
+            value={selection.valeriaLevel}
+            onChange={(val) => handleChange('valeriaLevel', val)}
+            placeholder="Valeria Level"
+            options={valeriaLevels.map((lvl) => ({
+              value: lvl,
+              label: `Lv.${lvl} (+${Math.min(lvl * 2, 20)}%)`,
+            }))}
+            className="bg-special-input text-white w-full"
+          />
+        </div>
+
         {/* BUTTON */}
         <div className="flex">
           <Button
@@ -124,7 +148,6 @@ export default function GearForm({
             Calculate
           </Button>
         </div>
-
       </div>
     </div>
   )

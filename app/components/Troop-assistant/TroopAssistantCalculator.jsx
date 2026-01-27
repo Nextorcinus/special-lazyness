@@ -1,11 +1,13 @@
 'use client'
 
+import Image from 'next/image'
 import { autoBearTrapFormation } from '../../utils/TroopAssistantUtils'
 import TroopAssistantPreset from './TroopAssistantPreset'
 import TroopLegionCard from './TroopLegionCard'
 import FormattedNumberInput from '../../utils/FormattedNumbernInput'
 import { useHistory } from '../../dashboard/troops/HistoryContext'
 import { toast } from 'sonner'
+import { useState } from 'react'
 
 export default function TroopAssistantCalculator() {
   const {
@@ -21,13 +23,33 @@ export default function TroopAssistantCalculator() {
     setLegions,
   } = useHistory()
 
-  const totalTroopCount =
+  const [tumblingLevel, setTumblingLevel] = useState(0)
+  const [cityBuff, setCityBuff] = useState(0)
+  const [entrapmentLevel, setEntrapmentLevel] = useState(0)
+
+  const tumblingValues = [
+    0, 1500, 3000, 4500, 6000, 7500, 9000, 10500, 12000, 13500, 15000,
+  ]
+
+  const entrapmentValues = [
+    0, 0, 3600, 7200, 10800, 14400, 18000, 21600, 25200, 28800, 32400,
+  ]
+
+  const baseTotal =
     Number(troops?.infantry || 0) +
     Number(troops?.lancer || 0) +
     Number(troops?.marksman || 0)
 
+  const tumblingBuff = tumblingValues[tumblingLevel] || 0
+  const entrapmentBuff = entrapmentValues[entrapmentLevel] || 0
+
+  const cityBuffValue = Math.floor((rallySize || 0) * cityBuff)
+
+  const finalRallySize =
+    (Number(rallySize) || 0) + tumblingBuff + entrapmentBuff + cityBuffValue
+
   const maxJoinerCapacity =
-    joinerCount > 0 ? Math.floor(totalTroopCount / joinerCount) : 0
+    joinerCount > 0 ? Math.floor(baseTotal / joinerCount) : 0
 
   const onTroopChange = (key, value) => {
     setTroops((prev) => ({
@@ -38,9 +60,9 @@ export default function TroopAssistantCalculator() {
 
   const handleDistribute = () => {
     const safeTroops = {
-      infantry: Number(troops.infantry) || 0,
-      lancer: Number(troops.lancer) || 0,
-      marksman: Number(troops.marksman) || 0,
+      infantry: Number(troops?.infantry) || 0,
+      lancer: Number(troops?.lancer) || 0,
+      marksman: Number(troops?.marksman) || 0,
     }
 
     if (
@@ -52,11 +74,11 @@ export default function TroopAssistantCalculator() {
       return
     }
 
-    const safeJoinerSize = Math.min(joinerSize, maxJoinerCapacity)
+    const safeJoinerSize = Math.min(joinerSize || 0, maxJoinerCapacity)
 
     const result = autoBearTrapFormation({
       totalTroops: safeTroops,
-      rallySize,
+      rallySize: finalRallySize,
       joinerSize: safeJoinerSize,
       joinerCount,
     })
@@ -71,7 +93,7 @@ export default function TroopAssistantCalculator() {
   return (
     <div className="space-y-6 max-w-[700px] mx-auto">
       <div className="bg-special-inside p-4 rounded-2xl">
-        <h2 className="text-2xl text-white mb-1">Army Setup</h2>
+        <h2 className="text-2xl text-white mb-1">Troops Setup</h2>
         <p className="text-sm text-white mb-4">
           Enter the total number of troops for each type.
         </p>
@@ -130,6 +152,84 @@ export default function TroopAssistantCalculator() {
               Max ≈ {maxJoinerCapacity.toLocaleString()}
             </span>
           </div>
+        </div>
+
+        <div className="space-y-3 mt-4">
+          <h4 className="text-white font-semibold">Additional Buff</h4>
+
+          <div>
+            <label className="text-sm text-white flex items-center gap-2">
+              <Image
+                src="/icon/tumbling.png"
+                alt="tumbling"
+                width={40}
+                height={40}
+              />
+              Snow Ape Pet Buff
+            </label>
+
+            <select
+              value={tumblingLevel}
+              onChange={(e) => setTumblingLevel(Number(e.target.value))}
+              className="w-full bg-special-input p-2 rounded-md"
+            >
+              {tumblingValues.map((_, i) => (
+                <option key={i} value={i}>
+                  Level {i} (+{tumblingValues[i].toLocaleString()})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="text-sm text-white flex items-center gap-2">
+              <Image
+                src="/icon/capacity.png"
+                alt="capacity"
+                width={40}
+                height={40}
+              />
+              Buff Capacity City
+            </label>
+
+            <select
+              value={cityBuff}
+              onChange={(e) => setCityBuff(Number(e.target.value))}
+              className="w-full bg-special-input p-2 rounded-md"
+            >
+              <option value={0}>None (0%)</option>
+              <option value={0.1}>10%</option>
+              <option value={0.2}>20%</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="text-sm text-white flex items-center gap-2">
+              <Image
+                src="/icon/entrapment.png"
+                alt="entrapment"
+                width={40}
+                height={40}
+              />
+              Entrapment Level Cryille
+            </label>
+
+            <select
+              value={entrapmentLevel}
+              onChange={(e) => setEntrapmentLevel(Number(e.target.value))}
+              className="w-full bg-special-input p-2 rounded-md"
+            >
+              {entrapmentValues.map((_, i) => (
+                <option key={i} value={i}>
+                  Level {i} (+{entrapmentValues[i].toLocaleString()})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <p className="text-xs text-white opacity-70">
+            Rally size after buff: {finalRallySize.toLocaleString()}
+          </p>
         </div>
 
         <button

@@ -20,14 +20,26 @@ export default function TroopLegionCard({
   const title = isRallyStarter ? 'Rally Starter' : `March ${index + 1}`
 
   const presets = [
-    { name: '1:1:8', value: [1, 1, 8] },
-    { name: '1:2:7', value: [1, 2, 7] },
-    { name: '1:3:6', value: [1, 3, 6] },
-    { name: '2:3:5', value: [2, 3, 5] },
-    { name: '3:3:4', value: [3, 3, 4] },
+    { name: '10:10:80', value: [1, 1, 8] },
+    { name: '10:20:70', value: [1, 2, 7] },
+    { name: '10:30:60', value: [1, 3, 6] },
+    { name: '20:30:50', value: [2, 3, 5] },
+    { name: '30:30:40', value: [3, 3, 4] },
+    { name: 'Custom', value: null },
   ]
 
   const [activePresetIndex, setActivePresetIndex] = useState(0)
+  const [customRatio, setCustomRatio] = useState({
+    infantry: 0,
+    lancer: 0,
+    marksman: 0,
+  })
+
+  const customTotal =
+    customRatio.infantry + customRatio.lancer + customRatio.marksman
+
+  const isValidCustom = customTotal === 100
+
   const hasAppliedDefault = useRef(false)
 
   useEffect(() => {
@@ -60,6 +72,12 @@ export default function TroopLegionCard({
   }
 
   const handlePreset = (ratio, index) => {
+    if (!ratio) {
+      setCustomRatio({ infantry: 0, lancer: 0, marksman: 0 })
+      setActivePresetIndex(index)
+      return
+    }
+
     applyRatioToLegion({
       legion,
       ratio,
@@ -68,6 +86,32 @@ export default function TroopLegionCard({
     })
 
     setActivePresetIndex(index)
+    onUpdate({ ...legion })
+  }
+
+  const handleCustomChange = (type, value) => {
+    let num = Number(value) || 0
+    if (num < 0) num = 0
+    if (num > 100) num = 100
+
+    const newRatio = {
+      ...customRatio,
+      [type]: num,
+    }
+
+    setCustomRatio(newRatio)
+
+    const total = newRatio.infantry + newRatio.lancer + newRatio.marksman
+
+    if (total !== 100) return
+
+    applyRatioToLegion({
+      legion,
+      ratio: [newRatio.infantry, newRatio.lancer, newRatio.marksman],
+      totalTroops,
+      legions,
+    })
+
     onUpdate({ ...legion })
   }
 
@@ -118,7 +162,7 @@ export default function TroopLegionCard({
 
       {/* Presets */}
       <div>
-        <div className="text-xs text-white mb-2">Quick Presets</div>
+        <div className="text-xs text-white mb-2">Quick Presets %</div>
 
         <div className="flex gap-2 flex-wrap border-t border-white/10 pt-3">
           {presets.map((p, i) => {
@@ -141,6 +185,42 @@ export default function TroopLegionCard({
             )
           })}
         </div>
+
+        {/* custom ratio */}
+        {presets[activePresetIndex]?.name === 'Custom' && (
+          <div
+            className={`grid grid-cols-3 gap-2 mt-2 p-2 rounded-lg border
+      ${isValidCustom ? 'border-green-400/40 bg-green-400/5' : 'border-red-400/40 bg-red-400/5'}
+    `}
+          >
+            {['infantry', 'lancer', 'marksman'].map((type) => (
+              <div key={type}>
+                <label className="text-xs text-white/70 capitalize">
+                  {type} %
+                </label>
+                <input
+                  type="number"
+                  min={0}
+                  max={100}
+                  value={customRatio[type]}
+                  onChange={(e) => handleCustomChange(type, e.target.value)}
+                  className={`w-full p-1 rounded-md text-right text-sm text-white outline-none
+            ${isValidCustom ? 'bg-special-input border border-green-400/30' : 'bg-special-input border border-red-400/40'}
+          `}
+                />
+              </div>
+            ))}
+
+            <div
+              className={`col-span-3 text-xs text-right
+        ${isValidCustom ? 'text-green-400' : 'text-red-400'}
+      `}
+            >
+              Total: {customTotal} / 100
+              {!isValidCustom && ' (must be exactly 100)'}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Troop sliders */}

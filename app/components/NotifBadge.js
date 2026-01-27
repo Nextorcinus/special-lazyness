@@ -18,7 +18,7 @@ export default function NotifBadge() {
   const [isReady, setIsReady] = useState(false)
 
   /* tambahkan versi notif */
-  const NOTIF_VERSION = 1
+  const NOTIF_VERSION = 2
 
   const defaultNotifications = [
     {
@@ -29,33 +29,9 @@ export default function NotifBadge() {
     },
     {
       id: 2,
-      text: 'New Charm Lv.16 Updated',
-      href: '/dashboard/research',
-      read: true,
-    },
-    {
-      id: 3,
-      text: 'New Gear Pink T4 Updated',
+      text: 'Valerie Buff for Gear, Charm, and Building',
       href: '/dashboard/gear',
-      read: true,
-    },
-    {
-      id: 4,
-      text: 'New Expert Hero Dawn',
-      href: '/dashboard/dawn',
-      read: true,
-    },
-    {
-      id: 5,
-      text: 'Heroes Whiteout Survival',
-      href: '/dashboard/heroes',
-      read: true,
-    },
-    {
-      id: 6,
-      text: 'New UI interface',
-      href: null,
-      read: true,
+      read: false,
     },
   ]
 
