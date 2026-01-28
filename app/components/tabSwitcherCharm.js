@@ -191,13 +191,43 @@ export default function TabSwitcherCharm({
                         </span>
                       </div>
 
-                      <div className="special-glass p-3 rounded-xl flex flex-col justify-center">
-                        <span className="text-sm text-zinc-200 mb-1">
-                          Stats Gain {statLabelMap[res.type]}
+                      <div className="col-span-full border-t border-white/10 my-1" />
+
+                      <div className="col-span-full w-full p-3 rounded-xl flex flex-col gap-2">
+                        <span className="text-sm text-left text-white mb-1">
+                          {statLabelMap[res.type]}
                         </span>
-                        <span className="text-white-400 text-base">
-                          +{(total.stat ?? 0).toFixed(1)} %
-                        </span>
+
+                        <div className="flex gap-2 flex-wrap sm:flex-nowrap">
+                          {/* Lethality */}
+                          <div
+                            className="w-full sm:w-auto sm:min-w-[100px]
+                 px-3 py-2 rounded-xl
+                 bg-cyan-500/20 border border-cyan-400/30
+                 text-center"
+                          >
+                            <div className="text-[11px] text-cyan-200/80">
+                              Lethality
+                            </div>
+                            <div className="text-sm font-semibold text-white">
+                              +{(total.stat ?? 0).toFixed(1)}%
+                            </div>
+                          </div>
+
+                          {/* Health */}
+                          <div
+                            className="w-full sm:w-auto sm:min-w-[90px] px-3 py-2 rounded-xl
+                  bg-amber-500/20 border border-amber-400/30
+                  text-amber-200 text-center"
+                          >
+                            <div className="text-[11px] text-amber-200/80">
+                              Health
+                            </div>
+                            <div className="text-sm font-semibold text-white">
+                              +{(total.stat ?? 0).toFixed(1)}%
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

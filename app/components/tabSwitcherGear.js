@@ -205,30 +205,44 @@ export default function TabSwitcherGear({
                     )}
                   </div>
 
-                  <div className="flex gap-2 mt-1 ">
-                    <span className="inline-flex items-center px-3 py-1 text-xs rounded-lg bg-cyan-500/10 border border-cyan-400/20 text-cyan-200 shrink-0">
-                      Attack:
-                      <b className="ml-1 text-white">
-                        {res.total.stats?.attack || 0}%
-                      </b>
-                    </span>
+                  <div className="col-span-full border-t border-white/10 my-1" />
 
-                    <span className="inline-flex items-center px-3 py-1 text-xs rounded-lg bg-blue-500/10 border border-blue-400/20 text-blue-200 shrink-0">
-                      Defense:
-                      <b className="ml-1 text-white">
-                        {res.total.stats?.defense || 0}%
-                      </b>
-                    </span>
+                  <div className="col-span-full grid grid-cols-3 gap-2 mt-1 sm:flex sm:gap-3">
+                    {/* Attack */}
+                    <div
+                      className="w-full sm:w-auto sm:min-w-[90px] px-3 py-2 rounded-xl
+                  bg-cyan-500/20 border border-cyan-400/30
+                  text-cyan-200 text-center"
+                    >
+                      <div className="text-sm text-white opacity-80">
+                        Attack : {res.total.stats?.attack || 0}%
+                      </div>
+                    </div>
 
-                    <span className="inline-flex items-center px-3 py-1 text-xs rounded-lg bg-amber-500/10 border border-amber-400/20 text-amber-200 shrink-0">
-                      Deployment:
-                      <b className="ml-1 text-white">
-                        +{' '}
+                    {/* Defense */}
+                    <div
+                      className="w-full sm:w-auto sm:min-w-[90px] px-3 py-2 rounded-xl
+                  bg-blue-500/20 border border-blue-400/30
+                  text-blue-200 text-center"
+                    >
+                      <div className="text-sm text-white opacity-80">
+                        Defense: {res.total.stats?.defense || 0}%{' '}
+                      </div>
+                    </div>
+
+                    {/* Deployment */}
+                    <div
+                      className="w-full sm:w-auto sm:min-w-[90px] px-3 py-2 rounded-xl
+                  bg-amber-500/20 border border-amber-400/30
+                  text-amber-200 text-center"
+                    >
+                      <div className="text-sm opacity-80 text-white">
+                        Deploy : +{' '}
                         {res.total.stats?.deploy
                           ? formatToShortNumber(res.total.stats.deploy)
                           : '-'}
-                      </b>
-                    </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

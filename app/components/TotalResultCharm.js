@@ -7,7 +7,6 @@ import ResourceIcon from './ResourceIcon'
 export default function TotalResultCharm({ results = [], compares = {} }) {
   if (!results.length) return null
 
-  // compares sekarang langsung object, bukan array
   const comparedData = compares
 
   const total = useMemo(() => {
@@ -19,11 +18,37 @@ export default function TotalResultCharm({ results = [], compares = {} }) {
         acc.design += res.design || 0
         acc.jewel += res.jewel || 0
         acc.svs += res.svs || 0
-        acc.stat += res.stat || 0
+
+        // === ambil type dari charm ===
+        const typeMap = {
+          Cap: 'Lancer',
+          Watch: 'Lancer',
+          Coat: 'Infantry',
+          Pants: 'Infantry',
+          Belt: 'Marksman',
+          Weapon: 'Marksman',
+        }
+
+        const unitType = typeMap[curr.type]
+
+        if (unitType) {
+          acc.stat[unitType].lethality += res.stat || 0
+          acc.stat[unitType].health += res.stat || 0
+        }
 
         return acc
       },
-      { guide: 0, design: 0, jewel: 0, svs: 0, stat: 0 }
+      {
+        guide: 0,
+        design: 0,
+        jewel: 0,
+        svs: 0,
+        stat: {
+          Infantry: { lethality: 0, health: 0 },
+          Lancer: { lethality: 0, health: 0 },
+          Marksman: { lethality: 0, health: 0 },
+        },
+      }
     )
   }, [results])
 
@@ -66,12 +91,10 @@ export default function TotalResultCharm({ results = [], compares = {} }) {
             <ResourceIcon type={key} />
             <p className="text-sm text-zinc-200 mt-1">{label}</p>
 
-            {/* Total need */}
             <p className="text-base text-teal-300">
               {formatToShortNumber(total[key])}
             </p>
 
-            {/* Compare diff */}
             {comparedData && (
               <div
                 className={`text-xs mt-2 px-2 py-1 rounded-md ${compare[key].color}`}
@@ -86,7 +109,7 @@ export default function TotalResultCharm({ results = [], compares = {} }) {
           </div>
         ))}
 
-        {/* === SvS Points === */}
+        {/* SvS */}
         <div className="special-glass bg-[#9797974A] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1 flex flex-col justify-center">
           <span className="block text-white text-sm mb-1">SvS Points:</span>
           <span className="block text-teal-300 text-base">
@@ -94,21 +117,41 @@ export default function TotalResultCharm({ results = [], compares = {} }) {
           </span>
         </div>
 
-        {/* === Stats Gain === */}
-        <div className="special-glass bg-[#4a97974a] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1 flex flex-col justify-center">
-          <span className="block text-white text-sm mb-1">Stats Gain:</span>
-          <span className="block text-green-400 text-base">
-            +{(total.stat ?? 0).toFixed(1)} %
-          </span>
+        {/* ===== Stats Summary per Type ===== */}
+        {Object.entries(total.stat)
+          .filter(([_, v]) => v.lethality > 0 || v.health > 0)
+          .map(([type, stats]) => (
+            <div
+              key={type}
+              className="col-span-full w-full p-3 rounded-xl flex flex-col gap-2"
+            >
+              <span className="text-sm text-left text-white mb-1">{type}</span>
 
-          <span className="text-xs inline-block mt-2 px-2 py-1 rounded-md text-[#FFBABA] border border-[#AD5556] bg-[#6D1B19]/25">
-            Lethality
-          </span>
+              <div className="flex gap-2 flex-wrap sm:flex-nowrap">
+                <div
+                  className="w-full sm:w-auto sm:min-w-[100px]
+          px-3 py-2 rounded-xl
+          bg-cyan-500/20 border border-cyan-400/30 text-center"
+                >
+                  <div className="text-[11px] text-cyan-200/80">Lethality</div>
+                  <div className="text-sm font-semibold text-white">
+                    +{stats.lethality.toFixed(1)}%
+                  </div>
+                </div>
 
-          <span className="text-xs inline-block mt-2 px-2 py-1 rounded-md text-green-400 border border-green-800 bg-green-700/25">
-            Health
-          </span>
-        </div>
+                <div
+                  className="w-full sm:w-auto sm:min-w-[90px]
+          px-3 py-2 rounded-xl
+          bg-amber-500/20 border border-amber-400/30 text-center"
+                >
+                  <div className="text-[11px] text-amber-200/80">Health</div>
+                  <div className="text-sm font-semibold text-white">
+                    +{stats.health.toFixed(1)}%
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   )
