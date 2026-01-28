@@ -31,6 +31,7 @@ export default function TabSwitcherGear({
     if (fromIndex === -1 || toIndex === -1 || fromIndex >= toIndex) return null
 
     const total = { plans: 0, polish: 0, alloy: 0, amber: 0, svs: 0 }
+    let finalStats = { attack: 0, defense: 0, deploy: 0 }
 
     for (let i = fromIndex + 1; i <= toIndex; i++) {
       const d = materialData.find(
@@ -45,10 +46,17 @@ export default function TabSwitcherGear({
         total.alloy += toNum(d.Alloy)
         total.amber += toNum(d.Amber)
         total.svs += toNum(d['SvS Points'])
+
+        finalStats.attack = Number(d.Attack) || 0
+        finalStats.defense = Number(d.Defense) || 0
+        finalStats.deploy = toNum(d['troops deployment capacity'])
       }
     }
 
-    return total
+    return {
+      ...total,
+      stats: finalStats,
+    }
   }
 
   // Inject valeria bonus ke setiap result
@@ -195,6 +203,32 @@ export default function TabSwitcherGear({
                         +{res.valeriaBonus}% Valeria
                       </span>
                     )}
+                  </div>
+
+                  <div className="flex gap-2 mt-1 ">
+                    <span className="inline-flex items-center px-3 py-1 text-xs rounded-lg bg-cyan-500/10 border border-cyan-400/20 text-cyan-200 shrink-0">
+                      Attack:
+                      <b className="ml-1 text-white">
+                        {res.total.stats?.attack || 0}%
+                      </b>
+                    </span>
+
+                    <span className="inline-flex items-center px-3 py-1 text-xs rounded-lg bg-blue-500/10 border border-blue-400/20 text-blue-200 shrink-0">
+                      Defense:
+                      <b className="ml-1 text-white">
+                        {res.total.stats?.defense || 0}%
+                      </b>
+                    </span>
+
+                    <span className="inline-flex items-center px-3 py-1 text-xs rounded-lg bg-amber-500/10 border border-amber-400/20 text-amber-200 shrink-0">
+                      Deployment:
+                      <b className="ml-1 text-white">
+                        +{' '}
+                        {res.total.stats?.deploy
+                          ? formatToShortNumber(res.total.stats.deploy)
+                          : '-'}
+                      </b>
+                    </span>
                   </div>
                 </div>
               </div>
