@@ -62,16 +62,23 @@ export default function TabSwitcherCharm({
         stat: 0,
       }
 
+      const bonus = Math.min(r.valeriaBonus || 0, 20)
+      const finalSvS = Math.round(base.svs * (1 + bonus / 100))
+
       return {
         ...r,
+        valeriaBonus: bonus,
         total: {
           ...base,
-          ...(r.total || {}),
+          svs: finalSvS,
           stat: base.stat,
         },
       }
     })
   }, [results])
+
+  const hasCompare =
+    compares && Object.values(compares).some((v) => Number(v) > 0)
 
   return (
     <div>
@@ -171,7 +178,7 @@ export default function TabSwitcherCharm({
                               {formatToShortNumber(need)}
                             </p>
 
-                            {compares && (
+                            {hasCompare && (
                               <span
                                 className={`text-xs mt-2 px-2 py-1 rounded-md ${badge.class}`}
                               >
@@ -183,12 +190,19 @@ export default function TabSwitcherCharm({
                       })}
 
                       <div className="special-glass p-3 rounded-xl flex flex-col justify-center">
-                        <span className="text-sm text-zinc-200 mb-1">
+                        <span className="block text-sm text-zinc-200 mb-1">
                           SvS Points
                         </span>
-                        <span className="text-white text-base">
+
+                        <span className="block text-white text-base">
                           {formatToShortNumber(total.svs)}
                         </span>
+
+                        {res.valeriaBonus > 0 && (
+                          <span className="text-xs text-cyan-400 mt-1">
+                            +{res.valeriaBonus}% Valeria
+                          </span>
+                        )}
                       </div>
 
                       <div className="col-span-full border-t border-white/10 my-1" />

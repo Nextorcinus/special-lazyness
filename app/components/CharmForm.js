@@ -5,16 +5,14 @@ import charmData from '../data/MaterialDatacharm.json'
 import { Label } from '../components/ui/label'
 import { Button } from '../components/ui/button'
 import { toast } from 'sonner'
-import HybridSelect from './HybridSelect'   
+import HybridSelect from './HybridSelect'
 
 const charmTypes = ['Cap', 'Watch', 'Coat', 'Pants', 'Belt', 'Weapon']
 const charmLevels = charmData.map((item) => item.level.toString())
 const valeriaLevels = Array.from({ length: 11 }, (_, i) => i.toString())
 
-export default function CharmForm({ onSubmit, onReset }) {
-  const initialState = { type: '', from: '', to: '' }
-
-  const [selection, setSelection] = useState(initialState)
+export default function CharmForm({ onSubmit }) {
+  const [selection, setSelection] = useState({ type: '', from: '', to: '' })
   const [valeriaLevel, setValeriaLevel] = useState('0')
 
   const getLevelIndex = (level) => charmLevels.indexOf(level)
@@ -53,37 +51,13 @@ export default function CharmForm({ onSubmit, onReset }) {
       return
     }
 
-    const total = {
-      guide: 0,
-      design: 0,
-      jewel: 0,
-      svsBase: 0,
-      svs: 0,
-      valeriaBonus: 0,
-    }
-
-    for (let i = fromIndex + 1; i <= toIndex; i++) {
-      const data = charmData[i]
-      if (data) {
-        total.guide += data.guide_cost || 0
-        total.design += data.design_cost || 0
-        total.jewel += data.jewel_cost || 0
-        total.svsBase += data.svs_point || 0
-      }
-    }
-
-    const level = parseInt(valeriaLevel)
-    const bonusPercent = Math.min(level * 2, 20)
-
-    total.valeriaBonus = bonusPercent
-    total.svs = Math.round(total.svsBase * (1 + bonusPercent / 100))
+    const bonusPercent = Math.min(parseInt(valeriaLevel) * 2, 20)
 
     onSubmit?.({
       type,
       from,
       to,
-      total,
-      valeriaLevel,
+      valeriaBonus: bonusPercent,
     })
 
     toast.success(
@@ -102,9 +76,7 @@ export default function CharmForm({ onSubmit, onReset }) {
     >
       <h2 className="text-xl text-white">Select Charm</h2>
 
-      <div className="bg-glass-background2 sm:items-center p-4 grid grid-cols-1 md:grid-cols-5 gap-4">
-
-        {/* Type */}
+      <div className="bg-glass-background2 p-4 grid grid-cols-1 md:grid-cols-5 gap-4">
         <div>
           <Label className="text-white">Charm Type</Label>
           <HybridSelect
@@ -115,7 +87,6 @@ export default function CharmForm({ onSubmit, onReset }) {
           />
         </div>
 
-        {/* From */}
         <div>
           <Label className="text-white">From</Label>
           <HybridSelect
@@ -129,7 +100,6 @@ export default function CharmForm({ onSubmit, onReset }) {
           />
         </div>
 
-        {/* To */}
         <div>
           <Label className="text-white">To</Label>
           <HybridSelect
@@ -143,9 +113,8 @@ export default function CharmForm({ onSubmit, onReset }) {
           />
         </div>
 
-        {/* Valeria Bonus */}
         <div>
-          <Label className="text-white">Valeria Level (SvS Bonus)</Label>
+          <Label className="text-white">Valeria (SvS)</Label>
           <HybridSelect
             value={valeriaLevel}
             onChange={(val) => setValeriaLevel(val)}
@@ -157,7 +126,6 @@ export default function CharmForm({ onSubmit, onReset }) {
           />
         </div>
 
-        {/* Button */}
         <div className="flex">
           <Button
             type="submit"

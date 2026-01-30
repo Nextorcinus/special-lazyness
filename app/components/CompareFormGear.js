@@ -51,12 +51,18 @@ export default function CompareFormGear({
         const exchangeValue = parseNumber(value || '0')
 
         const used = Math.min(plans, exchangeValue)
-        const amber = Math.floor(used / 10)
+        const amberFromExchange = Math.floor(used / 10)
+
         const remainingPlans = plans - used
+
+        const currentAmber = parseNumber(prev.amber || '0')
+
+        const finalAmber = currentAmber + amberFromExchange
 
         next.plans =
           remainingPlans > 0 ? formatToShortNumber(remainingPlans) : ''
-        next.amber = amber > 0 ? formatToShortNumber(amber) : ''
+
+        next.amber = finalAmber > 0 ? formatToShortNumber(finalAmber) : ''
       }
 
       return next

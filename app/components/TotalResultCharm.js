@@ -7,7 +7,8 @@ import ResourceIcon from './ResourceIcon'
 export default function TotalResultCharm({ results = [], compares = {} }) {
   if (!results.length) return null
 
-  const comparedData = compares
+  const hasCompare =
+    compares && Object.values(compares).some((v) => Number(v) > 0)
 
   const total = useMemo(() => {
     return results.reduce(
@@ -19,7 +20,6 @@ export default function TotalResultCharm({ results = [], compares = {} }) {
         acc.jewel += res.jewel || 0
         acc.svs += res.svs || 0
 
-        // === ambil type dari charm ===
         const typeMap = {
           Cap: 'Lancer',
           Watch: 'Lancer',
@@ -31,9 +31,9 @@ export default function TotalResultCharm({ results = [], compares = {} }) {
 
         const unitType = typeMap[curr.type]
 
-        if (unitType) {
-          acc.stat[unitType].lethality += res.stat || 0
-          acc.stat[unitType].health += res.stat || 0
+        if (unitType && res.stat) {
+          acc.stat[unitType].lethality += res.stat
+          acc.stat[unitType].health += res.stat
         }
 
         return acc
@@ -60,7 +60,7 @@ export default function TotalResultCharm({ results = [], compares = {} }) {
 
   const compare = {}
   resources.forEach(({ key }) => {
-    const have = Number(comparedData?.[key] || 0)
+    const have = Number(compares?.[key] || 0)
     const need = total[key]
     const diff = have - need
 
@@ -95,7 +95,7 @@ export default function TotalResultCharm({ results = [], compares = {} }) {
               {formatToShortNumber(total[key])}
             </p>
 
-            {comparedData && (
+            {hasCompare && (
               <div
                 className={`text-xs mt-2 px-2 py-1 rounded-md ${compare[key].color}`}
               >
@@ -111,13 +111,13 @@ export default function TotalResultCharm({ results = [], compares = {} }) {
 
         {/* SvS */}
         <div className="special-glass bg-[#9797974A] border border-[#ffffff1c] px-4 py-2 rounded-lg mb-1 flex flex-col justify-center">
-          <span className="block text-white text-sm mb-1">SvS Points:</span>
+          <span className="block text-white text-sm mb-1">SvS Points</span>
           <span className="block text-teal-300 text-base">
             {formatToShortNumber(total.svs)}
           </span>
         </div>
 
-        {/* ===== Stats Summary per Type ===== */}
+        {/* ===== Stats Summary per Unit Type ===== */}
         {Object.entries(total.stat)
           .filter(([_, v]) => v.lethality > 0 || v.health > 0)
           .map(([type, stats]) => (
@@ -130,8 +130,8 @@ export default function TotalResultCharm({ results = [], compares = {} }) {
               <div className="flex gap-2 flex-wrap sm:flex-nowrap">
                 <div
                   className="w-full sm:w-auto sm:min-w-[100px]
-          px-3 py-2 rounded-xl
-          bg-cyan-500/20 border border-cyan-400/30 text-center"
+                  px-3 py-2 rounded-xl
+                  bg-cyan-500/20 border border-cyan-400/30 text-center"
                 >
                   <div className="text-[11px] text-cyan-200/80">Lethality</div>
                   <div className="text-sm font-semibold text-white">
@@ -141,8 +141,8 @@ export default function TotalResultCharm({ results = [], compares = {} }) {
 
                 <div
                   className="w-full sm:w-auto sm:min-w-[90px]
-          px-3 py-2 rounded-xl
-          bg-amber-500/20 border border-amber-400/30 text-center"
+                  px-3 py-2 rounded-xl
+                  bg-amber-500/20 border border-amber-400/30 text-center"
                 >
                   <div className="text-[11px] text-amber-200/80">Health</div>
                   <div className="text-sm font-semibold text-white">
