@@ -127,37 +127,52 @@
   {
     "heroes": "GEN 9 Magnus",
     "exploration": "Reducing Damage by",
-    "expedition": "Defender increasing Health by",
-    "status": "*new"
+    "expedition": "Defender increasing Health by"
   },
   {
     "heroes": "GEN 8 Fred",
     "exploration": "increases Attack by",
-    "expedition": "increasing Rally Troops Attack by",
-    "status": "*new"
+    "expedition": "increasing Rally Troops Attack by"
   },
   {
     "heroes": "GEN 9 Xura",
     "exploration": "increases their damage by",
-    "expedition": "increasing Their Rally Attack by",
-    "status": "*new"
+    "expedition": "increasing Their Rally Attack by"
   },
   {
     "heroes": "GEN 10 Gregory",
     "exploration": "Increase His defense",
     "expedition": "Defender increasing Troops Lethality by",
-    "status": "*next update"
+    "status": "*new"
   },
   {
     "heroes": "GEN 10 Freya",
     "exploration": "Increase her damage",
     "expedition": "increases Defender Troops Defense by",
-    "status": "*next update"
+    "status": "*new"
   },
   {
     "heroes": "GEN 10 Blanchette",
     "exploration": "increases her attack speed by",
     "expedition": "increases Rally Troops' Lethality by",
+    "status": "*new"
+  },
+  {
+    "heroes": "GEN 11 Eleonora",
+    "exploration": "Increasing Attack and defense",
+    "expedition": "Defender increasing Troops Health by",
+    "status": "*next update"
+  },
+  {
+    "heroes": "GEN 11 Lloyd",
+    "exploration": "Extra damage by",
+    "expedition": "increasing Defender Troops Attack by",
+    "status": "*next update"
+  },
+  {
+    "heroes": "GEN 11 Rufus",
+    "exploration": "dealing Attack by",
+    "expedition": "increasing Rally Troops Attack by",
     "status": "*next update"
   }
 ]
