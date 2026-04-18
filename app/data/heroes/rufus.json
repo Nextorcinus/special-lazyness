@@ -24,7 +24,7 @@
           "affect-on": ["Enemies in area"],
           "stats": ["200%", "220%", "240%", "260%", "280%"],
           "description": "Rufus fires grenades that bombard the ground like meteors, dealing Attack ×200%–280% AoE damage. The grenades set the ground ablaze, dealing Attack ×20%–30% damage every 0.5s for 2s.",
-          "icon": "starfall_impact.png"
+          "icon": "Starfall-Impact.png"
         }
       },
       "2": {
@@ -36,7 +36,7 @@
           "affect-on": ["Target", "Nearby enemies"],
           "stats": ["100%/50%", "110%/55%", "120%/60%", "130%/65%", "140%/70%"],
           "description": "Rufus fires explosive bullets dealing Attack ×100%–140% to the target, and Attack ×50%–70% splash damage to nearby enemies.",
-          "icon": "splinter_blast.png"
+          "icon": "Splinter-Blast.png"
         }
       },
       "3": {
@@ -48,7 +48,7 @@
           "affect-on": ["Self"],
           "stats": ["7%", "10%", "13%", "16%", "20%"],
           "description": "Increases Rufus’ Crit Rate by 7%–20%.",
-          "icon": "raging_fury.png"
+          "icon": "Raging-Fury.png"
         }
       }
     },
@@ -62,7 +62,7 @@
           "affect-on": ["All friendly troops"],
           "stats": ["5%", "10%", "15%", "20%", "25%"],
           "description": "Increases all allied troops’ Attack by 5%–25%.",
-          "icon": "inferno_regiment.png"
+          "icon": "Inferno-Regiment.png"
         }
       },
       "2": {
@@ -74,7 +74,7 @@
           "affect-on": ["Enemy target"],
           "stats": ["12%/5%", "24%/10%", "36%/15%", "48%/20%", "60%/25%"],
           "description": "Marksmen deal +12%–60% extra damage per attack and increase enemy damage taken by 5%–25% for 1 turn.",
-          "icon": "armor_crush.png"
+          "icon": "Armor-Crush.png"
         }
       },
       "3": {
@@ -86,7 +86,7 @@
           "affect-on": ["Enemy troops"],
           "stats": ["10%", "20%", "30%", "40%", "50%"],
           "description": "Grants all allied troops a 20% chance to intimidate enemies, reducing enemy troops’ Lethality by 10%–50% for 2 turns.",
-          "icon": "wrathful_quake.png"
+          "icon": "Wrathful-Quake.png"
         }
       }
     }
@@ -104,14 +104,14 @@
       "defense": 3010,
       "health": 22578,
       "ability": "Ember of Conflict (Lv.5): Rufus’ normal attacks shoot scorching bullets that set targets on fire, dealing Attack ×30% damage per second for 2s.",
-      "icon": "ember_of_conflict.png",
+      "icon": "Ember-of-Conflict.png",
       "name": "Ember of Conflict"
     },
     "expedition": {
       "lethality": "320%",
       "health": "320%",
       "ability": "Blazing Legion (Lv.5): Rufus rallies his troops under his phoenix banner, increasing their Attack by 15%.",
-      "icon": "blazing_legion.png",
+      "icon": "Blazing-Legion.png",
       "name": "Blazing Legion"
     }
   },

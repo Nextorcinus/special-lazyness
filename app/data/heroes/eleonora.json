@@ -24,7 +24,7 @@
           "affect-on": ["Self (shield)", "Nearby enemies when shield breaks"],
           "stats": ["100%/130%/160%/190%/220%", "60%/65%/70%/75%/80%"],
           "description": "Eleonora raises a spiked shield equal to Attack × (100%–220%). Shield reflects 30% of damage taken to attacker; after 3s shield ruptures dealing Attack × (60%–80%) damage to nearby enemies.",
-          "icon": "shield_of_blaze.png"
+          "icon": "Shield-of-Blaze.png"
         }
       },
       "2": {
@@ -36,7 +36,7 @@
           "affect-on": ["Target"],
           "stats": ["100%/110%/120%/130%/140%"],
           "description": "Eleonora strikes a heavy hammer blow dealing Attack × (100%–140%) damage and reduces target’s Defense by 10%–30% for 2s.",
-          "icon": "regal_sanction.png"
+          "icon": "Regal-Sanction.png"
         }
       },
       "3": {
@@ -46,9 +46,9 @@
         "effects": {
           "effect-name": "Damage Up + Damage Taken Down",
           "affect-on": ["Self"],
-          "stats": ["5%/7.5%/10%/12.5%/15%","5%/7.5%/10%/12.5%/15%"],
+          "stats": ["5%/7.5%/10%/12.5%/15%", "5%/7.5%/10%/12.5%/15%"],
           "description": "Reduces damage taken by 5%–15% and increases damage dealt by 5%–15%.",
-          "icon": "majestic_corona.png"
+          "icon": "Majestic-Corona.png"
         }
       }
     },
@@ -60,9 +60,9 @@
         "effects": {
           "effect-name": "Troop Health +",
           "affect-on": ["All friendly troops"],
-          "stats": ["5%","10%","15%","20%","25%"],
+          "stats": ["5%", "10%", "15%", "20%", "25%"],
           "description": "Increases all troops’ Health by 5%–25%.",
-          "icon": "scorching_sun.png"
+          "icon": "Scorching-Sun.png"
         }
       },
       "2": {
@@ -74,7 +74,7 @@
           "affect-on": ["Friendly Infantry troops", "Friendly Marksman troops"],
           "stats": ["2%/4%/6%/8%/10%", "2%/4%/6%/8%/10%"],
           "description": "Reduces damage taken by Infantry troops by 2%–10% and increases damage dealt by Marksman troops by 2%–10%.",
-          "icon": "solaris_nexus.png"
+          "icon": "Solaris-Nexus.png"
         }
       },
       "3": {
@@ -86,7 +86,7 @@
           "affect-on": ["All friendly troops"],
           "stats": ["5%/10%/15%/20%/25%", "5%/10%/15%/20%/25%"],
           "description": "After every 5 Infantry attacks, all troops gain +5%–25% damage and receive –5%–25% damage reduction for 2 turns.",
-          "icon": "soaring_flame.png"
+          "icon": "Soaring-Flame.png"
         }
       }
     }
@@ -104,14 +104,14 @@
       "defense": 3010,
       "health": 45157,
       "ability": "Hammer & Shield (Lv.5): Attack +24% when health > 50%, Defense +75% when health ≤ 50%.",
-      "icon": "hammer_and_shield.png",
+      "icon": "Hammer-and-Shield.png",
       "name": "Hammer & Shield"
     },
     "expedition": {
       "lethality": "320.00%",
       "health": "320.00%",
       "ability": "Last Fortress (Lv.5): Defender Troops’ Health +15%.",
-      "icon": "last_fortress.png",
+      "icon": "Last_Fortress.png",
       "name": "Last Fortress"
     }
   },

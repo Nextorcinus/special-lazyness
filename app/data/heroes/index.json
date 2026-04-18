@@ -394,5 +394,32 @@
     "thumbnail": "blanchette.jpg",
     "generation": "S10",
     "tier": "SS"
+  },
+  {
+    "id": "eleonora",
+    "name": "Eleonora",
+    "rarity": "Legendary",
+    "class": "Infantry",
+    "thumbnail": "eleonora_gold.png",
+    "generation": "S11",
+    "tier": "C"
+  },
+  {
+    "id": "Lloyd",
+    "name": "Lloyd",
+    "rarity": "Legendary",
+    "class": "Lancer",
+    "thumbnail": "lloyd.png",
+    "generation": "S11",
+    "tier": "C"
+  },
+  {
+    "id": "rufus",
+    "name": "Rufus",
+    "rarity": "Legendary",
+    "class": "Marksman",
+    "thumbnail": "rufus.png",
+    "generation": "S11",
+    "tier": "SS"
   }
 ]
