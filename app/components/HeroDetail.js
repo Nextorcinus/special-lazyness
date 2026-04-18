@@ -120,7 +120,8 @@ export default function HeroDetail({ initialId }) {
   }, [indexList])
 
   // drag navigation (mouse) from hook; we add touch handlers below for mobile
-  const isAnyPopupOpen = showSkillDetail || showPassiveDetail || showWidgetDetail
+  const isAnyPopupOpen =
+    showSkillDetail || showPassiveDetail || showWidgetDetail
   useDragNavigation(imageRef, handleNext, handlePrev, !isAnyPopupOpen)
 
   // wheel scroll to switch hero - attach to image container
@@ -186,7 +187,13 @@ export default function HeroDetail({ initialId }) {
   useEffect(() => {
     if (!isReady || !hero) return
 
-    if (!rarityRef.current || !classRef.current || !widgetRef.current || !passiveRef.current) return
+    if (
+      !rarityRef.current ||
+      !classRef.current ||
+      !widgetRef.current ||
+      !passiveRef.current
+    )
+      return
 
     gsap.registerPlugin(SplitText)
     const cleanup = []
@@ -206,7 +213,7 @@ export default function HeroDetail({ initialId }) {
     animateSplit(rarityRef, 0.2)
     animateSplit(classRef, 0.3)
 
- gsap.fromTo(
+    gsap.fromTo(
       widgetRef.current,
       { opacity: 0, y: 10 },
       { opacity: 1, y: 0, duration: 0.5, delay: 0.3, ease: 'power2.out' }
@@ -226,7 +233,14 @@ export default function HeroDetail({ initialId }) {
     gsap.fromTo(
       skillImageRefs.current.filter(Boolean),
       { opacity: 0, y: 20, scale: 0.8 },
-      { opacity: 1, y: 0, scale: 1, stagger: 0.05, duration: 0.4, ease: 'back.out(1.7)' }
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        stagger: 0.05,
+        duration: 0.4,
+        ease: 'back.out(1.7)',
+      }
     )
 
     return () => cleanup.forEach((fn) => fn())
@@ -253,23 +267,36 @@ export default function HeroDetail({ initialId }) {
   const heroImageFilename = hero?.image || hero?.thumbnail || 'placeholder.png'
   const heroImageAlt = hero?.name || 'hero'
 
-  
-
-
   return (
     <div className="w-full flex justify-center">
       <div className="w-full px-3 sm:px-4 md:px-6 lg:px-10 py-6 max-w-[1100px]">
-
-        <button onClick={() => window.history.back()} className="text-green-400 hover:underline mb-6">
+        <button
+          onClick={() => window.history.back()}
+          className="text-green-400 hover:underline mb-6"
+        >
           ← BACK
         </button>
 
-        {showSkillDetail && <HeroPopup skill={activeSkill} onClose={() => setShowSkillDetail(false)} />}
-        {showWidgetDetail && <WidgetPopup widget={activeWidget} onClose={() => setShowWidgetDetail(false)} />}
-        {showPassiveDetail && <PassivePopup passive={activePassive} onClose={() => setShowPassiveDetail(false)} />}
+        {showSkillDetail && (
+          <HeroPopup
+            skill={activeSkill}
+            onClose={() => setShowSkillDetail(false)}
+          />
+        )}
+        {showWidgetDetail && (
+          <WidgetPopup
+            widget={activeWidget}
+            onClose={() => setShowWidgetDetail(false)}
+          />
+        )}
+        {showPassiveDetail && (
+          <PassivePopup
+            passive={activePassive}
+            onClose={() => setShowPassiveDetail(false)}
+          />
+        )}
 
         <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-10 items-start md:items-center">
-
           {/* LEFT */}
           <div className="w-full">
             <h2 className="text-sm uppercase tracking-wider font-semibold text-yellow-500 mb-2">
@@ -277,25 +304,52 @@ export default function HeroDetail({ initialId }) {
             </h2>
 
             <h1 className="text-4xl sm:text-5xl font-bold text-green-400">
-              <TypeAnimation key={hero?.id} sequence={[hero?.name || '', 1000]} speed={50} wrapper="span" />
+              <TypeAnimation
+                key={hero?.id}
+                sequence={[hero?.name || '', 1000]}
+                speed={50}
+                wrapper="span"
+              />
             </h1>
 
             <div className="mt-4 space-y-1 text-base">
-              <p>Rarity: <span ref={rarityRef} className="text-white/80">{hero?.rarity}</span></p>
-              <p>Class: <span ref={classRef} className="text-white/80">{hero?.class}</span></p>
+              <p>
+                Rarity:{' '}
+                <span ref={rarityRef} className="text-white/80">
+                  {hero?.rarity}
+                </span>
+              </p>
+              <p>
+                Class:{' '}
+                <span ref={classRef} className="text-white/80">
+                  {hero?.class}
+                </span>
+              </p>
             </div>
 
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <h3 className="text-md font-semibold mb-2">Stats</h3>
-                <BarWithTitle label="Attack" value={hero?.stats?.attack ?? 0} max={15000} />
-                <BarWithTitle label="Defense" value={hero?.stats?.defense ?? 0} max={15000} />
-                <BarWithTitle label="Health" value={hero?.stats?.health ?? 0} max={180000} />
+                <BarWithTitle
+                  label="Attack"
+                  value={hero?.stats?.attack ?? 0}
+                  max={15000}
+                />
+                <BarWithTitle
+                  label="Defense"
+                  value={hero?.stats?.defense ?? 0}
+                  max={15000}
+                />
+                <BarWithTitle
+                  label="Health"
+                  value={hero?.stats?.health ?? 0}
+                  max={180000}
+                />
               </div>
 
               <div>
                 <h3 className="text-md font-semibold mb-2">Expedition</h3>
-              
+
                 <BarWithTitle label="Attack" value={atkExp} max={1200} />
                 <BarWithTitle label="Defense" value={defExp} max={1200} />
               </div>
@@ -304,7 +358,12 @@ export default function HeroDetail({ initialId }) {
             {/* Skills */}
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h3 ref={addSkillTitleRef} className="text-md font-semibold mb-2">Skill Exploration</h3>
+                <h3
+                  ref={addSkillTitleRef}
+                  className="text-md font-semibold mb-2"
+                >
+                  Skill Exploration
+                </h3>
                 <div className="flex gap-3">
                   {Object.entries(explorationSkills)
                     .filter(([key]) => key !== 'expedition')
@@ -336,7 +395,10 @@ export default function HeroDetail({ initialId }) {
                             alt={altText}
                             width={70}
                             height={70}
-                            onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/icon/placeholder.png' }}
+                            onError={(e) => {
+                              e.currentTarget.onerror = null
+                              e.currentTarget.src = '/icon/placeholder.png'
+                            }}
                           />
                         </div>
                       )
@@ -345,7 +407,12 @@ export default function HeroDetail({ initialId }) {
               </div>
 
               <div>
-                <h3 ref={addSkillTitleRef} className="text-md font-semibold mb-2">Skill Expedition</h3>
+                <h3
+                  ref={addSkillTitleRef}
+                  className="text-md font-semibold mb-2"
+                >
+                  Skill Expedition
+                </h3>
                 <div className="flex gap-3">
                   {Object.entries(expeditionSkills).map(([_, skill], i) => {
                     const icon = skill?.effects?.icon || 'placeholder.png'
@@ -375,7 +442,10 @@ export default function HeroDetail({ initialId }) {
                           alt={altText}
                           width={70}
                           height={70}
-                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/icon/placeholder.png' }}
+                          onError={(e) => {
+                            e.currentTarget.onerror = null
+                            e.currentTarget.src = '/icon/placeholder.png'
+                          }}
                         />
                       </div>
                     )
@@ -395,20 +465,29 @@ export default function HeroDetail({ initialId }) {
                       onClick={() => {
                         setActiveWidget({
                           name: hero['widget-name'] || hero.widget?.name,
-                          affectOn: hero['widget-affect-on'] || hero.widget?.['affect-on'],
+                          affectOn:
+                            hero['widget-affect-on'] ||
+                            hero.widget?.['affect-on'],
                           level: hero['widget-level'] || hero.widget?.level,
-                          stats: hero['widget-stats'] || hero.widget?.['widget-stats'],
-                          icon: hero['widget-icon'] || hero.widget?.icon
+                          stats:
+                            hero['widget-stats'] ||
+                            hero.widget?.['widget-stats'],
+                          icon: hero['widget-icon'] || hero.widget?.icon,
                         })
                         setShowWidgetDetail(true)
                       }}
                     >
                       <img
-                        src={`/icon/${(hero['widget-icon'] || hero.widget?.icon || 'placeholder')}.png`}
-                        alt={hero['widget-name'] || hero.widget?.name || 'widget'}
+                        src={`/icon/${hero['widget-icon'] || hero.widget?.icon || 'placeholder'}.png`}
+                        alt={
+                          hero['widget-name'] || hero.widget?.name || 'widget'
+                        }
                         width={60}
                         height={60}
-                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/icon/placeholder.png' }}
+                        onError={(e) => {
+                          e.currentTarget.onerror = null
+                          e.currentTarget.src = '/icon/placeholder.png'
+                        }}
                       />
                     </div>
                     <span>{hero['widget-name'] || hero.widget?.name}</span>
@@ -418,7 +497,7 @@ export default function HeroDetail({ initialId }) {
                 )}
               </div>
 
-            <div ref={passiveRef}>
+              <div ref={passiveRef}>
                 <h3 className="font-semibold mb-2 text-md">Unique Passive</h3>
                 <div className="flex items-center gap-2">
                   {hero?.uniquePassive?.icon ? (
@@ -430,7 +509,12 @@ export default function HeroDetail({ initialId }) {
                           setShowPassiveDetail(true)
                         }}
                       >
-                        <img src={`/icon/${hero.uniquePassive.icon}.png`} alt="passive" width={60} height={60} />
+                        <img
+                          src={`/icon/${hero.uniquePassive.icon}.png`}
+                          alt="passive"
+                          width={60}
+                          height={60}
+                        />
                       </div>
                       <span>{hero.uniquePassive.name}</span>
                     </>
@@ -454,7 +538,7 @@ export default function HeroDetail({ initialId }) {
               <AnimatePresence mode="popLayout">
                 {hero?.image && (
                   <motion.img
-                    key={hero.id}
+                    key={hero?.id}
                     src={`/icon/${heroImageFilename}`}
                     alt={heroImageAlt}
                     className="absolute inset-0 w-full h-full object-contain drop-shadow-xl pointer-events-none"
@@ -463,7 +547,10 @@ export default function HeroDetail({ initialId }) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/icon/placeholder.png' }}
+                    onError={(e) => {
+                      e.currentTarget.onerror = null
+                      e.currentTarget.src = '/icon/placeholder.png'
+                    }}
                   />
                 )}
                 {!hero?.image && (
@@ -478,7 +565,12 @@ export default function HeroDetail({ initialId }) {
             </div>
 
             <div className="flex gap-4 mt-6 items-center">
-              <button onClick={handlePrev} className="text-2xl p-2 text-white/60 hover:text-white">❮</button>
+              <button
+                onClick={handlePrev}
+                className="text-2xl p-2 text-white/60 hover:text-white"
+              >
+                ❮
+              </button>
 
               <div className="px-2 py-1 rounded-xl">
                 <HeroCarousel
@@ -488,7 +580,12 @@ export default function HeroDetail({ initialId }) {
                 />
               </div>
 
-              <button onClick={handleNext} className="text-2xl p-2 text-white/60 hover:text-white">❯</button>
+              <button
+                onClick={handleNext}
+                className="text-2xl p-2 text-white/60 hover:text-white"
+              >
+                ❯
+              </button>
             </div>
           </div>
         </div>
