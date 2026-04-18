@@ -50,7 +50,7 @@
           "description": "Increases Rufus’ Crit Rate by 7%–20%.",
           "icon": "Raging-Fury.png"
         }
-      }
+      
     },
     "expedition": {
       "1": {
@@ -90,6 +90,7 @@
         }
       }
     }
+  }
   },
   "widget": {
     "has-widget": true

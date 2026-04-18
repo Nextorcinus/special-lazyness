@@ -50,7 +50,7 @@
           "description": "Reduces damage taken by 5%–15% and increases damage dealt by 5%–15%.",
           "icon": "Majestic-Corona.png"
         }
-      }
+      
     },
     "expedition": {
       "1": {
@@ -88,14 +88,16 @@
           "description": "After every 5 Infantry attacks, all troops gain +5%–25% damage and receive –5%–25% damage reduction for 2 turns.",
           "icon": "Soaring-Flame.png"
         }
+        
       }
     }
+  }
   },
   "widget": {
     "has-widget": true
   },
   "widget-name": "Scepter of Solaris",
-  "widget-icon": "scepter_of_solaris",
+  "widget-icon": "Scepter-of-Solaris",
   "widget-affect-on": "Self / Defender Troops",
   "widget-level": "Lv5",
   "widget-stats": {
@@ -104,14 +106,14 @@
       "defense": 3010,
       "health": 45157,
       "ability": "Hammer & Shield (Lv.5): Attack +24% when health > 50%, Defense +75% when health ≤ 50%.",
-      "icon": "Hammer-and-Shield.png",
+      "icon": "Hammer-Shield.png",
       "name": "Hammer & Shield"
     },
     "expedition": {
       "lethality": "320.00%",
       "health": "320.00%",
       "ability": "Last Fortress (Lv.5): Defender Troops’ Health +15%.",
-      "icon": "Last_Fortress.png",
+      "icon": "Last-Fortress.png",
       "name": "Last Fortress"
     }
   },

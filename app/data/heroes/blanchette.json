@@ -51,46 +51,46 @@
           "icon": "red_pursuit.png"
         }
       },
-    "expedition": {
-      "1": {
-        "skill-name": "Armed to the Teeth",
-        "trigger-point": "Rally Troops Start / Passive",
-        "trigger-time": "",
-        "effects": {
-          "effect-name": "Troop Lethality +",
-          "affect-on": ["All Troops"],
-          "stats": ["5%", "10%", "15%", "20%", "25%"],
-          "description": "Increases all troops' Lethality by 5%–25%.",
-          "icon": "armed_to_the_teeth.png"
-        }
-      },
-      "2": {
-        "skill-name": "Blood Hunter",
-        "trigger-point": "Every 3 rounds / Troop Marksman fire",
-        "trigger-time": "",
-        "effects": {
-          "effect-name": "Extra Damage by Marksmen",
-          "affect-on": ["Enemy target"],
-          "stats": ["15%", "30%", "45%", "60%", "75%"],
-          "description": "Marksmen under Blanchette fire a crystal blade every 3 rounds, dealing extra damage +15%–75%.",
-          "icon": "blood_hunter.png"
-        }
-      },
-      "3": {
-        "skill-name": "Crimson Sniper",
-        "trigger-point": "Every 2 strikes by Marksman troops",
-        "trigger-time": "",
-        "effects": {
-          "effect-name": "Bonus Damage vs Lancer & Marksman",
-          "affect-on": ["Enemy Lancer", "Enemy Marksman"],
-          "stats": ["8%/4%", "16%/8%", "24%/12%", "32%/16%", "40%/20%"],
-          "description": "Marksmen deal +8%–40% extra damage vs enemy Lancers and +4%–20% vs enemy Marksmen every 2 strikes.",
-          "icon": "crimson_sniper.png"
+      "expedition": {
+        "1": {
+          "skill-name": "Armed to the Teeth",
+          "trigger-point": "Rally Troops Start / Passive",
+          "trigger-time": "",
+          "effects": {
+            "effect-name": "Troop Lethality +",
+            "affect-on": ["All Troops"],
+            "stats": ["5%", "10%", "15%", "20%", "25%"],
+            "description": "Increases all troops' Lethality by 5%–25%.",
+            "icon": "armed_to_the_teeth.png"
+          }
+        },
+        "2": {
+          "skill-name": "Blood Hunter",
+          "trigger-point": "Every 3 rounds / Troop Marksman fire",
+          "trigger-time": "",
+          "effects": {
+            "effect-name": "Extra Damage by Marksmen",
+            "affect-on": ["Enemy target"],
+            "stats": ["15%", "30%", "45%", "60%", "75%"],
+            "description": "Marksmen under Blanchette fire a crystal blade every 3 rounds, dealing extra damage +15%–75%.",
+            "icon": "blood_hunter.png"
+          }
+        },
+        "3": {
+          "skill-name": "Crimson Sniper",
+          "trigger-point": "Every 2 strikes by Marksman troops",
+          "trigger-time": "",
+          "effects": {
+            "effect-name": "Bonus Damage vs Lancer & Marksman",
+            "affect-on": ["Enemy Lancer", "Enemy Marksman"],
+            "stats": ["8%/4%", "16%/8%", "24%/12%", "32%/16%", "40%/20%"],
+            "description": "Marksmen deal +8%–40% extra damage vs enemy Lancers and +4%–20% vs enemy Marksmen every 2 strikes.",
+            "icon": "crimson_sniper.png"
+          }
         }
       }
     }
-  }
-},
+  },
   "widget": {
     "has-widget": true
   },

@@ -50,7 +50,7 @@
           "description": "Lloyd sharpens his combat skills, increasing his Attack Speed by 30%.",
           "icon": "Practiced-Perfection.png"
         }
-      }
+      
     },
     "expedition": {
       "1": {
@@ -96,6 +96,7 @@
         }
       }
     }
+  }
   },
   "widget": {
     "has-widget": true
