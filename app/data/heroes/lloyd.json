@@ -50,53 +50,52 @@
           "description": "Lloyd sharpens his combat skills, increasing his Attack Speed by 30%.",
           "icon": "Practiced-Perfection.png"
         }
-      
-    },
-    "expedition": {
-      "1": {
-        "skill-name": "Bird Invasion",
-        "trigger-point": "Troops Rally / Expedition",
-        "trigger-time": "",
-        "effects": {
-          "effect-name": "Enemy Troops’ Lethality Down",
-          "affect-on": ["Enemy troops"],
-          "stats": ["4%", "8%", "12%", "16%", "20%"],
-          "description": "Lloyd summons a swarm of mechanical birds that reduce all enemy troops’ Lethality by 4%–20%.",
-          "icon": "Bird-Invasion.png"
-        }
       },
-      "2": {
-        "skill-name": "Iceflare Bomb",
-        "trigger-point": "Every 3 turns",
-        "trigger-time": "3 turns",
-        "effects": {
-          "effect-name": "Lancer Troops Attack + / Enemy Damage Down",
-          "affect-on": ["Friendly Lancer troops", "Enemy troops"],
-          "stats": [
-            "150% / 30%",
-            "150% / 30%",
-            "150% / 30%",
-            "150% / 30%",
-            "150% / 30%"
-          ],
-          "description": "Every 3 turns, increases Lancer troops' Attack by 150% and reduces enemy troops’ damage dealt by 30% for 1 turn.",
-          "icon": "Iceflare-Bomb.png"
-        }
-      },
-      "3": {
-        "skill-name": "Ingenious Mastery",
-        "trigger-point": "Troops Rally / Expedition",
-        "trigger-time": "",
-        "effects": {
-          "effect-name": "Troops Lethality + (chance)",
-          "affect-on": ["All friendly troops"],
-          "stats": ["10%", "20%", "30%", "40%", "50%"],
-          "description": "Grants a chance to increase all friendly troops’ Lethality by 10%–50%.",
-          "icon": "Ingenious-Mastery.png"
+      "expedition": {
+        "1": {
+          "skill-name": "Bird Invasion",
+          "trigger-point": "Troops Rally / Expedition",
+          "trigger-time": "",
+          "effects": {
+            "effect-name": "Enemy Troops’ Lethality Down",
+            "affect-on": ["Enemy troops"],
+            "stats": ["4%", "8%", "12%", "16%", "20%"],
+            "description": "Lloyd summons a swarm of mechanical birds that reduce all enemy troops’ Lethality by 4%–20%.",
+            "icon": "Bird-Invasion.png"
+          }
+        },
+        "2": {
+          "skill-name": "Iceflare Bomb",
+          "trigger-point": "Every 3 turns",
+          "trigger-time": "3 turns",
+          "effects": {
+            "effect-name": "Lancer Troops Attack + / Enemy Damage Down",
+            "affect-on": ["Friendly Lancer troops", "Enemy troops"],
+            "stats": [
+              "150% / 30%",
+              "150% / 30%",
+              "150% / 30%",
+              "150% / 30%",
+              "150% / 30%"
+            ],
+            "description": "Every 3 turns, increases Lancer troops' Attack by 150% and reduces enemy troops’ damage dealt by 30% for 1 turn.",
+            "icon": "Iceflare-Bomb.png"
+          }
+        },
+        "3": {
+          "skill-name": "Ingenious Mastery",
+          "trigger-point": "Troops Rally / Expedition",
+          "trigger-time": "",
+          "effects": {
+            "effect-name": "Troops Lethality + (chance)",
+            "affect-on": ["All friendly troops"],
+            "stats": ["10%", "20%", "30%", "40%", "50%"],
+            "description": "Grants a chance to increase all friendly troops’ Lethality by 10%–50%.",
+            "icon": "Ingenious-Mastery.png"
+          }
         }
       }
     }
-  }
   },
   "widget": {
     "has-widget": true
