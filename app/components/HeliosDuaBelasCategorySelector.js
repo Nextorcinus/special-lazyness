@@ -1,11 +1,11 @@
 'use client'
 
 import React from 'react'
-import Link from 'next/link'
 import { cn } from '../lib/utils'
 
-export default function HeliosCategorySelector({ selected, onChange }) {
-  const categories = ['Infantry', 'Marksman', 'Lancer']
+export default function HeliosDuaBelasCategorySelector({ selected, onChange }) {
+  const categories = ['Exalted Infantry', 'Exalted Marksman', 'Exalted Lancer']
+  console.log('RENDER CATEGORY SELECTOR')
 
   return (
     <div className="relative sm:absolute sm:right-6 sm:top-6 mt-4 sm:mt-0 flex gap-4 text-sm font-medium text-white">
@@ -21,14 +21,6 @@ export default function HeliosCategorySelector({ selected, onChange }) {
           {cat}
         </button>
       ))}
-
-      <Link
-        href="/dashboard/war-academy/T12"
-        target="_self"
-        className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 transition text-white text-sm"
-      >
-        Go to T12
-      </Link>
     </div>
   )
 }
