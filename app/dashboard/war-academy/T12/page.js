@@ -6,17 +6,17 @@ import { toast } from 'sonner'
 
 import HeliosDuaBelasCategorySelector from '../../../components/HeliosDuaBelasCategorySelector'
 import HeliosDuaBelasSubcategoryScroll from '../../../components/HeliosDuabelasSubCategorySelector'
-import HeliosForm from '../../../components/HeliosForm'
-import HeliosCompareForm from '../../../components/HeliosCompareForm'
-import HeliosTabSwitcher from '../../../components/tabSwitcherHelios'
-import { useHeliosHistory } from '../HeliosHistoryContext'
+import HeliosDuaBelasForm from '../../../components/HeliosDuaBelasForm'
+import HeliosDuaBelasCompareForm from '../../../components/HeliosDuaBelasCompareForm'
+import HeliosDuaBelasTabSwitcher from '../../../components/tabSwitcherHeliosDuaBelas'
+import { useHeliosDuaBelasHistory } from './HeliosDuaBelasHistoryContext'
 import { useAddAnother } from '../../research/AddAnotherContext'
 
 import heliosDuaBelasData from '../../../data/heliosduabelas.json'
 
 export default function HeliosPage({ addAnotherTrigger }) {
   const { history, addToHistory, deleteHistory, resetHistory } =
-    useHeliosHistory()
+    useHeliosDuaBelasHistory()
   const { trigger } = useAddAnother()
 
   const [category, setCategory] = useState('Exalted Infantry')
@@ -27,15 +27,18 @@ export default function HeliosPage({ addAnotherTrigger }) {
 
   // === Subcategories from JSON ===
   const subcategories = useMemo(() => {
-    if (!category) return []
+    if (Array.isArray(heliosDuaBelasData)) {
+      const filtered = heliosDuaBelasData.filter(
+        (item) => item.Category === category
+      )
+      return [...new Set(filtered.map((i) => i.Item.trim()))]
+    }
 
-    const filtered = heliosDuaBelasData.filter(
-      (item) => item.Category === category
+    const key = Object.keys(heliosDuaBelasData).find(
+      (k) => k.trim() === category.trim()
     )
 
-    const uniqueItems = [...new Set(filtered.map((item) => item.Item.trim()))]
-
-    return uniqueItems
+    return key ? Object.keys(heliosDuaBelasData[key]) : []
   }, [category])
 
   // === Sync with history ===
@@ -112,7 +115,7 @@ export default function HeliosPage({ addAnotherTrigger }) {
       {selectedSub && (
         <div className="flex flex-col md:px-6 lg:flex-row gap-6 mt-2 w-full">
           <div className="w-full">
-            <HeliosForm
+            <HeliosDuaBelasForm
               category={category}
               researchName={selectedSub}
               onCalculate={handleCalculate}
@@ -156,7 +159,7 @@ export default function HeliosPage({ addAnotherTrigger }) {
             >
               ✕
             </button>
-            <HeliosCompareForm
+            <HeliosDuaBelasCompareForm
               comparedData={compares[0] || {}}
               onCompare={handleCompareSubmit}
               onCancel={() => setShowCompareForm(false)}
@@ -168,7 +171,7 @@ export default function HeliosPage({ addAnotherTrigger }) {
       {/* === RESULTS === */}
       {results.length > 0 && (
         <div className="md:p-6 mt-8 space-y-6 w-full">
-          <HeliosTabSwitcher
+          <HeliosDuaBelasTabSwitcher
             results={results}
             compares={compares}
             onDeleteHistory={handleDeleteHistory}

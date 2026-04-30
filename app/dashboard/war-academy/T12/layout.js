@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { Toaster } from 'sonner'
-import { HeliosHistoryProvider } from '../HeliosHistoryContext'
+import { HeliosDuaBelasHistoryProvider } from './HeliosDuaBelasHistoryContext'
 
 import { AddAnotherProvider } from '../../../dashboard/research/AddAnotherContext'
 import PageWrapper from '../../../components/PageWrapper'
@@ -17,7 +17,7 @@ export default function HeliosDuaBelasLayout({ children }) {
   return (
     <>
       <PageWrapper>
-        <HeliosHistoryProvider>
+        <HeliosDuaBelasHistoryProvider>
           <AddAnotherProvider>
             <div className="min-h-screen bg-special text-white">
               <main className="flex flex-col items-center w-full">
@@ -28,7 +28,7 @@ export default function HeliosDuaBelasLayout({ children }) {
               </main>
             </div>
           </AddAnotherProvider>
-        </HeliosHistoryProvider>
+        </HeliosDuaBelasHistoryProvider>
       </PageWrapper>
     </>
   )

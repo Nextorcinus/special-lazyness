@@ -5,7 +5,7 @@ import { cn } from '../lib/utils'
 
 export default function HeliosDuaBelasCategorySelector({ selected, onChange }) {
   const categories = ['Exalted Infantry', 'Exalted Marksman', 'Exalted Lancer']
-  console.log('RENDER CATEGORY SELECTOR')
+  
 
   return (
     <div className="relative sm:absolute sm:right-6 sm:top-6 mt-4 sm:mt-0 flex gap-4 text-sm font-medium text-white">

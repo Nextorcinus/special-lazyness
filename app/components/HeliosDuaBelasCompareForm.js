@@ -2,20 +2,20 @@
 
 import React from 'react'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
-import { parseNumber } from '../utils/parseNumber' // ✅ gunakan utils yang sama
+import { parseNumber } from '../utils/parseNumber'
 import ResourceIcon from './ResourceIcon'
 import { toast } from 'sonner'
 
-export default function CompareFormHelios({
+// ✅ khusus Helios T12
+const resourceOrder = ['Steel', 'RFC', 'FC Shards']
+
+export default function CompareFormHeliosDuaBelas({
   requiredResources = {},
   comparedData = {},
   onCompare,
   readonly = false,
   showComparisonTitle = false,
-  compareIndex = null,
 }) {
-  const resourceOrder = ['Meat', 'Wood', 'Coal', 'Iron', 'Steel', 'FC Shards']
-
   const handleCompare = (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
@@ -25,13 +25,11 @@ export default function CompareFormHelios({
     resourceOrder.forEach((key) => {
       const inputValue = (formData.get(key) || '').trim()
 
-      // Jika kosong
       if (inputValue === '') {
         data[key] = 0
         return
       }
 
-      // ✅ Gunakan parseNumber dari utils (dukung satuan: K, M, B)
       const value = parseNumber(inputValue)
       data[key] = value
 
@@ -47,7 +45,6 @@ export default function CompareFormHelios({
     onCompare?.({ resources: data })
   }
 
-  // === Default Value Formatter ===
   const getDefaultValue = (key) => {
     const val = comparedData?.[key] || comparedData?.resources?.[key] || 0
     if (!val || val === 0) return ''
@@ -63,25 +60,19 @@ export default function CompareFormHelios({
           {showComparisonTitle && (
             <h4 className="mb-4 text-md font-semibold">Comparison Result</h4>
           )}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-3">
-            {resourceOrder.map((key) => {
-              const need = requiredResources[key] || 0
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-4 text-sm">
+            {Object.entries(requiredResources).map(([key, need]) => {
               const have =
-                comparedData[key] || comparedData.resources?.[key] || 0
+                comparedData[key] ?? comparedData?.resources?.[key] ?? 0
               const diff = have - need
-              const isSurplus = diff >= 0
-              const label = isSurplus ? 'Surplus' : 'Need'
-              const color = isSurplus ? 'text-green-400' : 'text-red-400'
+              const color = diff >= 0 ? 'text-green-400' : 'text-red-400'
+              const prefix = diff >= 0 ? '+' : '-'
 
               return (
-                <div key={key} className="flex flex-col text-sm">
-                  <div className="flex items-center gap-1 text-lime-400">
-                    <ResourceIcon type={key} />
-                    <span>{formatToShortNumber(need)}</span>
-                  </div>
-                  <div className={`text-xs ${color}`}>
-                    {label} – {formatToShortNumber(Math.abs(diff))}
-                  </div>
+                <div key={key} className={`text-sm ${color}`}>
+                  {prefix}
+                  {formatToShortNumber(Math.abs(diff))}
                 </div>
               )
             })}
@@ -89,15 +80,16 @@ export default function CompareFormHelios({
         </div>
       ) : (
         <form onSubmit={handleCompare}>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {resourceOrder.map((key) => (
               <div key={key}>
                 <label
                   htmlFor={key}
-                  className="text-sm text-zinc-400 block sm:mt-1 sm:mb-1 lg:mt-3"
+                  className="text-sm text-zinc-400 block mb-1"
                 >
                   {key}
                 </label>
+
                 <input
                   type="text"
                   name={key}
@@ -109,6 +101,7 @@ export default function CompareFormHelios({
               </div>
             ))}
           </div>
+
           <button
             type="submit"
             className="mt-6 px-4 py-2 bg-lime-600 hover:bg-green-700 rounded text-white w-full"
