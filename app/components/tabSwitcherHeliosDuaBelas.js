@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useMemo, useState } from 'react'
-import HeliosHistoryList from './HeliosHistoryList'
+import HeliosDuaBelasHistoryList from './HeliosDuaBelasHistoryList'
 import ResourceIcon from './ResourceIcon'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
-import { useHeliosHistory } from '../dashboard/war-academy/HeliosHistoryContext'
+import { useHeliosDuaBelasHistory } from '../dashboard/war-academy/T12/HeliosDuaBelasHistoryContext'
 import { toast } from 'sonner'
 import { Button } from './ui/button'
 import { useAddAnother } from '../dashboard/research/AddAnotherContext'
@@ -17,7 +17,7 @@ export default function TabSwitcherDuaBelas({
   onResetHistory,
 }) {
   const [tab, setTab] = useState('overview')
-  const { deleteHistory } = useHeliosHistory()
+  const { deleteHistory } = useHeliosDuaBelasHistory()
   const { addAnother } = useAddAnother()
 
   // ✅ SAFE TOTAL CALCULATION
@@ -182,7 +182,7 @@ export default function TabSwitcherDuaBelas({
               }}
               className="w-max buttonGlass text-white px-4 rounded"
             >
-              + Add Another Research
+              + Unlock Other
             </Button>
           </div>
 
@@ -193,7 +193,7 @@ export default function TabSwitcherDuaBelas({
 
       {/* ================= HISTORY ================= */}
       {tab === 'history' && (
-        <HeliosHistoryList
+        <HeliosDuaBelasHistoryList
           onDelete={onDeleteHistory}
           onReset={onResetHistory}
         />

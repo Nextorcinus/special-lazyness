@@ -8,33 +8,41 @@ const STORAGE_KEY = 'helios-duabelas-history'
 
 export function HeliosDuaBelasHistoryProvider({ children }) {
   const [history, setHistory] = useState([])
+  const [isLoaded, setIsLoaded] = useState(false)
 
-  // ✅ Load dari localStorage saat pertama mount
+  // ✅ LOAD dulu
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY)
+
       if (stored) {
         const parsed = JSON.parse(stored)
-        // ✅ Filter data lama yang tidak punya field category
-        const cleaned = parsed.map((item) => ({
-          ...item,
-          category: item.category || null,
-        }))
-        setHistory(cleaned)
+
+        if (Array.isArray(parsed)) {
+          const cleaned = parsed.map((item) => ({
+            ...item,
+            category: item.category ?? null,
+          }))
+          setHistory(cleaned)
+        }
       }
     } catch (e) {
-      console.warn('Failed to load helios duabelas history:', e)
+      console.warn('Failed to load history:', e)
+    } finally {
+      setIsLoaded(true)
     }
   }, [])
 
-  // ✅ Simpan ke localStorage setiap history berubah
+  // ✅ SAVE hanya setelah load selesai
   useEffect(() => {
+    if (!isLoaded) return
+
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(history))
     } catch (e) {
-      console.warn('Failed to save helios duabelas history:', e)
+      console.warn('Failed to save history:', e)
     }
-  }, [history])
+  }, [history, isLoaded])
 
   const addToHistory = (entry) => {
     setHistory((prev) => [entry, ...prev])

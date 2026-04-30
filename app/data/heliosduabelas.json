@@ -5,31 +5,36 @@
         "level": "1",
         "Steel": "40000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "deployment": "600"
       },
       {
         "level": "2",
         "Steel": "60000",
         "RFC": "15",
-        "FC Shards": "105"
+        "FC Shards": "105",
+        "deployment": "1200"
       },
       {
         "level": "3",
         "Steel": "80000",
         "RFC": "20",
-        "FC Shards": "140"
+        "FC Shards": "140",
+        "deployment": "1800"
       },
       {
         "level": "4",
         "Steel": "100000",
         "RFC": "25",
-        "FC Shards": "175"
+        "FC Shards": "175",
+        "deployment": "2400"
       },
       {
         "level": "5",
         "Steel": "120000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "deployment": "3000"
       }
     ],
     "Exalted Shoulder Guard": [
@@ -37,31 +42,36 @@
         "level": "1",
         "Steel": "36000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "attack": "3%"
       },
       {
         "level": "2",
         "Steel": "36000",
-        "RFC": "15",
-        "FC Shards": "105"
+        "RFC": "10",
+        "FC Shards": "70",
+        "attack": "6%"
       },
       {
         "level": "3",
         "Steel": "54000",
-        "RFC": "20",
-        "FC Shards": "140"
+        "RFC": "15",
+        "FC Shards": "105",
+        "attack": "3%"
       },
       {
         "level": "4",
         "Steel": "72000",
-        "RFC": "25",
-        "FC Shards": "175"
+        "RFC": "20",
+        "FC Shards": "140",
+        "attack": "9%"
       },
       {
         "level": "5",
         "Steel": "108000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "attack": "15%"
       }
     ],
     "Exalted Bastion": [
@@ -69,31 +79,36 @@
         "level": "1",
         "Steel": "36000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "attack": "3%"
       },
       {
         "level": "2",
         "Steel": "36000",
-        "RFC": "15",
-        "FC Shards": "105"
+        "RFC": "10",
+        "FC Shards": "70",
+        "attack": "6%"
       },
       {
         "level": "3",
         "Steel": "54000",
-        "RFC": "20",
-        "FC Shards": "140"
+        "RFC": "15",
+        "FC Shards": "105",
+        "attack": "3%"
       },
       {
         "level": "4",
         "Steel": "72000",
-        "RFC": "25",
-        "FC Shards": "175"
+        "RFC": "20",
+        "FC Shards": "140",
+        "attack": "9%"
       },
       {
         "level": "5",
         "Steel": "108000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "attack": "15%"
       }
     ],
     "Exalted Shoulder Trek": [
@@ -101,31 +116,36 @@
         "level": "1",
         "Steel": "36000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "attack": "3%"
       },
       {
         "level": "2",
         "Steel": "36000",
-        "RFC": "15",
-        "FC Shards": "105"
+        "RFC": "10",
+        "FC Shards": "70",
+        "attack": "6%"
       },
       {
         "level": "3",
         "Steel": "54000",
-        "RFC": "20",
-        "FC Shards": "140"
+        "RFC": "15",
+        "FC Shards": "105",
+        "attack": "3%"
       },
       {
         "level": "4",
         "Steel": "72000",
-        "RFC": "25",
-        "FC Shards": "175"
+        "RFC": "20",
+        "FC Shards": "140",
+        "attack": "9%"
       },
       {
         "level": "5",
         "Steel": "108000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "attack": "15%"
       }
     ],
     "Exalted Armament": [
@@ -133,31 +153,36 @@
         "level": "1",
         "Steel": "36000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "attack": "3%"
       },
       {
         "level": "2",
         "Steel": "36000",
-        "RFC": "15",
-        "FC Shards": "105"
+        "RFC": "10",
+        "FC Shards": "70",
+        "attack": "6%"
       },
       {
         "level": "3",
         "Steel": "54000",
-        "RFC": "20",
-        "FC Shards": "140"
+        "RFC": "15",
+        "FC Shards": "105",
+        "attack": "3%"
       },
       {
         "level": "4",
         "Steel": "72000",
-        "RFC": "25",
-        "FC Shards": "175"
+        "RFC": "20",
+        "FC Shards": "140",
+        "attack": "9%"
       },
       {
         "level": "5",
         "Steel": "108000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "attack": "15%"
       }
     ]
   },
@@ -168,31 +193,36 @@
         "level": "1",
         "Steel": "40000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "deployment": "600"
       },
       {
         "level": "2",
         "Steel": "60000",
         "RFC": "15",
-        "FC Shards": "105"
+        "FC Shards": "105",
+        "deployment": "1200"
       },
       {
         "level": "3",
         "Steel": "80000",
         "RFC": "20",
-        "FC Shards": "140"
+        "FC Shards": "140",
+        "deployment": "1800"
       },
       {
         "level": "4",
         "Steel": "100000",
         "RFC": "25",
-        "FC Shards": "175"
+        "FC Shards": "175",
+        "deployment": "2400"
       },
       {
         "level": "5",
         "Steel": "120000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "deployment": "3000"
       }
     ],
     "Exalted Pauldron": [
@@ -200,31 +230,36 @@
         "level": "1",
         "Steel": "36000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "attack": "3%"
       },
       {
         "level": "2",
         "Steel": "36000",
-        "RFC": "15",
-        "FC Shards": "105"
+        "RFC": "10",
+        "FC Shards": "70",
+        "attack": "6%"
       },
       {
         "level": "3",
         "Steel": "54000",
-        "RFC": "20",
-        "FC Shards": "140"
+        "RFC": "15",
+        "FC Shards": "105",
+        "attack": "3%"
       },
       {
         "level": "4",
         "Steel": "72000",
-        "RFC": "25",
-        "FC Shards": "175"
+        "RFC": "20",
+        "FC Shards": "140",
+        "attack": "9%"
       },
       {
         "level": "5",
         "Steel": "108000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "attack": "15%"
       }
     ],
     "Exalted Platemall": [
@@ -232,31 +267,36 @@
         "level": "1",
         "Steel": "36000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "attack": "3%"
       },
       {
         "level": "2",
         "Steel": "36000",
-        "RFC": "15",
-        "FC Shards": "105"
+        "RFC": "10",
+        "FC Shards": "70",
+        "attack": "6%"
       },
       {
         "level": "3",
         "Steel": "54000",
-        "RFC": "20",
-        "FC Shards": "140"
+        "RFC": "15",
+        "FC Shards": "105",
+        "attack": "3%"
       },
       {
         "level": "4",
         "Steel": "72000",
-        "RFC": "25",
-        "FC Shards": "175"
+        "RFC": "20",
+        "FC Shards": "140",
+        "attack": "9%"
       },
       {
         "level": "5",
         "Steel": "108000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "attack": "15%"
       }
     ],
     "Exalted Warpath": [
@@ -264,31 +304,36 @@
         "level": "1",
         "Steel": "36000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "attack": "3%"
       },
       {
         "level": "2",
         "Steel": "36000",
-        "RFC": "15",
-        "FC Shards": "105"
+        "RFC": "10",
+        "FC Shards": "70",
+        "attack": "6%"
       },
       {
         "level": "3",
         "Steel": "54000",
-        "RFC": "20",
-        "FC Shards": "140"
+        "RFC": "15",
+        "FC Shards": "105",
+        "attack": "3%"
       },
       {
         "level": "4",
         "Steel": "72000",
-        "RFC": "25",
-        "FC Shards": "175"
+        "RFC": "20",
+        "FC Shards": "140",
+        "attack": "9%"
       },
       {
         "level": "5",
         "Steel": "108000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "attack": "15%"
       }
     ],
     "Exalted Pike": [
@@ -296,31 +341,36 @@
         "level": "1",
         "Steel": "36000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "attack": "3%"
       },
       {
         "level": "2",
         "Steel": "36000",
-        "RFC": "15",
-        "FC Shards": "105"
+        "RFC": "10",
+        "FC Shards": "70",
+        "attack": "6%"
       },
       {
         "level": "3",
         "Steel": "54000",
-        "RFC": "20",
-        "FC Shards": "140"
+        "RFC": "15",
+        "FC Shards": "105",
+        "attack": "3%"
       },
       {
         "level": "4",
         "Steel": "72000",
-        "RFC": "25",
-        "FC Shards": "175"
+        "RFC": "20",
+        "FC Shards": "140",
+        "attack": "9%"
       },
       {
         "level": "5",
         "Steel": "108000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "attack": "15%"
       }
     ]
   },
@@ -331,31 +381,36 @@
         "level": "1",
         "Steel": "40000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "deployment": "600"
       },
       {
         "level": "2",
         "Steel": "60000",
         "RFC": "15",
-        "FC Shards": "105"
+        "FC Shards": "105",
+        "deployment": "1200"
       },
       {
         "level": "3",
         "Steel": "80000",
         "RFC": "20",
-        "FC Shards": "140"
+        "FC Shards": "140",
+        "deployment": "1800"
       },
       {
         "level": "4",
         "Steel": "100000",
         "RFC": "25",
-        "FC Shards": "175"
+        "FC Shards": "175",
+        "deployment": "2400"
       },
       {
         "level": "5",
         "Steel": "120000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "deployment": "3000"
       }
     ],
     "Exalted Mantle": [
@@ -363,31 +418,36 @@
         "level": "1",
         "Steel": "36000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "attack": "3%"
       },
       {
         "level": "2",
         "Steel": "36000",
-        "RFC": "15",
-        "FC Shards": "105"
+        "RFC": "10",
+        "FC Shards": "70",
+        "attack": "6%"
       },
       {
         "level": "3",
         "Steel": "54000",
-        "RFC": "20",
-        "FC Shards": "140"
+        "RFC": "15",
+        "FC Shards": "105",
+        "attack": "3%"
       },
       {
         "level": "4",
         "Steel": "72000",
-        "RFC": "25",
-        "FC Shards": "175"
+        "RFC": "20",
+        "FC Shards": "140",
+        "attack": "9%"
       },
       {
         "level": "5",
         "Steel": "108000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "attack": "15%"
       }
     ],
     "Exalted War Garb": [
@@ -395,31 +455,36 @@
         "level": "1",
         "Steel": "36000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "attack": "3%"
       },
       {
         "level": "2",
         "Steel": "36000",
-        "RFC": "15",
-        "FC Shards": "105"
+        "RFC": "10",
+        "FC Shards": "70",
+        "attack": "6%"
       },
       {
         "level": "3",
         "Steel": "54000",
-        "RFC": "20",
-        "FC Shards": "140"
+        "RFC": "15",
+        "FC Shards": "105",
+        "attack": "3%"
       },
       {
         "level": "4",
         "Steel": "72000",
-        "RFC": "25",
-        "FC Shards": "175"
+        "RFC": "20",
+        "FC Shards": "140",
+        "attack": "9%"
       },
       {
         "level": "5",
         "Steel": "108000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "attack": "15%"
       }
     ],
     "Exalted Cadence": [
@@ -427,31 +492,36 @@
         "level": "1",
         "Steel": "36000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "attack": "3%"
       },
       {
         "level": "2",
         "Steel": "36000",
-        "RFC": "15",
-        "FC Shards": "105"
+        "RFC": "10",
+        "FC Shards": "70",
+        "attack": "6%"
       },
       {
         "level": "3",
         "Steel": "54000",
-        "RFC": "20",
-        "FC Shards": "140"
+        "RFC": "15",
+        "FC Shards": "105",
+        "attack": "3%"
       },
       {
         "level": "4",
         "Steel": "72000",
-        "RFC": "25",
-        "FC Shards": "175"
+        "RFC": "20",
+        "FC Shards": "140",
+        "attack": "9%"
       },
       {
         "level": "5",
         "Steel": "108000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "attack": "15%"
       }
     ],
     "Exalted Blunderbuss": [
@@ -459,31 +529,36 @@
         "level": "1",
         "Steel": "36000",
         "RFC": "10",
-        "FC Shards": "70"
+        "FC Shards": "70",
+        "attack": "3%"
       },
       {
         "level": "2",
         "Steel": "36000",
-        "RFC": "15",
-        "FC Shards": "105"
+        "RFC": "10",
+        "FC Shards": "70",
+        "attack": "6%"
       },
       {
         "level": "3",
         "Steel": "54000",
-        "RFC": "20",
-        "FC Shards": "140"
+        "RFC": "15",
+        "FC Shards": "105",
+        "attack": "3%"
       },
       {
         "level": "4",
         "Steel": "72000",
-        "RFC": "25",
-        "FC Shards": "175"
+        "RFC": "20",
+        "FC Shards": "140",
+        "attack": "9%"
       },
       {
         "level": "5",
         "Steel": "108000",
         "RFC": "30",
-        "FC Shards": "210"
+        "FC Shards": "210",
+        "attack": "15%"
       }
     ]
   }

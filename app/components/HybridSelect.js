@@ -1,68 +1,83 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 import {
   Select,
   SelectContent,
   SelectTrigger,
   SelectValue,
   SelectItem,
-} from "../components/ui/select";
+} from '../components/ui/select'
 
-// props: value, onChange, options, placeholder, className
 export default function HybridSelect({
   value,
   onChange,
-  options,
+  options = [],
   placeholder,
-  className = "",
+  className = '',
 }) {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const check = () =>
       setIsMobile(
-        typeof window !== "undefined" &&
-        (window.innerWidth <= 865 ||
-          /iPhone|iPod|Android/i.test(navigator.userAgent))
-      );
+        typeof window !== 'undefined' &&
+          (window.innerWidth <= 865 ||
+            /iPhone|iPod|Android/i.test(navigator.userAgent))
+      )
 
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
-  // === MOBILE: Native select ===
+  // ✅ normalize value
+  const safeValue = value === null || value === undefined ? '' : String(value)
+
+  const safeOptions = options.map((opt) => ({
+    value: String(opt.value),
+    label: opt.label,
+  }))
+
+  // ✅ cari selected label manual
+  const selectedOption = safeOptions.find((opt) => opt.value === safeValue)
+
+  // === MOBILE ===
   if (isMobile) {
     return (
       <select
-        value={value}
+        value={safeValue}
         onChange={(e) => onChange(e.target.value)}
         className={`bg-special-input text-white w-full rounded-md p-2 ${className}`}
       >
         <option value="">{placeholder}</option>
-        {options.map((opt) => (
+        {safeOptions.map((opt) => (
           <option key={opt.value} value={opt.value}>
             {opt.label}
           </option>
         ))}
       </select>
-    );
+    )
   }
 
-  // === DESKTOP: SHADCN select ===
+  // === DESKTOP ===
   return (
-    <Select value={value} onValueChange={onChange}>
-      <SelectTrigger className={`bg-special-input text-white w-full ${className}`}>
-        <SelectValue placeholder={placeholder} />
+    <Select value={safeValue} onValueChange={onChange}>
+      <SelectTrigger
+        className={`bg-special-input text-white w-full ${className}`}
+      >
+        <SelectValue>
+          {selectedOption ? selectedOption.label : placeholder}
+        </SelectValue>
       </SelectTrigger>
+
       <SelectContent>
-        {options.map((opt) => (
+        {safeOptions.map((opt) => (
           <SelectItem key={opt.value} value={opt.value}>
             {opt.label}
           </SelectItem>
         ))}
       </SelectContent>
     </Select>
-  );
+  )
 }
