@@ -1,0 +1,72 @@
+'use client'
+
+import React from 'react'
+import { Card, CardHeader, CardContent } from './ui/card'
+import { Button } from './ui/button'
+import { useHeliosSkillHistory } from '../dashboard/war-academy/T12-skills/HeliosSkillsHistoryContext'
+import { useAddAnother } from '../dashboard/research/AddAnotherContext'
+import { toast } from 'sonner'
+
+export default function HeliosSkillHistoryList() {
+  const { history, deleteHistory, resetHistory } = useHeliosSkillHistory()
+  const { addAnother } = useAddAnother()
+
+  const handleReset = () => {
+    resetHistory()
+    toast.success('All helios history has been reset.')
+  }
+
+  return (
+    <Card className="bg-special-inside text-white mt-10 border border-neutral-700">
+      <CardHeader className="flex flex-row items-center justify-between px-4 py-2">
+        <h3 className="text-lg">Helios T12 History</h3>
+        <Button
+          className="buttonGlass text-white px-2 py-0 rounded"
+          onClick={handleReset}
+        >
+          Reset
+        </Button>
+      </CardHeader>
+
+      <CardContent className="space-y-2 px-4 pb-4">
+        {history.length === 0 ? (
+          <p className="text-sm text-gray-400">No history yet.</p>
+        ) : (
+          <>
+            {history.map((entry) => (
+              <div
+                key={entry.id}
+                className="flex justify-between items-center special-glass rounded px-4 py-3"
+              >
+                <div>
+                  <div className="text-sm">{entry.building}</div>
+                  <div className="text-xs text-white p-0 mt-2">
+                    {entry.fromLevel} → {entry.toLevel}
+                  </div>
+                </div>
+                <Button
+                  className="button text-white px-2 rounded"
+                  onClick={() => {
+                    deleteHistory(entry.id)
+                    toast.success(`History "${entry.building}" deleted.`)
+                  }}
+                >
+                  Delete
+                </Button>
+              </div>
+            ))}
+
+            <div className="pt-2 text-center">
+              <Button
+                onClick={addAnother}
+                className="w-max buttonGlass text-white px-4 rounded"
+              >
+                + Add Another Research
+              </Button>
+            </div>
+          </>
+        )}
+      </CardContent>
+    </Card>
+  )
+}

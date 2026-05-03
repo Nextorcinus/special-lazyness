@@ -7,7 +7,7 @@ import { Button } from './ui/button'
 import { toast } from 'sonner'
 import HybridSelect from '../components/HybridSelect'
 
-export default function HeliosDuaBelasForm({
+export default function HeliosSkillForm({
   category,
   researchName,
   onCalculate,

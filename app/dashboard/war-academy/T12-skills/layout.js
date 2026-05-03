@@ -2,26 +2,28 @@
 
 import React, { useState } from 'react'
 import { Toaster } from 'sonner'
-import { HeliosHistoryProvider } from './HeliosHistoryContext'
-import { AddAnotherProvider } from '../../dashboard/research/AddAnotherContext'
-import PageWrapper from '../../components/PageWrapper'
+import { HeliosSkillsHistoryProvider } from './HeliosSkillsHistoryContext'
 
-export default function HeliosLayout({ children }) {
+import { AddAnotherProvider } from '../../../dashboard/research/AddAnotherContext'
+import PageWrapper from '../../../components/PageWrapper'
+
+export default function HeliosSkillLayout({ children }) {
   const [resetFormTrigger, setResetFormTrigger] = useState(0)
 
   const handleGlobalReset = () => {
     setResetFormTrigger(Date.now())
   }
+
   console.log({
     PageWrapper,
-    HeliosHistoryProvider,
+    HeliosSkillsHistoryProvider,
     AddAnotherProvider,
   })
 
   return (
     <>
       <PageWrapper>
-        <HeliosHistoryProvider>
+        <HeliosSkillsHistoryProvider>
           <AddAnotherProvider>
             <div className="min-h-screen bg-special text-white">
               <main className="flex flex-col items-center w-full">
@@ -32,7 +34,7 @@ export default function HeliosLayout({ children }) {
               </main>
             </div>
           </AddAnotherProvider>
-        </HeliosHistoryProvider>
+        </HeliosSkillsHistoryProvider>
       </PageWrapper>
     </>
   )

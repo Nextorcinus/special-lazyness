@@ -1,23 +1,23 @@
 'use client'
 
 import React, { useMemo, useState } from 'react'
-import HeliosDuaBelasHistoryList from './HeliosDuaBelasHistoryList'
+import HeliosSkillHistoryList from './HeliosSkillHistoryList'
 import ResourceIcon from './ResourceIcon'
 import { formatToShortNumber } from '../utils/formatToShortNumber'
-import { useHeliosDuaBelasHistory } from '../dashboard/war-academy/T12/HeliosDuaBelasHistoryContext'
+import { useHeliosSkillHistory } from '../dashboard/war-academy/T12-skills/HeliosSkillsHistoryContext'
 import { toast } from 'sonner'
 import { Button } from './ui/button'
 import { useAddAnother } from '../dashboard/research/AddAnotherContext'
-import TotalResultDuaBelas from './TotalResultHeliosDuaBelas'
+import TotalResultSkill from './TotalResultHeliosSkill'
 
-export default function TabSwitcherDuaBelas({
+export default function TabSwitcherSkill({
   results = [],
   compares = [],
   onDeleteHistory,
   onResetHistory,
 }) {
   const [tab, setTab] = useState('overview')
-  const { deleteHistory } = useHeliosDuaBelasHistory()
+  const { deleteHistory } = useHeliosSkillHistory()
   const { addAnother } = useAddAnother()
 
   const resultsWithTotal = useMemo(() => {
@@ -222,13 +222,13 @@ export default function TabSwitcherDuaBelas({
           </div>
 
           {/* === TOTAL RESULT === */}
-          <TotalResultDuaBelas results={resultsWithTotal} compares={compares} />
+          <TotalResultSkill results={resultsWithTotal} compares={compares} />
         </div>
       )}
 
       {/* ================= HISTORY ================= */}
       {tab === 'history' && (
-        <HeliosDuaBelasHistoryList
+        <HeliosSkillHistoryList
           onDelete={onDeleteHistory}
           onReset={onResetHistory}
         />
