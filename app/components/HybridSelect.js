@@ -66,12 +66,18 @@ export default function HybridSelect({
       <SelectTrigger
         className={`bg-special-input text-white w-full ${className}`}
       >
-        <SelectValue>
-          {selectedOption ? selectedOption.label : placeholder}
-        </SelectValue>
+        <SelectValue placeholder={placeholder || 'Select'} />
       </SelectTrigger>
 
-      <SelectContent>
+      <SelectContent
+        position="popper"
+        side="bottom"
+        align="start"
+        sideOffset={6}
+        avoidCollisions={false}
+        collisionPadding={0}
+        className="z-[9999] max-h-[320px] overflow-y-auto"
+      >
         {safeOptions.map((opt) => (
           <SelectItem key={opt.value} value={opt.value}>
             {opt.label}
