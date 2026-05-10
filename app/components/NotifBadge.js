@@ -29,8 +29,8 @@ export default function NotifBadge() {
     },
     {
       id: 2,
-      text: 'Troops Assistant Feature Added',
-      href: '/dashboard/troops',
+      text: 'Helios T12 Skill Addded',
+      href: '/dashboard/war-academy/T12-skills',
       read: false,
     },
   ]
