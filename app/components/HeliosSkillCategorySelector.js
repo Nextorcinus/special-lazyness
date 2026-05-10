@@ -7,15 +7,15 @@ export default function HeliosSkillCategorySelector({ selected, onChange }) {
   const categories = [
     {
       key: 'Infantry',
-      label: 'Infantry',
+      label: 'Exalted Infantry',
     },
     {
       key: 'Marksman',
-      label: 'Marksman',
+      label: 'Exalted Marksman',
     },
     {
       key: 'Lancer',
-      label: 'Lancer',
+      label: 'Exalted Lancer',
     },
   ]
 
