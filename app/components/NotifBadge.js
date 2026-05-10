@@ -23,14 +23,14 @@ export default function NotifBadge() {
   const defaultNotifications = [
     {
       id: 1,
-      text: 'Troops Assistant Feature Added',
-      href: '/dashboard/troops',
+      text: 'Helios T12 Feature Addded',
+      href: '/dashboard/war-academy/T12',
       read: false,
     },
     {
       id: 2,
-      text: 'Valerie Buff for Gear, Charm, and Building',
-      href: '/dashboard/gear',
+      text: 'Troops Assistant Feature Added',
+      href: '/dashboard/troops',
       read: false,
     },
   ]
