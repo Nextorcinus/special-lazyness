@@ -62,7 +62,7 @@ export default function HybridSelect({
 
   // === DESKTOP ===
   return (
-    <Select value={safeValue} onValueChange={onChange}>
+    <Select value={safeValue || undefined} onValueChange={onChange}>
       <SelectTrigger
         className={`bg-special-input text-white w-full ${className}`}
       >
@@ -79,8 +79,8 @@ export default function HybridSelect({
         className="z-[9999] max-h-[320px] overflow-y-auto"
       >
         {safeOptions.map((opt) => (
-          <SelectItem key={opt.value} value={opt.value}>
-            {opt.label}
+          <SelectItem key={String(opt.value)} value={String(opt.value)}>
+            {String(opt.label)}
           </SelectItem>
         ))}
       </SelectContent>
