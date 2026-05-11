@@ -77,8 +77,12 @@ export default function HeliosDuaBelasForm({
         ? entries[entries.length - 1]
         : entriesData.find((e) => Number(e.level) === to)
 
-    // ✅ POWER
-    const power = lastEntry ? Number(lastEntry.power || 0) : 0
+    // ✅ POWER TOTAL (SUM RANGE)
+
+    const power = entries.reduce(
+      (total, item) => total + Number(item.power || 0),
+      0
+    )
 
     // ✅ ATTRIBUTES
     const attributes = Array.isArray(lastEntry?.attributes)

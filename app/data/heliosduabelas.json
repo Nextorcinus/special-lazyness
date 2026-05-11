@@ -14,7 +14,7 @@
         "Steel": "60000",
         "RFC": "15",
         "FC Shards": "105",
-        "power": "36000",
+        "power": "360000",
         "attributes": [{ "name": "deployment", "value": 200, "unit": "" }]
       },
       {
@@ -30,7 +30,7 @@
         "Steel": "100000",
         "RFC": "25",
         "FC Shards": "175",
-        "power": "72000",
+        "power": "720000",
         "attributes": [{ "name": "deployment", "value": 200, "unit": "" }]
       },
       {
