@@ -173,27 +173,81 @@ export default function TabSwitcherSkill({
                         </div>
                       </div>
 
-                      {/* RESOURCES */}
+                      {/* ================= RESOURCES ================= */}
+
                       <div>
                         <div className="text-sm text-white/70 mb-2">
                           Resources Needed (Level {skill?.toLevel})
                         </div>
 
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-7 gap-2">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-4 gap-2">
                           {Object.entries(skill.resources || {})
                             .filter(([, value]) => Number(value) > 0)
-                            .map(([key, value]) => (
-                              <div
-                                key={key}
-                                className="special-glass rounded-lg px-3 py-2 flex items-center justify-center gap-2 text-sm"
-                              >
-                                <ResourceIcon type={key} />
+                            .map(([key, value]) => {
+                              const compareVal =
+                                compareResources?.[key] !== undefined
+                                  ? Number(compareResources[key])
+                                  : null
 
-                                <span>
-                                  {formatToShortNumber(Number(value || 0))}
-                                </span>
-                              </div>
-                            ))}
+                              const val = Number(value || 0)
+
+                              const diff =
+                                compareVal !== null ? compareVal - val : null
+
+                              let colorClass =
+                                'text-xs text-gray-200 bg-white/20 px-2 py-1'
+
+                              let label = 'Match'
+
+                              // POSITIVE
+
+                              if (diff > 0) {
+                                colorClass =
+                                  'text-xs text-green-400 border border-green-800 bg-green-700/10 px-2 py-1'
+
+                                label = '+'
+                              }
+
+                              // NEGATIVE
+                              else if (diff < 0) {
+                                colorClass =
+                                  'text-xs text-red-200 border border-red-400 bg-red-500/10 px-2 py-1'
+
+                                label = '-'
+                              }
+
+                              return (
+                                <div
+                                  key={key}
+                                  className="flex flex-col items-center special-glass px-2 py-2 rounded-xl"
+                                >
+                                  {/* RESOURCE */}
+
+                                  <div className="flex items-center gap-1 text-sm md:text-base">
+                                    <ResourceIcon type={key} />
+
+                                    {formatToShortNumber(val)}
+                                  </div>
+
+                                  {/* COMPARE */}
+
+                                  {diff !== null && (
+                                    <div
+                                      className={`rounded-md mt-1 ${colorClass}`}
+                                    >
+                                      {label}
+
+                                      {diff !== 0 && (
+                                        <>
+                                          {' '}
+                                          {formatToShortNumber(Math.abs(diff))}
+                                        </>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              )
+                            })}
                         </div>
                       </div>
                     </div>

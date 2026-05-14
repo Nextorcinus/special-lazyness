@@ -224,6 +224,30 @@ export default function HeliosSkillForm({
     return currentSkill?.name || selectedSkill
   }
 
+  // ================= TIME HELPERS =================
+
+  const timeToSeconds = (time = '0:0:0') => {
+    const [h = 0, m = 0, s = 0] = time.split(':').map(Number)
+
+    return h * 3600 + m * 60 + s
+  }
+
+  const secondsToTime = (seconds) => {
+    const h = Math.floor(seconds / 3600)
+
+    const m = Math.floor((seconds % 3600) / 60)
+
+    const s = seconds % 60
+
+    return [
+      String(h).padStart(2, '0'),
+
+      String(m).padStart(2, '0'),
+
+      String(s).padStart(2, '0'),
+    ].join(':')
+  }
+
   // ================= CALCULATE =================
 
   const handleCalculate = () => {
@@ -329,13 +353,25 @@ export default function HeliosSkillForm({
 
     // ================= POWER =================
 
-    const power = Number(targetLevelData?.power) || 0
+    const power = resourceLevels.reduce(
+      (total, item) => total + Number(item?.power || 0),
+      0
+    )
 
     // ================= STAT =================
 
     const stat = isSolar
       ? Number(targetLevelData?.capacity) || 0
       : Number(targetLevelData?.stat) || 0
+
+    // ================= TOTAL TIME =================
+
+    const totalSeconds = resourceLevels.reduce(
+      (total, item) => total + timeToSeconds(item?.time),
+      0
+    )
+
+    const totalTime = secondsToTime(totalSeconds)
 
     // ================= SKILL ENTRY =================
 
@@ -358,7 +394,7 @@ export default function HeliosSkillForm({
 
       power,
 
-      time: targetLevelData?.time || '-',
+      time: totalTime,
 
       resources: resultResources,
     }

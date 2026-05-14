@@ -1,13 +1,25 @@
 'use client'
 
 import React from 'react'
-import { formatToShortNumber } from '../utils/formatToShortNumber'
-import { parseNumber } from '../utils/parseNumber'
-import ResourceIcon from './ResourceIcon'
+
 import { toast } from 'sonner'
 
-// ✅ khusus Helios T12
-const resourceOrder = ['Steel', 'RFC', 'FC Shards']
+import { formatToShortNumber } from '../utils/formatToShortNumber'
+import { parseNumber } from '../utils/parseNumber'
+
+import ResourceIcon from './ResourceIcon'
+
+// ✅ FULL HELIOS RESOURCE
+
+const resourceOrder = [
+  'Steel',
+  'RFC',
+  'FC Shards',
+  'Meat',
+  'Wood',
+  'Coal',
+  'Iron',
+]
 
 export default function CompareFormHeliosSkill({
   requiredResources = {},
@@ -16,10 +28,15 @@ export default function CompareFormHeliosSkill({
   readonly = false,
   showComparisonTitle = false,
 }) {
+  // ================= COMPARE =================
+
   const handleCompare = (e) => {
     e.preventDefault()
+
     const formData = new FormData(e.target)
+
     const data = {}
+
     let hasValue = false
 
     resourceOrder.forEach((key) => {
@@ -31,29 +48,42 @@ export default function CompareFormHeliosSkill({
       }
 
       const value = parseNumber(inputValue)
+
       data[key] = value
 
-      if (!isNaN(value) && value > 0) hasValue = true
+      if (!isNaN(value) && value > 0) {
+        hasValue = true
+      }
     })
 
     if (!hasValue) {
       toast.warning('All inputs are empty. Enter at least one value.')
+
       return
     }
 
     toast.success('Data successfully sent for comparison!')
-    onCompare?.({ resources: data })
+
+    onCompare?.({
+      resources: data,
+    })
   }
+
+  // ================= DEFAULT =================
 
   const getDefaultValue = (key) => {
     const val = comparedData?.[key] || comparedData?.resources?.[key] || 0
-    if (!val || val === 0) return ''
+
+    if (!val || val === 0) {
+      return ''
+    }
+
     return formatToShortNumber(val)
   }
 
   return (
     <div className="lg:mt-6 p-4 bg-special-inside-green rounded-xl text-white shadow">
-      {!readonly && <h3 className="text-xl mb-2">Own Resources</h3>}
+      {!readonly && <h3 className="text-xl mb-4">Own Resources</h3>}
 
       {readonly ? (
         <div>
@@ -61,18 +91,29 @@ export default function CompareFormHeliosSkill({
             <h4 className="mb-4 text-md font-semibold">Comparison Result</h4>
           )}
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-4 text-sm">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
             {Object.entries(requiredResources).map(([key, need]) => {
               const have =
-                comparedData[key] ?? comparedData?.resources?.[key] ?? 0
+                comparedData?.[key] ?? comparedData?.resources?.[key] ?? 0
+
               const diff = have - need
+
               const color = diff >= 0 ? 'text-green-400' : 'text-red-400'
+
               const prefix = diff >= 0 ? '+' : '-'
 
               return (
-                <div key={key} className={`text-sm ${color}`}>
-                  {prefix}
-                  {formatToShortNumber(Math.abs(diff))}
+                <div
+                  key={key}
+                  className="special-glass rounded-xl p-3 flex items-center gap-2"
+                >
+                  <ResourceIcon type={key} />
+
+                  <div className={color}>
+                    {prefix}
+
+                    {formatToShortNumber(Math.abs(diff))}
+                  </div>
                 </div>
               )
             })}
@@ -80,13 +121,15 @@ export default function CompareFormHeliosSkill({
         </div>
       ) : (
         <form onSubmit={handleCompare}>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {resourceOrder.map((key) => (
               <div key={key}>
                 <label
                   htmlFor={key}
-                  className="text-sm text-zinc-400 block mb-1"
+                  className="text-sm text-zinc-300 flex items-center gap-2 mb-1"
                 >
+                  <ResourceIcon type={key} />
+
                   {key}
                 </label>
 
@@ -95,8 +138,8 @@ export default function CompareFormHeliosSkill({
                   name={key}
                   id={key}
                   defaultValue={getDefaultValue(key)}
-                  placeholder="e.g., 35M, 1.5K, 2B"
-                  className="w-full bg-special-input-green p-2 rounded text-zinc-400 placeholder-zinc-500"
+                  placeholder="e.g. 35M, 1.5K"
+                  className="w-full bg-special-input-green p-2 rounded text-white placeholder-zinc-500"
                 />
               </div>
             ))}

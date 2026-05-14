@@ -18,6 +18,30 @@ const resourceOrder = [
   'Iron',
 ]
 
+// ================= TIME HELPERS =================
+
+const timeToSeconds = (time = '00:00:00') => {
+  const [h = 0, m = 0, s = 0] = time.split(':').map(Number)
+
+  return h * 3600 + m * 60 + s
+}
+
+const secondsToTime = (seconds) => {
+  const h = Math.floor(seconds / 3600)
+
+  const m = Math.floor((seconds % 3600) / 60)
+
+  const s = seconds % 60
+
+  return [
+    String(h).padStart(2, '0'),
+
+    String(m).padStart(2, '0'),
+
+    String(s).padStart(2, '0'),
+  ].join(':')
+}
+
 export default function TotalResultSkill({ results = [], compares = [] }) {
   // ================= EMPTY =================
 
@@ -39,15 +63,6 @@ export default function TotalResultSkill({ results = [], compares = [] }) {
     }, {})
   }, [results])
 
-  // ================= COMPARE =================
-
-  const compare = compares?.[0] || {}
-
-  const comparedResources = compare?.resources || {}
-
-  const hasCompare =
-    compares.length > 0 && Object.keys(comparedResources).length > 0
-
   // ================= TOTAL POWER =================
 
   const totalPower = useMemo(() => {
@@ -56,6 +71,49 @@ export default function TotalResultSkill({ results = [], compares = [] }) {
       0
     )
   }, [results])
+
+  // ================= TOTAL ORIGINAL TIME =================
+
+  const totalOriginalSeconds = useMemo(() => {
+    return results.reduce((total, result) => {
+      const skill = result?.skills?.[0]
+
+      return total + timeToSeconds(skill?.time)
+    }, 0)
+  }, [results])
+
+  const totalOriginalTime = secondsToTime(totalOriginalSeconds)
+
+  // ================= TOTAL REDUCED TIME =================
+
+  const totalReducedSeconds = useMemo(() => {
+    return results.reduce((total, result) => {
+      const skill = result?.skills?.[0]
+
+      const baseSeconds = timeToSeconds(skill?.time)
+
+      const researchSpeed = Number(result?.buffs?.researchSpeed || 0)
+
+      const vpBonus = Number(result?.buffs?.vpBonus || 0)
+
+      const totalReduction = researchSpeed + vpBonus
+
+      const reduced = baseSeconds * (1 - totalReduction / 100)
+
+      return total + Math.max(0, reduced)
+    }, 0)
+  }, [results])
+
+  const totalReducedTime = secondsToTime(Math.floor(totalReducedSeconds))
+
+  // ================= COMPARE =================
+
+  const compare = compares?.[0] || {}
+
+  const comparedResources = compare?.resources || {}
+
+  const hasCompare =
+    compares.length > 0 && Object.keys(comparedResources).length > 0
 
   return (
     <div className="bg-special-inside-green border border-zinc-900 p-4 rounded-xl mt-6 space-y-4 py-6">
@@ -67,11 +125,11 @@ export default function TotalResultSkill({ results = [], compares = [] }) {
 
       {/* ================= RESOURCE ================= */}
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-7 gap-4 text-md">
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4 text-md">
         {resourceOrder.map((key) => {
           const need = Number(totalResources?.[key] || 0)
 
-          // HIDE 0 RESOURCE
+          // HIDE 0
           if (need <= 0) {
             return null
           }
@@ -86,6 +144,7 @@ export default function TotalResultSkill({ results = [], compares = [] }) {
           let label = 'Match'
 
           // POSITIVE
+
           if (diff > 0) {
             colorClass =
               'text-xs text-green-400 border border-green-800 bg-green-700/10 px-2 py-1'
@@ -126,11 +185,37 @@ export default function TotalResultSkill({ results = [], compares = [] }) {
         })}
       </div>
 
-      {/* ================= TOTAL POWER ================= */}
+      {/* ================= STATS ================= */}
 
-      <div className="special-glass rounded-xl p-4 flex justify-center items-center">
-        <div className="text-base md:text-lg text-[#d1e635]">
-          Total Power: {formatToShortNumber(totalPower)}
+      <div className="space-y-2 text-sm md:text-base">
+        {/* POWER */}
+
+        <div className="special-glass rounded-xl p-4 flex justify-between items-center">
+          <span className="text-zinc-300">Total Power</span>
+
+          <span className="text-[#d1e635] font-semibold">
+            {formatToShortNumber(totalPower)}
+          </span>
+        </div>
+
+        {/* ORIGINAL TIME */}
+
+        <div className="special-glass rounded-xl p-4 flex justify-between items-center">
+          <span className="text-zinc-300">Total Original Time</span>
+
+          <span className="text-yellow-100 font-semibold">
+            {totalOriginalTime}
+          </span>
+        </div>
+
+        {/* REDUCED TIME */}
+
+        <div className="special-glass rounded-xl p-4 flex justify-between items-center">
+          <span className="text-zinc-300">Total Reduced Time</span>
+
+          <span className="text-lime-400 font-semibold">
+            {totalReducedTime}
+          </span>
         </div>
       </div>
     </div>
