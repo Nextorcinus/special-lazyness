@@ -20,41 +20,103 @@ export default function TroopLegionCard({
   const title = isRallyStarter ? 'Rally Starter' : `March ${index + 1}`
 
   const presets = [
-    { name: '10:10:80', value: [1, 1, 8] },
-    { name: '10:20:70', value: [1, 2, 7] },
-    { name: '10:30:60', value: [1, 3, 6] },
-    { name: '20:30:50', value: [2, 3, 5] },
-    { name: '30:30:40', value: [3, 3, 4] },
+    { name: '1:1:98', value: [1, 1, 98] },
+    { name: '3:2:95', value: [3, 2, 95] },
+    { name: '1:2:97', value: [1, 2, 97] },
+    { name: '2:2:96', value: [2, 2, 96] },
+    { name: '5:2:93', value: [5, 2, 93] },
     { name: 'Custom', value: null },
   ]
 
+  const CUSTOM_PRESET_INDEX =
+  presets.length - 1
+
+  const [lastEdited, setLastEdited] = useState([])
   const [activePresetIndex, setActivePresetIndex] = useState(0)
-  const [customRatio, setCustomRatio] = useState({
-    infantry: 0,
-    lancer: 0,
-    marksman: 0,
-  })
+ const [customRatio, setCustomRatio] = useState({
+  infantry: 0,
+  lancer: 0,
+  marksman: 0,
+})
 
-  const customTotal =
-    customRatio.infantry + customRatio.lancer + customRatio.marksman
+const customTotal =
+  customRatio.infantry +
+  customRatio.lancer +
+  customRatio.marksman
 
-  const isValidCustom = customTotal === 100
+const isValidCustom =
+  customTotal === 100
 
-  const hasAppliedDefault = useRef(false)
+const hasAppliedDefault =
+  useRef(false)
+
 
   useEffect(() => {
-    if (hasAppliedDefault.current) return
+  if (hasAppliedDefault.current) return
 
-    applyRatioToLegion({
-      legion,
-      ratio: presets[0].value,
-      totalTroops,
-      legions,
+  const defaultRatio =
+    presets[0].value
+
+  applyRatioToLegion({
+    legion,
+    ratio: defaultRatio,
+    totalTroops,
+    legions,
+    respectGlobalLimit: false,
+  })
+
+  onUpdate({
+    ...legion,
+    ratio: {
+      infantry:
+        defaultRatio[0],
+      lancer:
+        defaultRatio[1],
+      marksman:
+        defaultRatio[2],
+    },
+  })
+
+  hasAppliedDefault.current = true
+}, [])
+
+useEffect(() => {
+  if (!legion?.ratio) return
+
+  const foundIndex =
+    presets.findIndex((p) => {
+      if (!p.value) return false
+
+      return (
+        p.value[0] ===
+          legion.ratio.infantry &&
+        p.value[1] ===
+          legion.ratio.lancer &&
+        p.value[2] ===
+          legion.ratio.marksman
+      )
     })
 
-    onUpdate({ ...legion })
-    hasAppliedDefault.current = true
-  }, [])
+  const presetIndex =
+    foundIndex >= 0
+      ? foundIndex
+      : CUSTOM_PRESET_INDEX
+
+  setActivePresetIndex(
+    presetIndex
+  )
+
+  // sync custom input
+  setCustomRatio({
+    infantry:
+      legion.ratio.infantry,
+    lancer:
+      legion.ratio.lancer,
+    marksman:
+      legion.ratio.marksman,
+  })
+}, [legion?.ratio])
+
 
   const handleChange = (type, value) => {
     const newValue = clampTroopValue({
@@ -71,49 +133,116 @@ export default function TroopLegionCard({
     })
   }
 
-  const handlePreset = (ratio, index) => {
-    if (!ratio) {
-      setCustomRatio({ infantry: 0, lancer: 0, marksman: 0 })
-      setActivePresetIndex(index)
-      return
-    }
-
-    applyRatioToLegion({
-      legion,
-      ratio,
-      totalTroops,
-      legions,
+  const handlePreset = (
+  ratio,
+  index
+) => {
+  if (!ratio) {
+    setCustomRatio({
+      infantry: 0,
+      lancer: 0,
+      marksman: 0,
     })
 
     setActivePresetIndex(index)
-    onUpdate({ ...legion })
+    return
   }
+
+  applyRatioToLegion({
+    legion,
+    ratio,
+    totalTroops,
+    legions,
+    respectGlobalLimit: false,
+  })
+
+  setActivePresetIndex(index)
+
+  onUpdate({
+    ...legion,
+
+    ratio: {
+      infantry: ratio[0],
+      lancer: ratio[1],
+      marksman: ratio[2],
+    },
+  })
+}
 
   const handleCustomChange = (type, value) => {
-    let num = Number(value) || 0
-    if (num < 0) num = 0
-    if (num > 100) num = 100
+  let num = Number(value) || 0
 
-    const newRatio = {
-      ...customRatio,
-      [type]: num,
-    }
+  if (num < 0) num = 0
+  if (num > 100) num = 100
 
-    setCustomRatio(newRatio)
+  const updatedLastEdited = [
+    ...lastEdited.filter((t) => t !== type),
+    type,
+  ].slice(-2)
 
-    const total = newRatio.infantry + newRatio.lancer + newRatio.marksman
+  setLastEdited(updatedLastEdited)
 
-    if (total !== 100) return
-
-    applyRatioToLegion({
-      legion,
-      ratio: [newRatio.infantry, newRatio.lancer, newRatio.marksman],
-      totalTroops,
-      legions,
-    })
-
-    onUpdate({ ...legion })
+  let newRatio = {
+    ...customRatio,
+    [type]: num,
   }
+
+  // auto complete ke 100
+  if (updatedLastEdited.length === 2) {
+    const allTypes = [
+      'infantry',
+      'lancer',
+      'marksman',
+    ]
+
+    const autoType = allTypes.find(
+      (t) => !updatedLastEdited.includes(t)
+    )
+
+    const totalManual =
+      newRatio[updatedLastEdited[0]] +
+      newRatio[updatedLastEdited[1]]
+
+    newRatio[autoType] = Math.max(
+      0,
+      100 - totalManual
+    )
+  }
+
+  setCustomRatio(newRatio)
+
+  const total =
+    newRatio.infantry +
+    newRatio.lancer +
+    newRatio.marksman
+
+  if (total !== 100) return
+
+  applyRatioToLegion({
+  legion,
+  ratio: [
+    newRatio.infantry,
+    newRatio.lancer,
+    newRatio.marksman,
+  ],
+  totalTroops,
+  legions,
+  respectGlobalLimit: false,
+})
+
+  onUpdate({
+  ...legion,
+  ratio: {
+    infantry:
+      newRatio.infantry,
+    lancer:
+      newRatio.lancer,
+    marksman:
+      newRatio.marksman,
+  },
+})
+}
+
 
   return (
     <div className="bg-special-inside p-4 rounded-2xl space-y-4 border border-white/10">
@@ -246,6 +375,10 @@ export default function TroopLegionCard({
           />
         </div>
       ))}
+
+   
     </div>
   )
 }
+
+  

@@ -1,7 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import { autoBearTrapFormation } from '../../utils/TroopAssistantUtils'
+import {
+  autoBearTrapFormation,
+  applyRatioToLegion,
+} from '../../utils/TroopAssistantUtils'
 import TroopAssistantPreset from './TroopAssistantPreset'
 import TroopLegionCard from './TroopLegionCard'
 import FormattedNumberInput from '../../utils/FormattedNumbernInput'
@@ -57,6 +60,220 @@ export default function TroopAssistantCalculator() {
       [key]: value,
     }))
   }
+
+ const totalRequired = legions.reduce(
+  (acc, legion) => {
+    const ratio =
+      legion.ratio || {
+        infantry: 1,
+        lancer: 1,
+        marksman: 98,
+      }
+
+    const totalRatio =
+      ratio.infantry +
+      ratio.lancer +
+      ratio.marksman
+
+    const unit =
+      legion.maxSize / totalRatio
+
+    return {
+      infantry:
+        acc.infantry +
+        Math.floor(
+          ratio.infantry * unit
+        ),
+
+      lancer:
+        acc.lancer +
+        Math.floor(
+          ratio.lancer * unit
+        ),
+
+      marksman:
+        acc.marksman +
+        Math.floor(
+          ratio.marksman * unit
+        ),
+    }
+  },
+  {
+    infantry: 0,
+    lancer: 0,
+    marksman: 0,
+  }
+)
+
+const shortage = {
+  infantry:
+    (troops?.infantry || 0) -
+    totalRequired.infantry,
+
+  lancer:
+    (troops?.lancer || 0) -
+    totalRequired.lancer,
+
+  marksman:
+    (troops?.marksman || 0) -
+    totalRequired.marksman,
+}
+
+const totalRequiredAll =
+  totalRequired.infantry +
+  totalRequired.lancer +
+  totalRequired.marksman
+
+const preferredRatio = {
+  infantry: Math.round(
+    (totalRequired.infantry /
+      Math.max(
+        totalRequiredAll,
+        1
+      )) *
+      100
+  ),
+
+  lancer: Math.round(
+    (totalRequired.lancer /
+      Math.max(
+        totalRequiredAll,
+        1
+      )) *
+      100
+  ),
+
+  marksman: Math.round(
+    (totalRequired.marksman /
+      Math.max(
+        totalRequiredAll,
+        1
+      )) *
+      100
+  ),
+}
+
+const suggestedRatio = {
+  ...preferredRatio,
+}
+
+// woscalc-like bottleneck fix
+const biggestShortage =
+  Object.entries(shortage).sort(
+    (a, b) => a[1] - b[1]
+  )[0]
+
+if (
+  biggestShortage &&
+  biggestShortage[1] < 0
+) {
+  const shortageType =
+    biggestShortage[0]
+
+  const deficit =
+    Math.abs(
+      biggestShortage[1]
+    )
+
+  const required =
+    totalRequired[
+      shortageType
+    ]
+
+  const reducePercent =
+    Math.ceil(
+      (deficit /
+        Math.max(required, 1)) *
+        preferredRatio[
+          shortageType
+        ]
+    )
+
+  suggestedRatio[
+    shortageType
+  ] = Math.max(
+    0,
+    suggestedRatio[
+      shortageType
+    ] - reducePercent
+  )
+
+  const remaining =
+    100 -
+    suggestedRatio.infantry -
+    suggestedRatio.lancer -
+    suggestedRatio.marksman
+
+  const others = [
+    'infantry',
+    'lancer',
+    'marksman',
+  ].filter(
+    (x) => x !== shortageType
+  )
+
+  suggestedRatio[
+    others[0]
+  ] += Math.floor(
+    remaining / 2
+  )
+
+  suggestedRatio[
+    others[1]
+  ] +=
+    remaining -
+    Math.floor(
+      remaining / 2
+    )
+}
+
+const suggestedTotal =
+  suggestedRatio.infantry +
+  suggestedRatio.lancer +
+  suggestedRatio.marksman
+
+const applySuggestedRatio =
+  () => {
+    const updated =
+      legions.map(
+        (legion) => {
+          const clone = {
+            ...legion,
+          }
+
+          applyRatioToLegion({
+            legion: clone,
+            ratio: [
+              suggestedRatio.infantry,
+              suggestedRatio.lancer,
+              suggestedRatio.marksman,
+            ],
+            totalTroops: troops,
+            legions,
+            respectGlobalLimit: true,
+          })
+
+          clone.ratio = {
+            infantry:
+              suggestedRatio.infantry,
+            lancer:
+              suggestedRatio.lancer,
+            marksman:
+              suggestedRatio.marksman,
+          }
+
+          return clone
+        }
+      )
+
+    setLegions(updated)
+
+    toast.success(
+      'Suggested ratio applied'
+    )
+  }
+
+
 
   const handleDistribute = () => {
     const safeTroops = {
@@ -260,6 +477,144 @@ export default function TroopAssistantCalculator() {
           />
         ))}
       </div>
+
+      {legions.length > 0 && (
+  <div className="bg-special-inside p-5 rounded-2xl border border-white/10 space-y-4">
+    <h3 className="text-xl font-semibold text-white">
+      Total Required for {legions.length} Squads
+    </h3>
+
+    {['infantry', 'lancer', 'marksman'].map(
+      (type) => {
+        const required =
+          totalRequired[type]
+
+        const available =
+          troops?.[type] || 0
+
+        const isEnough =
+          required <= available
+
+        const remain =
+          available - required
+
+        return (
+          <div
+            key={type}
+            className={`rounded-xl border p-4 ${
+              isEnough
+                ? 'border-cyan-400/30 bg-cyan-500/5'
+                : 'border-red-400/30 bg-red-500/5'
+            }`}
+          >
+            <div className="flex justify-between items-start">
+              <div>
+                <p className="capitalize text-white/70 text-sm">
+                  {type}
+                </p>
+
+                <p className="text-lg font-semibold text-white">
+                  Required:{' '}
+                  {required.toLocaleString()}
+                </p>
+              </div>
+
+              <div className="text-right">
+                <p className="text-xs text-white/50">
+                  Available
+                </p>
+
+                <p className="font-semibold text-cyan-300">
+                  {available.toLocaleString()}
+                </p>
+
+                <div
+                  className={`mt-2 px-3 py-1 rounded-lg text-sm font-semibold ${
+                    isEnough
+                      ? 'bg-green-500 text-white'
+                      : 'bg-red-500 text-white'
+                  }`}
+                >
+                  {isEnough
+                    ? '✓ OK'
+                    : `✕ ${remain.toLocaleString()}`}
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    )}
+
+    <div className="rounded-xl border border-amber-400/20 bg-amber-500/5 p-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="font-semibold text-amber-300">
+            💡 Suggested Ratio
+          </p>
+
+          <p className="text-xs text-white/50">
+            Based on available troops
+          </p>
+        </div>
+
+        <button
+  onClick={applySuggestedRatio}
+  className="px-4 py-2 rounded-lg text-sm bg-amber-400 text-black font-semibold hover:scale-105 transition"
+>
+  Apply to March
+</button>
+      </div>
+
+      <div className="mt-4 space-y-2 text-sm">
+        <div className="flex justify-between">
+          <span className="text-white/60">
+            Preferred
+          </span>
+
+          <span className="text-cyan-300 font-medium">
+            Infantry:{' '}
+            {preferredRatio.infantry}% •
+            Lancer:{' '}
+            {preferredRatio.lancer}% •
+            Marksman:{' '}
+            {preferredRatio.marksman}%
+          </span>
+        </div>
+
+        <div className="flex justify-between">
+          <span className="text-white/60">
+            Suggested
+          </span>
+
+          <span className="text-green-300 font-medium">
+            Infantry:{' '}
+            {suggestedRatio.infantry}% •
+            Lancer:{' '}
+            {suggestedRatio.lancer}% •
+            Marksman:{' '}
+            {suggestedRatio.marksman}%
+          </span>
+        </div>
+
+        <div className="flex justify-between border-t border-white/10 pt-2">
+          <span className="text-white/60">
+            Total Ratio
+          </span>
+
+          <span className="font-semibold text-green-400">
+            {suggestedTotal}%
+          </span>
+        </div>
+
+        <p className="text-xs text-amber-200/80 italic">
+          🔒 Locked ratios are kept at
+          your preferred values
+        </p>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   )
 }
