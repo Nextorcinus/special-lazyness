@@ -8,21 +8,22 @@ export function createLegion(
   name = null
 ) {
   return {
-    id: Date.now() + Math.random(),
-    name,
-    maxSize,
+  id: Date.now() + Math.random(),
+  name,
+  maxSize,
 
-    infantry: 0,
-    lancer: 0,
-    marksman: 0,
+  infantry: 0,
+  lancer: 0,
+  marksman: 0,
 
-    // user preferred ratio
-    ratio: {
-      infantry: 1,
-      lancer: 1,
-      marksman: 98,
-    },
-  }
+  ratio: {
+    infantry: 1,
+    lancer: 1,
+    marksman: 98,
+  },
+
+  isLocked: false,
+}
 }
 
 /* ---------- BASIC HELPERS ---------- */

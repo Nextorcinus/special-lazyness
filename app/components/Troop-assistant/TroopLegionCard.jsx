@@ -133,6 +133,13 @@ useEffect(() => {
     })
   }
 
+  const toggleLock = () => {
+  onUpdate({
+    ...legion,
+    isLocked: !legion.isLocked,
+  })
+}
+
   const handlePreset = (
   ratio,
   index
@@ -248,18 +255,53 @@ useEffect(() => {
     <div className="bg-special-inside p-4 rounded-2xl space-y-4 border border-white/10">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h4 className="font-semibold text-white">{title}</h4>
+  <div className="flex items-center gap-3">
+    <h4 className="font-semibold text-white">
+      {title}
+    </h4>
 
-        {!isRallyStarter && (
-          <button
-            onClick={onRemove}
-            className="text-red-400 hover:text-red-500 text-sm"
-            title="Remove legion"
-          >
-            ✕
-          </button>
-        )}
-      </div>
+    {!isRallyStarter && (
+      <button
+        onClick={() =>
+          onUpdate({
+            ...legion,
+            isLocked:
+              !legion.isLocked,
+          })
+        }
+        className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs border transition
+          ${
+            legion.isLocked
+              ? 'border-amber-400/40 bg-amber-500/10 text-amber-300'
+              : 'border-white/10 bg-white/5 text-white/60 hover:bg-white/10'
+          }
+        `}
+      >
+        <span>
+          {legion.isLocked
+            ? '🔒'
+            : '🔓'}
+        </span>
+
+        <span>
+          {legion.isLocked
+            ? 'Locked'
+            : 'Unlocked'}
+        </span>
+      </button>
+    )}
+  </div>
+
+  {!isRallyStarter && (
+    <button
+      onClick={onRemove}
+      className="text-red-400 hover:text-red-500 text-sm"
+      title="Remove legion"
+    >
+      ✕
+    </button>
+  )}
+</div>
 
       {/* Max size & total */}
       <div className="grid grid-cols-2 gap-4 items-center">
