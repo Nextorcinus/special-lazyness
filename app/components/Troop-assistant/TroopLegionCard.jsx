@@ -118,8 +118,12 @@ useEffect(() => {
 }, [legion?.ratio])
 
 
-  const handleChange = (type, value) => {
-    const newValue = clampTroopValue({
+  const handleChange = (
+  type,
+  value
+) => {
+  const newValue =
+    clampTroopValue({
       legion,
       type,
       value,
@@ -127,11 +131,56 @@ useEffect(() => {
       legions,
     })
 
-    onUpdate({
-      ...legion,
-      [type]: newValue,
-    })
+  const updatedLegion = {
+    ...legion,
+    [type]: newValue,
   }
+
+  // realtime ratio sync
+  const total =
+    updatedLegion.infantry +
+    updatedLegion.lancer +
+    updatedLegion.marksman
+
+  updatedLegion.ratio = {
+    infantry:
+      total > 0
+        ? Math.round(
+            (updatedLegion.infantry /
+              total) *
+              100
+          )
+        : 0,
+
+    lancer:
+      total > 0
+        ? Math.round(
+            (updatedLegion.lancer /
+              total) *
+              100
+          )
+        : 0,
+
+    marksman:
+      total > 0
+        ? 100 -
+          Math.round(
+            (updatedLegion.infantry /
+              total) *
+              100
+          ) -
+          Math.round(
+            (updatedLegion.lancer /
+              total) *
+              100
+          )
+        : 0,
+  }
+
+  onUpdate(
+    updatedLegion
+  )
+}
 
   const toggleLock = () => {
   onUpdate({
@@ -260,36 +309,34 @@ useEffect(() => {
       {title}
     </h4>
 
-    {!isRallyStarter && (
-      <button
-        onClick={() =>
-          onUpdate({
-            ...legion,
-            isLocked:
-              !legion.isLocked,
-          })
-        }
-        className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs border transition
-          ${
-            legion.isLocked
-              ? 'border-amber-400/40 bg-amber-500/10 text-amber-300'
-              : 'border-white/10 bg-white/5 text-white/60 hover:bg-white/10'
-          }
-        `}
-      >
-        <span>
-          {legion.isLocked
-            ? '🔒'
-            : '🔓'}
-        </span>
+    <button
+  onClick={() =>
+    onUpdate({
+      ...legion,
+      isLocked:
+        !legion.isLocked,
+    })
+  }
+  className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs border transition
+    ${
+      legion.isLocked
+        ? 'border-amber-400/40 bg-amber-500/10 text-amber-300'
+        : 'border-white/10 bg-white/5 text-white/60 hover:bg-white/10'
+    }
+  `}
+>
+  <span>
+    {legion.isLocked
+      ? '🔒'
+      : '🔓'}
+  </span>
 
-        <span>
-          {legion.isLocked
-            ? 'Locked'
-            : 'Unlocked'}
-        </span>
-      </button>
-    )}
+  <span>
+    {legion.isLocked
+      ? 'Locked'
+      : 'Unlocked'}
+  </span>
+</button>
   </div>
 
   {!isRallyStarter && (

@@ -61,220 +61,536 @@ export default function TroopAssistantCalculator() {
     }))
   }
 
- const totalRequired = legions.reduce(
-  (acc, legion) => {
-    const ratio =
-      legion.ratio || {
-        infantry: 1,
-        lancer: 1,
-        marksman: 98,
-      }
-
-    const totalRatio =
-      ratio.infantry +
-      ratio.lancer +
-      ratio.marksman
-
-    const unit =
-      legion.maxSize / totalRatio
-
-    return {
+const totalRequired =
+  legions.reduce(
+    (acc, legion) => ({
       infantry:
         acc.infantry +
-        Math.floor(
-          ratio.infantry * unit
-        ),
+        (legion.infantry || 0),
 
       lancer:
         acc.lancer +
-        Math.floor(
-          ratio.lancer * unit
-        ),
+        (legion.lancer || 0),
 
       marksman:
         acc.marksman +
-        Math.floor(
-          ratio.marksman * unit
-        ),
+        (legion.marksman || 0),
+    }),
+    {
+      infantry: 0,
+      lancer: 0,
+      marksman: 0,
     }
-  },
-  {
-    infantry: 0,
-    lancer: 0,
-    marksman: 0,
-  }
-)
+  )
 
-const shortage = {
-  infantry:
+// =========================
+// LOCKED / UNLOCKED
+// =========================
+
+const lockedLegions =
+  legions.filter(
+    (l) => l.isLocked
+  )
+
+const unlockedLegions =
+  legions.filter(
+    (l) => !l.isLocked
+  )
+
+// =========================
+// USED BY LOCKED
+// =========================
+
+const lockedUsed =
+  lockedLegions.reduce(
+    (acc, legion) => ({
+      infantry:
+        acc.infantry +
+        (legion.infantry || 0),
+
+      lancer:
+        acc.lancer +
+        (legion.lancer || 0),
+
+      marksman:
+        acc.marksman +
+        (legion.marksman || 0),
+    }),
+    {
+      infantry: 0,
+      lancer: 0,
+      marksman: 0,
+    }
+  )
+
+// =========================
+// REMAINING TROOPS
+// =========================
+
+const remainingTroops = {
+  infantry: Math.max(
+    0,
     (troops?.infantry || 0) -
-    totalRequired.infantry,
+      lockedUsed.infantry
+  ),
 
-  lancer:
+  lancer: Math.max(
+    0,
     (troops?.lancer || 0) -
-    totalRequired.lancer,
+      lockedUsed.lancer
+  ),
 
-  marksman:
+  marksman: Math.max(
+    0,
     (troops?.marksman || 0) -
-    totalRequired.marksman,
+      lockedUsed.marksman
+  ),
 }
 
-const totalRequiredAll =
-  totalRequired.infantry +
-  totalRequired.lancer +
-  totalRequired.marksman
+// =========================
+// TOTAL CAPACITY UNLOCKED
+// =========================
 
+const unlockedCapacity =
+  unlockedLegions.reduce(
+    (sum, legion) =>
+      sum +
+      (legion.maxSize || 0),
+    0
+  )
+
+// =========================
+// RAW RATIO
+// =========================
+
+const totalRemainingTroops =
+  remainingTroops.infantry +
+  remainingTroops.lancer +
+  remainingTroops.marksman
+
+const rawRatio = {
+  infantry:
+    totalRemainingTroops > 0
+      ? Math.floor(
+          (remainingTroops.infantry /
+            totalRemainingTroops) *
+            100
+        )
+      : 0,
+
+  lancer:
+    totalRemainingTroops > 0
+      ? Math.floor(
+          (remainingTroops.lancer /
+            totalRemainingTroops) *
+            100
+        )
+      : 0,
+
+  marksman:
+    totalRemainingTroops > 0
+      ? Math.floor(
+          (remainingTroops.marksman /
+            totalRemainingTroops) *
+            100
+        )
+      : 0,
+}
 const preferredRatio = {
-  infantry: Math.round(
-    (totalRequired.infantry /
-      Math.max(
-        totalRequiredAll,
-        1
-      )) *
-      100
-  ),
+  infantry:
+    rawRatio.infantry,
 
-  lancer: Math.round(
-    (totalRequired.lancer /
-      Math.max(
-        totalRequiredAll,
-        1
-      )) *
-      100
-  ),
+  lancer:
+    rawRatio.lancer,
 
-  marksman: Math.round(
-    (totalRequired.marksman /
-      Math.max(
-        totalRequiredAll,
-        1
-      )) *
-      100
-  ),
+  marksman:
+    rawRatio.marksman,
+}
+
+// =========================
+// FORCE RULE
+// infantry < lancer < marksman
+// =========================
+
+let infantry =
+  Math.max(
+    1,
+    Math.min(
+      rawRatio.infantry,
+      rawRatio.lancer - 1
+    )
+  )
+
+let lancer =
+  Math.max(
+    infantry + 1,
+    Math.min(
+      rawRatio.lancer,
+      rawRatio.marksman - 1
+    )
+  )
+
+let marksman =
+  Math.max(
+    lancer + 1,
+    rawRatio.marksman
+  )
+
+// normalize to 100
+const total =
+  infantry +
+  lancer +
+  marksman
+
+infantry = Math.round(
+  (infantry / total) * 100
+)
+
+lancer = Math.round(
+  (lancer / total) * 100
+)
+
+marksman =
+  100 -
+  infantry -
+  lancer
+
+// ensure order
+if (
+  infantry >= lancer
+) {
+  lancer =
+    infantry + 1
+}
+
+if (
+  lancer >= marksman
+) {
+  marksman =
+    lancer + 1
+  infantry =
+    Math.max(
+      1,
+      100 -
+        lancer -
+        marksman
+    )
 }
 
 const suggestedRatio = {
-  ...preferredRatio,
+  infantry,
+  lancer,
+  marksman,
 }
 
-// woscalc-like bottleneck fix
-const biggestShortage =
-  Object.entries(shortage).sort(
-    (a, b) => a[1] - b[1]
-  )[0]
+// =========================
+// SIMULATE REAL RESULT
+// =========================
 
-if (
-  biggestShortage &&
-  biggestShortage[1] < 0
-) {
-  const shortageType =
-    biggestShortage[0]
+const simulatedLegions =
+  unlockedLegions.map(
+    (legion) => {
+      const capacity =
+        legion.maxSize
 
-  const deficit =
-    Math.abs(
-      biggestShortage[1]
-    )
+      let inf =
+        Math.floor(
+          (suggestedRatio.infantry /
+            100) *
+            capacity
+        )
 
-  const required =
-    totalRequired[
-      shortageType
-    ]
+      let lan =
+        Math.floor(
+          (suggestedRatio.lancer /
+            100) *
+            capacity
+        )
 
-  const reducePercent =
-    Math.ceil(
-      (deficit /
-        Math.max(required, 1)) *
-        preferredRatio[
-          shortageType
-        ]
-    )
+      let mar =
+        capacity -
+        inf -
+        lan
 
-  suggestedRatio[
-    shortageType
-  ] = Math.max(
-    0,
-    suggestedRatio[
-      shortageType
-    ] - reducePercent
+      mar = Math.min(
+        mar,
+        remainingTroops.marksman
+      )
+
+      lan = Math.min(
+        lan,
+        remainingTroops.lancer
+      )
+
+      inf = Math.min(
+        inf,
+        remainingTroops.infantry
+      )
+
+      return {
+        infantry: inf,
+        lancer: lan,
+        marksman: mar,
+      }
+    }
   )
 
-  const remaining =
-    100 -
-    suggestedRatio.infantry -
-    suggestedRatio.lancer -
-    suggestedRatio.marksman
+const simulatedTotal =
+  simulatedLegions.reduce(
+    (acc, legion) => ({
+      infantry:
+        acc.infantry +
+        legion.infantry,
 
-  const others = [
-    'infantry',
-    'lancer',
-    'marksman',
-  ].filter(
-    (x) => x !== shortageType
+      lancer:
+        acc.lancer +
+        legion.lancer,
+
+      marksman:
+        acc.marksman +
+        legion.marksman,
+    }),
+    {
+      infantry: 0,
+      lancer: 0,
+      marksman: 0,
+    }
   )
 
-  suggestedRatio[
-    others[0]
-  ] += Math.floor(
-    remaining / 2
-  )
+const simulatedGrandTotal =
+  simulatedTotal.infantry +
+  simulatedTotal.lancer +
+  simulatedTotal.marksman
 
-  suggestedRatio[
-    others[1]
-  ] +=
-    remaining -
-    Math.floor(
-      remaining / 2
-    )
-}
+const realSuggestedRatio =
+  simulatedGrandTotal >
+  0
+    ? {
+        infantry:
+          Math.round(
+            (simulatedTotal.infantry /
+              simulatedGrandTotal) *
+              100
+          ),
+
+        lancer:
+          Math.round(
+            (simulatedTotal.lancer /
+              simulatedGrandTotal) *
+              100
+          ),
+
+        marksman:
+          100 -
+          Math.round(
+            (simulatedTotal.infantry /
+              simulatedGrandTotal) *
+              100
+          ) -
+          Math.round(
+            (simulatedTotal.lancer /
+              simulatedGrandTotal) *
+              100
+          ),
+      }
+    : {
+        infantry: 0,
+        lancer: 0,
+        marksman: 0,
+      }
 
 const suggestedTotal =
-  suggestedRatio.infantry +
-  suggestedRatio.lancer +
-  suggestedRatio.marksman
+  realSuggestedRatio.infantry
+realSuggestedRatio.lancer
+realSuggestedRatio.marksman
 
 const applySuggestedRatio =
   () => {
     const updated =
-      legions.map(
-        (legion) => {
-          const clone = {
-            ...legion,
-          }
+      legions.map((l) => ({
+        ...l,
+        ratio: l.ratio
+          ? { ...l.ratio }
+          : {
+              infantry: 1,
+              lancer: 1,
+              marksman: 98,
+            },
+      }))
 
-          applyRatioToLegion({
-            legion: clone,
-            ratio: [
-              suggestedRatio.infantry,
-              suggestedRatio.lancer,
-              suggestedRatio.marksman,
-            ],
-            totalTroops: troops,
-            legions,
-            respectGlobalLimit: true,
-          })
-
-          clone.ratio = {
-            infantry:
-              suggestedRatio.infantry,
-            lancer:
-              suggestedRatio.lancer,
-            marksman:
-              suggestedRatio.marksman,
-          }
-
-          return clone
-        }
+    const unlocked =
+      updated.filter(
+        (l) => !l.isLocked
       )
+
+    if (
+      unlocked.length === 0
+    ) {
+      toast.error(
+        'All legions are locked'
+      )
+      return
+    }
+
+    // remaining troops
+    const remaining = {
+      infantry:
+        remainingTroops.infantry,
+
+      lancer:
+        remainingTroops.lancer,
+
+      marksman:
+        remainingTroops.marksman,
+    }
+
+    unlocked.forEach(
+      (legion) => {
+        const capacity =
+          legion.maxSize
+
+        // use suggested ratio
+        let inf =
+          Math.floor(
+            (suggestedRatio.infantry /
+              100) *
+              capacity
+          )
+
+        let lan =
+          Math.floor(
+            (suggestedRatio.lancer /
+              100) *
+              capacity
+          )
+
+        let mar =
+          capacity -
+          inf -
+          lan
+
+        // respect remaining troop
+        mar = Math.min(
+          mar,
+          remaining.marksman
+        )
+
+        lan = Math.min(
+          lan,
+          remaining.lancer
+        )
+
+        inf = Math.min(
+          inf,
+          remaining.infantry
+        )
+
+        // if marksman shortage
+        // move to lancer first
+        let leftover =
+          capacity -
+          (inf + lan + mar)
+
+        if (
+          leftover > 0
+        ) {
+          const extraLancer =
+            Math.min(
+              leftover,
+              remaining.lancer -
+                lan
+            )
+
+          lan +=
+            Math.max(
+              0,
+              extraLancer
+            )
+
+          leftover =
+            capacity -
+            (inf +
+              lan +
+              mar)
+
+          const extraInf =
+            Math.min(
+              leftover,
+              remaining.infantry -
+                inf
+            )
+
+          inf +=
+            Math.max(
+              0,
+              extraInf
+            )
+        }
+
+        remaining.infantry -=
+          inf
+
+        remaining.lancer -=
+          lan
+
+        remaining.marksman -=
+          mar
+
+        const total =
+          inf + lan + mar
+
+        legion.infantry =
+          inf
+
+        legion.lancer =
+          lan
+
+        legion.marksman =
+          mar
+
+        legion.ratio = {
+          infantry:
+            total > 0
+              ? Math.round(
+                  (inf /
+                    total) *
+                    100
+                )
+              : 0,
+
+          lancer:
+            total > 0
+              ? Math.round(
+                  (lan /
+                    total) *
+                    100
+                )
+              : 0,
+
+          marksman:
+            total > 0
+              ? 100 -
+                Math.round(
+                  (inf /
+                    total) *
+                    100
+                ) -
+                Math.round(
+                  (lan /
+                    total) *
+                    100
+                )
+              : 0,
+        }
+      }
+    )
 
     setLegions(updated)
 
     toast.success(
-      'Suggested ratio applied'
+      'Suggested troops applied'
     )
   }
-
-
-
   const handleDistribute = () => {
     const safeTroops = {
       infantry: Number(troops?.infantry) || 0,
@@ -293,14 +609,53 @@ const applySuggestedRatio =
 
     const safeJoinerSize = Math.min(joinerSize || 0, maxJoinerCapacity)
 
-    const result = autoBearTrapFormation({
-      totalTroops: safeTroops,
-      rallySize: finalRallySize,
-      joinerSize: safeJoinerSize,
-      joinerCount,
-    })
+   const result = autoBearTrapFormation({
+  totalTroops: safeTroops,
+  rallySize: finalRallySize,
+  joinerSize: safeJoinerSize,
+  joinerCount,
+})
 
-    setLegions(result)
+// preserve lock state
+const mergedResult = result.map(
+  (newLegion, index) => {
+    const oldLegion =
+      legions[index]
+
+    return {
+      ...newLegion,
+
+      // keep previous lock
+      isLocked:
+        oldLegion?.isLocked ??
+        false,
+
+      // keep ratio too
+      ratio:
+  oldLegion?.ratio
+    ? {
+        infantry:
+          oldLegion.ratio
+            .infantry,
+
+        lancer:
+          oldLegion.ratio
+            .lancer,
+
+        marksman:
+          oldLegion.ratio
+            .marksman,
+      }
+    : {
+        infantry: 1,
+        lancer: 1,
+        marksman: 98,
+      },
+    }
+  }
+)
+
+setLegions(mergedResult)
 
     toast.success(
       `Rally calculated successfully. ${result.length} formations created`
