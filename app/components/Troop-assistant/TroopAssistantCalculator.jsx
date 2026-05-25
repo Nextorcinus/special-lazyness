@@ -51,6 +51,8 @@ const [
   setSolarSupremacyLevel,
 ] = useState(0)
 
+
+
   const tumblingValues = [
     0, 1500, 3000, 4500, 6000, 7500, 9000, 10500, 12000, 13500, 15000,
   ]
@@ -67,6 +69,7 @@ const [
   const tumblingBuff = tumblingValues[tumblingLevel] || 0
   const entrapmentBuff = entrapmentValues[entrapmentLevel] || 0
 
+
 // =========================
 // HELIOS XII DEPLOYMENT
 // from JSON
@@ -77,17 +80,22 @@ const getHeliosDeployment =
     if (level === 0)
       return 0
 
+    const data =
+      Object.values(
+        heliosData[
+          type
+        ] || {}
+      ).flat()
+
     const item =
-      heliosData[
-        type
-      ]?.find(
+      data.find(
         (x) =>
           Number(
             x.level
           ) === level
       )
 
-    return (
+    return Number(
       item?.attributes?.find(
         (attr) =>
           attr.name ===
@@ -98,15 +106,15 @@ const getHeliosDeployment =
 
 const exaltedDeployment =
   getHeliosDeployment(
-    'Exalted Helm',
+    'Exalted Infantry',
     exaltedInfantryLevel
   ) +
   getHeliosDeployment(
-    'Exalted Warcrown',
+    'Exalted Lancer',
     exaltedLancerLevel
   ) +
   getHeliosDeployment(
-    'Exalted Veil',
+    'Exalted Marksman',
     exaltedMarksmanLevel
   )
 
@@ -120,23 +128,49 @@ const getSolarCapacity =
     if (level === 0)
       return 0
 
-    const solarSkill =
-      heliosSkillData[
+    const solarMeta =
+      heliosSkillData
+        ?.skills?.[
         'Solar Supremacy'
-      ]?.find(
+      ]
+
+    const template =
+      solarMeta?.template
+
+    const solarTable =
+      heliosSkillData
+        ?.tables?.[
+        template
+      ] || []
+
+    const solarSkill =
+      solarTable.find(
         (x) =>
           Number(
             x.level
           ) === level
       )
 
-    return (
-      solarSkill?.attributes?.find(
-        (attr) =>
-          attr.name ===
-          'capacity'
-      )?.value || 0
-    )
+
+
+    const capacity =
+      Number(
+        solarSkill
+          ?.deployment ||
+          solarSkill
+            ?.capacity ||
+          solarSkill
+            ?.value ||
+          0
+      )
+
+    console.log({
+      level,
+      template,
+      capacity,
+    })
+
+    return capacity
   }
 
 const solarCapacity =
@@ -144,6 +178,7 @@ const solarCapacity =
     solarSupremacyLevel
   )
 
+ 
   const cityBuffValue = Math.floor((rallySize || 0) * cityBuff)
 
   const finalRallySize =
@@ -1020,31 +1055,49 @@ setLegions(mergedResult)
       Infantry Exalted Helm
     </label>
 
-    <select
-      value={
-        exaltedInfantryLevel
-      }
-      onChange={(e) =>
-        setExaltedInfantryLevel(
-          Number(
-            e.target.value
-          )
-        )
-      }
-      className="w-full bg-special-input p-2 rounded-md"
-    >
-      {[
-        0, 1, 2, 3, 4, 5,
-      ].map((lvl) => (
-        <option
-          key={lvl}
-          value={lvl}
-        >
-          Level {lvl} (+
-          {lvl * 200})
-        </option>
-      ))}
-    </select>
+   <select
+  value={
+    exaltedInfantryLevel
+  }
+  onChange={(e) =>
+    setExaltedInfantryLevel(
+      Number(
+        e.target.value
+      )
+    )
+  }
+  className="w-full bg-special-input p-2 rounded-md"
+>
+  <option value={0}>
+    Level 0 (+0)
+  </option>
+
+ {(
+  heliosData[
+    'Exalted Infantry'
+  ]?.[
+    'Exalted Helm'
+  ] || []
+).map((item) => {
+  const deployment =
+    item.attributes?.find(
+      (attr) =>
+        attr.name ===
+        'deployment'
+    )?.value || 0
+
+  return (
+    <option
+  key={`helm-${item.level}`}
+  value={Number(item.level)}
+>
+  Level {item.level} (+
+  {deployment.toLocaleString()}
+  )
+</option>
+  )
+})}
+</select>
   </div>
 
   <div>
@@ -1053,30 +1106,48 @@ setLegions(mergedResult)
     </label>
 
     <select
-      value={
-        exaltedLancerLevel
-      }
-      onChange={(e) =>
-        setExaltedLancerLevel(
-          Number(
-            e.target.value
-          )
-        )
-      }
-      className="w-full bg-special-input p-2 rounded-md"
-    >
-      {[
-        0, 1, 2, 3, 4, 5,
-      ].map((lvl) => (
-        <option
-          key={lvl}
-          value={lvl}
-        >
-          Level {lvl} (+
-          {lvl * 200})
-        </option>
-      ))}
-    </select>
+  value={
+    exaltedLancerLevel
+  }
+  onChange={(e) =>
+    setExaltedLancerLevel(
+      Number(
+        e.target.value
+      )
+    )
+  }
+  className="w-full bg-special-input p-2 rounded-md"
+>
+  <option value={0}>
+    Level 0 (+0)
+  </option>
+
+{(
+  heliosData[
+    'Exalted Lancer'
+  ]?.[
+    'Exalted Warcrown'
+  ] || []
+).map((item) => {
+  const deployment =
+    item.attributes?.find(
+      (attr) =>
+        attr.name ===
+        'deployment'
+    )?.value || 0
+
+  return (
+    <option
+  key={`warcrown-${item.level}`}
+  value={Number(item.level)}
+>
+  Level {item.level} (+
+  {deployment.toLocaleString()}
+  )
+</option>
+  )
+})}
+</select>
   </div>
 
   <div>
@@ -1085,30 +1156,51 @@ setLegions(mergedResult)
     </label>
 
     <select
-      value={
-        exaltedMarksmanLevel
-      }
-      onChange={(e) =>
-        setExaltedMarksmanLevel(
-          Number(
-            e.target.value
-          )
-        )
-      }
-      className="w-full bg-special-input p-2 rounded-md"
+  value={
+    exaltedMarksmanLevel
+  }
+  onChange={(e) =>
+    setExaltedMarksmanLevel(
+      Number(
+        e.target.value
+      )
+    )
+  }
+  className="w-full bg-special-input p-2 rounded-md"
+>
+  <option value={0}>
+    Level 0 (+0)
+  </option>
+
+ {(
+  heliosData[
+    'Exalted Marksman'
+  ]?.[
+    'Exalted Veil'
+  ] || []
+).map((item) => {
+  
+  const deployment =
+    item.attributes?.find(
+      (attr) =>
+        attr.name ===
+        'deployment'
+    )?.value || 0
+
+  return (
+    <option
+      key={`veil-${item.level}`}
+      value={Number(
+        item.level
+      )}
     >
-      {[
-        0, 1, 2, 3, 4, 5,
-      ].map((lvl) => (
-        <option
-          key={lvl}
-          value={lvl}
-        >
-          Level {lvl} (+
-          {lvl * 200})
-        </option>
-      ))}
-    </select>
+      Level {item.level} (+
+      {deployment.toLocaleString()}
+      )
+    </option>
+  )
+})}
+</select>
   </div>
 
   <div>
@@ -1143,6 +1235,8 @@ setLegions(mergedResult)
     </select>
   </div>
 </div>
+
+
 
           <p className="text-xs text-white opacity-70">
             Rally size after buff: {finalRallySize.toLocaleString()}
@@ -1317,4 +1411,5 @@ setLegions(mergedResult)
 )}
     </div>
   )
+  
 }
