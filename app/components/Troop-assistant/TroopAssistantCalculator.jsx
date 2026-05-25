@@ -9,6 +9,8 @@ import TroopAssistantPreset from './TroopAssistantPreset'
 import TroopLegionCard from './TroopLegionCard'
 import FormattedNumberInput from '../../utils/FormattedNumbernInput'
 import { useHistory } from '../../dashboard/troops/HistoryContext'
+import heliosData from '../../data/heliosduabelas.json'
+import heliosSkillData from '../../data/heliosduabelasskill.json'
 import { toast } from 'sonner'
 import { useState } from 'react'
 
@@ -29,6 +31,25 @@ export default function TroopAssistantCalculator() {
   const [tumblingLevel, setTumblingLevel] = useState(0)
   const [cityBuff, setCityBuff] = useState(0)
   const [entrapmentLevel, setEntrapmentLevel] = useState(0)
+  const [
+  exaltedInfantryLevel,
+  setExaltedInfantryLevel,
+] = useState(0)
+
+const [
+  exaltedLancerLevel,
+  setExaltedLancerLevel,
+] = useState(0)
+
+const [
+  exaltedMarksmanLevel,
+  setExaltedMarksmanLevel,
+] = useState(0)
+
+const [
+  solarSupremacyLevel,
+  setSolarSupremacyLevel,
+] = useState(0)
 
   const tumblingValues = [
     0, 1500, 3000, 4500, 6000, 7500, 9000, 10500, 12000, 13500, 15000,
@@ -46,10 +67,92 @@ export default function TroopAssistantCalculator() {
   const tumblingBuff = tumblingValues[tumblingLevel] || 0
   const entrapmentBuff = entrapmentValues[entrapmentLevel] || 0
 
+// =========================
+// HELIOS XII DEPLOYMENT
+// from JSON
+// =========================
+
+const getHeliosDeployment =
+  (type, level) => {
+    if (level === 0)
+      return 0
+
+    const item =
+      heliosData[
+        type
+      ]?.find(
+        (x) =>
+          Number(
+            x.level
+          ) === level
+      )
+
+    return (
+      item?.attributes?.find(
+        (attr) =>
+          attr.name ===
+          'deployment'
+      )?.value || 0
+    )
+  }
+
+const exaltedDeployment =
+  getHeliosDeployment(
+    'Exalted Helm',
+    exaltedInfantryLevel
+  ) +
+  getHeliosDeployment(
+    'Exalted Warcrown',
+    exaltedLancerLevel
+  ) +
+  getHeliosDeployment(
+    'Exalted Veil',
+    exaltedMarksmanLevel
+  )
+
+// =========================
+// SOLAR SUPREMACY
+// from JSON
+// =========================
+
+const getSolarCapacity =
+  (level) => {
+    if (level === 0)
+      return 0
+
+    const solarSkill =
+      heliosSkillData[
+        'Solar Supremacy'
+      ]?.find(
+        (x) =>
+          Number(
+            x.level
+          ) === level
+      )
+
+    return (
+      solarSkill?.attributes?.find(
+        (attr) =>
+          attr.name ===
+          'capacity'
+      )?.value || 0
+    )
+  }
+
+const solarCapacity =
+  getSolarCapacity(
+    solarSupremacyLevel
+  )
+
   const cityBuffValue = Math.floor((rallySize || 0) * cityBuff)
 
   const finalRallySize =
-    (Number(rallySize) || 0) + tumblingBuff + entrapmentBuff + cityBuffValue
+  (Number(rallySize) || 0) +
+  tumblingBuff +
+  entrapmentBuff +
+  cityBuffValue +
+  exaltedDeployment +
+  solarCapacity
 
   const maxJoinerCapacity =
     joinerCount > 0 ? Math.floor(baseTotal / joinerCount) : 0
@@ -701,7 +804,20 @@ const lan =
       return
     }
 
-    const safeJoinerSize = Math.min(joinerSize || 0, maxJoinerCapacity)
+    // city buff applies to all march
+const buffedJoinerSize =
+  Math.floor(
+    (joinerSize || 0) *
+      (1 + cityBuff)
+  ) +
+  exaltedDeployment +
+  solarCapacity
+
+const safeJoinerSize =
+  Math.min(
+    buffedJoinerSize,
+    maxJoinerCapacity
+  )
 
    const result = autoBearTrapFormation({
   totalTroops: safeTroops,
@@ -855,7 +971,7 @@ setLegions(mergedResult)
                 width={40}
                 height={40}
               />
-              Buff Capacity City
+              Buff Capacity Deployment
             </label>
 
             <select
@@ -892,6 +1008,141 @@ setLegions(mergedResult)
               ))}
             </select>
           </div>
+
+  {/* HELIOS XII */}
+<div className="space-y-3 border-t border-white/10 pt-4">
+  <h4 className="text-white font-semibold">
+    Helios XII Deployment
+  </h4>
+
+  <div>
+    <label className="text-sm text-white">
+      Infantry Exalted Helm
+    </label>
+
+    <select
+      value={
+        exaltedInfantryLevel
+      }
+      onChange={(e) =>
+        setExaltedInfantryLevel(
+          Number(
+            e.target.value
+          )
+        )
+      }
+      className="w-full bg-special-input p-2 rounded-md"
+    >
+      {[
+        0, 1, 2, 3, 4, 5,
+      ].map((lvl) => (
+        <option
+          key={lvl}
+          value={lvl}
+        >
+          Level {lvl} (+
+          {lvl * 200})
+        </option>
+      ))}
+    </select>
+  </div>
+
+  <div>
+    <label className="text-sm text-white">
+      Lancer Exalted Warcrown
+    </label>
+
+    <select
+      value={
+        exaltedLancerLevel
+      }
+      onChange={(e) =>
+        setExaltedLancerLevel(
+          Number(
+            e.target.value
+          )
+        )
+      }
+      className="w-full bg-special-input p-2 rounded-md"
+    >
+      {[
+        0, 1, 2, 3, 4, 5,
+      ].map((lvl) => (
+        <option
+          key={lvl}
+          value={lvl}
+        >
+          Level {lvl} (+
+          {lvl * 200})
+        </option>
+      ))}
+    </select>
+  </div>
+
+  <div>
+    <label className="text-sm text-white">
+      Marksman Exalted Veil
+    </label>
+
+    <select
+      value={
+        exaltedMarksmanLevel
+      }
+      onChange={(e) =>
+        setExaltedMarksmanLevel(
+          Number(
+            e.target.value
+          )
+        )
+      }
+      className="w-full bg-special-input p-2 rounded-md"
+    >
+      {[
+        0, 1, 2, 3, 4, 5,
+      ].map((lvl) => (
+        <option
+          key={lvl}
+          value={lvl}
+        >
+          Level {lvl} (+
+          {lvl * 200})
+        </option>
+      ))}
+    </select>
+  </div>
+
+  <div>
+    <label className="text-sm text-white">
+      Solar Supremacy
+    </label>
+
+    <select
+      value={
+        solarSupremacyLevel
+      }
+      onChange={(e) =>
+        setSolarSupremacyLevel(
+          Number(
+            e.target.value
+          )
+        )
+      }
+      className="w-full bg-special-input p-2 rounded-md"
+    >
+      {Array.from(
+        { length: 16 },
+        (_, i) => (
+          <option
+            key={i}
+            value={i}
+          >
+            Level {i}
+          </option>
+        )
+      )}
+    </select>
+  </div>
+</div>
 
           <p className="text-xs text-white opacity-70">
             Rally size after buff: {finalRallySize.toLocaleString()}
