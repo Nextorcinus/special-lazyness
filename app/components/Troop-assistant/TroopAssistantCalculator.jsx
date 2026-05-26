@@ -9,8 +9,7 @@ import TroopAssistantPreset from './TroopAssistantPreset'
 import TroopLegionCard from './TroopLegionCard'
 import FormattedNumberInput from '../../utils/FormattedNumbernInput'
 import { useHistory } from '../../dashboard/troops/HistoryContext'
-import heliosData from '../../data/heliosduabelas.json'
-import heliosSkillData from '../../data/heliosduabelasskill.json'
+
 import { toast } from 'sonner'
 import { useState } from 'react'
 
@@ -30,25 +29,9 @@ export default function TroopAssistantCalculator() {
 
   const [tumblingLevel, setTumblingLevel] = useState(0)
   const [cityBuff, setCityBuff] = useState(0)
-  const [entrapmentLevel, setEntrapmentLevel] = useState(0)
-  const [
-  exaltedInfantryLevel,
-  setExaltedInfantryLevel,
-] = useState(0)
-
 const [
-  exaltedLancerLevel,
-  setExaltedLancerLevel,
-] = useState(0)
-
-const [
-  exaltedMarksmanLevel,
-  setExaltedMarksmanLevel,
-] = useState(0)
-
-const [
-  solarSupremacyLevel,
-  setSolarSupremacyLevel,
+  ursaBaneLevel,
+  setUrsaBaneLevel,
 ] = useState(0)
 
 
@@ -57,9 +40,19 @@ const [
     0, 1500, 3000, 4500, 6000, 7500, 9000, 10500, 12000, 13500, 15000,
   ]
 
-  const entrapmentValues = [
-    0, 0, 3600, 7200, 10800, 14400, 18000, 21600, 25200, 28800, 32400,
-  ]
+ const ursaBaneValues = [
+  0,
+  3000,
+  6000,
+  9000,
+  12000,
+  15000,
+  18000,
+  21000,
+  24000,
+  27000,
+  30000,
+]
 
   const baseTotal =
     Number(troops?.infantry || 0) +
@@ -67,127 +60,31 @@ const [
     Number(troops?.marksman || 0)
 
   const tumblingBuff = tumblingValues[tumblingLevel] || 0
-  const entrapmentBuff = entrapmentValues[entrapmentLevel] || 0
+  const ursaBaneBuff =
+  ursaBaneValues[
+    ursaBaneLevel
+  ] || 0
 
 
-// =========================
-// HELIOS XII DEPLOYMENT
-// from JSON
-// =========================
-
-const getHeliosDeployment =
-  (type, level) => {
-    if (level === 0)
-      return 0
-
-    const data =
-      Object.values(
-        heliosData[
-          type
-        ] || {}
-      ).flat()
-
-    const item =
-      data.find(
-        (x) =>
-          Number(
-            x.level
-          ) === level
-      )
-
-    return Number(
-      item?.attributes?.find(
-        (attr) =>
-          attr.name ===
-          'deployment'
-      )?.value || 0
-    )
-  }
-
-const exaltedDeployment =
-  getHeliosDeployment(
-    'Exalted Infantry',
-    exaltedInfantryLevel
-  ) +
-  getHeliosDeployment(
-    'Exalted Lancer',
-    exaltedLancerLevel
-  ) +
-  getHeliosDeployment(
-    'Exalted Marksman',
-    exaltedMarksmanLevel
-  )
-
-// =========================
-// SOLAR SUPREMACY
-// from JSON
-// =========================
-
-const getSolarCapacity =
-  (level) => {
-    if (level === 0)
-      return 0
-
-    const solarMeta =
-      heliosSkillData
-        ?.skills?.[
-        'Solar Supremacy'
-      ]
-
-    const template =
-      solarMeta?.template
-
-    const solarTable =
-      heliosSkillData
-        ?.tables?.[
-        template
-      ] || []
-
-    const solarSkill =
-      solarTable.find(
-        (x) =>
-          Number(
-            x.level
-          ) === level
-      )
+ // calculation new update without exalted helios XII and solar supremacy
+const baseRally =
+  Number(rallySize) || 0
 
 
-
-    const capacity =
-      Number(
-        solarSkill
-          ?.deployment ||
-          solarSkill
-            ?.capacity ||
-          solarSkill
-            ?.value ||
-          0
-      )
-
-    console.log({
-      level,
-      template,
-      capacity,
-    })
-
-    return capacity
-  }
-
-const solarCapacity =
-  getSolarCapacity(
-    solarSupremacyLevel
-  )
-
- 
-  const cityBuffValue = Math.floor((rallySize || 0) * cityBuff)
-
-  const finalRallySize =
-  (Number(rallySize) || 0) +
+const beforeCityBuff =
+  baseRally +
   tumblingBuff +
-  entrapmentBuff +
-  cityBuffValue +
-  exaltedDeployment +
-  solarCapacity
+  ursaBaneBuff
+
+const cityBuffValue =
+  Math.floor(
+    beforeCityBuff *
+      cityBuff
+  )
+
+const finalRallySize =
+  beforeCityBuff +
+  cityBuffValue
 
   const maxJoinerCapacity =
     joinerCount > 0 ? Math.floor(baseTotal / joinerCount) : 0
@@ -708,7 +605,7 @@ const applySuggestedRatio =
       return
     }
 
-    // remaining troops
+    // available troops after locked
     const remaining = {
       infantry:
         remainingTroops.infantry,
@@ -725,40 +622,45 @@ const applySuggestedRatio =
         const capacity =
           legion.maxSize
 
-       // infantry minimum 1%
-const inf =
-  Math.min(
-    Math.floor(
-      capacity * 0.01
-    ),
-    remaining.infantry
-  )
+        // apply GLOBAL suggested ratio
+        let inf =
+          Math.floor(
+            capacity *
+              suggestedRatio
+                .infantry /
+              100
+          )
 
-// capacity after infantry
-const remainingCapacity =
-  capacity - inf
+        let lan =
+          Math.floor(
+            capacity *
+              suggestedRatio
+                .lancer /
+              100
+          )
 
-// expected marksman
-const expectedMarksman =
-  Math.floor(
-    remainingCapacity *
-      0.98
-  )
+        let mar =
+          capacity -
+          inf -
+          lan
 
-// real marksman
-const mar =
-  Math.min(
-    remaining.marksman,
-    expectedMarksman
-  )
+        // safety clamp
+        inf = Math.min(
+          inf,
+          remaining.infantry
+        )
 
-// leftover → lancer
-const lan =
-  Math.min(
-    remaining.lancer,
-    remainingCapacity -
-      mar
-  )
+        lan = Math.min(
+          lan,
+          remaining.lancer
+        )
+
+        mar = Math.min(
+          mar,
+          remaining.marksman
+        )
+
+        // consume remaining
         remaining.infantry -=
           inf
 
@@ -767,9 +669,6 @@ const lan =
 
         remaining.marksman -=
           mar
-
-        const total =
-          inf + lan + mar
 
         legion.infantry =
           inf
@@ -782,37 +681,16 @@ const lan =
 
         legion.ratio = {
           infantry:
-            total > 0
-              ? Math.round(
-                  (inf /
-                    total) *
-                    100
-                )
-              : 0,
+            suggestedRatio
+              .infantry,
 
           lancer:
-            total > 0
-              ? Math.round(
-                  (lan /
-                    total) *
-                    100
-                )
-              : 0,
+            suggestedRatio
+              .lancer,
 
           marksman:
-            total > 0
-              ? 100 -
-                Math.round(
-                  (inf /
-                    total) *
-                    100
-                ) -
-                Math.round(
-                  (lan /
-                    total) *
-                    100
-                )
-              : 0,
+            suggestedRatio
+              .marksman,
         }
       }
     )
@@ -823,6 +701,9 @@ const lan =
       'Suggested troops applied'
     )
   }
+
+
+
   const handleDistribute = () => {
     const safeTroops = {
       infantry: Number(troops?.infantry) || 0,
@@ -840,13 +721,16 @@ const lan =
     }
 
     // city buff applies to all march
+const beforeJoinerBuff =
+  (joinerSize || 0) +
+  tumblingBuff +
+  ursaBaneBuff
+
 const buffedJoinerSize =
   Math.floor(
-    (joinerSize || 0) *
+    beforeJoinerBuff *
       (1 + cityBuff)
-  ) +
-  exaltedDeployment +
-  solarCapacity
+  )
 
 const safeJoinerSize =
   Math.min(
@@ -1022,30 +906,44 @@ setLegions(mergedResult)
 
           <div>
             <label className="text-sm text-white flex items-center gap-2">
-              <Image
-                src="/icon/entrapment.png"
-                alt="entrapment"
-                width={40}
-                height={40}
-              />
-              Entrapment Level Cryille
-            </label>
+  <Image
+    src="/icon/ursas-bane.webp"
+    alt="ursa-bane"
+    width={40}
+    height={40}
+  />
+  Ursa's Bane
+</label>
 
-            <select
-              value={entrapmentLevel}
-              onChange={(e) => setEntrapmentLevel(Number(e.target.value))}
-              className="w-full bg-special-input p-2 rounded-md"
-            >
-              {entrapmentValues.map((_, i) => (
-                <option key={i} value={i}>
-                  Level {i} (+{entrapmentValues[i].toLocaleString()})
-                </option>
-              ))}
-            </select>
+          <select
+  value={ursaBaneLevel}
+  onChange={(e) =>
+    setUrsaBaneLevel(
+      Number(e.target.value)
+    )
+  }
+  className="w-full bg-special-input p-2 rounded-md"
+>
+  {ursaBaneValues.map(
+    (_, i) => (
+      <option
+        key={i}
+        value={i}
+      >
+        Level {i} (+
+        {ursaBaneValues[
+          i
+        ].toLocaleString()}
+        )
+      </option>
+    )
+  )}
+</select>  
           </div>
 
-  {/* HELIOS XII */}
-<div className="space-y-3 border-t border-white/10 pt-4">
+  {/* HELIOS XII disable because helios indication has applied as base total troops */}
+{false && (
+  <div className="space-y-3 border-t border-white/10 pt-4">
   <h4 className="text-white font-semibold">
     Helios XII Deployment
   </h4>
@@ -1235,10 +1133,10 @@ setLegions(mergedResult)
     </select>
   </div>
 </div>
+)}
 
 
-
-          <p className="text-xs text-white opacity-70">
+      <p className="text-xs text-white opacity-70">
             Rally size after buff: {finalRallySize.toLocaleString()}
           </p>
         </div>
