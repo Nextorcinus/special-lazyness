@@ -420,157 +420,42 @@ const totalUsed =
 
 
 
-const simulateSuggested =
-  () => {
-    const updated =
-      legions.map((l) => ({
-        ...l,
-      }))
-
-    const unlocked =
-      updated.filter(
-        (l) => !l.isLocked
-      )
-
-    const remaining = {
-      infantry:
-        remainingTroops.infantry,
-
-      lancer:
-        remainingTroops.lancer,
-
-      marksman:
-        remainingTroops.marksman,
-    }
-
-    unlocked.forEach(
-  (legion) => {
-    const capacity =
-      legion.maxSize
-
-    // infantry minimum 1%
-    const inf =
-      Math.min(
-        Math.floor(
-          capacity * 0.01
-        ),
-        remaining.infantry
-      )
-
-    // capacity after infantry
-    const remainingCapacity =
-      capacity - inf
-
-    // expected marksman
-    const expectedMarksman =
-      Math.floor(
-        remainingCapacity *
-          0.98
-      )
-
-    // real marksman
-    const mar =
-      Math.min(
-        remaining.marksman,
-        expectedMarksman
-      )
-
-    // leftover slot → lancer
-    const lan =
-      Math.min(
-        remaining.lancer,
-        remainingCapacity -
-          mar
-      )
-
-    remaining.infantry -=
-      inf
-
-    remaining.lancer -=
-      lan
-
-    remaining.marksman -=
-      mar
-
-    legion.infantry =
-      inf
-
-    legion.lancer =
-      lan
-
-    legion.marksman =
-      mar
-  }
-)
-
-    return unlocked
-  }
-
-const simulated =
-  simulateSuggested()
-
-const simulatedTotals =
-  simulated.reduce(
-    (acc, legion) => ({
-      infantry:
-        acc.infantry +
-        legion.infantry,
-
-      lancer:
-        acc.lancer +
-        legion.lancer,
-
-      marksman:
-        acc.marksman +
-        legion.marksman,
-    }),
-    {
-      infantry: 0,
-      lancer: 0,
-      marksman: 0,
-    }
-  )
-
-const simulatedTotal =
-  simulatedTotals.infantry +
-  simulatedTotals.lancer +
-  simulatedTotals.marksman
-
 const suggestedRatio =
-  simulatedTotal > 0
-    ? {
-        infantry:
-          Math.round(
-            (simulatedTotals.infantry /
-              simulatedTotal) *
-              100
-          ),
-
-        lancer:
-          Math.round(
-            (simulatedTotals.lancer /
-              simulatedTotal) *
-              100
-          ),
-
-        marksman:
-          100 -
-          Math.round(
-            (simulatedTotals.infantry /
-              simulatedTotal) *
-              100
-          ) -
-          Math.round(
-            (simulatedTotals.lancer /
-              simulatedTotal) *
-              100
-          ),
-      }
-    : {
+  (() => {
+    if (
+      unlockedCapacity <= 0
+    ) {
+      return {
         infantry: 0,
         lancer: 0,
         marksman: 0,
       }
+    }
+
+    const infantry = 1
+
+    const marksman =
+      Math.min(
+        98,
+        Math.floor(
+          (remainingTroops.marksman /
+            unlockedCapacity) *
+            100
+        )
+      )
+
+    const lancer =
+      100 -
+      infantry -
+      marksman
+
+    return {
+      infantry,
+      lancer,
+      marksman,
+    }
+  })()
+
 
 const suggestedTotal =
   suggestedRatio.infantry +
@@ -582,13 +467,6 @@ const applySuggestedRatio =
     const updated =
       legions.map((l) => ({
         ...l,
-        ratio: l.ratio
-          ? { ...l.ratio }
-          : {
-              infantry: 1,
-              lancer: 1,
-              marksman: 98,
-            },
       }))
 
     const unlocked =
@@ -605,7 +483,6 @@ const applySuggestedRatio =
       return
     }
 
-    // available troops after locked
     const remaining = {
       infantry:
         remainingTroops.infantry,
@@ -622,7 +499,6 @@ const applySuggestedRatio =
         const capacity =
           legion.maxSize
 
-        // apply GLOBAL suggested ratio
         let inf =
           Math.floor(
             capacity *
@@ -644,7 +520,6 @@ const applySuggestedRatio =
           inf -
           lan
 
-        // safety clamp
         inf = Math.min(
           inf,
           remaining.infantry
@@ -660,7 +535,6 @@ const applySuggestedRatio =
           remaining.marksman
         )
 
-        // consume remaining
         remaining.infantry -=
           inf
 
@@ -702,9 +576,7 @@ const applySuggestedRatio =
     )
   }
 
-
-
-  const handleDistribute = () => {
+const handleDistribute = () => {
     const safeTroops = {
       infantry: Number(troops?.infantry) || 0,
       lancer: Number(troops?.lancer) || 0,
@@ -941,200 +813,7 @@ setLegions(mergedResult)
 </select>  
           </div>
 
-  {/* HELIOS XII disable because helios indication has applied as base total troops */}
-{false && (
-  <div className="space-y-3 border-t border-white/10 pt-4">
-  <h4 className="text-white font-semibold">
-    Helios XII Deployment
-  </h4>
-
-  <div>
-    <label className="text-sm text-white">
-      Infantry Exalted Helm
-    </label>
-
-   <select
-  value={
-    exaltedInfantryLevel
-  }
-  onChange={(e) =>
-    setExaltedInfantryLevel(
-      Number(
-        e.target.value
-      )
-    )
-  }
-  className="w-full bg-special-input p-2 rounded-md"
->
-  <option value={0}>
-    Level 0 (+0)
-  </option>
-
- {(
-  heliosData[
-    'Exalted Infantry'
-  ]?.[
-    'Exalted Helm'
-  ] || []
-).map((item) => {
-  const deployment =
-    item.attributes?.find(
-      (attr) =>
-        attr.name ===
-        'deployment'
-    )?.value || 0
-
-  return (
-    <option
-  key={`helm-${item.level}`}
-  value={Number(item.level)}
->
-  Level {item.level} (+
-  {deployment.toLocaleString()}
-  )
-</option>
-  )
-})}
-</select>
-  </div>
-
-  <div>
-    <label className="text-sm text-white">
-      Lancer Exalted Warcrown
-    </label>
-
-    <select
-  value={
-    exaltedLancerLevel
-  }
-  onChange={(e) =>
-    setExaltedLancerLevel(
-      Number(
-        e.target.value
-      )
-    )
-  }
-  className="w-full bg-special-input p-2 rounded-md"
->
-  <option value={0}>
-    Level 0 (+0)
-  </option>
-
-{(
-  heliosData[
-    'Exalted Lancer'
-  ]?.[
-    'Exalted Warcrown'
-  ] || []
-).map((item) => {
-  const deployment =
-    item.attributes?.find(
-      (attr) =>
-        attr.name ===
-        'deployment'
-    )?.value || 0
-
-  return (
-    <option
-  key={`warcrown-${item.level}`}
-  value={Number(item.level)}
->
-  Level {item.level} (+
-  {deployment.toLocaleString()}
-  )
-</option>
-  )
-})}
-</select>
-  </div>
-
-  <div>
-    <label className="text-sm text-white">
-      Marksman Exalted Veil
-    </label>
-
-    <select
-  value={
-    exaltedMarksmanLevel
-  }
-  onChange={(e) =>
-    setExaltedMarksmanLevel(
-      Number(
-        e.target.value
-      )
-    )
-  }
-  className="w-full bg-special-input p-2 rounded-md"
->
-  <option value={0}>
-    Level 0 (+0)
-  </option>
-
- {(
-  heliosData[
-    'Exalted Marksman'
-  ]?.[
-    'Exalted Veil'
-  ] || []
-).map((item) => {
-  
-  const deployment =
-    item.attributes?.find(
-      (attr) =>
-        attr.name ===
-        'deployment'
-    )?.value || 0
-
-  return (
-    <option
-      key={`veil-${item.level}`}
-      value={Number(
-        item.level
-      )}
-    >
-      Level {item.level} (+
-      {deployment.toLocaleString()}
-      )
-    </option>
-  )
-})}
-</select>
-  </div>
-
-  <div>
-    <label className="text-sm text-white">
-      Solar Supremacy
-    </label>
-
-    <select
-      value={
-        solarSupremacyLevel
-      }
-      onChange={(e) =>
-        setSolarSupremacyLevel(
-          Number(
-            e.target.value
-          )
-        )
-      }
-      className="w-full bg-special-input p-2 rounded-md"
-    >
-      {Array.from(
-        { length: 16 },
-        (_, i) => (
-          <option
-            key={i}
-            value={i}
-          >
-            Level {i}
-          </option>
-        )
-      )}
-    </select>
-  </div>
-</div>
-)}
-
+ 
 
       <p className="text-xs text-white opacity-70">
             Rally size after buff: {finalRallySize.toLocaleString()}
