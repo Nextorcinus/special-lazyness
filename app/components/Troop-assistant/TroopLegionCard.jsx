@@ -31,7 +31,6 @@ export default function TroopLegionCard({
   const CUSTOM_PRESET_INDEX =
   presets.length - 1
 
-  const [lastEdited, setLastEdited] = useState([])
   const [activePresetIndex, setActivePresetIndex] = useState(0)
  const [customRatio, setCustomRatio] = useState({
   infantry: 0,
@@ -81,21 +80,30 @@ const hasAppliedDefault =
 }, [])
 
 useEffect(() => {
-  if (!legion?.ratio) return
+  if (
+    !legion?.ratio
+  )
+    return
 
   const foundIndex =
-    presets.findIndex((p) => {
-      if (!p.value) return false
+    presets.findIndex(
+      (p) => {
+        if (!p.value)
+          return false
 
-      return (
-        p.value[0] ===
-          legion.ratio.infantry &&
-        p.value[1] ===
-          legion.ratio.lancer &&
-        p.value[2] ===
-          legion.ratio.marksman
-      )
-    })
+        return (
+          p.value[0] ===
+            legion.ratio
+              .infantry &&
+          p.value[1] ===
+            legion.ratio
+              .lancer &&
+          p.value[2] ===
+            legion.ratio
+              .marksman
+        )
+      }
+    )
 
   const presetIndex =
     foundIndex >= 0
@@ -106,15 +114,22 @@ useEffect(() => {
     presetIndex
   )
 
-  // sync custom input
+  // IMPORTANT:
+  // only sync custom ratio
+  // when preset changes
   setCustomRatio({
-    infantry:
-      legion.ratio.infantry,
-    lancer:
-      legion.ratio.lancer,
-    marksman:
-      legion.ratio.marksman,
-  })
+  infantry:
+    legion.ratio
+      .infantry,
+
+  lancer:
+    legion.ratio
+      .lancer,
+
+  marksman:
+    legion.ratio
+      .marksman,
+})
 }, [legion?.ratio])
 
 
@@ -136,43 +151,35 @@ useEffect(() => {
     [type]: newValue,
   }
 
-  // realtime ratio sync
-  const total =
-    updatedLegion.infantry +
-    updatedLegion.lancer +
-    updatedLegion.marksman
-
+  // sync ratio from troop
   updatedLegion.ratio = {
     infantry:
-      total > 0
+      legion.maxSize > 0
         ? Math.round(
-            (updatedLegion.infantry /
-              total) *
-              100
+            (
+              updatedLegion.infantry /
+              legion.maxSize
+            ) * 100
           )
         : 0,
 
     lancer:
-      total > 0
+      legion.maxSize > 0
         ? Math.round(
-            (updatedLegion.lancer /
-              total) *
-              100
+            (
+              updatedLegion.lancer /
+              legion.maxSize
+            ) * 100
           )
         : 0,
 
     marksman:
-      total > 0
-        ? 100 -
-          Math.round(
-            (updatedLegion.infantry /
-              total) *
-              100
-          ) -
-          Math.round(
-            (updatedLegion.lancer /
-              total) *
-              100
+      legion.maxSize > 0
+        ? Math.round(
+            (
+              updatedLegion.marksman /
+              legion.maxSize
+            ) * 100
           )
         : 0,
   }
@@ -225,80 +232,157 @@ useEffect(() => {
   })
 }
 
-  const handleCustomChange = (type, value) => {
-  let num = Number(value) || 0
+ const handleCustomChange = (
+  type,
+  value
+) => {
+  let num =
+    Number(value) || 0
 
-  if (num < 0) num = 0
-  if (num > 100) num = 100
+  if (num < 0)
+    num = 0
 
-  const updatedLastEdited = [
-    ...lastEdited.filter((t) => t !== type),
-    type,
-  ].slice(-2)
+  if (num > 100)
+    num = 100
 
-  setLastEdited(updatedLastEdited)
-
-  let newRatio = {
+  const newRatio = {
     ...customRatio,
     [type]: num,
   }
 
-  // auto complete ke 100
-  if (updatedLastEdited.length === 2) {
-    const allTypes = [
-      'infantry',
-      'lancer',
-      'marksman',
-    ]
+  setCustomRatio(
+    newRatio
+  )
 
-    const autoType = allTypes.find(
-      (t) => !updatedLastEdited.includes(t)
+  const capacity =
+    legion.maxSize
+
+  const infantry =
+    Math.floor(
+      capacity *
+        (newRatio.infantry /
+          100)
     )
 
-    const totalManual =
-      newRatio[updatedLastEdited[0]] +
-      newRatio[updatedLastEdited[1]]
-
-    newRatio[autoType] = Math.max(
-      0,
-      100 - totalManual
+  const lancer =
+    Math.floor(
+      capacity *
+        (newRatio.lancer /
+          100)
     )
-  }
 
-  setCustomRatio(newRatio)
-
-  const total =
-    newRatio.infantry +
-    newRatio.lancer +
-    newRatio.marksman
-
-  if (total !== 100) return
-
-  applyRatioToLegion({
-  legion,
-  ratio: [
-    newRatio.infantry,
-    newRatio.lancer,
-    newRatio.marksman,
-  ],
-  totalTroops,
-  legions,
-  respectGlobalLimit: false,
-})
+  const marksman =
+    Math.floor(
+      capacity *
+        (newRatio.marksman /
+          100)
+    )
 
   onUpdate({
-  ...legion,
-  ratio: {
-    infantry:
-      newRatio.infantry,
-    lancer:
-      newRatio.lancer,
-    marksman:
-      newRatio.marksman,
-  },
-})
+    ...legion,
+    infantry,
+    lancer,
+    marksman,
+    ratio: newRatio,
+  })
 }
 
+// button fill remaining ratio to 100%
+const handleNormalize =
+  () => {
+    console.log(
+      'FILL CLICKED'
+    )
+    const total =
+      customRatio.infantry +
+      customRatio.lancer +
+      customRatio.marksman
+
+      console.log(
+      'TOTAL:',
+      total
+    )
+
+    if (
+      total >= 100
+    )
+      return
+
+    const missing =
+      100 - total
+
+    let target =
+      'lancer'
+
+    // prioritize empty slot
+    if (
+      customRatio.lancer ===
+      0
+    ) {
+      target = 'lancer'
+    } else if (
+      customRatio.marksman ===
+      0
+    ) {
+      target =
+        'marksman'
+    } else if (
+      customRatio.infantry ===
+      0
+    ) {
+      target =
+        'infantry'
+    } else {
+      // fallback
+      target =
+        customRatio.lancer <
+        customRatio.marksman
+          ? 'lancer'
+          : 'marksman'
+    }
+
+    const filled = {
+      ...customRatio,
+      [target]:
+        customRatio[
+          target
+        ] + missing,
+    }
+
+    setCustomRatio(
+      filled
+    )
+
+    const capacity =
+      legion.maxSize
+
+    onUpdate({
+      ...legion,
+
+      infantry:
+        Math.floor(
+          capacity *
+            (filled.infantry /
+              100)
+        ),
+
+      lancer:
+        Math.floor(
+          capacity *
+            (filled.lancer /
+              100)
+        ),
+
+      marksman:
+        Math.floor(
+          capacity *
+            (filled.marksman /
+              100)
+        ),
+
+      ratio: filled,
+    })
+  }
 
   return (
     <div className="bg-special-inside p-4 rounded-2xl space-y-4 border border-white/10">
@@ -367,13 +451,18 @@ useEffect(() => {
         </div>
 
         <div>
-          <label className="text-xs text-white/70 block text-right">
+          <label className="text-xs text-slate-300 block text-right ">
             Total
           </label>
           <FormattedNumberInput
             readOnly
             value={legionTotal(legion)}
-            className="w-full bg-transparent border-0 shadow-0 text-right text-slate-300"
+            disabled={
+  legion.isLocked
+}
+            className="w-full bg-transparent border-0 shadow-0 text-right text-lime-300 disabled:text-white
+    disabled:opacity-70
+    disabled:cursor-not-allowed"
           />
         </div>
       </div>
@@ -389,12 +478,17 @@ useEffect(() => {
             return (
               <button
                 key={p.name}
+                disabled={
+    legion.isLocked
+  }
                 onClick={() => handlePreset(p.value, i)}
                 className={`px-3 py-1 rounded-md text-sm transition
                   ${
-                    isActive
+                  legion.isLocked
+      ? 'opacity-90 cursor-not-allowed bg-white/7 border border-white/40 text-zinc-300/90'   
+                    :isActive
                       ? 'bg-cyan-400/30 border border-cyan-300 text-cyan-200'
-                      : 'bg-white/5 border border-white/10 text-white/70 hover:bg-white/10'
+                      : 'bg-white/5 border border-cyan-300/80 text-cyan-100/90 hover:bg-white/10'
                   }
                 `}
               >
@@ -416,27 +510,88 @@ useEffect(() => {
                 <label className="text-xs text-white/70 capitalize">
                   {type} %
                 </label>
-                <input
-                  type="number"
-                  min={0}
-                  max={100}
-                  value={customRatio[type]}
-                  onChange={(e) => handleCustomChange(type, e.target.value)}
-                  className={`w-full p-1 rounded-md text-right text-sm text-white outline-none
-            ${isValidCustom ? 'bg-special-input border border-green-400/30' : 'bg-special-input border border-red-400/40'}
-          `}
-                />
+               <input
+  type="number"
+  min={0}
+  max={100}
+  readOnly={
+    legion.isLocked
+  }
+  disabled={
+    legion.isLocked
+  }
+  value={
+    customRatio[type]
+  }
+  onChange={(e) =>
+    handleCustomChange(
+      type,
+      e.target.value
+    )
+  }
+  className={`
+    w-full
+    p-2
+    rounded-md
+    text-right
+    text-sm
+    text-white
+    outline-none
+    bg-special-input
+    disabled:opacity-70
+    disabled:text-black/60
+    disabled:cursor-not-allowed
+    [::-webkit-inner-spin-button]:appearance-none
+    [::-webkit-outer-spin-button]:appearance-none
+    [moz-appearance:textfield]
+    ${
+      isValidCustom
+        ? 'border border-green-400/30'
+        : 'border border-red-400/40'
+    }
+  `}
+/>
               </div>
             ))}
 
-            <div
-              className={`col-span-3 text-xs text-right
-        ${isValidCustom ? 'text-green-400' : 'text-red-400'}
-      `}
-            >
-              Total: {customTotal} / 100
-              {!isValidCustom && ' (must be exactly 100)'}
-            </div>
+            <div className="col-span-3 flex items-center justify-between">
+  <button
+    onClick={
+      handleNormalize
+    }
+    disabled={
+      legion.isLocked
+    }
+    className="
+      px-3
+      py-1
+      text-xs
+      rounded-md
+      border
+      border-cyan-400/30
+      text-cyan-300
+      hover:bg-cyan-400/10
+      disabled:opacity-50
+      disabled:cursor-not-allowed
+    "
+  >
+    Fill
+  </button>
+
+  <div
+    className={`text-xs text-right
+      ${
+        isValidCustom
+          ? 'text-green-400'
+          : 'text-red-400'
+      }
+    `}
+  >
+    Total: {customTotal} / 100
+    {!isValidCustom &&
+      ' (must be exactly 100)'}
+  </div>
+</div>
           </div>
         )}
       </div>
@@ -448,14 +603,22 @@ useEffect(() => {
             <label className="capitalize text-sm text-white/80">{type}</label>
 
             <FormattedNumberInput
+            disabled={
+  legion.isLocked
+}
               value={legion[type]}
               onChange={(value) => handleChange(type, value)}
-              className="w-24 p-1 rounded-md text-white text-right text-sm border-0"
+              className="w-24 p-1 rounded-md text-lime-300 text-right text-sm border-0 disabled:text-white
+    disabled:opacity-70
+    disabled:cursor-not-allowed"
             />
           </div>
 
           <input
             type="range"
+            disabled={
+  legion.isLocked
+}
             min={0}
             max={legion.maxSize}
             value={legion[type]}

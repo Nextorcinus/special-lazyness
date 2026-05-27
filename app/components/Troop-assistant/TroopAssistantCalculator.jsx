@@ -118,6 +118,28 @@ const totalRequired =
     }
   )
 
+  const currentUsed =
+  legions.reduce(
+    (acc, legion) => ({
+      infantry:
+        acc.infantry +
+        (legion.infantry || 0),
+
+      lancer:
+        acc.lancer +
+        (legion.lancer || 0),
+
+      marksman:
+        acc.marksman +
+        (legion.marksman || 0),
+    }),
+    {
+      infantry: 0,
+      lancer: 0,
+      marksman: 0,
+    }
+  )
+
 // =========================
 // LOCKED / UNLOCKED
 // =========================
@@ -432,22 +454,39 @@ const suggestedRatio =
       }
     }
 
-    const infantry = 1
+    // default
+    let infantry = 1
 
-    const marksman =
+    let marksman =
       Math.min(
         98,
         Math.floor(
-          (remainingTroops.marksman /
-            unlockedCapacity) *
-            100
+          (
+            remainingTroops.marksman /
+            unlockedCapacity
+          ) * 100
         )
       )
 
-    const lancer =
+    let lancer =
       100 -
       infantry -
       marksman
+
+    // NEW RULE
+    // if lancer too high
+    // allow infantry 10%
+    if (
+      marksman < 98 &&
+      lancer > 65
+    ) {
+      infantry = 10
+
+      lancer =
+        100 -
+        infantry -
+        marksman
+    }
 
     return {
       infantry,
@@ -858,16 +897,24 @@ setLegions(mergedResult)
     {['infantry', 'lancer', 'marksman'].map(
       (type) => {
         const required =
-          totalRequired[type]
+          currentUsed[type]
 
-        const available =
-          troops?.[type] || 0
+       const totalAvailable =
+  troops?.[type] || 0
+
+const available =
+  Math.max(
+    0,
+    totalAvailable -
+      totalRequired[type]
+  )
 
         const isEnough =
           required <= available
 
-        const remain =
-          available - required
+       const remain =
+  totalAvailable -
+  required
 
         return (
           <div
