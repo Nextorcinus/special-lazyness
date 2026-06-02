@@ -148,8 +148,8 @@ export default function TabSwitcherHelios({
                         colorClass =
                           'text-xs text-green-400 border border-green-800 bg-green-700/10 px-2 py-1'
 
-                      if (diff > 0) label = '+'
-                      else if (diff < 0) label = '-'
+                      if (diff > 0) label = '-'
+                      else if (diff < 0) label = '+'
 
                       return (
                         <div
