@@ -44,8 +44,8 @@ const zinmanBuffMap = {
 
 const vpBuffMap = {
   Off: 0,
-  '10%': 10,
-  '20%': 20,
+  '15%': 15,
+  '25%': 25,
 }
 
 export function calculateUpgrade({
