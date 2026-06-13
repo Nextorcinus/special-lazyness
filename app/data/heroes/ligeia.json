@@ -96,7 +96,7 @@
   },
   "widget-name": "Fateweaver",
   "widget-icon": "fateweaver",
-  "widget-affect-on": "Defender Troops",
+  "widget-affect-on": "Defending troops",
   "widget-level": "Lv5",
   "widget-stats": {
     "exploration": {

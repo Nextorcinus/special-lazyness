@@ -96,7 +96,7 @@
   },
   "widget-name": "Hammer of Sathla",
   "widget-icon": "hammer-of-sathla",
-  "widget-affect-on": "Defender Troops",
+  "widget-affect-on": "Defending Troops",
   "widget-level": "Lv5",
   "widget-stats": {
     "exploration": {

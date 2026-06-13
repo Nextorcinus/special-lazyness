@@ -448,5 +448,32 @@
     "thumbnail": "hervor.webp",
     "generation": "S12",
     "tier": "SS"
+  },
+  {
+    "id": "vulcanus",
+    "name": "Vulcanus",
+    "rarity": "Legendary",
+    "class": "Marksman",
+    "thumbnail": "vulcanus.webp",
+    "generation": "S13",
+    "tier": "C"
+  },
+  {
+    "id": "flora",
+    "name": "Flora",
+    "rarity": "Legendary",
+    "class": "Lancer",
+    "thumbnail": "flora.webp",
+    "generation": "S13",
+    "tier": "B"
+  },
+  {
+    "id": "gisela",
+    "name": "Gisela",
+    "rarity": "Legendary",
+    "class": "Infantry",
+    "thumbnail": "gisela.webp",
+    "generation": "S13",
+    "tier": "C"
   }
 ]

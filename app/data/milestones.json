@@ -351,7 +351,7 @@
         ],
         "acquisition": [["Lucky_Wheel"], ["HOC", "KOI", "SVS"], ["HOH"]]
       },
-      "details": ["New generation 11 heroes released"]
+      "details": ["New generation 11 heroes coming soon"]
     },
     {
       "days": 880,
@@ -365,7 +365,21 @@
         ],
         "acquisition": [["HOH"], ["Lucky_Wheel"], ["HOC", "KOI", "SVS"]]
       },
-      "details": ["New generation 12 heroes released"]
+      "details": ["New generation 12 heroes coming soon"]
+    },
+    {
+      "days": 960,
+      "name": "Gen 13 Heroes",
+      "heroes": {
+        "names": ["Gisela", "Flora", "Vulcanus"],
+        "icon": [
+          "/icon/gisela.webp",
+          "/icon/flora.webp",
+          "/icon/vulcanus.webp"
+        ],
+        "acquisition": [["HOC", "KOI", "SVS"], ["HOH"], ["Lucky_Wheel"]]
+      },
+      "details": ["New generation 13 heroes coming soon"]
     }
   ]
 }
