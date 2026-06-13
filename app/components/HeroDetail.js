@@ -315,15 +315,15 @@ export default function HeroDetail({ initialId }) {
             <div className="mt-4 space-y-1 text-base">
               <p>
                 Rarity:{' '}
-                <span ref={rarityRef} className="text-white/80">
-                  {hero?.rarity}
-                </span>
+               <span key={hero?.id} ref={rarityRef}>
+  {hero?.rarity}
+</span>
               </p>
               <p>
                 Class:{' '}
-                <span ref={classRef} className="text-white/80">
-                  {hero?.class}
-                </span>
+                <span key={hero?.id} ref={classRef}>
+  {hero?.class}
+</span>
               </p>
             </div>
 

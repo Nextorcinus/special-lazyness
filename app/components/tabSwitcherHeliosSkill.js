@@ -149,7 +149,7 @@ export default function TabSwitcherSkill({
                             {skill?.type}
                           </div>
 
-                          <div className="text-xs px-3 py-1 rounded-full border bg-yellow-500/20 border-yellow-400 text-yellow-100">
+                          <div className="text-xs px-3 py-1 rounded-full border bg-cyan-500/20 border-cyan-400 text-cyan-100">
                             {skill?.category === 'Solar Supremacy' ? (
                               <>
                                 Capacity:{' '}

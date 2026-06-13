@@ -352,6 +352,20 @@
         "acquisition": [["Lucky_Wheel"], ["HOC", "KOI", "SVS"], ["HOH"]]
       },
       "details": ["New generation 11 heroes released"]
+    },
+    {
+      "days": 880,
+      "name": "Gen 12 Heroes",
+      "heroes": {
+        "names": ["Hervor", "Karol", "Legeia"],
+        "icon": [
+          "/icon/hervor.webp",
+          "/icon/karol.webp",
+          "/icon/ligeia.webp"
+        ],
+        "acquisition": [["HOH"], ["Lucky_Wheel"], ["HOC", "KOI", "SVS"]]
+      },
+      "details": ["New generation 12 heroes released"]
     }
   ]
 }
