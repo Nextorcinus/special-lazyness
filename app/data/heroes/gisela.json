@@ -48,7 +48,7 @@
           "affect-on": ["Self"],
           "stats": ["3%", "6%", "9%", "12%", "15%", "70%", "100%", "130%", "160%", "190%"],
           "description": "Gisela primes a mini-shield to activate on reaching 100 Energy with Attack * 190% for 3s. Each Normal Attack gains her 15 Energy.",
-          "icon": "porta_shield.webp"
+          "icon": "porta-shield.webp"
         }
       },
       "expedition": {
