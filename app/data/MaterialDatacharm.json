@@ -127,7 +127,7 @@
     "power_total": 1320000,
     "stat_total": 55.0,
     "power_diff": 124000,
-    "stat_diff": 5.0,
+    "stat_diff": 9.0,
     "svs_point": 1120000,
     "jewel_cost": 0
   },
@@ -138,7 +138,7 @@
     "power_total": 0,
     "stat_total": 55.0,
     "power_diff": 124000,
-    "stat_diff": 5.0,
+    "stat_diff": 9.0,
     "svs_point": 1190000,
     "jewel_cost": 15
    },
@@ -149,7 +149,7 @@
     "power_total": 0,
     "stat_total": 60.0,
     "power_diff": 124000,
-    "stat_diff": 5.0,
+    "stat_diff": 9.0,
     "svs_point": 1260000,
     "jewel_cost": 30
   },
@@ -160,7 +160,7 @@
     "power_total": 0,
     "stat_total": 60.0,
     "power_diff": 124000,
-    "stat_diff": 5.0,
+    "stat_diff": 9.0,
     "svs_point": 1330000,
     "jewel_cost": 45
   },
@@ -171,7 +171,7 @@
     "power_total": 0,
     "stat_total": 65.0,
     "power_diff": 124000,
-    "stat_diff": 5.0,
+    "stat_diff": 9.0,
     "svs_point": 1400000,
     "jewel_cost": 70
   },
@@ -182,7 +182,7 @@
     "power_total": 0,
     "stat_total": 65.0,
     "power_diff": 124000,
-    "stat_diff": 5.0,
+    "stat_diff": 9.0,
     "svs_point": 1470000,
     "jewel_cost": 100
   }
