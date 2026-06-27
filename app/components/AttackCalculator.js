@@ -11,6 +11,7 @@ export default function AttackCalculator() {
   const [troopsAttack, setTroopsAttack] = useState('')
   const [unitAttack, setUnitAttack] = useState('')
   const [heroAttack, setHeroAttack] = useState('')
+  const [ministerBonus, setMinisterBonus] = useState('0')
 
   const [skinBonus, setSkinBonus] = useState('0')
   const [synergyBonus, setSynergyBonus] = useState('0')
@@ -24,32 +25,32 @@ export default function AttackCalculator() {
   const handleCalculate = (e) => {
     e.preventDefault()
 
-    const baseCombatStat =
-      Number(troopsAttack || 0) +
-      Number(unitAttack || 0) +
-      Number(heroAttack || 0) +
-      Number(skinBonus || 0)
+const baseCombatStat =
+  Number(troopsAttack || 0) +
+  Number(unitAttack || 0) +
+  Number(heroAttack || 0) +
+  Number(skinBonus || 0)
 
-    const specialStatBonus =
-      Number(widgetBonus || 0) + Number(buffTroops || 0) + Number(petBuff || 0)
+// Minister bersifat flat
+const ministerFlat = Number(ministerBonus || 0)
 
-    const specialMultiplier = specialStatBonus / 100
+// Buff yang bersifat %
+const specialBonus =
+  Number(widgetBonus || 0) +
+  Number(buffTroops || 0) +
+  Number(petBuff || 0)
 
-    const mainResult =
-      baseCombatStat > 0
-        ? baseCombatStat * (1 + specialMultiplier) + specialStatBonus
-        : 0
+const finalResult =
+  (baseCombatStat + ministerFlat) *
+  (1 + specialBonus / 100) +
+  specialBonus
 
-    const finalResult = mainResult + Number(synergyBonus || 0)
+console.log('Base Combat Stat:', baseCombatStat)
+console.log('Minister Flat:', ministerFlat)
+console.log('Special Bonus:', specialBonus)
+console.log('Final Result:', finalResult)
 
-    console.log('Base Combat Stat:', baseCombatStat)
-    console.log('Special Stat Bonus:', specialStatBonus)
-    console.log('Special Stat Bonus / 100:', specialMultiplier)
-    console.log('Result before Synergy:', mainResult)
-    console.log('Synergy Bonus:', synergyBonus)
-    console.log('Final Result:', finalResult)
-
-    setResult(finalResult)
+setResult(finalResult)
 
     toast.success('Calculation completed')
   }
@@ -85,6 +86,8 @@ export default function AttackCalculator() {
             />
           </div>
 
+         
+
           {/* Hero Attack */}
           <div>
             <Label className="text-white">Hero Attack</Label>
@@ -115,12 +118,18 @@ export default function AttackCalculator() {
               onChange={(val) => setWidgetBonus(val)}
               placeholder="Select Widget"
               options={[
-                { value: '0', label: 'None' },
-                { value: '5', label: '5%' },
-                { value: '7.5', label: '7.5%' },
-                { value: '10', label: '10%' },
-                { value: '12.5', label: '12.5%' },
-                { value: '15', label: '15%' },
+                  { value: '0', label: 'None' },
+                  { value: '5', label: '5%' },
+                  { value: '7.5', label: '7.5%' },
+                  { value: '10', label: '10%' },
+                  { value: '12.5', label: '12.5%' },
+                  { value: '15', label: '15%' },
+                  { value: '17.5', label: '17.5%' },
+                  { value: '20', label: '20%' },
+                  { value: '22.5', label: '22.5%' },
+                  { value: '25', label: '25%' },
+                  { value: '27.5', label: '27.5%' },
+                  { value: '30', label: '30%' },
               ]}
             />
           </div>
@@ -163,15 +172,17 @@ export default function AttackCalculator() {
             />
           </div>
 
-          {/* Synergy */}
+          {/* minister */}
           <div>
-            <Label className="text-white">Synergy Bonus</Label>
-            <input
-              className="w-full p-2 rounded bg-black/30 text-white"
-              value={synergyBonus}
-              onChange={(e) => setSynergyBonus(e.target.value)}
-              placeholder="e.g 10"
-            />
+            <Label className="text-white">Minister Bonus</Label>
+              <HybridSelect
+              value={ministerBonus}
+              onChange={(val) => setMinisterBonus(val)}
+              options={[
+              { value: '0', label: 'None' },
+              { value: '5', label: '5%' },
+              ]}
+              />
           </div>
 
           {/* Button */}
