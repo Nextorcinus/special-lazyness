@@ -25,28 +25,28 @@ export default function AttackCalculator() {
   const handleCalculate = (e) => {
     e.preventDefault()
 
-const baseCombatStat =
+const troopsFinal =
   Number(troopsAttack || 0) +
+  Number(ministerBonus || 0)
+
+const baseCombatStat =
+  troopsFinal +
   Number(unitAttack || 0) +
   Number(heroAttack || 0) +
   Number(skinBonus || 0)
 
-// Minister bersifat flat
-const ministerFlat = Number(ministerBonus || 0)
-
-// Buff yang bersifat %
 const specialBonus =
   Number(widgetBonus || 0) +
   Number(buffTroops || 0) +
   Number(petBuff || 0)
 
 const finalResult =
-  (baseCombatStat + ministerFlat) *
+  baseCombatStat *
   (1 + specialBonus / 100) +
   specialBonus
 
 console.log('Base Combat Stat:', baseCombatStat)
-console.log('Minister Flat:', ministerFlat)
+console.log('Minister Flat:', ministerBonus)
 console.log('Special Bonus:', specialBonus)
 console.log('Final Result:', finalResult)
 
@@ -206,20 +206,35 @@ setResult(finalResult)
       <div className="mt-6 bg-glass-background2 p-4 rounded-xl space-y-3">
         <h3 className="text-white text-lg font-semibold">1. Troops Attack</h3>
 
-        <div className="flex flex-col md:flex-row gap-4 items-start">
-          <Image
-            src="/icon/troopsattack.png"
-            alt="Troops Attack"
-            width={400}
-            height={200}
-            className=" object-cover"
-          />
+   <div className="flex flex-col md:flex-row gap-6 items-start">
+  {/* KOLOM 1: Gambar */}
+  <div className="w-full md:w-1/2 flex-shrink-0">
+    <Image
+      src="/icon/troopsattack.png"
+      alt="Troops Attack"
+      width={400}
+      height={200}
+      className="w-full h-auto object-cover rounded-lg"
+    />
+  </div>
 
-          <p className="text-white/80 text-sm leading-relaxed">
-            type Troop's attack from bonus overview, then for unit attack copy
-            from each hero
-          </p>
-        </div>
+  {/* KOLOM 2: Semua Teks Disatukan Di Sini */}
+  <div className="w-full md:w-1/2">
+    <p className="text-sm mb-4 leading-relaxed">
+      Look at the <strong>Bonus Overview</strong>, right next to your profile, and click on your <strong>power level</strong>.
+    </p>
+
+    <ol className="space-y-3 text-sm list-decimal list-inside text-slate-300">
+      <li className="leading-relaxed">
+        Find the <span className="text-amber-300 font-semibold">“Troops Attack”</span> section. Look at the number listed there.
+      </li>
+      <li className="leading-relaxed">
+        For unit attacks, look at the number listed for the unit you want to test—for example, <span className="text-amber-300 font-semibold">“Marksman Attack.”</span>
+      </li>
+    </ol>
+  </div>
+</div>
+
       </div>
       <div className="mt-6 bg-glass-background2 p-4 rounded-xl space-y-3">
         <h3 className="text-white text-lg font-semibold">2. Hero Attack</h3>
@@ -289,26 +304,7 @@ setResult(finalResult)
           </p>
         </div>
       </div>
-      <div className="mt-6 bg-glass-background2 p-4 rounded-xl space-y-3">
-        <h3 className="text-white text-lg font-semibold">
-          6. Hero Synergy Gear Chief
-        </h3>
-
-        <div className="flex flex-col md:flex-row gap-4 items-start">
-          <Image
-            src="/icon/hero_synergy.png"
-            alt="Hero Synergy"
-            width={400}
-            height={200}
-            className="rounded-lg object-cover"
-          />
-
-          <p className="text-white/80 text-sm leading-relaxed">
-            check your gear for synergy bonus.synergy active only if you are
-            starter rally.
-          </p>
-        </div>
-      </div>
+     \
     </>
   )
 }
